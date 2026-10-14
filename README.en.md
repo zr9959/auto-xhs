@@ -1,8 +1,18 @@
-# 小红书全自动化运营发布（适配muse、Chatgpt dots、Grok bots）
+<p align="center">
+  <img src="docs/assets/banner.png" alt="Auto-xhs" width="760">
+</p>
 
-[中文](README.md) | English
+<h1 align="center">小红书全自动化运营发布（适配muse、Chatgpt dots、Grok bots）</h1>
 
-## Fully automated Xiaohongshu (RedNote) operation and publishing, run by AI agents — Muse, ChatGPT Dots, and Grok Bots
+<p align="center"><strong>Fully automated Xiaohongshu (RedNote) operation and publishing, run by AI agents — Muse, ChatGPT Dots, and Grok Bots</strong></p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/license/zr9959/auto-xhs" alt="MIT license">
+  <img src="https://img.shields.io/github/stars/zr9959/auto-xhs" alt="GitHub stars">
+  <img src="https://img.shields.io/github/forks/zr9959/auto-xhs" alt="GitHub forks">
+</p>
+
+<p align="center"><a href="README.md">中文</a> | English · <a href="https://auto-xhs.tiybai.com">Landing page</a></p>
 
 Auto-xhs is an open-source system that runs a Xiaohongshu (RedNote) account end to end — finding topics, writing scripts, making videos, posting, and replying to comments — through an AI agent's own browser, with no unofficial APIs and no paid tools.
 
@@ -26,6 +36,17 @@ It solves one problem: the slow part of running a Xiaohongshu account is the who
 **Our motto: free, safe, efficient, simple.**
 
 The honest part, up front: "safe" comes from acting like a person in the browser, plus a normal posting pace. It is not a guarantee for any account. Platforms watch fully automated accounts closely, so we recommend new accounts start in semi-auto and check each post before it goes out. The details are in [docs/compliance.md](docs/compliance.md).
+
+## See it first
+
+This is a weather forecast the system made by itself — the official example scenario pack in this repository. The data came live from the free Open-Meteo service; the script, the voice and the visuals were all generated automatically, and all six validation checks passed. As required, it stopped at a ready-to-post pack and was never posted.
+
+<p align="center">
+  <img src="docs/assets/demo.gif" alt="Animated frames from the weather example" width="300">
+  <img src="docs/assets/weather-cover.jpg" alt="Cover of the weather example" width="300">
+</p>
+
+Left: animated frames from the finished video. Right: its cover.
 
 ## How the videos are made
 

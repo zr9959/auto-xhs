@@ -1,6 +1,18 @@
-# 小红书全自动化运营发布（适配muse、Chatgpt dots、Grok bots）
+<p align="center">
+  <img src="docs/assets/banner.png" alt="Auto-xhs：小红书全自动化运营发布" width="760">
+</p>
 
-中文 | [English](README.en.md)
+<h1 align="center">小红书全自动化运营发布（适配muse、Chatgpt dots、Grok bots）</h1>
+
+<p align="center">让云端 AI 智能助手替你运营小红书：搜资讯、写稿、做视频、发布、跟评论，一条龙全自动。</p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/license/zr9959/auto-xhs" alt="MIT 许可证">
+  <img src="https://img.shields.io/github/stars/zr9959/auto-xhs" alt="GitHub 星数">
+  <img src="https://img.shields.io/github/forks/zr9959/auto-xhs" alt="GitHub 复刻数">
+</p>
+
+<p align="center">中文 | <a href="README.en.md">English</a> · <a href="https://auto-xhs.tiybai.com">详细介绍页</a></p>
 
 仓库名：Auto-xhs
 
@@ -13,6 +25,17 @@
 **我们的宗旨：免费、安全防封、高效、简单。**
 
 先把实话说在前面：防封靠的是模拟真人操作加上正常频率，不是对任何账号打包票。平台对全自动托管一直查得严，所以我们推荐新号先用半自动，发布前自己看一眼。细的写在 [docs/compliance.md](docs/compliance.md) 里。
+
+## 先看效果
+
+这是系统自己做的一条天气预报，就是仓库里那个官方示例玩法包：数据从免费的 Open-Meteo 现取，稿子、配音、画面全自动生成，验收六项全过。按要求只做到待发包，没有真的发布。
+
+<p align="center">
+  <img src="docs/assets/demo.gif" alt="天气预报示例的动效画面" width="300">
+  <img src="docs/assets/weather-cover.jpg" alt="天气预报示例的封面" width="300">
+</p>
+
+左边是成片里的动效画面，右边是它的封面。
 
 ## 视频是怎么做出来的
 
