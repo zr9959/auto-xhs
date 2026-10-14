@@ -95,7 +95,60 @@ Set up auto-xhs for me. The repository is https://github.com/zr9959/auto-xhs —
 5. When everything is filled in, run the acceptance checks on the example in examples/ and show me the result, then make the first post. Stop right before publishing it and let me look at it first.
 ```
 
-Installing by hand works too: download the repository first (`git clone https://github.com/zr9959/auto-xhs`, or grab the archive from the repository page and unzip it), go into its root, run `bash scripts/setup.sh`, then fill in `config.yaml` by following [SETUP.md](SETUP.md).
+## Installing by hand, step by step
+
+Prefer to do it yourself? Six steps. Run every command from the repository root.
+
+**Step 1: Install these first.** The video pipeline needs them; all are free:
+
+- `ffmpeg` (with `ffprobe`, which normally comes with it): ffmpeg stitches frames and sound into the final video; ffprobe reads durations and dimensions.
+- Node.js: get the long-term support version from nodejs.org. The frame-by-frame capture scripts run on it.
+- `python3`: the acceptance checker and the voiceover examples run on it.
+- `curl` and `tar`: the third-party libraries are downloaded with these. Most systems already have them.
+
+You do not have to guess whether they are all there: after downloading the repository in Step 2, run `bash scripts/check-env.sh`. It names each item one by one and says in plain words what a missing one is for. The one-command script in Step 3 runs this same check first.
+
+**Step 2: Download the repository.** With git:
+
+```
+git clone https://github.com/zr9959/auto-xhs
+```
+
+Without git, use the green Code button on the repository page to download the archive, then unzip it. Then go into the root — every command below runs from there:
+
+```
+cd auto-xhs
+```
+
+**Step 3: Run the setup script.**
+
+```
+bash scripts/setup.sh
+```
+
+It does three things, in order:
+
+1. Checks the environment — the same check from Step 1. If a hard requirement is missing, it stops and tells you to install what is marked missing and run it again. Nothing already done is wasted.
+2. Downloads the third-party libraries: GSAP 3.15.0, lottie-web 5.13.0, and canvas-confetti 1.9.4, into `motion-lib/vendor/`. Each package's hash is verified before it is installed. If the network is down, it says the download is where it stopped — fix the connection and run it again. If a hash does not match, it discards the file and stops, and it will tell you not to edit the hash written in the script; check the download source first.
+3. Prepares your config file: it copies `config.example.yaml` to `config.yaml`, and you edit that copy. It never overwrites an existing `config.yaml`.
+
+When it finishes by printing that everything is ready, plus the three next steps, this step is done.
+
+**Step 4: Fill in config.yaml, following SETUP.md item by item.** Open [SETUP.md](SETUP.md) and go from item 0 to item 11. Each item says what it controls, how to fill it in, and what is recommended. Two things to know up front:
+
+- Item 0 is the automation level, and it comes first: full-auto (`full`), semi-auto (`semi`), or manual (`manual`). SETUP.md explains the difference. Semi-auto is the recommended start, the choice is yours, and you can change it any time.
+- Stop at item 5, the Xiaohongshu login. Only you can do this step: open the Xiaohongshu home page, `www.xiaohongshu.com`, in a browser and log in by scanning the QR code with the Xiaohongshu app. Never give your password or verification codes to any assistant, and never write them into any file.
+
+**Step 5: Check the install with two commands.**
+
+```
+bash scripts/check-env.sh
+python3 core/validate.py examples/example-issue
+```
+
+First command: it passes when nothing is marked missing (exit code 0; if something is missing the exit code is 1 — install it and run again). Second command: the voiceover word count and the post.md structure should both say PASS. The video, silence, and cover items reporting FAIL is expected — the example ships without a real video. Ignore those.
+
+**Step 6: Make the first post.** The self-check above already ran the fictional example bundled in `examples/`, so the flow itself is verified. For your first real post, use semi-auto: it does all the work up to the point of publishing and stops with a ready-to-post package. Read it through yourself, and only then publish.
 
 ## How a day's work runs
 
