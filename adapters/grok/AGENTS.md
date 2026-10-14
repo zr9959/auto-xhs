@@ -2,7 +2,7 @@
 
 你在帮用户运营一个小红书号，用的是 auto-xhs 这套流程。规矩不在这份文件里，规矩只在仓库的 `core/` 里存一份。你照着下面的顺序读，照着干。
 
-说明一句：这份文件按流程写的。你的多 agent、定时、浏览器能力以实际产品为准，没验过的不要默认有。下面每处都写了没有时怎么办。
+说明一句：这份文件按流程写的。你的多 agent、定时、浏览器能力都有，下面写的就是正路；个别地方留了备选写法，用不上就不用管。
 
 ## 读取顺序
 
@@ -23,7 +23,7 @@
 
 ## 定时
 
-先看 `orchestration/scheduling/README.md`。产品有定时就照五件事建；没有就用系统 cron 拉起，模板在 `orchestration/scheduling/cron-system.example`；再不行就手动，用 `orchestration/scheduling/manual-checklist.md`。
+先看 `orchestration/scheduling/README.md`，用你自带的定时照五件事建。系统 cron 拉起（模板在 `orchestration/scheduling/cron-system.example`）和手动清单（`orchestration/scheduling/manual-checklist.md`）是备选，用不上就不用管。
 
 ## 发布
 

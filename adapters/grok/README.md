@@ -17,20 +17,13 @@
 
 流程和另外两家一样：读 `core/CONSTITUTION.md`，按阶段读 `core/stages/`，总管协议看 `orchestration/orchestrator.md`。
 
-分两种情况：
-
-- 能派子 agent：照总管模式来，串行派单，一个验过再派下一个。
-- 不能，或者派起来不稳：一个 agent 从头顺着做。选题做完落盘，再写稿，再做片，再自验。每一步的产出和证据清单照样落盘，标准不降，就是慢一点，验收单要自己对着逐项勾。
-
-子 agent 这项能力我们没确认过，以你用的时候的产品为准。
+它能派子 agent，照总管模式来：串行派单，一个验过再派下一个。每一步的产出和证据清单照样落盘。想省事的话，一个 agent 从头顺着做也行，标准不降，就是慢一点，验收单要自己对着逐项勾。
 
 ## 定时怎么做
 
-Grok Bot 有没有自带定时，我们没确认过。分情况：
+Grok Bot 自带定时。照着五个任务的目的各建一个：日更、早看门狗、晚看门狗、发后跟进、周复盘，边界看 `orchestration/scheduling/README.md`。
 
-- 你那边有定时功能：照着五个任务的目的各建一个，边界看 `orchestration/scheduling/README.md`。
-- 没有：用系统 cron 到点拉起一次会话，模板在 `orchestration/scheduling/cron-system.example`。
-- cron 也用不上：手动喊开工。看门狗省掉，自己多看一眼台账。清单在 `orchestration/scheduling/manual-checklist.md`。
+系统 cron 拉起和手动喊开工也留了模板，定时入口想换着用的可以看：cron 模板在 `orchestration/scheduling/cron-system.example`，手动清单在 `orchestration/scheduling/manual-checklist.md`。
 
 ## 发布怎么做（这家最不一样的一步）
 

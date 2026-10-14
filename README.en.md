@@ -45,11 +45,11 @@ One thing to get right first: ChatGPT Dots is not the regular ChatGPT chat. Dots
 |---|---|---|---|
 | Search for material, write scripts | Yes | Yes | Yes |
 | Make the video (run the scripts) | Yes | Yes, on its own cloud computer | Yes |
-| Split the work step by step | Smoothest — this is how it runs here | Yes — a Dot can hand work to sub-agents | Depends on the version; if not, one job from start to finish |
-| Start on its own every day | Yes | Yes — Dots can run on a schedule | Set it up with system scheduling, or start it by hand |
-| Publish in the browser by itself | Yes | Yes — and you can set it to ask you first | Pauses before posting and asks, by default |
-| Reply to comments after posting | Yes | Yes — on a schedule or when you ask | By hand or semi-auto |
-| Weekly review | Yes | On a schedule or when you ask | When you ask |
+| Split the work step by step | Smoothest — this is how it runs here | Yes — a Dot can hand work to sub-agents | Yes — a Bot can hand work to sub-agents |
+| Start on its own every day | Yes | Yes — Dots can run on a schedule | Yes — Bots can run on a schedule |
+| Publish in the browser by itself | Yes | Yes — and you can set it to ask you first | Yes — asking first or going ahead is your setting; by default it asks |
+| Reply to comments after posting | Yes | Yes — on a schedule or when you ask | Yes — on a schedule |
+| Weekly review | Yes | On a schedule or when you ask | Yes — on a schedule |
 
 The full table is in [docs/capability-matrix.md](docs/capability-matrix.md). Read the guide for the assistant you use: [Muse](adapters/claude/README.md), [ChatGPT Dots](adapters/dots/README.md), [Grok Bot](adapters/grok/README.md).
 
