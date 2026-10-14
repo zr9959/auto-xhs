@@ -1,0 +1,22 @@
+# 你自己的配置和数据，永远不要提交
+config.yaml
+data/
+*.local.txt
+
+# 做片产物
+frames/
+*.mp4
+*.mp3
+*.wav
+cover.jpg
+!examples/**/*.md
+
+# 下载的第三方库（用 scripts/fetch-vendor.sh 拉）
+motion-lib/vendor/gsap/
+motion-lib/vendor/lottie.min.js
+motion-lib/vendor/confetti.browser.min.js
+
+# 杂项
+node_modules/
+__pycache__/
+.DS_Store

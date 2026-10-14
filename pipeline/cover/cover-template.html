@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>封面模板 — 3:4</title>
+<!--
+  封面单独做一张，别拿视频第一帧凑数。
+  尺寸固定 1080×1440（3:4），大字 3 到 5 行，一眼能看清讲什么。
+  要改的只有下面脚本里的 CONFIG：期号、几行大字、底下那句小字。
+  做好后用浏览器按 1080×1440 打开截一张图，或者让你的 agent 帮你截。
+-->
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1440px; overflow: hidden; }
+  body {
+    font-family: "Noto Sans CJK SC", "Noto Sans CJK", sans-serif;
+    background:
+      radial-gradient(1100px 760px at 85% -5%, rgba(56,189,248,.20), rgba(56,189,248,0) 60%),
+      radial-gradient(900px 800px at -10% 90%, rgba(52,199,123,.12), rgba(52,199,123,0) 60%),
+      linear-gradient(180deg, #0d1018, #0a0d13);
+    color: #eef2f6; position: relative;
+  }
+  .topbar { position: absolute; top: 0; left: 0; width: 1080px; height: 18px;
+    background: linear-gradient(90deg, #38bdf8, #34c77b 55%, #f5823c); }
+  .issue { position: absolute; top: 64px; right: 56px; font-size: 40px; font-weight: 700;
+    color: #38bdf8; border: 3px solid rgba(56,189,248,.8); border-radius: 999px; padding: 8px 30px; }
+  .lines { position: absolute; left: 72px; right: 72px; top: 300px; }
+  .lines div { font-size: 118px; font-weight: 700; line-height: 1.28; letter-spacing: 1px;
+    text-shadow: 0 8px 34px rgba(0,0,0,.45); }
+  .lines .hot { color: #ffd166; }
+  .sub { position: absolute; left: 72px; right: 72px; bottom: 120px; font-size: 46px; color: #949ca8; }
+</style>
+</head>
+<body>
+  <div class="topbar"></div>
+  <div class="issue" id="issue"></div>
+  <div class="lines" id="lines"></div>
+  <div class="sub" id="sub"></div>
+<script>
+  /* 只改这里。lines 是大字，一行一项，3 到 5 行；
+     想让哪行变黄，把它写成 {t:"这行字", hot:true}。 */
+  const CONFIG = {
+    issue: 1,
+    lines: [
+      "起床总靠吼？",
+      { t: "这个灯", hot: true },
+      "先用光叫你",
+    ],
+    sub: "月牙闹钟灯 · 三百九十九，数都给你算清",
+  };
+  document.getElementById("issue").textContent = "第 " + CONFIG.issue + " 期";
+  document.getElementById("lines").innerHTML = CONFIG.lines.map((l) => {
+    const t = typeof l === "string" ? l : l.t;
+    const hot = typeof l === "object" && l.hot;
+    const safe = t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+    return '<div' + (hot ? ' class="hot"' : "") + ">" + safe + "</div>";
+  }).join("");
+  document.getElementById("sub").textContent = CONFIG.sub;
+</script>
+</body>
+</html>

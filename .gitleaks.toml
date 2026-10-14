@@ -1,0 +1,21 @@
+# gitleaks 的规矩：扫仓库里有没有不小心带进来的密钥。
+# 用法见 scripts/privacy-scan.sh。只放通用的密钥样子，不放任何人的真信息。
+title = "auto-xhs"
+
+[[rules]]
+id = "generic-api-key"
+description = "看着像密钥的一长串字符"
+regex = '''(?i)(api[_-]?key|secret|token|password|passwd)\s*[:=]\s*['"][A-Za-z0-9_\-]{16,}['"]'''
+tags = ["key"]
+
+[[rules]]
+id = "private-key-block"
+description = "私钥文件的内容"
+regex = '''-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----'''
+tags = ["key"]
+
+[[rules]]
+id = "bearer-token"
+description = "Bearer 后面跟的令牌"
+regex = '''(?i)bearer\s+[A-Za-z0-9_\-\.]{20,}'''
+tags = ["key"]

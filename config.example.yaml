@@ -1,0 +1,144 @@
+# 这是示例配置。先复制一份，改名叫 config.yaml，再改你复制的那份。
+# 每一项上面都写了填什么、推荐填什么。带「必填」的，不填跑不起来。
+# 这个示例文件本身不要改，改了下次更新就乱了。
+
+# ---------- 你的号 ----------
+account:
+  # 必填：你的小红书昵称，照账号上显示的写
+  name: "在这里填你的昵称"
+  # 选填：小红书号，不知道就不填
+  id: ""
+  # 你在视频开头自称什么。没有就不填，稿子里就不会带自称
+  channel_name: ""
+
+# ---------- 先选：自动化到什么程度 ----------
+automation:
+  # 三档，先选一档再往下填。可以改，不用一次定死。
+  #   full   全自动：搜资讯、写稿、做片、发布，全包，你只看结果
+  #   semi   半自动：前面全自动，做到发布前停住，你看一眼点发布（推荐先用这档）
+  #   manual 只备稿：只搜资讯和写稿，做片发布你自己来
+  # 推荐 semi：新号先跑稳一两周，再考虑改 full。
+  mode: semi
+
+# ---------- 时间 ----------
+schedule:
+  open_time: "06:00"              # 几点开工
+  publish_deadline: "08:00"       # 最晚几点前发出去
+  watchdog_early_time: "06:20"    # 早看门狗：查有没有真的开工
+  watchdog_late_time: "08:12"     # 晚看门狗：查有没有发出去
+  review_weekday: "周日"          # 每周哪天复盘
+  review_time: "20:18"            # 复盘几点
+  stamp_first_minutes: 5          # 开工后几分钟内要写第一行运行记录
+  stamp_long_stage_minutes: 30    # 长阶段每隔几分钟补一行记录
+  stamp_stale_minutes: 75         # 超过几分钟没新记录，按卡死处理
+
+ops:
+  retry_max: 2                    # 同一个办法最多试几次，不行就换路或停
+
+# ---------- 选题 ----------
+sourcing:
+  total_minutes: 30               # 一轮搜集总共最多花几分钟
+  per_source_minutes: 5           # 单个信源最多花几分钟
+  scan_minutes: 20                # 前多少分钟广扫，后面只核排前面的候选
+  shortlist_count: 2              # 收口时只核几个候选
+  probe_minutes: 1                # 每个渠道先花几分钟试一下通不通
+  freshness_hours: 48             # 只看几小时内的新东西
+  freshness_fallback_days: 7      # 实在没题时最多放宽到几天（敏感和事实两关不放宽）
+  hotspot_window: "12-24小时"     # 热点题在事发后多久内出
+
+# 信源清单：照这个样子往下加。watch 写看什么，minutes 是这个源最多花几分钟。
+sources:
+  - name: "示例科技媒体"
+    url: "https://example.com"
+    watch: "首页和每日榜单"
+    minutes: 5
+  - name: "示例官方动态页"
+    url: "https://example.com/official"
+    watch: "新品发布和更新说明"
+    minutes: 5
+
+# ---------- 内容 ----------
+content:
+  # 你的品类，改成你自己的。选题时轮着来，跟昨天尽量不同。
+  categories:
+    - "示例品类一"
+    - "示例品类二"
+    - "示例品类三"
+  rotation: "跟昨天尽量不同"
+  category_weekly_cap: 2          # 容易扎堆的那个品类，一周最多几条
+  weekly_mix: "资讯4:教程3"        # 一周里资讯和教程的大致比例
+  title_versions: 3               # 标题先写几版再选
+  title_target_chars: "10-16"     # 标题目标字数
+  title_max_chars: 20             # 标题最多几个字
+  title_keyword_first_chars: 10   # 最要紧的搜索词放在前几个字里
+  body_max_chars: 1000            # 正文最多几个字
+  topics_min: 5                   # 话题最少几个
+  topics_max: 8                   # 话题最多几个
+
+# ---------- 视频和声音 ----------
+video:
+  script_chars_min: 480           # 口播稿最少几个字
+  script_chars_max: 650           # 口播稿最多几个字
+  duration_min_seconds: 80        # 成片最短几秒（倍速后）
+  duration_max_seconds: 110       # 成片最长几秒（倍速后）
+  speed: 1.5                      # 倍速，填 1 就是不加速
+  ending_line: "记得点赞、关注哦"  # 结尾固定句，可改成你自己的
+  # 画面方向：portrait 是竖版，也是默认（小红书、抖音都主推竖版 9:16，手机上全屏）。
+  # 想做横版，改成 landscape，同时把下面 width、height 改成 1920、1080，
+  # 这两个地方要一起改，只改一处，验收会提醒你对不上。
+  orientation: portrait
+  width: 1080                     # 竖版宽 1080；横版改 1920
+  height: 1920                    # 竖版高 1920；横版改 1080
+  codec: h264
+  cover_width: 1080               # 封面单独做，3:4
+  cover_height: 1440
+  cover_lines: "3-5"              # 封面大字几行
+  issue_on_cover: true            # 封面带不带「第 X 期」
+  opening_seconds: 3              # 前几秒必须给出结论或冲突
+  info_point_every_seconds: "10-15"  # 每隔几秒一个信息点
+  info_points_min: 5              # 全片至少几个信息点
+  ending_question_seconds: 5      # 结尾几秒抛一个二选一问题
+  motion_events_per_segment: 4    # 每段至少几个动效
+  motion_events_per_10s: 2        # 平均每 10 秒至少几个动效
+  motion_pause_seconds: 0.3       # 关键结论落点后至少停几秒
+  subtitle_band_top_pct: 60       # 字幕放在画面高度百分之多少到多少之间
+  subtitle_band_bottom_pct: 76
+  subtitle_bottom_blank_pct: 20   # 底部多少不放字幕和重点文字
+  subtitle_max_lines: 2           # 每条字幕最多几行
+  product_shots_min_segments: 2   # 讲到具体产品，产品图至少出现几段
+  render_fps: 30                  # 逐帧截图每秒几帧
+  render_budget_minutes: 30       # 全片渲染大约要几分钟，心里有数就行
+
+audio:
+  silence_threshold_db: -45       # 静音检测：低于这个响度算静音
+  silence_window_seconds: 1.5     # 持续几秒算一段静音
+  silence_max_gap_seconds: 2      # 片头片尾之外，静音超过几秒就打回
+  segment_align_max_error_seconds: 0.5  # 每段画面和配音时长最多差几秒
+  segment_silence_flag_seconds: 1     # 单段里静音超过几秒，先停用这段
+
+# ---------- 配音 ----------
+tts:
+  # provider 两条免费路：edge 是 edge-tts（要联网，音色多，上手快）；
+  # sherpa 是 sherpa-onnx 加 MeloTTS（在本机跑，不用联网，要先下模型）。
+  provider: edge
+  # 音色名照你选的那条路的音色表填，仓库里不写死任何音色
+  voice: ""
+
+# ---------- 发布之后 ----------
+followup:
+  window_hours: 2                 # 发后跟进几小时
+  interval_minutes: 30            # 每隔几分钟查一次
+
+publish:
+  # 封面期号从哪天起算硬规矩，格式 2026-01-01。不填就是只提醒、不判错。
+  issue_required_from: ""
+
+compliance:
+  sensitive_review: "每月第一次周复盘"  # 敏感词表多久复看一次平台规则
+
+# ---------- 你的数据放哪 ----------
+# 这些都是你自己的数据，永远不要提交到公开仓库（.gitignore 已经挡了）。
+paths:
+  data_dir: "data"                       # 每天的素材夹建在这下面
+  ledger_file: "data/ledger.md"          # 选题和发布记录
+  interaction_file: "data/interactions.md"  # 处理过的评论私信，去重用

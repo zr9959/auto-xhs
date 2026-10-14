@@ -1,0 +1,23 @@
+# 这个玩法的身份证。字段跟 scenarios/_template/scenario.yaml 一样，别改字段名。
+
+name: weather-forecast
+
+title: "天气预报"
+
+author: "官方示例"
+
+version: "0.1.0"
+
+works_with: "core v0.1"
+
+# 推荐半自动：机器取的数偶尔有怪值，发布前人扫一眼
+automation: semi
+
+sources: "Open-Meteo（open-meteo.com），免费，不用注册，不用密钥"
+
+entry:
+  - "README.md"            # 总说明
+  - "config.example.yaml"  # 这个玩法要多填的配置（城市、经纬度、发帖时间、看几天）
+  - "stages-diff.md"       # 跟通用规矩不一样的地方
+  - "scene-notes.md"       # 画面怎么做
+  - "sources.md"           # Open-Meteo 怎么取数，字段都是什么意思

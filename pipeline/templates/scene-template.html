@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>场景模板 — 拿它改你的片</title>
+<!--
+  这是一个空白场景模板，里面的产品是编的，叫「月牙闹钟灯」，现实里没有这个东西。
+  你做自己的片时，把文案、价格、时长换成你的就行，骨架别动：
+    1. 舞台尺寸看脚本顶部的 STAGE，默认竖版 1080×1920；做横版只改那一处，
+       再给截图命令传同样的 --width 1920 --height 1080。
+    2. 字幕盒子用 .ml-subtitle，位置在 motion.css 的变量里，默认贴在画面 60%–76% 那一段。
+    3. 引库的顺序不能乱：先 GSAP，再插件，再 lottie，再 motion.js。
+    4. 最后留好三个口子：__setScene、__renderFrame、__ready，截图脚本靠它们干活。
+  时长要和截图时传的对上：node capture.js --html 这个文件 --out 帧目录 --scenes open:6,step1:8
+-->
+<link rel="stylesheet" href="../../motion-lib/motion.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* 宽高不在这写死。页面一打开，脚本顶部的 STAGE 就把舞台设好，尺寸只认那一处。 */
+  html, body { overflow: hidden; background: #0a0c12; }
+  body { font-family: "Noto Sans CJK SC", "Noto Sans CJK", sans-serif; }
+  .scene { position: absolute; inset: 0; display: none; }
+  h1.title { position: absolute; left: 54px; top: 150px; font-size: 82px; line-height: 1.3; z-index: 5; }
+  .bigcard { position: absolute; left: 70px; top: 520px; width: 940px; height: 360px; padding: 48px; }
+  .bigcard .name { font-size: 64px; font-weight: 700; color: #eef2f6; }
+  .bigcard .desc { font-size: 40px; color: #949ca8; margin-top: 22px; line-height: 1.5; }
+  .price { font-size: 96px; font-weight: 700; color: #38bdf8; }
+  .row { position: absolute; left: 70px; width: 940px; height: 110px; border-radius: 18px;
+    display: flex; align-items: center; padding: 0 40px; overflow: hidden; }
+  .row .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 100%;
+    background: linear-gradient(90deg, rgba(56,189,248,.30), rgba(56,189,248,.04)); }
+  .row .k { position: relative; font-size: 48px; font-weight: 700; color: #eef2f6; }
+  .row .v { position: relative; margin-left: auto; font-size: 48px; font-weight: 700; color: #38bdf8; }
+  #ringWrap { position: absolute; left: 400px; top: 1080px; width: 280px; height: 280px; }
+  #ringWrap .pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 54px; font-weight: 700; color: #f5823c; }
+</style>
+</head>
+<body>
+<div class="ml-stage">
+  <canvas class="ml-canvas-bg" id="stars" width="1080" height="1920"></canvas>
+  <div class="ml-glow" id="glowA" style="width:700px;height:700px;left:-200px;top:200px;background:rgba(56,189,248,.20)"></div>
+  <div class="ml-glow" id="glowB" style="width:600px;height:600px;right:-200px;top:1050px;background:rgba(245,130,60,.14)"></div>
+  <div class="ml-grid"></div>
+  <div class="ml-topbar"></div>
+
+  <!-- 开场：先把产品亮出来 -->
+  <div class="scene" id="scene-open">
+    <h1 class="title ml-title"><span id="openL1">起床总靠吼？</span><br><span class="ml-grad-text">这个灯先叫你</span></h1>
+    <div class="bigcard ml-glass" id="openCard">
+      <div class="name">月牙闹钟灯</div>
+      <div class="desc">天亮前 20 分钟慢慢变亮，模拟日出<br>到点才轻轻响，不吓人</div>
+      <div class="price">¥<span id="openPrice">0</span></div>
+    </div>
+    <canvas class="ml-confetti-canvas" id="confettiCv" width="1080" height="1920"></canvas>
+  </div>
+
+  <!-- 第二段：把卖点一条条摆出来 -->
+  <div class="scene" id="scene-step1">
+    <h1 class="title ml-title"><span id="s1L1">三个数</span><br><span class="ml-grad-text">说明白</span></h1>
+    <div class="row ml-card" id="row0" style="top:470px">
+      <div class="bar ml-bar" id="bar0"></div><span class="k">续航</span><span class="v"><span id="cntDays">0</span> 天</span>
+    </div>
+    <div class="row ml-card" id="row1" style="top:620px">
+      <div class="bar ml-bar" id="bar1"></div><span class="k">亮度档位</span><span class="v"><span id="cntLv">0</span> 档</span>
+    </div>
+    <div class="row ml-card" id="row2" style="top:770px">
+      <div class="bar ml-bar" id="bar2"></div><span class="k">比老款省</span><span class="v">¥<span id="cntSave">0</span></span>
+    </div>
+    <div id="ringWrap">
+      <svg class="ml-ring" width="280" height="280" viewBox="0 0 280 280">
+        <circle cx="140" cy="140" r="118" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="20"/>
+        <circle id="ringFg" cx="140" cy="140" r="118" fill="none" stroke="#f5823c" stroke-width="20" stroke-linecap="round"/>
+      </svg>
+      <div class="pct">电量 80%</div>
+    </div>
+  </div>
+
+  <div class="ml-grain"></div>
+  <div class="ml-subtitle" id="subtitle"></div>
+</div>
+
+<script src="../../motion-lib/vendor/gsap/gsap.min.js"></script>
+<script src="../../motion-lib/vendor/gsap/SplitText.min.js"></script>
+<script src="../../motion-lib/vendor/gsap/DrawSVGPlugin.min.js"></script>
+<script src="../../motion-lib/vendor/lottie.min.js"></script>
+<script src="../../motion-lib/motion.js"></script>
+<script>
+/* ---- 舞台多大，只改这一处 ----
+ * 默认竖版 1080×1920。做横版，把这里改成 { w: 1920, h: 1080 }，
+ * 截图命令再传同样的 --width 1920 --height 1080，两边必须一致。
+ * 下面几行在页面一打开时，就按 STAGE 把页面、舞台、画布都设成这个大小，
+ * 会盖过 motion.css 里 .ml-stage 的默认大小，所以别再去别处改尺寸。 */
+const STAGE = { w: 1080, h: 1920 };
+(function applyStage() {
+  document.documentElement.style.width = STAGE.w + "px";
+  document.documentElement.style.height = STAGE.h + "px";
+  document.body.style.width = STAGE.w + "px";
+  document.body.style.height = STAGE.h + "px";
+  const stage = document.querySelector(".ml-stage");
+  stage.style.width = STAGE.w + "px";
+  stage.style.height = STAGE.h + "px";
+  document.querySelectorAll("canvas").forEach((cv) => {
+    cv.width = STAGE.w;
+    cv.height = STAGE.h;
+  });
+})();
+
+const ML = window.MotionLib;
+ML.usePlugins();
+
+/* 每段说什么、放几秒。时长是加速前的，改了这里记得改截图命令里的 --scenes。 */
+const CAPS = {
+  open:  "先说个常见的事：早上被闹钟一下惊醒，一整天都缓不过来。这个月牙闹钟灯不一样，它先用光慢慢把你叫醒。",
+  step1: "数给你看。充一次电能用三十天，亮度有十二档可调，现在卖三百九十九，比老款便宜一百。电量还剩八成的时候，它会自己提醒你充电。"
+};
+const DURS = { open: 6, step1: 8 };
+
+/* ---- 字幕怎么切 ----
+ * 口播是一整段话，字幕要一句一句跟着念走：
+ * 先按句号、问号、感叹号切成句；一句太长（超过 40 个字）就再按逗号、分号切开；
+ * 当前这句按它在整段里的字数位置挑，念到哪句亮哪句；
+ * 一句摆上屏时最多两行，一行最多 19 个字，标点不许跑到行首去。 */
+function cutSentences(text) {
+  const out = [];
+  for (const piece of text.split(/(?<=[。！？])/)) {
+    if (!piece) continue;
+    if ([...piece].length <= 40) { out.push(piece); continue; }
+    let buf = "";
+    for (const sub of piece.split(/(?<=[；，])/)) {
+      if ([...buf].length + [...sub].length <= 40) buf += sub;
+      else { if (buf) out.push(buf); buf = sub; }
+    }
+    if (buf) out.push(buf);
+  }
+  return out;
+}
+const NO_LINE_HEAD = "。！？；，、：";
+function wrapTwoLines(s, perLine) {
+  perLine = perLine || 19;
+  const lines = [];
+  let cur = "";
+  for (const ch of s) {
+    if ([...cur].length >= perLine && !NO_LINE_HEAD.includes(ch)) { lines.push(cur); cur = ch; }
+    else cur += ch;
+  }
+  if (cur) lines.push(cur);
+  return lines.length <= 2 ? lines : [lines[0], lines.slice(1).join("")];
+}
+function subtitleAt(caption, frac) {
+  const sents = cutSentences(caption);
+  const total = sents.reduce((a, s) => a + [...s].length, 0) || 1;
+  let acc = 0, cur = sents[sents.length - 1];
+  for (const s of sents) {
+    if (frac < (acc + [...s].length) / total) { cur = s; break; }
+    acc += [...s].length;
+  }
+  return wrapTwoLines(cur)
+    .map((l) => l.replace(/&/g, "&amp;").replace(/</g, "&lt;"))
+    .join("<br>");
+}
+
+/* ---- 每段的动画 ---- */
+const $ = (id) => document.getElementById(id);
+ML.starfield($("stars"), { count: 120, seed: 5 });
+ML.confettiBursts($("confettiCv"), [
+  { t0: 4.6, x: 540, y: 700, n: 70, seed: 9, life: 1.6 },
+]);
+
+function buildOpen() {
+  const D = DURS.open;
+  const tl = gsap.timeline({ paused: true });
+  ML.glowDrift(tl, [{ el: "#glowA", dx: 150, dy: 80 }, { el: "#glowB", dx: -120, dy: -60 }], D);
+  ML.titleIn(tl, $("openL1"), { at: 0.15, mode: "flip" });
+  ML.cardIn(tl, $("openCard"), { at: 0.7, dur: 0.8, from: "bottom", dist: 110 });
+  ML.countUp(tl, $("openPrice"), { to: 399, at: 1.4, dur: 1.2 });
+  ML.shine(tl, $("openCard"), { at: 2.8, dur: 1 });
+  ML.breathe(tl, $("openCard"), { at: 3.6, half: 1.2, repeats: 1 });
+  return tl;
+}
+function buildStep1() {
+  const D = DURS.step1;
+  const tl = gsap.timeline({ paused: true });
+  ML.glowDrift(tl, [{ el: "#glowA", dx: 180, dy: 100 }, { el: "#glowB", dx: -140, dy: -80 }], D);
+  ML.titleIn(tl, $("s1L1"), { at: 0.12, mode: "wave" });
+  const rows = [
+    { bar: "bar0", cnt: "cntDays", to: 30, ratio: 0.75 },
+    { bar: "bar1", cnt: "cntLv", to: 12, ratio: 0.5 },
+    { bar: "bar2", cnt: "cntSave", to: 100, ratio: 0.34 },
+  ];
+  rows.forEach((r, i) => {
+    const at = 0.6 + i * 1.1;
+    ML.cardIn(tl, $("row" + i), { at, dur: 0.7, from: "left", dist: 120 });
+    ML.barGrow(tl, $(r.bar), { at: at + 0.1, dur: 1, ratio: r.ratio });
+    ML.countUp(tl, $(r.cnt), { to: r.to, at: at + 0.1, dur: 1 });
+  });
+  ML.ringSweep(tl, $("ringFg"), { at: 4.2, dur: 1.2, pct: 0.8 });
+  return tl;
+}
+const TLS = { open: buildOpen(), step1: buildStep1() };
+
+/* ---- 截图用的三个口子，别改名 ---- */
+window.__setScene = function (scene) {
+  document.querySelectorAll(".scene").forEach((el) => (el.style.display = "none"));
+  document.getElementById("scene-" + scene).style.display = "block";
+};
+window.__renderFrame = function (scene, t) {
+  TLS[scene].seek(t, false);
+  ML.runFrameUpdaters(t);
+  $("subtitle").innerHTML = subtitleAt(CAPS[scene], Math.min(1, t / DURS[scene]));
+};
+window.__ready = true;
+</script>
+</body>
+</html>

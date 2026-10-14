@@ -1,0 +1,29 @@
+# 系统 crontab 模板
+#
+# 适合谁：没有现成定时功能的环境，到点用系统 cron 把 agent 会话拉起来。
+# 用法：把下面几行改好时间，粘进 crontab -e。路径全是占位，换成你机器上的真实路径。
+# 前提：你的 agent 有命令行入口，能用一条命令带一段任务说明跑一次。下面命令里的
+# run-agent 是假名字，换成你实际用的那条命令。这件事没替你实测过，先手动跑通一条再挂 cron。
+#
+# 几个时间是推荐值：日更 06:00、早看门狗 06:20、晚看门狗和跟进 08:12、周复盘周日 20:18。
+# 改时间可以，先后顺序别乱：看门狗必须在日更开工之后。
+
+# 每天 06:00 日更：当天的总管开工
+0 6 * * *  cd /path/to/auto-xhs && run-agent "按 orchestration/scheduling/cron-claude.example.md 里任务一的正文，跑今天的日更" >> /path/to/logs/daily.log 2>&1
+
+# 每天 06:20 早看门狗：只查今天的日志有没有开工打点，没有就报警并补发一轮
+20 6 * * *  cd /path/to/auto-xhs && run-agent "按 orchestration/scheduling/cron-claude.example.md 里任务二的正文，查今天日更开工没有" >> /path/to/logs/watchdog-early.log 2>&1
+
+# 每天 08:12 晚看门狗：只查今天发没发，只报警，不补发
+12 8 * * *  cd /path/to/auto-xhs && run-agent "按 orchestration/scheduling/cron-claude.example.md 里任务三的正文，查今天发了没有" >> /path/to/logs/watchdog-late.log 2>&1
+
+# 每天 08:12 发后跟进：一次运行里盯满 2 小时，每 30 分钟查一次
+12 8 * * *  cd /path/to/auto-xhs && run-agent "按 orchestration/scheduling/cron-claude.example.md 里任务四的正文，做发后跟进" >> /path/to/logs/followup.log 2>&1
+
+# 每周日 20:18 周复盘
+18 20 * * 0  cd /path/to/auto-xhs && run-agent "按 orchestration/scheduling/cron-claude.example.md 里任务五的正文，做本周复盘" >> /path/to/logs/review.log 2>&1
+
+# 注意：
+# - 半自动模式下，晚看门狗看到「验收通过，待发布」是正常状态，别当故障处理。
+# - 跟进和晚看门狗同一分钟启动没关系，两件事互不干扰。
+# - cron 不会自己重试。哪条没跑起来，看对应日志最后几行，四要素记下来再处理。

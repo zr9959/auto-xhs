@@ -1,0 +1,154 @@
+/* motion.css — 动效组件的样式，配合 motion.js 用。
+ * 这里只写静态样式，不写自己跑的 CSS 动画。
+ * 所有动静都归 GSAP 时间线管，这样跳帧截图才对得上。 */
+
+/* ---------- 先改这里：配色和舞台 ---------- */
+:root {
+  --ml-color-a: #38bdf8;          /* 主色，天蓝 */
+  --ml-color-b: #34c77b;          /* 辅色，绿 */
+  --ml-color-c: #f5823c;          /* 点缀色，橙 */
+  --ml-text: #eef2f6;             /* 正文白 */
+  --ml-text-dim: #949ca8;         /* 次要文字灰 */
+  --ml-card-line: #343a48;        /* 卡片边线 */
+  --ml-stage-bg:
+    radial-gradient(1250px 820px at 88% -6%, rgba(56,189,248,.15), rgba(56,189,248,0) 60%),
+    radial-gradient(1050px 950px at -12% 52%, rgba(52,199,123,.09), rgba(52,199,123,0) 60%),
+    radial-gradient(900px 700px at 50% 118%, rgba(245,130,60,.07), rgba(245,130,60,0) 60%),
+    linear-gradient(180deg, #0d1018 0%, #0f1117 46%, #0a0d13 100%);
+  --ml-font: "Noto Sans CJK SC", "Noto Sans CJK", sans-serif;
+  /* 字幕带：默认贴在画面高度 60% 到 76% 这一段，别压到底部，
+     播放器会把头像、标题叠在最下面，字幕放那儿看不清。 */
+  --ml-sub-top: 1150px;
+  --ml-sub-left: 36px;
+}
+
+/* ---------- 舞台 ---------- */
+.ml-stage {
+  position: relative; width: 1080px; height: 1920px; overflow: hidden;
+  background: var(--ml-stage-bg);
+  font-family: var(--ml-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 背景质感 ---------- */
+.ml-grid {                        /* 淡淡的网格，垫底用 */
+  position: absolute; inset: 0; opacity: .045; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(160,175,195,.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(160,175,195,.55) 1px, transparent 1px);
+  background-size: 92px 92px;
+}
+.ml-glow {                        /* 光晕团，配合 glowDrift 慢慢挪 */
+  position: absolute; border-radius: 50%; filter: blur(105px); pointer-events: none;
+}
+.ml-canvas-bg {                   /* 星尘画布，JS 按 t 一帧帧重画 */
+  position: absolute; inset: 0; width: 1080px; height: 1920px; pointer-events: none;
+}
+.ml-grain {                       /* 颗粒感加暗角，盖在最上层 */
+  position: absolute; inset: 0; pointer-events: none; z-index: 90; opacity: .5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.ml-grain::after {                /* 暗角 */
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 108% 88% at 50% 44%, rgba(0,0,0,0) 62%, rgba(0,0,0,.38) 100%);
+}
+
+/* ---------- 卡片 ---------- */
+.ml-glass {                       /* 玻璃卡，半透明带模糊 */
+  background: linear-gradient(160deg, rgba(48,58,76,.72), rgba(22,27,38,.82));
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border: 2px solid rgba(255,255,255,.14); border-radius: 26px;
+  box-shadow: 0 26px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.18),
+              inset 0 -18px 34px rgba(255,255,255,.03);
+  will-change: transform, opacity;
+}
+.ml-card {                        /* 实色卡，不透明 */
+  background: linear-gradient(165deg, rgba(40,47,62,.95), rgba(22,26,35,.97));
+  border: 2px solid var(--ml-card-line); border-radius: 22px;
+  box-shadow: 0 22px 46px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.13);
+  will-change: transform, opacity;
+}
+
+/* ---------- 文字 ---------- */
+.ml-grad-text {                   /* 渐变字，从主色到辅色 */
+  background: linear-gradient(92deg, var(--ml-color-a) 10%, var(--ml-color-b) 90%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.ml-char { display: inline-block; will-change: transform, opacity, filter; }
+.ml-title {
+  font-weight: 700; color: var(--ml-text); letter-spacing: 1px;
+  text-shadow: 0 6px 30px rgba(0,0,0,.45);
+}
+
+/* ---------- 扫光 ---------- */
+.ml-shine { position: relative; overflow: hidden; }
+.ml-shine-el {                    /* 光条本体，位置由 shine() 挪，别自己写动画 */
+  position: absolute; top: -10%; bottom: -10%; width: 34%; left: 0;
+  background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.28) 50%, rgba(255,255,255,0) 100%);
+  transform: translateX(-160%) skewX(-14deg); pointer-events: none;
+}
+.ml-underline {                   /* 下划线描绘放的 SVG 容器 */
+  position: absolute; pointer-events: none; overflow: visible;
+}
+
+/* ---------- 图表 ---------- */
+.ml-bar {                         /* 横条，长的时候从左边长，圆心必须在左 */
+  transform-origin: left center; transform: scaleX(0);
+  border-radius: 0 10px 10px 0;
+}
+.ml-ring { transform: rotate(-90deg); }  /* 圆环从正上方开始扫 */
+
+/* ---------- 图片框 ---------- */
+.ml-img-frame {                   /* 产品图、界面图进画面，统一套这个框 */
+  position: absolute; border-radius: 20px; overflow: hidden;
+  border: 3px solid rgba(255,255,255,.22);
+  box-shadow: 0 26px 56px rgba(0,0,0,.55), inset 0 0 0 1px rgba(0,0,0,.35);
+  will-change: transform, opacity; background: #0c0e13;
+}
+.ml-img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ml-img-tag {                     /* 图角上的小标签，只写产品名就行 */
+  position: absolute; left: 16px; bottom: 14px; z-index: 3;
+  font-size: 26px; font-weight: 700; color: #eaf6ff;
+  background: rgba(8,12,18,.78); border: 2px solid rgba(56,189,248,.55);
+  padding: 5px 16px; border-radius: 999px; letter-spacing: .5px;
+}
+
+/* ---------- 翻卡 ---------- */
+.ml-flip-wrap { perspective: 1600px; }
+.ml-flip-inner {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d; will-change: transform;
+}
+.ml-flip-face {
+  position: absolute; inset: 0; backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.ml-flip-back { transform: rotateY(180deg); }
+
+/* ---------- Lottie 和彩带的位置 ---------- */
+.ml-lottie { position: absolute; pointer-events: none; }
+.ml-lottie svg { display: block; }
+.ml-confetti-canvas {
+  position: absolute; inset: 0; width: 1080px; height: 1920px;
+  pointer-events: none; z-index: 80;
+}
+
+/* ---------- 顶部条 ---------- */
+.ml-topbar {
+  position: absolute; top: 0; left: 0; width: 1080px; height: 18px;
+  background: linear-gradient(90deg, var(--ml-color-a) 0%, var(--ml-color-b) 55%, var(--ml-color-c) 100%);
+  box-shadow: 0 4px 24px rgba(56,189,248,.35);
+}
+.ml-pill {
+  position: absolute; top: 52px; height: 72px; border-radius: 36px;
+  display: flex; align-items: center;
+}
+
+/* ---------- 字幕 ---------- */
+.ml-subtitle {                    /* 字幕盒子，位置走上面的变量，别压底部 */
+  position: absolute; left: var(--ml-sub-left); right: var(--ml-sub-left);
+  top: var(--ml-sub-top); z-index: 60;
+  background: rgba(7,9,13,.96); border-radius: 26px; padding: 20px 30px 17px;
+  font-size: 46px; line-height: 62px; color: #ffffff; text-align: center;
+  box-shadow: 0 18px 44px rgba(0,0,0,.5);
+}
