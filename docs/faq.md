@@ -6,7 +6,7 @@
 
 ## 不会代码行不行？
 
-看你走哪条路。ChatGPT 半自动那条路，基本不用碰代码，脚本跑不通时它会告诉你贴什么给它看。Muse 全自动那条路，装环境和建定时要照着向导敲几条命令，向导写到了能照抄的程度。再不行，就用 `orchestration/scheduling/manual-checklist.md`，纯手动跑，慢但能跑。
+不用你写代码，哪条路都一样。装环境、建定时，要照着向导敲几条命令，向导写到了能照抄的程度。脚本跑不通，把报错原话贴回给助手，它会告诉你下一步。再不行，就用 `orchestration/scheduling/manual-checklist.md`，纯手动跑，慢但能跑。
 
 ## 号会不会封？
 
@@ -14,7 +14,7 @@
 
 ## 三家选哪家？
 
-想全自动，选 Muse，这条路已经有号在日更用。已经在用 ChatGPT，不想换，就走半自动。Grok 也能接，但它的多 agent 和定时没实测过，要自己先验一轮。详表在 `capability-matrix.md`。
+三家都是云端 agent，差别在批准规则和你能不能用上。想全自动、又要现成跑通的，选 Muse，已经有号在日更用。手里有 ChatGPT Pro 或 Business Premium，可以试 Dots：能力跟 Muse 对齐，但我们没实测过，发布先在它的规则里设成要批准。Grok Bot 还在 beta，只开放给部分 SuperGrok Heavy 用户，发布前默认会停住等批准，同样没实测过。详表在 `capability-matrix.md`。
 
 ## 视频为什么用网页做？
 
