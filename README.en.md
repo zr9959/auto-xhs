@@ -1,5 +1,7 @@
 # 小红书全自动化运营发布（适配muse、Chatgpt dots、Grok bots）
 
+[中文](README.md) | English
+
 ## Fully automated Xiaohongshu (RedNote) operation and publishing, run by AI agents — Muse, ChatGPT Dots, and Grok Bots
 
 Auto-xhs is an open-source system that runs a Xiaohongshu (RedNote) account end to end — finding topics, writing scripts, making videos, posting, and replying to comments — through an AI agent's own browser, with no unofficial APIs and no paid tools.

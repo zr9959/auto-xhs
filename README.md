@@ -1,5 +1,7 @@
 # 小红书全自动化运营发布（适配muse、Chatgpt dots、Grok bots）
 
+中文 | [English](README.en.md)
+
 仓库名：Auto-xhs
 
 ## 这个项目是干什么的
