@@ -84,17 +84,18 @@ During setup you choose the level yourself. The setup explains the three, recomm
 
 ## The easiest way to install it
 
-Copy the text below, together with this repository's address, and paste it to your AI assistant. It will set up the environment on its own and then walk you through the settings one by one:
+Just copy the text below and paste it to your AI assistant — the repository address is already in it. It will download the repository, set up the environment on its own, and then walk you through the settings one by one:
 
 ```
-Set up auto-xhs for me, following the instructions in the repository:
-1. Run bash scripts/setup.sh first. It checks my environment, downloads the third-party libraries, and prepares the config file. If anything is missing, tell me and I will install it.
-2. Then open SETUP.md and walk me through config.yaml one item at a time. First, let me choose one of the three automation levels — full-auto, semi-auto, or manual — and explain the difference clearly. Recommend semi-auto to start, but do not decide for me.
-3. Stop at the Xiaohongshu login step. Tell me how to scan the QR code; I will scan it myself. Do not touch my password or verification codes.
-4. When everything is filled in, run the acceptance checks on the example in examples/ and show me the result, then make the first post. Stop right before publishing it and let me look at it first.
+Set up auto-xhs for me. The repository is https://github.com/zr9959/auto-xhs — follow the instructions in it:
+1. Download the repository to my machine first (git clone if git is available, otherwise download the archive and unzip it), and go into the repository root. Run all the commands below from there.
+2. Run bash scripts/setup.sh. It checks my environment, downloads the third-party libraries, and prepares the config file. If anything is missing, tell me and I will install it.
+3. Then open SETUP.md and walk me through config.yaml one item at a time. First, let me choose one of the three automation levels — full-auto, semi-auto, or manual — and explain the difference clearly. Recommend semi-auto to start, but do not decide for me.
+4. Stop at the Xiaohongshu login step. Tell me how to scan the QR code; I will scan it myself. Do not touch my password or verification codes.
+5. When everything is filled in, run the acceptance checks on the example in examples/ and show me the result, then make the first post. Stop right before publishing it and let me look at it first.
 ```
 
-Installing by hand works too: run `bash scripts/setup.sh`, then fill in `config.yaml` by following [SETUP.md](SETUP.md).
+Installing by hand works too: download the repository first (`git clone https://github.com/zr9959/auto-xhs`, or grab the archive from the repository page and unzip it), go into its root, run `bash scripts/setup.sh`, then fill in `config.yaml` by following [SETUP.md](SETUP.md).
 
 ## How a day's work runs
 
