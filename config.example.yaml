@@ -101,10 +101,12 @@ video:
   motion_events_per_segment: 4    # 每段至少几个动效
   motion_events_per_10s: 2        # 平均每 10 秒至少几个动效
   motion_pause_seconds: 0.3       # 关键结论落点后至少停几秒
-  subtitle_band_top_pct: 60       # 字幕放在画面高度百分之多少到多少之间
-  subtitle_band_bottom_pct: 76
-  subtitle_bottom_blank_pct: 20   # 底部多少不放字幕和重点文字
+  subtitle_bottom_pct: 80         # 字幕底边锚点：画面高度的百分之几（小红书竖版实测参考值，换平台先按动效库说明里的方法重测）
+  subtitle_tolerance_px: 10       # 验收时字幕底边允许的误差，像素（按 1080×1920 的画布算）
   subtitle_max_lines: 2           # 每条字幕最多几行
+  system_info_top_pct: 84.4       # 系统信息区（头像、昵称那一块）的顶边在高度百分之几，这条线以下不放字幕和主体内容
+  content_min_span_pct: 55        # 每段主体内容至少占主内容区高度的百分之几
+  content_max_blank_pct: 25       # 主内容区下部最多空百分之几
   product_shots_min_segments: 2   # 讲到具体产品，产品图至少出现几段
   render_fps: 30                  # 逐帧截图每秒几帧
   render_budget_minutes: 30       # 全片渲染大约要几分钟，心里有数就行

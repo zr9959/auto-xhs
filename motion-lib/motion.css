@@ -16,9 +16,9 @@
     radial-gradient(900px 700px at 50% 118%, rgba(245,130,60,.07), rgba(245,130,60,0) 60%),
     linear-gradient(180deg, #0d1018 0%, #0f1117 46%, #0a0d13 100%);
   --ml-font: "Noto Sans CJK SC", "Noto Sans CJK", sans-serif;
-  /* 字幕带：默认贴在画面高度 60% 到 76% 这一段，别压到底部，
-     播放器会把头像、标题叠在最下面，字幕放那儿看不清。 */
-  --ml-sub-top: 1150px;
+  /* 字幕是贴底锚定的：底边固定，不随行数动。做法看本文件下面的
+     .ml-subs 一套，数字来历和换平台怎么重测，看同目录 README.md 的
+     「字幕锚定标准」一节。 */
   --ml-sub-left: 36px;
 }
 
@@ -144,11 +144,50 @@
   display: flex; align-items: center;
 }
 
-/* ---------- 字幕 ---------- */
-.ml-subtitle {                    /* 字幕盒子，位置走上面的变量，别压底部 */
-  position: absolute; left: var(--ml-sub-left); right: var(--ml-sub-left);
-  top: var(--ml-sub-top); z-index: 60;
-  background: rgba(7,9,13,.96); border-radius: 26px; padding: 20px 30px 17px;
-  font-size: 46px; line-height: 62px; color: #ffffff; text-align: center;
-  box-shadow: 0 18px 44px rgba(0,0,0,.5);
+/* ---------- 字幕（贴底锚定） ---------- */
+/* 锚点先讲清：字幕条的底边永远固定在一处，1 行、2 行都一样，行数变了
+ * 只向上长，底边不动。下面这套像素数按 1080×1920 的画布算，来历是
+ * 在小红书 App 里以观众身份实测：画面最下面那块是播放器放头像、昵称、
+ * 标题的地方（系统信息区），它的顶边在画面高度 84.4% 处；字幕底边
+ * 定在 80%（y=1536），跟它留出安全间距，字幕就不会压住头像。
+ * 换个平台、换个画布高度，先按同目录 README.md 里写的测量方法重测，
+ * 再把这里的 1536 换成你测出来的数（锚点是百分比，像素按高度换算）。 */
+.ml-subs {                       /* 字幕容器：贴底锚定，文字在里面贴底对齐 */
+  position: absolute; left: var(--ml-sub-left); right: var(--ml-sub-left); z-index: 95;
+  bottom: calc(100% - 1536px);   /* 1920 高的画布上，等于底边落在 y=1536（高度 80%） */
+  display: flex; flex-direction: column; justify-content: flex-end;
 }
+.ml-subs-bar {                   /* 字幕背景条：上下内边距各 16px，圆角 26px */
+  background: rgba(22,32,54,.93); border-radius: 26px;
+  padding: 16px 28px;
+  box-shadow: 0 18px 40px rgba(22,32,54,.35);
+}
+.ml-subs-line {                  /* 一条字幕行：字号 46、行高 64，最多 2 行；长句先拆成两条，不许出第 3 行 */
+  display: block; font-size: 46px; line-height: 64px;
+  color: #ffffff; text-align: center;
+}
+
+/* ---------- 验收导线（只给验收看，成片里不许出现） ---------- */
+/* 五条线就是版面分区的边界（1080×1920）：顶部安全线 250、主内容区下界
+ * 1340、两行字幕块顶 1376、字幕底边 1536、系统信息区顶边 1621。
+ * 默认不显示；验收时给容器加 .on 才显示，核对完去掉。带 .on 渲染进
+ * 正式成片 = 不合格。用法：
+ * <div class="ml-guide on"><i class="g250" data-label="顶部安全线 250"></i>…</div> */
+.ml-guide { display: none; }
+.ml-guide.on {
+  display: block; position: absolute; inset: 0; z-index: 999; pointer-events: none;
+}
+.ml-guide i {
+  position: absolute; left: 0; right: 0; height: 0;
+  border-top: 2px dashed rgba(255, 0, 80, .85);
+}
+.ml-guide i::after {
+  content: attr(data-label); position: absolute; top: 3px; left: 10px;
+  font-size: 22px; font-style: normal; line-height: 1.3; color: #ff0050;
+  background: rgba(0, 0, 0, .5); padding: 2px 10px; border-radius: 6px;
+}
+.ml-guide .g250  { top: 250px; }   /* 顶部安全线：主体内容从这条线往下排 */
+.ml-guide .g1340 { top: 1340px; }  /* 主内容区下界 */
+.ml-guide .g1376 { top: 1376px; }  /* 两行字幕的块顶 */
+.ml-guide .g1536 { top: 1536px; }  /* 字幕底边（固定） */
+.ml-guide .g1621 { top: 1621px; }  /* 系统信息区顶边：这条线以下不许放东西 */

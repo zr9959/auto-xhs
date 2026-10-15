@@ -8,7 +8,7 @@
   你做自己的片时，把文案、价格、时长换成你的就行，骨架别动：
     1. 舞台尺寸看脚本顶部的 STAGE，默认竖版 1080×1920；做横版只改那一处，
        再给截图命令传同样的 --width 1920 --height 1080。
-    2. 字幕盒子用 .ml-subtitle，位置在 motion.css 的变量里，默认贴在画面 60%–76% 那一段。
+    2. 字幕用 .ml-subs 那套（在 motion.css 里）：贴底锚定，底边固定在画面高度 80%，别自己挪。
     3. 引库的顺序不能乱：先 GSAP，再插件，再 lottie，再 motion.js。
     4. 最后留好三个口子：__setScene、__renderFrame、__ready，截图脚本靠它们干活。
   时长要和截图时传的对上：node capture.js --html 这个文件 --out 帧目录 --scenes open:6,step1:8
@@ -77,7 +77,7 @@
   </div>
 
   <div class="ml-grain"></div>
-  <div class="ml-subtitle" id="subtitle"></div>
+  <div class="ml-subs"><div class="ml-subs-bar"><span class="ml-subs-line" id="subtitle"></span></div></div>
 </div>
 
 <script src="../../motion-lib/vendor/gsap/gsap.min.js"></script>

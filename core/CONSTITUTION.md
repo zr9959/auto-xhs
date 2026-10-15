@@ -98,9 +98,10 @@
 | 转折 | 中段埋一个转折；结尾 5 秒抛一个二选一问题 | `video.ending_question_seconds` |
 | 动效事件 | 每段至少 4 个；全片平均每 10 秒至少 2 个 | `video.motion_events_per_segment` / `video.motion_events_per_10s` |
 | 动效落点停顿 | 关键结论落点后停至少 0.3 秒 | `video.motion_pause_seconds` |
-| 字幕位置 | 画面高度 60%–76% 的带内 | `video.subtitle_band_top_pct` / `video.subtitle_band_bottom_pct` |
-| 字幕禁区 | 底部 20% 不放字幕和重点文字（播放器会把头像、标题叠在那） | `video.subtitle_bottom_blank_pct` |
+| 字幕位置 | 贴底锚定：底边固定在画面高度 80%（1080×1920 时 y=1536），行数变了只向上长、底边不动；验收量底边，合格带 ±10px（1526–1546）。数字是小红书竖版实测参考值，换平台先按动效库说明重测 | `video.subtitle_bottom_pct` / `video.subtitle_tolerance_px` |
+| 字幕禁区 | 系统信息区顶边（高度 84.4%，实测 y=1621）以下禁入，不放字幕和重点文字 | `video.system_info_top_pct` |
 | 字幕行数 | 每条只放当前一句，最多 2 行 | `video.subtitle_max_lines` |
+| 版面利用 | 主内容区（顶部安全线 y=250 到字幕块上方的 y=1340）要排满：每段主体纵向跨度至少占内容区 55%，下部空置最多 25%；先排内容、再放字幕 | `video.content_min_span_pct` / `video.content_max_blank_pct` |
 | 静音检测阈值 | -45dB，持续 1.5 秒算一段静音 | `audio.silence_threshold_db` / `audio.silence_window_seconds` |
 | 静音判错 | 片头片尾之外有超过 2 秒的静音，打回 | `audio.silence_max_gap_seconds` |
 | 逐段音画对齐 | 每段画面和配音时长误差小于 0.5 秒 | `audio.segment_align_max_error_seconds` |
