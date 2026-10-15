@@ -1,6 +1,6 @@
 # Dots 这条路怎么走
 
-先纠正一个容易搞混的：Dots 不是 ChatGPT 那个聊天框。它是 OpenAI 在 2026 年 9 月 29 日 DevDay 上发布的单独产品，是一个常驻的云端 agent：每个 Dot 有自己专属的一台云端电脑和一个浏览器，用的模型是 GPT-6 Astra。入口在 ChatGPT 里（chatgpt.com/dots），也能从 Slack、Teams 里给它派活。它能定时跑，能把活分给子 agent，还能接 4000 多个应用。
+先纠正一个容易搞混的：Dots 不是 ChatGPT 那个聊天框。官方名字就叫 Dots（OpenAI 行文里常写成小写的 dots，一个 agent 叫一个 dot），没有「ChatGPT Dots」这个叫法。它是 OpenAI 在 2026 年 9 月 29 日 DevDay 上发布的单独产品，是一个常驻的云端 agent：每个 Dot 有自己专属的一台云端电脑和一个浏览器，用的模型是 GPT-6 Astra。入口在 ChatGPT 里（chatgpt.com/dots），也能从 Slack、Teams 里给它派活。它能定时跑，能把活分给子 agent，还能接 4000 多个应用。
 
 所以这条路跟 Muse 那条基本是一个接法：有云端电脑、有浏览器、有定时、有子 agent，不是半自动的阉割版。
 

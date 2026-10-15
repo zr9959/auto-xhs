@@ -2,7 +2,7 @@
   <img src="docs/assets/banner.png" alt="Auto-xhs：小红书全自动化运营发布" width="760">
 </p>
 
-<h1 align="center">小红书全自动化运营发布（适配muse、Chatgpt dots、Grok bots）</h1>
+<h1 align="center">小红书全自动化运营发布（适配muse、Dots、Grok Bot）</h1>
 
 <p align="center">让云端 AI 智能助手替你运营小红书：搜资讯、写稿、做视频、发布、跟评论，一条龙全自动。</p>
 

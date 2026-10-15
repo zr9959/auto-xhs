@@ -2,9 +2,9 @@
   <img src="docs/assets/banner.png" alt="Auto-xhs" width="760">
 </p>
 
-<h1 align="center">小红书全自动化运营发布（适配muse、Chatgpt dots、Grok bots）</h1>
+<h1 align="center">小红书全自动化运营发布（适配muse、Dots、Grok Bot）</h1>
 
-<p align="center"><strong>Fully automated Xiaohongshu (RedNote) operation and publishing, run by AI agents — Muse, ChatGPT Dots, and Grok Bots</strong></p>
+<p align="center"><strong>Fully automated Xiaohongshu (RedNote) operation and publishing, run by AI agents — Muse, Dots, and Grok Bot</strong></p>
 
 <p align="center">
   <img src="https://img.shields.io/github/license/zr9959/auto-xhs" alt="MIT license">
@@ -21,7 +21,7 @@ Repository name: Auto-xhs
 **Key facts**
 
 - Free. MIT license. Every tool in the chain is free; there are no paid APIs.
-- Works with three cloud AI agents: Muse, ChatGPT Dots, and Grok Bots. All three work in their own cloud computer and browser. Muse is the one we run every day and have tested end to end; Dots and Grok Bots are not tested by us yet.
+- Works with three cloud AI agents: Muse, Dots, and Grok Bot. All three work in their own cloud computer and browser. Muse is the one we run every day and have tested end to end; Dots and Grok Bot are not tested by us yet.
 - Recommended start: semi-auto. The agent prepares everything, you look at it, then it posts.
 - Videos are portrait 1080×1920 by default; landscape 1920×1080 is an option you can pick in the config.
 - Videos are built as web pages and captured frame by frame, not edited in a video editor.
@@ -60,9 +60,9 @@ Why do it this way: web pages are fast and good-looking for cards, charts, and p
 
 The rules, the acceptance checks, and the ready-to-post package format are the same for all three. The only difference is who presses the buttons.
 
-One thing to get right first: ChatGPT Dots is not the regular ChatGPT chat. Dots is OpenAI's always-on cloud agent, launched on September 29, 2026. Each Dot has its own cloud computer and its own browser, can run on a schedule, can hand work to sub-agents, and can be told to ask for your approval before it acts. It needs a ChatGPT Pro or Business Premium plan. Grok Bot is xAI's cloud virtual-machine agent; it is still in beta, and by default it pauses before posting and waits for approval. Muse is the setup we run ourselves every day — that one is tested end to end. Dots and Grok Bot follow the same files and rules, but we have not tested them ourselves yet.
+One thing to get right first: Dots is not the regular ChatGPT chat. Dots is OpenAI's always-on cloud agent, launched on September 29, 2026. Each Dot has its own cloud computer and its own browser, can run on a schedule, can hand work to sub-agents, and can be told to ask for your approval before it acts. It needs a ChatGPT Pro or Business Premium plan. Grok Bot is xAI's cloud virtual-machine agent; it is still in beta, and by default it pauses before posting and waits for approval. Muse is the setup we run ourselves every day — that one is tested end to end. Dots and Grok Bot follow the same files and rules, but we have not tested them ourselves yet.
 
-| What it can do | Muse | ChatGPT Dots | Grok Bot |
+| What it can do | Muse | Dots | Grok Bot |
 |---|---|---|---|
 | Search for material, write scripts | Yes | Yes | Yes |
 | Make the video (run the scripts) | Yes | Yes, on its own cloud computer | Yes |
@@ -72,7 +72,7 @@ One thing to get right first: ChatGPT Dots is not the regular ChatGPT chat. Dots
 | Reply to comments after posting | Yes | Yes — on a schedule or when you ask | Yes — on a schedule |
 | Weekly review | Yes | On a schedule or when you ask | Yes — on a schedule |
 
-The full table is in [docs/capability-matrix.md](docs/capability-matrix.md). Read the guide for the assistant you use: [Muse](adapters/claude/README.md), [ChatGPT Dots](adapters/dots/README.md), [Grok Bot](adapters/grok/README.md).
+The full table is in [docs/capability-matrix.md](docs/capability-matrix.md). Read the guide for the assistant you use: [Muse](adapters/claude/README.md), [Dots](adapters/dots/README.md), [Grok Bot](adapters/grok/README.md).
 
 ## Three automation levels — you pick
 
@@ -176,7 +176,7 @@ Every step has to leave evidence: where the file is, what the numbers are, what 
 
 ## Does it cost anything?
 
-No. The video libraries, the stitching tools, and both voiceover routes are free. The only money involved is your own AI assistant account, which is between you and that service — and note that ChatGPT Dots needs a Pro or Business Premium plan. This project connects to no paid API.
+No. The video libraries, the stitching tools, and both voiceover routes are free. The only money involved is your own AI assistant account, which is between you and that service — and note that Dots needs a Pro or Business Premium plan. This project connects to no paid API.
 
 ## FAQ
 
@@ -187,7 +187,7 @@ Yes. The project is MIT-licensed and every tool it uses is free. The only cost i
 It is built to be careful: it works inside a browser the way a person would, at a normal pace, and uses no unofficial APIs. That lowers the risk, but it is not a guarantee — no honest project can promise that. Platforms are strict with fully automated accounts, so start in semi-auto and look at each post before it goes out.
 
 **Which AI assistant do I need?**
-Any one of the three cloud agents: Muse, ChatGPT Dots, or Grok Bot. All three have their own cloud computer and browser; the difference is their approval rules and how open they are. Muse is the one we run and have tested. Dots needs a ChatGPT Pro or Business Premium plan and is not tested by us yet. Grok Bot is still in beta and is not tested by us yet.
+Any one of the three cloud agents: Muse, Dots, or Grok Bot. All three have their own cloud computer and browser; the difference is their approval rules and how open they are. Muse is the one we run and have tested. Dots needs a ChatGPT Pro or Business Premium plan and is not tested by us yet. Grok Bot is still in beta and is not tested by us yet.
 
 **Can it post to Douyin or TikTok?**
 The chain itself — research, script, video, checks — is not tied to one platform. A Douyin version is planned out in [docs/platform-targets.md](docs/platform-targets.md), with the file formats ready, but it is not built or tested yet. TikTok is not covered. If you build either, send it back — that is exactly the kind of addition this project wants.
