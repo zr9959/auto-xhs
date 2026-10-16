@@ -11,6 +11,8 @@
     2. 字幕用 .ml-subs 那套（在 motion.css 里）：贴底锚定，底边固定在画面高度 80%，别自己挪。
     3. 引库的顺序不能乱：先 GSAP，再插件，再 lottie，再 motion.js。
     4. 最后留好三个口子：__setScene、__renderFrame、__ready，截图脚本靠它们干活。
+    5. 同一块区域只许一个带延迟的入场：两张卡错峰入场，演到一半会叠在一起，
+       还会盖住下面的字。几张卡同区出现，就放进一个布局容器排好，规矩看 motion-lib 的 README。
   时长要和截图时传的对上：node capture.js --html 这个文件 --out 帧目录 --scenes open:6,step1:8
 -->
 <link rel="stylesheet" href="../../motion-lib/motion.css">

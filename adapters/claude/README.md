@@ -30,7 +30,7 @@
 
 - `video.mp4`：验收通过的成片
 - `cover.jpg`：单独做的封面
-- `post.md`：标题、正文、话题、第一条评论
+- `post.md`：标题、正文、话题、AI 内容声明、第一条评论
 - `publish-checklist.md`：照着勾的发布清单，模板在 `orchestration/publish-checklist.template.md`
 
 ## 哪里会降级

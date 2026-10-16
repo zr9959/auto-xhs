@@ -46,7 +46,7 @@ Dots 有一套自定义规则：每个动作可以设成自动放行、先问你
 
 - `video.mp4`：验收通过的成片
 - `cover.jpg`：单独做的封面
-- `post.md`：标题、正文、话题、第一条评论
+- `post.md`：标题、正文、话题、AI 内容声明、第一条评论
 - `publish-checklist.md`：照着勾的发布清单，模板在 `orchestration/publish-checklist.template.md`
 
 批准之前先看这四样，看完再点。清单里两条别跳：话题要一个一个点到变蓝，蓝数对不上就停；内容声明要选 AI 合成那一项。
