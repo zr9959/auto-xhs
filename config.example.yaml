@@ -72,6 +72,7 @@ content:
   title_max_chars: 20             # 标题最多几个字
   title_keyword_first_chars: 10   # 最要紧的搜索词放在前几个字里
   body_max_chars: 1000            # 正文最多几个字
+  body_target_chars: 500          # 正文日常精简目标：细节交给视频，正文一屏装得下就行
   topics_min: 5                   # 话题最少几个
   topics_max: 8                   # 话题最多几个
 
@@ -92,6 +93,8 @@ video:
   codec: h264
   min_bitrate_kbps: 2000          # 视频流码率低于这个 kb/s，验收只提醒不判错（字边糊不糊就看它）
   blank_min_seconds: 2            # 画面连续近乎空白达到几秒，验收只提醒不判错
+  freeze_warn_seconds: 1          # 画面静止（内容还在、就是不动）连续几秒，验收只提醒不判错
+  title_card: true                # 片头之后、正文之前放一个大字标题画面
   cover_width: 1080               # 封面单独做，3:4
   cover_height: 1440
   cover_lines: "3-5"              # 封面大字几行
@@ -106,6 +109,7 @@ video:
   subtitle_bottom_pct: 80         # 字幕底边锚点：画面高度的百分之几（小红书竖版实测参考值，换平台先按动效库说明里的方法重测）
   subtitle_tolerance_px: 10       # 验收时字幕底边允许的误差，像素（按 1080×1920 的画布算）
   subtitle_max_lines: 2           # 每条字幕最多几行
+  subtitle_max_chars: 38          # 单条字幕最多几个字（写稿时就按这个断句）
   system_info_top_pct: 84.4       # 系统信息区（头像、昵称那一块）的顶边在高度百分之几，这条线以下不放字幕和主体内容
   content_min_span_pct: 55        # 每段主体内容至少占主内容区高度的百分之几
   content_max_blank_pct: 25       # 主内容区下部最多空百分之几
@@ -120,6 +124,13 @@ audio:
   segment_align_max_error_seconds: 0.5  # 每段画面和配音时长最多差几秒
   segment_silence_flag_seconds: 1     # 单段里静音超过几秒，先停用这段
 
+# ---------- 品牌片头片尾（可选） ----------
+brand:
+  # 有品牌片头片尾就填路径，没有就留空。拼之前会先归一化到与正片同规格；
+  # 方向必须跟正片一致：竖正片配竖片头，横正片配横片头，不许混。
+  intro_file: ""                  # 片头短片路径（如 data/brand/intro.mp4）
+  outro_file: ""                  # 片尾短片路径
+
 # ---------- 配音 ----------
 tts:
   # provider 两条免费路：edge 是 edge-tts（要联网，音色多，上手快）；
@@ -127,6 +138,13 @@ tts:
   provider: edge
   # 音色名照你选的那条路的音色表填，仓库里不写死任何音色
   voice: ""
+  # 开工冒烟用（pipeline/tts/tts-smoke.sh 读）：两条引擎命令，占位 {text} {out}。
+  # 主引擎试合成不通，自动切备用。命令里带上 --voice 等参数，整条照抄你平时用的那条。
+  command: ""
+  fallback_command: ""
+  # 你定的那个引擎合成出来的旁白大约是多少 kb/s，验收拿它对指纹。
+  # 不填（0）就只记录数值、不报警。
+  expected_bitrate_kbps: 0
 
 # ---------- 发布之后 ----------
 followup:

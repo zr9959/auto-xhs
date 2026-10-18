@@ -28,6 +28,16 @@ edge-tts 的装法：`pip install edge-tts`，装完就有 `edge-tts` 命令。�
 
 本地那条的大致接法：装 sherpa-onnx 的运行包，下 MeloTTS 的中文模型，按它文档把文本喂进去出 wav，再转成 mp3，时长用 ffprobe 量。细节跟着模型版本变，这里不写死步骤，装的时候看模型页面的说明。
 
+## 开工先冒烟
+
+正式合成之前，先跑一遍冒烟脚本，定这一轮用哪个引擎：
+
+```bash
+bash pipeline/tts/tts-smoke.sh
+```
+
+它读 `config.yaml` 里 `tts.command`（主引擎）和 `tts.fallback_command`（备用引擎）两条命令，各拿一句短话试合成。最后一行输出结论：`LIVE=primary` 主引擎通；`LIVE=fallback` 主引擎不通、已切备用，这一轮就用备用出片，验收单里写明；`LIVE=NONE` 两个都不通，停下报四要素，别硬合成。判定引擎不行只认实际调用的失败输出，不许凭「好像没有这个服务」下结论。
+
 ## 附的示例脚本
 
 `tts-edge-example.py` 就是按上面的接口写的最小例子：

@@ -8,6 +8,9 @@
 #   --speed 1.5   倍速，默认 1.5。填 1 就是不加速。
 #   --fps 30      帧是按每秒几帧截的，默认 30，要跟 capture.js 用的一致。
 #   --work 目录   中间文件放哪，默认在帧目录旁边建一个 assemble-work。
+#   --intro 文件  品牌片头短片（可选）。会先归一化到与正片同规格再拼到最前。
+#   --outro 文件  品牌片尾短片（可选）。同上，拼到最后。
+#                 片头片尾的方向必须跟正片一致：竖正片配竖片头，不许混。
 #
 # 每段先核对帧数：应该是 floor(时长 × fps)，对不上就停，话会说清哪段差几帧。
 # 编码口径写死了，别乱改：H.264 High、yuv420p、timescale 600、
@@ -16,7 +19,7 @@
 # 别把 -crf 加回来跟 -b:v 一起用：实测那样以 crf 为准，码率地板等于没有。
 set -euo pipefail
 
-FRAMES="" SCENES="" AUDIO="" OUT="" SPEED="1.5" FPS="30" WORK=""
+FRAMES="" SCENES="" AUDIO="" OUT="" SPEED="1.5" FPS="30" WORK="" INTRO="" OUTRO=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --frames) FRAMES="$2"; shift 2;;
@@ -26,6 +29,8 @@ while [ $# -gt 0 ]; do
     --speed)  SPEED="$2";  shift 2;;
     --fps)    FPS="$2";    shift 2;;
     --work)   WORK="$2";   shift 2;;
+    --intro)  INTRO="$2";  shift 2;;
+    --outro)  OUTRO="$2";  shift 2;;
     *) echo "不认识的参数：$1" >&2; exit 2;;
   esac
 done
@@ -84,15 +89,53 @@ done
 ffmpeg -y -v error -f concat -safe 0 -i "$VIDEO_LIST" -c copy "$WORK/video-only.mp4"
 ffmpeg -y -v error -f concat -safe 0 -i "$AUDIO_LIST" -c:a pcm_s16le "$WORK/audio-all.wav"
 
+# 有片头片尾时，正片先拼成 body.mp4，最后把三段按同规格接起来；
+# 没有时跟原来一样，直接拼到 OUT，行为不变。
+TARGET="$OUT"
+if [ -n "$INTRO" ] || [ -n "$OUTRO" ]; then
+  TARGET="$WORK/body.mp4"
+fi
+
 if [ "$SPEED" = "1" ] || [ "$SPEED" = "1.0" ]; then
   ffmpeg -y -v error -i "$WORK/video-only.mp4" -i "$WORK/audio-all.wav" -map 0:v -map 1:a \
     -video_track_timescale 600 -c:v libx264 -profile:v high -pix_fmt yuv420p -b:v 3M -maxrate 4M -bufsize 6M \
-    -c:a aac -ar 48000 -ac 2 -b:a 128k -use_editlist 0 -movflags +faststart "$OUT"
+    -c:a aac -ar 48000 -ac 2 -b:a 128k -use_editlist 0 -movflags +faststart "$TARGET"
 else
   ffmpeg -y -v error -i "$WORK/video-only.mp4" -i "$WORK/audio-all.wav" -map 0:v -map 1:a \
     -vf "setpts=PTS/$SPEED" -af "atempo=$SPEED" \
     -video_track_timescale 600 -c:v libx264 -profile:v high -pix_fmt yuv420p -b:v 3M -maxrate 4M -bufsize 6M \
-    -c:a aac -ar 48000 -ac 2 -b:a 128k -use_editlist 0 -movflags +faststart "$OUT"
+    -c:a aac -ar 48000 -ac 2 -b:a 128k -use_editlist 0 -movflags +faststart "$TARGET"
+fi
+
+if [ "$TARGET" != "$OUT" ]; then
+  BW="$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=p=0 "$TARGET")"
+  BH="$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 "$TARGET")"
+  JOIN_LIST="$WORK/join-list.txt"
+  : > "$JOIN_LIST"
+  norm_part() {
+    # $1=源文件 $2=归一化后的文件名。缩放到正片尺寸（不够的补边），帧率、编码、音频都对齐正片。
+    local src="$1" dst="$WORK/$2"
+    [ -f "$src" ] || { echo "停：片头/片尾文件找不到：$src" >&2; exit 1; }
+    local has_audio
+    has_audio="$(ffprobe -v error -select_streams a -show_entries stream=index -of csv=p=0 "$src" | head -n 1)"
+    if [ -n "$has_audio" ]; then
+      ffmpeg -y -v error -i "$src" -map 0:v -map 0:a \
+        -vf "scale=${BW}:${BH}:force_original_aspect_ratio=decrease,pad=${BW}:${BH}:(ow-iw)/2:(oh-ih)/2,setsar=1,fps=${FPS},format=yuv420p" \
+        -video_track_timescale 600 -c:v libx264 -profile:v high -b:v 3M -maxrate 4M -bufsize 6M \
+        -c:a aac -ar 48000 -ac 2 -b:a 128k -use_editlist 0 "$dst"
+    else
+      ffmpeg -y -v error -i "$src" -f lavfi -i anullsrc=r=48000:cl=stereo -map 0:v -map 1:a -shortest \
+        -vf "scale=${BW}:${BH}:force_original_aspect_ratio=decrease,pad=${BW}:${BH}:(ow-iw)/2:(oh-ih)/2,setsar=1,fps=${FPS},format=yuv420p" \
+        -video_track_timescale 600 -c:v libx264 -profile:v high -b:v 3M -maxrate 4M -bufsize 6M \
+        -c:a aac -ar 48000 -ac 2 -b:a 128k -use_editlist 0 "$dst"
+    fi
+    echo "file '$dst'" >> "$JOIN_LIST"
+  }
+  [ -n "$INTRO" ] && norm_part "$INTRO" norm-intro.mp4
+  echo "file '$TARGET'" >> "$JOIN_LIST"
+  [ -n "$OUTRO" ] && norm_part "$OUTRO" norm-outro.mp4
+  ffmpeg -y -v error -f concat -safe 0 -i "$JOIN_LIST" -c copy -movflags +faststart "$OUT"
+  echo "片头片尾已拼上（正片规格 ${BW}x${BH}）。"
 fi
 
 echo "拼好了：$OUT（倍速 $SPEED）"

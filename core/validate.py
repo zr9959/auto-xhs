@@ -7,8 +7,10 @@
 只认简单的「小节名: 键: 值」写法，不用装任何额外的库。
 没有 config.yaml 时用脚本里的推荐默认值，输出第一行会写明。
 
-查八项：口播字数、post.md 结构、成片规格（顺带看一眼方向和宽高对不对得上）、全片静音、封面、期号，
-再加两项只提醒不判错的画面检查：最低码率、空白帧（来历见 issue #1）。
+查这些项：口播字数、post.md 结构、成片规格（顺带看一眼方向和宽高对不对得上）、全片静音、封面、期号，
+只提醒不判错的画面检查：最低码率、空白帧、画面冻止（码率与空白帧的来历见 issue #1），
+只提醒不判错的文字检查：定稿标题加权字数、正文字数、话题个数、字幕单条长度，
+外加一项旁白码率提示（对一下这期的旁白是不是用定的那个引擎合成的）。
 元素溢出画面这一项不做机器检查：抽出来的帧只有像素，分不清「满幅背景」（正常）
 和「卡片被裁出画面」（毛病），硬做一个只会天天误报。这一项靠模板规矩防：
 同一块区域只许一个带延迟的入场，见 motion-lib/README 的排版规矩。
@@ -39,6 +41,13 @@ DEFAULTS = {
     "audio.silence_max_gap_seconds": 2.0,
     "video.min_bitrate_kbps": 2000,
     "video.blank_min_seconds": 2.0,
+    "video.freeze_warn_seconds": 1.0,
+    "video.subtitle_max_chars": 38,
+    "content.title_max_chars": 20,
+    "content.body_max_chars": 1000,
+    "content.topics_min": 5,
+    "content.topics_max": 8,
+    "tts.expected_bitrate_kbps": 0,
     "paths.ledger_file": "data/ledger.md",
     "publish.issue_required_from": "",
 }
@@ -414,6 +423,181 @@ def check_blank_frames(video):
         report("PASS", name, detail)
 
 
+# ---------- 4d. 画面冻止（只提醒不判错） ----------
+def check_freeze(video):
+    name = "画面冻止"
+    if video is None:
+        report("WARN", name, "无成片可测，跳过")
+        return
+    limit = num("video.freeze_warn_seconds")
+    r = run(["ffmpeg", "-nostats", "-i", str(video),
+             "-vf", f"freezedetect=n=0.003:d={limit}", "-f", "null", "-"])
+    starts = [float(x) for x in re.findall(r"freeze_start: ([\d.]+)", r.stderr)]
+    ends = [float(x) for x in re.findall(r"freeze_end: ([\d.]+)", r.stderr)]
+    spans = [(s, e) for s, e in zip(starts, ends) if e - s >= limit]
+    if len(starts) > len(ends):
+        spans.append((starts[-1], -1))  # 冻到片尾的那段没有结束时间
+    # 间隔不到 1 秒的相邻静止段并成一段：中间那点微动多半是字幕切换或背景漂移，
+    # 不并的话段数虚高，看着吓人，实际是同一段静止
+    merged = []
+    for s, e in spans:
+        if merged and merged[-1][1] >= 0 and s - merged[-1][1] < 1.0:
+            merged[-1] = (merged[-1][0], e)
+        else:
+            merged.append((s, e))
+    spans = merged
+    if not spans:
+        report("PASS", name, f"没有 ≥{limit:.0f}s 的静止段")
+        return
+    desc = "、".join(f"{s:.1f}–{e:.1f}s" if e >= 0 else f"{s:.1f}s–片尾"
+                     for s, e in spans[:3])
+    report("WARN", name,
+           f"有 {len(spans)} 段画面静止 ≥{limit:.0f}s：{desc}。"
+           "先对照抽帧看：是合法的静态信息卡，还是动画演完了、转场卡住了。"
+           "后一种要回做片改，别直接放行")
+
+
+# ---------- 4e. 定稿标题加权字数（只提醒不判错） ----------
+def title_weight(title):
+    # 加权口径：中文与全角标点 1 字，英文字母、数字、半角符号 0.5 字，emoji 1 字
+    w = 0.0
+    for ch in title:
+        if ch.isspace():
+            continue
+        w += 0.5 if ord(ch) < 128 else 1.0
+    return w
+
+
+def extract_final_title(post_text):
+    if not post_text:
+        return None
+    m = re.search(r"定稿标题\s*[:：]\s*(.+)", post_text)
+    if m:
+        return m.group(1).strip().strip("《》\"'` ")
+    # 找单独的「## 标题」一节，取它下面第一行非空文字
+    lines = post_text.splitlines()
+    capture = False
+    for ln in lines:
+        if ln.startswith("## "):
+            capture = re.fullmatch(r"##\s*标题\s*", ln.strip()) is not None
+            continue
+        if capture and ln.strip():
+            return ln.strip().strip("《》\"'` ")
+    return None
+
+
+def check_title(post_text):
+    name = "标题加权字数"
+    title = extract_final_title(post_text)
+    if not title:
+        report("WARN", name, "post.md 里找不到定稿标题，人工核对（只提醒的检查）")
+        return
+    w = title_weight(title)
+    cap = num("content.title_max_chars")
+    detail = f"定稿标题《{title}》加权 {w:g} 字（上限 {cap:.0f} 字）"
+    if w > cap:
+        report("WARN", name, detail + "；超了平台上限，先改短再发")
+    else:
+        report("PASS", name, detail)
+
+
+# ---------- 4f. 正文字数（只提醒不判错） ----------
+def check_body(post_text):
+    name = "正文字数"
+    if not post_text:
+        report("WARN", name, "没有 post.md 可测，跳过")
+        return
+    body = section(post_text, "正文")
+    if body is None:
+        report("WARN", name, "post.md 里找不到正文段，人工核对")
+        return
+    n = len(re.sub(r"\s", "", body))
+    cap = int(num("content.body_max_chars"))
+    detail = f"正文 {n} 字（上限 {cap} 字）"
+    if n > cap:
+        report("WARN", name, detail + "；超上限了，删到限内再发")
+    else:
+        report("PASS", name, detail)
+
+
+# ---------- 4g. 话题个数（只提醒不判错） ----------
+def check_topics(post_text):
+    name = "话题个数"
+    if not post_text:
+        report("WARN", name, "没有 post.md 可测，跳过")
+        return
+    sec = section(post_text, "话题")
+    if sec is None:
+        report("WARN", name, "post.md 里找不到话题段，人工核对")
+        return
+    items = []
+    for ln in sec.splitlines():
+        ln = ln.strip().lstrip("-*").strip()
+        if not ln or ln.startswith("（") or ln.startswith("("):
+            continue
+        items += [t.strip() for t in re.split(r"[、，,；;\s]+", ln) if t.strip()]
+    lo, hi = int(num("content.topics_min")), int(num("content.topics_max"))
+    detail = f"话题段数到 {len(items)} 个（标准 {lo}–{hi} 个）"
+    if lo <= len(items) <= hi:
+        report("PASS", name, detail)
+    else:
+        report("WARN", name, detail + "；个数不在标准内，发之前对一下计划")
+
+
+# ---------- 4h. 字幕单条长度（只提醒不判错） ----------
+def check_subtitle_len(folder):
+    name = "字幕单条长度"
+    cand = sorted(folder.glob("scripts*.txt")) or sorted(folder.glob("script*.txt"))
+    if not cand:
+        report("WARN", name, "找不到 scripts.txt，跳过")
+        return
+    cap = int(num("video.subtitle_max_chars"))
+    worst, worst_seg = 0, ""
+    for line in cand[0].read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        text = line.split("|", 1)[1] if "|" in line else line
+        seg_name = line.split("|", 1)[0] if "|" in line else "?"
+        for piece in re.split(r"[。！？!?；;，、：…]+", text):
+            piece = re.sub(r"\s", "", piece)
+            if len(piece) > worst:
+                worst, worst_seg = len(piece), seg_name
+    if worst > cap:
+        report("WARN", name,
+               f"最长一条字幕 {worst} 字（{worst_seg} 段，上限 {cap} 字）；"
+               "这么长排进画面要挤成 3 行。回写稿阶段把这句断成两条，别留给做片返工")
+    else:
+        report("PASS", name, f"最长一条字幕 {worst} 字（上限 {cap} 字）")
+
+
+# ---------- 4i. 旁白码率提示（只提醒，永不判错） ----------
+def check_narration(folder):
+    name = "旁白码率"
+    cands = sorted(folder.glob("audio/*.mp3")) + sorted(folder.glob("n-*.mp3"))
+    if not cands:
+        return  # 素材夹里没留旁白源文件，这项就不出声
+    f = cands[0]
+    r = run(["ffprobe", "-v", "error", "-show_entries", "format=bit_rate",
+             "-of", "csv=p=0", str(f)])
+    try:
+        kbps = int(r.stdout.strip().split(",")[0]) / 1000.0
+    except (ValueError, IndexError):
+        report("WARN", name, f"{f.name} 的码率读不出来，人工确认")
+        return
+    expect = num("tts.expected_bitrate_kbps")
+    if expect > 0 and abs(kbps - expect) / expect > 0.25:
+        report("WARN", name,
+               f"{f.name} 约 {kbps:.0f} kb/s，跟预期的约 {expect:.0f} kb/s 对不上；"
+               "多半是这期换了配音引擎或参数，确认是有意换的再往下走")
+    elif expect > 0:
+        report("PASS", name, f"{f.name} 约 {kbps:.0f} kb/s，与预期 {expect:.0f} kb/s 对得上")
+    else:
+        report("PASS", name,
+               f"{f.name} 约 {kbps:.0f} kb/s（config 里没填预期码率，只记录数值；"
+               "想让这项能报警，把 tts.expected_bitrate_kbps 填上）")
+
+
 # ---------- 5. 封面 ----------
 def check_cover(folder):
     name = "封面"
@@ -491,10 +675,16 @@ def main():
     print(f"验收对象：{folder}")
     check_scripts(folder)
     post_text = check_postmd(folder)
+    check_title(post_text)
+    check_body(post_text)
+    check_topics(post_text)
+    check_subtitle_len(folder)
     video = check_video(folder, post_text)
     check_silence(video)
     check_bitrate(video)
     check_blank_frames(video)
+    check_freeze(video)
+    check_narration(folder)
     check_cover(folder)
     check_issue(folder, post_text)
     fails = [r for r in RESULTS if r[0] == "FAIL"]
