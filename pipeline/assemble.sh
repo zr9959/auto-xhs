@@ -11,7 +11,9 @@
 #
 # 每段先核对帧数：应该是 floor(时长 × fps)，对不上就停，话会说清哪段差几帧。
 # 编码口径写死了，别乱改：H.264 High、yuv420p、timescale 600、
-# AAC 48kHz、faststart。手机上播不出来，多半是这几项被改过。
+# AAC 48kHz 双声道 128k、faststart。手机上播不出来，多半是这几项被改过。
+# 码率有地板：目标 3M、上限 4M（issue #1 实测：585 kb/s 时字边已经糊）。
+# 别把 -crf 加回来跟 -b:v 一起用：实测那样以 crf 为准，码率地板等于没有。
 set -euo pipefail
 
 FRAMES="" SCENES="" AUDIO="" OUT="" SPEED="1.5" FPS="30" WORK=""
@@ -84,13 +86,13 @@ ffmpeg -y -v error -f concat -safe 0 -i "$AUDIO_LIST" -c:a pcm_s16le "$WORK/audi
 
 if [ "$SPEED" = "1" ] || [ "$SPEED" = "1.0" ]; then
   ffmpeg -y -v error -i "$WORK/video-only.mp4" -i "$WORK/audio-all.wav" -map 0:v -map 1:a \
-    -video_track_timescale 600 -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 21 \
-    -c:a aac -ar 48000 -b:a 128k -use_editlist 0 -movflags +faststart "$OUT"
+    -video_track_timescale 600 -c:v libx264 -profile:v high -pix_fmt yuv420p -b:v 3M -maxrate 4M -bufsize 6M \
+    -c:a aac -ar 48000 -ac 2 -b:a 128k -use_editlist 0 -movflags +faststart "$OUT"
 else
   ffmpeg -y -v error -i "$WORK/video-only.mp4" -i "$WORK/audio-all.wav" -map 0:v -map 1:a \
     -vf "setpts=PTS/$SPEED" -af "atempo=$SPEED" \
-    -video_track_timescale 600 -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 21 \
-    -c:a aac -ar 48000 -b:a 128k -use_editlist 0 -movflags +faststart "$OUT"
+    -video_track_timescale 600 -c:v libx264 -profile:v high -pix_fmt yuv420p -b:v 3M -maxrate 4M -bufsize 6M \
+    -c:a aac -ar 48000 -ac 2 -b:a 128k -use_editlist 0 -movflags +faststart "$OUT"
 fi
 
 echo "拼好了：$OUT（倍速 $SPEED）"

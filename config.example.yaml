@@ -90,6 +90,8 @@ video:
   width: 1080                     # 竖版宽 1080；横版改 1920
   height: 1920                    # 竖版高 1920；横版改 1080
   codec: h264
+  min_bitrate_kbps: 2000          # 视频流码率低于这个 kb/s，验收只提醒不判错（字边糊不糊就看它）
+  blank_min_seconds: 2            # 画面连续近乎空白达到几秒，验收只提醒不判错
   cover_width: 1080               # 封面单独做，3:4
   cover_height: 1440
   cover_lines: "3-5"              # 封面大字几行

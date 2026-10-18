@@ -109,6 +109,8 @@
 | 产品图段数 | 讲到具体产品，产品图在正文至少出现 2 段；软件类每个主要软件都要有真实界面，合计至少 2 段 | `video.product_shots_min_segments` |
 | 渲染 | 网页做片：HTML/CSS 排版 + GSAP 动效，本机逐帧截图，再合成；30fps，全片约 30 分钟 | `video.render_fps` / `video.render_budget_minutes` |
 | 编码 | H.264 High、yuv420p、video_track_timescale 600、AAC 48kHz、use_editlist 0、faststart | `video.codec` 等，细项见做片手册 |
+| 最低码率 | 视频流低于 2000 kb/s（2 Mb/s），`validate.py` 只提醒不判错；拼片的目标码率 3M 在 `pipeline/assemble.sh` 里写死 | `video.min_bitrate_kbps` |
+| 空白帧 | 画面连续近乎无内容（近乎纯色、顶多一两行字）达到 2 秒，`validate.py` 只提醒不判错 | `video.blank_min_seconds` |
 | 配音 | 音色在 config 里选，仓库里不写死任何音色名 | `tts.provider` / `tts.voice` |
 
 画面方向默认竖版就行。录屏、教程、风景这类横着看更舒服的内容，再选横版，在 config 里改一次，后面每条都按这个出。

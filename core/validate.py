@@ -7,11 +7,16 @@
 只认简单的「小节名: 键: 值」写法，不用装任何额外的库。
 没有 config.yaml 时用脚本里的推荐默认值，输出第一行会写明。
 
-查六项：口播字数、post.md 结构、成片规格（顺带看一眼方向和宽高对不对得上）、全片静音、封面、期号。
+查八项：口播字数、post.md 结构、成片规格（顺带看一眼方向和宽高对不对得上）、全片静音、封面、期号，
+再加两项只提醒不判错的画面检查：最低码率、空白帧（来历见 issue #1）。
+元素溢出画面这一项不做机器检查：抽出来的帧只有像素，分不清「满幅背景」（正常）
+和「卡片被裁出画面」（毛病），硬做一个只会天天误报。这一项靠模板规矩防：
+同一块区域只许一个带延迟的入场，见 motion-lib/README 的排版规矩。
 退出码：有 FAIL 是 1，全过（PASS/WARN）是 0。
 数字口径以 core/CONSTITUTION.md 的数字总表为准，两边要一致。
 """
 
+import json
 import re
 import subprocess
 import sys
@@ -32,6 +37,8 @@ DEFAULTS = {
     "audio.silence_threshold_db": -45,
     "audio.silence_window_seconds": 1.5,
     "audio.silence_max_gap_seconds": 2.0,
+    "video.min_bitrate_kbps": 2000,
+    "video.blank_min_seconds": 2.0,
     "paths.ledger_file": "data/ledger.md",
     "publish.issue_required_from": "",
 }
@@ -291,6 +298,122 @@ def check_silence(video):
            detail + (f"；超标段 {len(over)} 个" if over else ""))
 
 
+# ---------- 4b. 最低码率（只提醒不判错） ----------
+def check_bitrate(video):
+    name = "最低码率"
+    if video is None:
+        report("WARN", name, "无成片可测，跳过")
+        return
+    r = run(["ffprobe", "-v", "error", "-select_streams", "v:0",
+             "-show_entries", "stream=bit_rate",
+             "-show_entries", "format=bit_rate,duration",
+             "-of", "json", str(video)])
+    kbps = None
+    try:
+        info = json.loads(r.stdout or "{}")
+        streams = info.get("streams") or [{}]
+        raw = streams[0].get("bit_rate")
+        if raw:
+            kbps = int(raw) / 1000.0
+        else:
+            # 个别编码不写流码率，就拿整个文件的码率近似（会略高一点，只作提醒够用）
+            fmt = info.get("format") or {}
+            if fmt.get("bit_rate"):
+                kbps = int(fmt["bit_rate"]) / 1000.0
+    except Exception:
+        kbps = None
+    if kbps is None:
+        report("WARN", name, "ffprobe 读不到码率，跳过（只提醒的检查，读不到不判错）")
+        return
+    floor = num("video.min_bitrate_kbps")
+    detail = f"视频流约 {kbps:.0f} kb/s（下限 {floor:.0f} kb/s）"
+    if kbps < floor:
+        report("WARN", name, detail + "；码率偏低，字边容易糊，平台再转码一次会更糊。"
+                                   "拼片时把码率地板加上（见 pipeline/assemble.sh）")
+    else:
+        report("PASS", name, detail)
+
+
+# ---------- 4c. 空白帧（只提醒不判错） ----------
+# 判据（在天气预报好成品和空白样本上实测标定过，2026-10-18）：
+# 每 0.5 秒抽一帧，缩到 96x96 灰度图，每 4 个像素取 1 个算直方图。
+# 一帧里若有 98% 以上的像素都挤在中位灰度 ±10 以内、且整体方差 <= 100，
+# 就算「近乎无内容」：纯色帧方差 0、覆盖 1.0；只有一行标题的帧方差约 25、覆盖约 0.99；
+# 正常成片的帧方差 288 起步、覆盖最高约 0.76，两边离得很远，不容易误报。
+BLANK_FPS = 2
+BLANK_SIZE = 96
+BLANK_COVERAGE = 0.98
+BLANK_VAR_MAX = 100.0
+
+
+def _frame_is_blank(fr):
+    n = len(fr)
+    if n == 0:
+        return False
+    hist = [0] * 256
+    for b in fr:
+        hist[b] += 1
+    mean = sum(v * hist[v] for v in range(256)) / n
+    var = sum(hist[v] * (v - mean) ** 2 for v in range(256)) / n
+    if var > BLANK_VAR_MAX:
+        return False
+    acc = 0
+    med = 0
+    for v in range(256):
+        acc += hist[v]
+        if acc >= n // 2:
+            med = v
+            break
+    cov = sum(hist[max(0, med - 10): med + 11]) / n
+    return cov >= BLANK_COVERAGE
+
+
+def check_blank_frames(video):
+    name = "空白帧"
+    if video is None:
+        report("WARN", name, "无成片可测，跳过")
+        return
+    frame_bytes = BLANK_SIZE * BLANK_SIZE
+    # run() 用 text=True 会把二进制帧读坏，这里单独用二进制方式跑
+    proc = subprocess.run(["ffmpeg", "-v", "error", "-i", str(video),
+                           "-vf", f"fps={BLANK_FPS},scale={BLANK_SIZE}:{BLANK_SIZE},format=gray",
+                           "-f", "rawvideo", "-"], capture_output=True, timeout=600)
+    data = proc.stdout or b""
+    if len(data) < frame_bytes:
+        report("WARN", name, "抽不到帧，跳过（只提醒的检查，测不了不判错）")
+        return
+    step = 1.0 / BLANK_FPS
+    blanks = []
+    for off in range(0, len(data) - frame_bytes + 1, frame_bytes):
+        frame = data[off:off + frame_bytes]
+        blanks.append(_frame_is_blank(frame[::4]))
+    longest = 0
+    longest_start = 0
+    cur = 0
+    cur_start = 0
+    for i, b in enumerate(blanks):
+        if b:
+            if cur == 0:
+                cur_start = i
+            cur += 1
+            if cur > longest:
+                longest, longest_start = cur, cur_start
+        else:
+            cur = 0
+    longest_seconds = longest * step
+    limit = num("video.blank_min_seconds")
+    detail = (f"每 {step:.1f}s 抽一帧共 {len(blanks)} 帧，最长连续近乎空白 "
+              f"{longest_seconds:.1f}s（标准：不超过 {limit:.1f}s，只提醒）")
+    if longest_seconds >= limit and longest > 0:
+        start = longest_start * step
+        report("WARN", name, detail +
+               f"；超标段约在 {start:.1f}–{start + longest_seconds:.1f}s，"
+               "多半是场景时长按配音定、动画先演完了，剩下几秒画面没东西。"
+               "把那段动画补满，或把场景时长改短")
+    else:
+        report("PASS", name, detail)
+
+
 # ---------- 5. 封面 ----------
 def check_cover(folder):
     name = "封面"
@@ -370,6 +493,8 @@ def main():
     post_text = check_postmd(folder)
     video = check_video(folder, post_text)
     check_silence(video)
+    check_bitrate(video)
+    check_blank_frames(video)
     check_cover(folder)
     check_issue(folder, post_text)
     fails = [r for r in RESULTS if r[0] == "FAIL"]
