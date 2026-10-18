@@ -113,7 +113,8 @@
 | 产品图段数 | 讲到具体产品，产品图在正文至少出现 2 段；软件类每个主要软件都要有真实界面，合计至少 2 段 | `video.product_shots_min_segments` |
 | 渲染 | 网页做片：HTML/CSS 排版 + GSAP 动效，本机逐帧截图，再合成；30fps，全片约 30 分钟 | `video.render_fps` / `video.render_budget_minutes` |
 | 编码 | H.264 High、yuv420p、video_track_timescale 600、AAC 48kHz、use_editlist 0、faststart | `video.codec` 等，细项见做片手册 |
-| 最低码率 | 视频流低于 2000 kb/s（2 Mb/s），`validate.py` 只提醒不判错；拼片的目标码率 3M 在 `pipeline/assemble.sh` 里写死 | `video.min_bitrate_kbps` |
+| 画质 | 用 CRF 定画质（不定码率）：默认 13，在 12–14 之间选，数越小越清、文件越大。成品大小上限 100MB，超了拼片脚本自动升 CRF 重拼到装下为止。`pipeline/assemble.sh` 的 `--crf`、`--max-size-mb` 默认值与此一致 | `video.crf` / `video.max_size_mb` |
+| 最低码率 | 视频流低于 2000 kb/s（2 Mb/s），`validate.py` 只提醒不判错。这是兜底提醒：CRF 模式下码率随画面复杂度走，简单画面低码率也是高清，最后以抽帧看清不清为准 | `video.min_bitrate_kbps` |
 | 空白帧 | 画面连续近乎无内容（近乎纯色、顶多一两行字）达到 2 秒，`validate.py` 只提醒不判错 | `video.blank_min_seconds` |
 | 画面冻止 | 画面静止（内容还在、就是不动）连续 1 秒以上，`validate.py` 只提醒不判错；跟空白帧是两回事，冻止多半是动画演完或转场卡住 | `video.freeze_warn_seconds` |
 | 配音 | 音色在 config 里选，仓库里不写死任何音色名。开工前先跑配音冒烟（`pipeline/tts/tts-smoke.sh`）：主引擎试合成一句，通了才用它；不通自动切备用引擎。验收时旁白码率跟预期对一下，对不上多半是引擎被换了 | `tts.provider` / `tts.voice` / `tts.expected_bitrate_kbps` |

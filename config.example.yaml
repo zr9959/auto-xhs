@@ -91,7 +91,9 @@ video:
   width: 1080                     # 竖版宽 1080；横版改 1920
   height: 1920                    # 竖版高 1920；横版改 1080
   codec: h264
-  min_bitrate_kbps: 2000          # 视频流码率低于这个 kb/s，验收只提醒不判错（字边糊不糊就看它）
+  crf: 13                         # 画质：CRF 定画质，12–14 之间选，越小越清、文件越大
+  max_size_mb: 100                # 成品大小上限（MB），超了拼片自动升 CRF 重拼
+  min_bitrate_kbps: 2000          # 视频流码率低于这个 kb/s，验收只提醒不判错（兜底提醒，CRF 下低码率不一定糊）
   blank_min_seconds: 2            # 画面连续近乎空白达到几秒，验收只提醒不判错
   freeze_warn_seconds: 1          # 画面静止（内容还在、就是不动）连续几秒，验收只提醒不判错
   title_card: true                # 片头之后、正文之前放一个大字标题画面
