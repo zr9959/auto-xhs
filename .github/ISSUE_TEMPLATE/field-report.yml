@@ -1,0 +1,38 @@
+name: 实测反馈 / Field report
+description: 跑了一遍的结果：环境、实测数据、发现的问题 / Ran it? Report your setup, measurements, and what broke
+title: "[实测] "
+labels: ["field-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        谢谢你真跑了一遍。带实测数据的反馈最值钱，尤其是成片画面这类问题——
+        文件检查（时长、分辨率、字数）查不出来，得靠人眼和量测。
+        Thanks for actually running it. Measured reports are the most valuable kind:
+        file-level checks cannot see frame-level problems, people can.
+  - type: textarea
+    id: what-ran
+    attributes:
+      label: 跑了什么 / What you ran
+      description: 玩法名、版本或提交号、用的助手（Muse / Dots / Grok Bot）
+      placeholder: 例：weather-forecast 玩法，main 分支 2026-10-18，Muse
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境 / Environment
+      description: 操作系统、浏览器、Python 与 ffmpeg 版本，能写多少写多少
+      placeholder: 例：macOS 15，Chrome 130，Python 3.13，ffmpeg 7
+    validations:
+      required: false
+  - type: textarea
+    id: findings
+    attributes:
+      label: 实测结果 / Findings
+      description: |
+        发现了什么问题，或者一切正常也说一声。带上量到的数据更好：
+        码率、时长、空白出现的位置等。截图和成片可以直接拖进这个框。
+      placeholder: 例：成片码率 585 kb/s，1080p 明显糊；场景切换处约 2 秒画面空白（截图见附件）
+    validations:
+      required: true

@@ -1,0 +1,49 @@
+name: 玩法投稿 / Playbook idea
+description: 你想让它自动运营什么内容：内容、数据源、频率说清楚 / Propose a playbook: content, data source, cadence
+title: "[玩法] "
+labels: ["playbook"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        玩法都在 scenarios/ 目录里，一个玩法一个文件夹。_template 是空模板，
+        weather-forecast 是完整示例。提之前先看一眼 docs/compliance.md：
+        不批量互动、不搬运、频率按真人节奏，这条没有商量。
+        Playbooks live in scenarios/, one folder each. Please read
+        docs/compliance.md first: no bulk engagement, no reposting
+        other people's content, human pace only.
+  - type: textarea
+    id: content
+    attributes:
+      label: 发什么内容 / The content
+      description: 这个玩法每天（或每期）发什么，目标读者是谁
+      placeholder: 例：本地次日天气预报，竖屏视频，给同城居民看
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: 数据从哪来 / Data source
+      description: 公开网页、接口、RSS、自己整理的文件都可以，写清地址或来源
+      placeholder: 例：中国天气网公开页面 + 和风天气免费接口
+    validations:
+      required: true
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: 多久发一次 / Cadence
+      options:
+        - 每天一次 / Daily
+        - 每天多次 / Several times a day
+        - 每周几次 / A few times a week
+        - 每周一次 / Weekly
+        - 其他（在下面备注里写）/ Other
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: 补充 / Notes
+      description: 形式偏好（图文还是视频）、已有的素材、你打算自己提 PR 还是只出想法
+    validations:
+      required: false
