@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/banner.png" alt="Auto-xhs" width="760">
+  <img src="docs/assets/banner-en.png" alt="Auto-xhs" width="760">
 </p>
 
 <h1 align="center">Multi-platform automated operation and publishing (Xiaohongshu / Douyin / TikTok / X / YouTube / WeChat Official Accounts, for Muse, Dots, and Grok Bot)</h1>
