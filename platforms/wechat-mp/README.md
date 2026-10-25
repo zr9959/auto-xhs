@@ -38,3 +38,25 @@
 ## 待补
 
 选题、写稿、排版风格、涨粉打法没有成套玩法，这部分等公众号那条线补。本模块先只做到草稿箱 + 手动终发，不承诺全自动发布。
+
+## 可运行代码（`scripts/`）
+
+```bash
+# 1. Markdown 稿子转草稿包（离线，不调接口）
+python3 scripts/build_draft.py --md 稿子.md --title "标题" --author "作者" \
+    --digest "摘要" --cover-media-id MEDIA_ID --out draft.json
+
+# 2. 调接口前先干跑一遍（只打印会调哪个接口、带什么字段，不发请求、不打印凭据）
+MP_APPID=你的appid MP_SECRET=你的secret python3 scripts/mp_api.py --action probe --dry-run
+MP_APPID=你的appid MP_SECRET=你的secret python3 scripts/mp_api.py --action draft-add \
+    --draft-json draft.json --dry-run
+
+# 3. 干跑没问题，去掉 --dry-run 真调
+MP_APPID=你的appid MP_SECRET=你的secret python3 scripts/mp_api.py --action probe
+MP_APPID=你的appid MP_SECRET=你的secret python3 scripts/mp_api.py --action draft-add \
+    --draft-json draft.json
+```
+
+凭据只从环境变量读，绝不写进文件；脚本报错会直接告诉你是哪种情况（40164 白名单、48001 未授权、token 失效），不用先怀疑凭据。
+
+实测记录（2026-10-25）：Markdown 转草稿包字段齐全（标题、作者、摘要、正文 HTML、封面 media_id、评论开关）；干跑两步都过、不打印凭据；没给凭据时退出码 2 并提示设环境变量。真调接口没条件实测——需要你自己的公众号凭据 + 白名单里的出口 IP，跑之前先确认这两点。

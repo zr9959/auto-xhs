@@ -59,3 +59,18 @@
 ## 数据复盘
 
 每周看一次：展示、点击率、留存曲线、完播、涨粉来源；记 Top / Bottom 3 条，复盘结论写进模块。数据工具没有可信免费替代时，靠官方 API 自算。
+
+## 可运行代码（`scripts/check_upload.py`）
+
+上传前把待发包过一遍，FAIL 的必须改。
+
+```bash
+# 待发包目录里放：title.txt、description.txt、thumbnail.jpg/png、video.mp4、tags.txt（可选）
+python3 scripts/check_upload.py --dir <待发包目录>
+```
+
+检查项：标题缺失或超 100 字（FAIL）、超 70 字（WARN，展示截断）；封面缺失或不是 1280×720（FAIL）；成片缺失或解码失败（FAIL）；简介缺失（WARN）；章节第一行不是 0:00 开头（FAIL）；标签总字数超 500 字（WARN）。
+
+实测记录（2026-10-25）：好包 0 FAIL 0 WARN；坏包（160 字标题 + 640×360 封面 + 章节从 2:00 开始）3 FAIL，退出码 1。
+
+上传本身不另写脚本：走上面“API 优先”一节的官方 API 路线（需要你自己的 OAuth 凭据，仓库不带任何凭据示例）。

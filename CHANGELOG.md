@@ -1,3 +1,13 @@
+## 2026-10-25（多平台可运行代码）
+
+- 四个平台模块从手册升级成「手册 + 能跑的脚本」，全部实测过，好坏样本都验了：
+  - 抖音 `platforms/douyin/scripts/`：`burn_subtitles.py` 字幕烧录（底边距底 24%，1080×1920 就是 460px）、`append_outro.py` 品牌片尾分轨拼接（先归一化尺寸帧率 SAR 再拼，实测里抓到并修了一个 SAR 不一致导致 concat 报错的真 bug）、`scan_subtitles.py` 敏感扫描（词库自己填，仓库只带格式模板）、`fetch_video.sh` 下载包装器（优先 1080p 内最佳画质 + 音频合并 mp4）。
+  - X `platforms/x/scripts/check_post.py`：发帖前检查（禁用词、Unicode 粗体、🧵👇 全套是 FAIL；hashtag、emoji、具体数、链接、回复长度是 WARN；中文按字计、英文按词计）。
+  - YouTube `platforms/youtube/scripts/check_upload.py`：上传前检查（标题 100 字上限、封面 1280×720、成片可解码、章节从 0:00 开始、标签 500 字上限）。
+  - 公众号 `platforms/wechat-mp/scripts/`：`build_draft.py` 把 Markdown 稿子转草稿包（离线）、`mp_api.py` 探针 + 建草稿（凭据只从环境变量读，`--dry-run` 先看一遍再真调；40164 白名单、48001 未授权直接报原因）。
+- 故意没写成代码的部分：X 的发帖本身（平台查自动化操作，自动发可能封号，检查过了人自己发）；YouTube 的上传本身（走官方 API 路线，需你自己的 OAuth 凭据）；抖音的转录、旁白、封面生成、最终发布；公众号的最终发布（个人未认证号接口不通，手动终发）。没条件实测的部分也如实写进了各模块 README：下载包装器的真下载（本机没装 yt-dlp，按预期报了安装提示）、公众号的真调接口（需你自己的凭据 + 白名单出口 IP）。
+- 各模块 README 末尾新增「可运行代码」一节，总索引 `platforms/README.md` 的成熟度一栏同步改。
+
 ## 2026-10-25（多平台扩展 + 现行系统经验同步第二轮）
 
 - 仓库改名：标题改为「多平台全自动化运营发布（小红书 / 抖音 / X / YouTube / 公众号，适配 Muse、Dots、Grok Bot）」；仓库 slug `auto-xhs` 不动，旧链接不受影响。README（中英）、仓库描述、落地页标题同步改。

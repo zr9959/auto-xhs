@@ -52,3 +52,27 @@
 ## 成本建议
 
 免费路线优先：任何一步要花钱先停下，找免费替代，找不到就先不做。不要为了一条视频先斩后奏充钱。
+
+## 可运行代码（`scripts/`）
+
+只依赖 Python 3 标准库 + ffmpeg（下载那步另需 yt-dlp）。先跑通这几步，再谈全自动。
+
+```bash
+# 1. 下载候选片（没装 yt-dlp 会直接告诉你怎么装，不会闷头报错）
+bash scripts/fetch_video.sh <视频地址> [保存目录] [最高高度，默认 1080]
+
+# 2. 字幕烧录：底边距底 24%（1080×1920 就是 460px，见字幕一节）
+python3 scripts/burn_subtitles.py --video 原片.mp4 --srt 字幕.srt --out 成片.mp4
+
+# 3. 品牌片尾：分轨拼接（不许用 concat 直拼，见流水线第 6 步）
+python3 scripts/append_outro.py --main 正片.mp4 --outro 片尾.mp4 --out 成片.mp4
+
+# 4. 敏感扫描：先复制词库模板、填你自己的词，再扫
+cp sensitive-words.template.txt sensitive-words.txt   # 填词，别提交 sensitive-words.txt
+python3 scripts/scan_subtitles.py --srt 字幕.srt --wordlist sensitive-words.txt
+# 退出码 0 没命中，1 有命中（命中即整条弃用），2 用法或文件不对
+```
+
+实测记录（2026-10-25）：字幕烧录 2 条字幕、底边 460px；片尾 640×360 归一化到 1080×1920 后 3s + 1s = 4.04s；敏感扫描命中/没命中/空词库三档都对；下载包装器在本机因没装 yt-dlp 按预期报安装提示（没条件实测真下载，跑之前先装好 yt-dlp）。
+
+还没写成代码、仍需人或另配工具的部分：语音转录、旁白合成、封面生成、最终发布（走浏览器创作者中心）。词库内容仓库不带——模板里只有格式示例，词表是你自己的。
