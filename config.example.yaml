@@ -38,6 +38,9 @@ ops:
 # ---------- 选题 ----------
 sourcing:
   total_minutes: 30               # 一轮搜集总共最多花几分钟
+  sequel_check: true              # 定案前扫近 30 天已发选题的后续，有后续当天加更
+  queued_topics: true             # 派单前先查预排选题区，有没过期的直接用
+  activity_match: true            # 每天选题顺带查活动中心，方向与活动主题一致时按活动要求执行
   per_source_minutes: 5           # 单个信源最多花几分钟
   scan_minutes: 20                # 前多少分钟广扫，后面只核排前面的候选
   shortlist_count: 2              # 收口时只核几个候选
@@ -71,6 +74,8 @@ content:
   title_target_chars: "10-16"     # 标题目标字数
   title_max_chars: 20             # 标题最多几个字
   title_keyword_first_chars: 10   # 最要紧的搜索词放在前几个字里
+  title_anchor: true              # 写稿第 0 步先定标题锚点，3 版是同一锚点的三种不同角度
+  title_emotion: true             # 标题情绪系统：承载字、关联、前置、不重样四条机读规矩
   body_max_chars: 1000            # 正文最多几个字
   body_target_chars: 500          # 正文日常精简目标：细节交给视频，正文一屏装得下就行
   topics_min: 5                   # 话题最少几个
@@ -100,6 +105,7 @@ video:
   cover_width: 1080               # 封面单独做，3:4
   cover_height: 1440
   cover_lines: "3-5"              # 封面大字几行
+  cover_ai_source: true           # 封面主视觉 AI 生成时，源图留素材夹、验收单单列机读行
   issue_on_cover: true            # 封面带不带「第 X 期」
   opening_seconds: 3              # 前几秒必须给出结论或冲突
   info_point_every_seconds: "10-15"  # 每隔几秒一个信息点

@@ -2,9 +2,9 @@
   <img src="docs/assets/banner.png" alt="Auto-xhs" width="760">
 </p>
 
-<h1 align="center">小红书全自动化运营发布（适配muse、Dots、Grok Bot）</h1>
+<h1 align="center">Multi-platform automated operation and publishing (Xiaohongshu / Douyin / X / YouTube / WeChat Official Accounts, for Muse, Dots, and Grok Bot)</h1>
 
-<p align="center"><strong>Fully automated Xiaohongshu (RedNote) operation and publishing, run by AI agents — Muse, Dots, and Grok Bot</strong></p>
+<p align="center"><strong>Cloud AI agents run your accounts end to end: Xiaohongshu by default, plus Douyin, X, YouTube, and WeChat Official Accounts as separate modules</strong></p>
 
 <p align="center">
   <img src="https://img.shields.io/github/license/zr9959/auto-xhs" alt="MIT license">
@@ -26,6 +26,17 @@ Repository name: Auto-xhs
 - Videos are portrait 1080×1920 by default; landscape 1920×1080 is an option you can pick in the config.
 - Videos are built as web pages and captured frame by frame, not edited in a video editor.
 - Nothing goes out until it passes an acceptance script: word count, length, resolution, silence, cover, issue number.
+
+## More than Xiaohongshu
+
+Xiaohongshu is still this repo's default, complete pipeline (everything in `core/`, from topics to posting and replies). `platforms/` holds four more platform modules, each independent — enable only the ones you need:
+
+- **Douyin**: trending videos + Chinese subtitles pipeline (pick, download, subtitle, voiceover, cover, title, four sensitivity gates, publish).
+- **X**: account warming, posting, replies (five-stage warming, human-like writing rules, cold-start rules, image rule).
+- **YouTube**: English-channel playbook (titles, thumbnails, retention, Shorts, SEO, production standards, API-first workflow).
+- **WeChat Official Accounts**: drafts + manual final publish (personal uncertified accounts cannot publish via API; the content playbook is still to come).
+
+Each module states its own limits and risks up front — read those before you use it. Index: [platforms/README.md](platforms/README.md).
 
 ## What this project does
 

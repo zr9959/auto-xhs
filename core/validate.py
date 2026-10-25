@@ -8,8 +8,8 @@
 没有 config.yaml 时用脚本里的推荐默认值，输出第一行会写明。
 
 查这些项：口播字数、post.md 结构、成片规格（顺带看一眼方向和宽高对不对得上）、全片静音、封面、期号，
-只提醒不判错的画面检查：最低码率、空白帧、画面冻止（码率与空白帧的来历见 issue #1），
-只提醒不判错的文字检查：定稿标题加权字数、正文字数、话题个数、字幕单条长度，
+只提醒不判错的画面检查：最低码率、空白帧、画面冻止（码率与空白帧的来历见 issue #1）、成片大小，
+只提醒不判错的文字检查：定稿标题加权字数、正文字数、话题个数、字幕单条长度、标题情绪与锚点，
 外加一项旁白码率提示（对一下这期的旁白是不是用定的那个引擎合成的）。
 元素溢出画面这一项不做机器检查：抽出来的帧只有像素，分不清「满幅背景」（正常）
 和「卡片被裁出画面」（毛病），硬做一个只会天天误报。这一项靠模板规矩防：
@@ -280,6 +280,87 @@ def check_video(folder, post_text):
                "竖版应该高大于等于宽。把 width 改成 1080、height 改成 1920 就对了。")
     return v
 
+
+
+# ---------- 3b. 成片大小（只提醒不判错） ----------
+def check_size(video):
+    name = "成片大小"
+    if video is None:
+        return
+    # 老 config.yaml 里可能还没有这个键（CRF 改版后才加），缺了就按 100 算
+    cap = float(CFG.get("video.max_size_mb") or 100)
+    mb = video.stat().st_size / 1e6
+    detail = f"{video.name} {mb:.1f}MB（上限 {cap:.0f}MB）"
+    if mb > cap:
+        report("WARN", name, detail + "；超了拼片脚本本该自动升 CRF 重拼，人工确认这版是不是最终版")
+    else:
+        report("PASS", name, detail)
+
+
+# ---------- 4j. 标题情绪与锚点（只提醒不判错） ----------
+def _machine_line(post_text, label):
+    # 机读行两种写法都认：「标签：「内容」」或「标签：内容」
+    if not post_text:
+        return None
+    m = re.search(label + r"\s*[:：]\s*「([^」]+)」", post_text)
+    if m:
+        return m.group(1).strip()
+    m = re.search(label + r"\s*[:：]\s*(.+)", post_text)
+    return m.group(1).strip() if m else None
+
+
+def check_emotion_anchor(post_text):
+    title = extract_final_title(post_text)
+    if not title:
+        report("WARN", "标题情绪与锚点", "post.md 里找不到定稿标题，人工核对")
+        return
+    carrier = _machine_line(post_text, "情绪承载字")
+    if not carrier:
+        report("WARN", "情绪承载字", "post.md 定稿理由里没有「情绪承载字」机读行，补上再发")
+    elif carrier not in title:
+        report("WARN", "情绪承载字", f"承载字「{carrier}」不在定稿标题原文里，逐字摘错了，重摘")
+    else:
+        idx = title.index(carrier)
+        w_before = title_weight(title[:idx])
+        w_total = title_weight(title)
+        if w_before > 10 or w_before > w_total / 2:
+            report("WARN", "情绪前置",
+                   f"承载短语起点在加权第 {w_before:g} 字（标题共 {w_total:g} 字），情绪吊在后半段了，往前挪")
+        else:
+            report("PASS", "情绪前置", f"承载短语起点在加权第 {w_before:g} 字，前半段，过")
+        report("PASS", "情绪承载字", f"承载字「{carrier}」在标题原文里")
+    link = _machine_line(post_text, "情绪关联")
+    if not link:
+        report("WARN", "情绪关联", "post.md 定稿理由里没有「情绪关联」机读行（格式：具体事实 → 夸张短语），补上再发")
+    elif "→" not in link:
+        report("WARN", "情绪关联", "「情绪关联」行里没有 → ，格式写成「具体事实 → 夸张短语」")
+    else:
+        phrase = link.split("→", 1)[1].strip()
+        if phrase and phrase not in title:
+            report("WARN", "情绪关联", f"关联行箭头右侧「{phrase}」不在定稿标题里，对不上")
+        else:
+            report("PASS", "情绪关联", "关联行齐全，右侧短语在标题里")
+    anchor = _machine_line(post_text, "标题锚点")
+    if not anchor:
+        report("WARN", "标题锚点", "post.md 里没有「标题锚点」机读行，写稿第 0 步先定锚点")
+    elif anchor not in title:
+        report("WARN", "标题锚点", f"锚点「{anchor}」没有逐字出现在定稿标题里，标题跑偏了")
+    else:
+        report("PASS", "标题锚点", f"锚点「{anchor}」逐字在标题里")
+
+
+# ---------- 5b. 封面 AI 来源（只提醒不判错） ----------
+def check_cover_ai(folder, post_text):
+    name = "封面 AI 来源"
+    if not post_text or "封面主视觉：AI生成" not in post_text:
+        report("WARN", name, "验收单或 post.md 里没有「封面主视觉：AI生成」机读行；用 AI 主视觉时补上这一行")
+        return
+    srcs = [p for p in folder.glob("ai*") if p.suffix.lower() in (".jpg", ".jpeg", ".png")] \
+        + [p for p in folder.glob("*media-generation-*") if p.suffix.lower() in (".jpg", ".jpeg", ".png")]
+    if not srcs:
+        report("WARN", name, "写了 AI 生成，但素材夹里找不到带 ai 或 media-generation- 前缀的源图，留证缺了")
+    else:
+        report("PASS", name, f"AI 源图在素材夹里：{srcs[0].name}")
 
 # ---------- 4. 静音检测 ----------
 def check_silence(video):
@@ -680,12 +761,15 @@ def main():
     check_topics(post_text)
     check_subtitle_len(folder)
     video = check_video(folder, post_text)
+    check_size(video)
     check_silence(video)
     check_bitrate(video)
     check_blank_frames(video)
     check_freeze(video)
     check_narration(folder)
+    check_emotion_anchor(post_text)
     check_cover(folder)
+    check_cover_ai(folder, post_text)
     check_issue(folder, post_text)
     fails = [r for r in RESULTS if r[0] == "FAIL"]
     warns = [r for r in RESULTS if r[0] == "WARN"]

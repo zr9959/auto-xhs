@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="docs/assets/banner.png" alt="Auto-xhs：小红书全自动化运营发布" width="760">
+  <img src="docs/assets/banner.png" alt="Auto-xhs：多平台全自动化运营发布" width="760">
 </p>
 
-<h1 align="center">小红书全自动化运营发布（适配muse、Dots、Grok Bot）</h1>
+<h1 align="center">多平台全自动化运营发布（小红书 / 抖音 / X / YouTube / 公众号，适配 Muse、Dots、Grok Bot）</h1>
 
-<p align="center">让云端 AI 智能助手替你运营小红书：搜资讯、写稿、做视频、发布、跟评论，一条龙全自动。</p>
+<p align="center">让云端 AI 智能助手替你运营多个平台：小红书是默认的完整流水线，抖音、X、YouTube、公众号各有独立模块。</p>
 
 <p align="center">
   <img src="https://img.shields.io/github/license/zr9959/auto-xhs" alt="MIT 许可证">
@@ -25,6 +25,17 @@
 **我们的宗旨：免费、安全防封、高效、简单。**
 
 先把实话说在前面：防封靠的是模拟真人操作加上正常频率，不是对任何账号打包票。平台对全自动托管一直查得严，所以我们推荐新号先用半自动，发布前自己看一眼。细的写在 [docs/compliance.md](docs/compliance.md) 里。
+
+## 不止小红书
+
+小红书仍是本仓库默认的完整流水线（`core/` 里从选题、写稿、做片到发布、跟评论全套）。`platforms/` 里还有四个平台的独立模块，按需启用、互不干扰：
+
+- **抖音**：热门视频 + 中文字幕流水线（选片、下载、字幕、配音、封面、标题、四道敏感闸、发布）。
+- **X**：养号、发帖、回复（五阶段养号、拟人化写法、冷启动规矩、配图铁律）。
+- **YouTube**：英文频道运营知识库（标题、封面、留存、Shorts、SEO、生产标准、API 优先路线）。
+- **微信公众号**：草稿箱 + 手动终发（个人未认证号调不通发布接口，内容玩法待补）。
+
+各模块的风险和限制都写在模块开头，用之前先读。索引见 [platforms/README.md](platforms/README.md)。
 
 ## 先看效果
 
