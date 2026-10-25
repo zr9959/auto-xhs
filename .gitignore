@@ -2,6 +2,7 @@
 config.yaml
 data/
 *.local.txt
+platforms/douyin/sensitive-words.txt
 
 # 做片产物
 frames/

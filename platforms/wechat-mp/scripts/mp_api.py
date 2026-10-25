@@ -76,7 +76,7 @@ def main():
     appid = os.environ.get("MP_APPID", "")
     secret = os.environ.get("MP_SECRET", "")
     if not appid or not secret:
-        return fail("凭据没给：先设环境变量 MP_APPID 和 MP_SECRET（不要写进文件或命令行历史里传给别人看）")
+        return fail("凭据没给：先设环境变量 MP_APPID 和 MP_SECRET（别写进仓库里的任何文件）")
     if args.action == "draft-add" and not args.draft_json:
         return fail("draft-add 需要 --draft-json 传 build_draft.py 生成的包")
 

@@ -61,16 +61,16 @@
 # 1. 下载候选片（没装 yt-dlp 会直接告诉你怎么装，不会闷头报错）
 bash scripts/fetch_video.sh <视频地址> [保存目录] [最高高度，默认 1080]
 
-# 2. 字幕烧录：底边距底 24%（1080×1920 就是 460px，见字幕一节）
-python3 scripts/burn_subtitles.py --video 原片.mp4 --srt 字幕.srt --out 成片.mp4
-
-# 3. 品牌片尾：分轨拼接（不许用 concat 直拼，见流水线第 6 步）
-python3 scripts/append_outro.py --main 正片.mp4 --outro 片尾.mp4 --out 成片.mp4
-
-# 4. 敏感扫描：先复制词库模板、填你自己的词，再扫
-cp sensitive-words.template.txt sensitive-words.txt   # 填词，别提交 sensitive-words.txt
+# 2. 敏感扫描：先复制词库模板、填你自己的词，再扫。扫在烧之前：命中就整条弃用，别烧了再扫
+cp sensitive-words.template.txt sensitive-words.txt   # 填词；这文件已进 .gitignore，提交也带不走
 python3 scripts/scan_subtitles.py --srt 字幕.srt --wordlist sensitive-words.txt
 # 退出码 0 没命中，1 有命中（命中即整条弃用），2 用法或文件不对
+
+# 3. 字幕烧录：底边距底 24%（1080×1920 就是 460px，见流水线第 4 步）
+python3 scripts/burn_subtitles.py --video 原片.mp4 --srt 字幕.srt --out 成片.mp4
+
+# 4. 品牌片尾：分轨拼接（不许用 concat 直拼，见封面一节）
+python3 scripts/append_outro.py --main 正片.mp4 --outro 片尾.mp4 --out 成片.mp4
 ```
 
 实测记录（2026-10-25）：字幕烧录 2 条字幕、底边 460px；片尾 640×360 归一化到 1080×1920 后 3s + 1s = 4.04s；敏感扫描命中/没命中/空词库三档都对；下载包装器在本机因没装 yt-dlp 按预期报安装提示（没条件实测真下载，跑之前先装好 yt-dlp）。
