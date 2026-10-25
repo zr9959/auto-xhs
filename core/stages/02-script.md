@@ -1,72 +1,74 @@
-# 阶段手册 02 · 写稿
+[中文](02-script.zh-CN.md) | English
 
-> 什么时候读：总管派写稿单时。先读宪法页，再读这份。宪法页核心标准第 3 条（有细节、产品四问）写稿时一起执行。
-> 数字都看宪法页「数字总表」，这份手册只引用，不另写。
+# Stage guide 02 · Writing
 
-## 输入
+> When to read: when the manager dispatches the writing task. Read the constitution page first, then this guide. Constitution core standard 3 (details, the four product questions) runs together with writing.
+> All numbers come from the constitution page's numbers table. This guide only cites them, never writes its own.
 
-- 选题阶段交回的定案选题、核对来源、热度信号。
-- 当天素材夹和 `post.md`（选题部分已经写好）。
+## Input
 
-## 产出
+- The settled topic, checking sources, and heat signal handed back by the topic stage.
+- The day's material folder and `post.md` (the topic section is already written).
 
-- 当天 `post.md` 写全：标题几版及选定理由、定稿标题、正文、话题清单、第一条评论预案、素材需求清单、发布设置（其中「AI 内容声明」是固定一行，写法看待发包清单，每次都要有）。
-- 口播稿落盘为 `scripts.txt`。
-- 运行日志补一行「稿定」打点，写明口播字数等关键数字。
+## Output
 
-## 交回总管的证据清单
+- The day's `post.md` written in full: title versions with reasons for picking, the settled title, the body, the topic-tag list, the first-comment draft, the material needs list, and publish settings (the "AI content declaration" is a fixed line — see the ready-to-post pack list; it must be there every time).
+- The voiceover script on disk as `scripts.txt`.
+- One more line in the run log: the "稿定" (script settled) stamp, stating key numbers like the voiceover word count.
 
-- 写稿验收的逐项结果：口播稿实际字数、正文实际字数、标题各版及选定理由（逐版带公式编号、钩子类型、加权字数，定稿理由先写共鸣点、再写资产信号和定型）、产品四问逐项落在哪、明确判断在哪、至少一处对比或转折在哪。标题留证缺一样，总管打回补齐，不许放行。
-- 话题清单（数量看总表）。
-- 异常四要素（没有就写「无」）。
+## Evidence list to hand back to the manager
 
-## 稿子结构
+- Writing acceptance, item by item: the voiceover script's actual word count, the body's actual word count, each title version with its reason for picking (each version carrying its formula number, hook type, and weighted character count; the settled-title reason leads with the resonance point, then asset signals and body type), where each of the four product questions lands, where the clear judgment sits, where at least one comparison or turn sits. A title record missing any piece gets sent back for completion by the manager — no waving it through.
+- The topic-tag list (count per the table).
+- The four elements for problems (write "none" when there are none).
 
-按这个顺序写：
+## Script structure
 
-1. **钩子。** 第一句先落到「你」身上，先说跟读者的关系。频道自称 {{channel_name}} 融进这一句里带过，不单独报幕，不占时长。
-2. **痛点和适合谁。** 讲产品先答四问：适合哪类人、谁有这个需求、需求具体是什么、至少一个落到生活里的使用场景。再补一句不适合谁。
-3. **分步或分点讲细。** 步骤、数字、入口、价格这些硬细节都要有。只有结论没有这些，不合格。
-4. **判断。** 每条稿都要有明确判断：值不值得、先别急、适合谁不适合谁。还要有至少一处对比或转折。只平铺直叙报事实，太平淡，打回。
-5. **结尾。** 总结一句，再抛一个具体的二选一问题，就是「你站 A 还是 B」那种，让人点一下就能答。
+Write in this order:
 
-## 标题
+1. **Hook.** The first sentence lands on "you" first — the reader's connection first. The channel's self-name {{channel_name}} slips into this sentence in passing — no separate announcement, no extra time.
+2. **Pain point and who it's for.** For a product, answer the four questions first: who it's for, who has this need, what exactly the need is, and at least one use case from real life. Then add one line on who it's not for.
+3. **Steps or points in detail.** Steps, numbers, entry points, prices — all the hard details must be there. Conclusions alone, without these, don't pass.
+4. **Judgment.** Every script needs a clear judgment: worth it or not, don't rush, who it's for and who it's not for. Plus at least one comparison or turn. Flat fact-reporting with no shape gets sent back.
+5. **Ending.** One summary sentence, then one concrete this-or-that question — the "do you stand with A or B" kind, answerable with one tap.
 
-**写稿前先查爆款知识库**（`core/viral-playbook.md`）：起标题先在里面选公式，正文先定型（收藏型还是评论型），再动笔。
+## Titles
 
-- 先写够总表定的版数，再挑，不许一版就过。每一版都要留证：取自知识库哪个公式（写明编号，如 F2）、钩子是哪种、加权字数多少，三样都标在这一版旁边。
-- **同一公式最多用一版。** 三版不许同式换词凑数。
-- **每版必须有钩子。** 合格钩子五种，任一成立才算有：反问语气、拟人化、情绪词、预期违背的冲突、强承诺语气。只有品类词加数字加清单名词、没有任何语气的「说明书式」标题，直接淘汰，不进定稿候选。
-- **取舍顺序写死：共鸣第一，资产第二，搜索词第三。** 定稿理由先写共鸣点（这句话戳的是什么情绪、冲突面在哪），再写资产信号（数字、清单、能带走的东西）和定型（收藏型还是评论型）。20 字内钩子和资产塞不下时，牺牲资产保共鸣，资产退到封面副标题和正文首句补回。
-- **字数按加权口径数**（口径看总表标题硬上限那一行），写在标题旁边的是加权数，不许写原始字符数。目标区间、硬上限、核心搜索词放的位置都按总表来；超上限的版本直接淘汰。
-- **标题锚点（写稿第 0 步，先定锚点再起标题）。** 锚点是本期最扎人的那个具体点（具体事实、数字、场景或反差），写成 `post.md` 机读行「标题锚点：「…」」：关键词 4 字以上，且必须逐字出现在定稿标题里。3 版候选必须是同一锚点的三种不同角度（数字冲击、对比反差、场景代入、后果警告、反常识任选三），不许三版只换情绪词、事实同一套；每版标注角度。定稿理由除共鸣点与资产信号外，加一句「弃选理由」：另外两版为什么不如定稿贴锚点（各一句话）。定稿后还要打磨一轮再落盘：删虚词、把具体名词和数字落进标题、通读一遍像不像人话；改了什么写一句话。
-- **顺序铁律：锚点 → 角度 → 情绪语气。** 不许先挑情绪词再找事实套；情绪词表只负责兜底（防温吞、防连着两期同款），不负责标题长什么样。
-- **情绪要夸张。** 温吞的说法（有点慌、挺纠结）不算过关，用放大、戏剧化的日常说法把感受推满（翻麻了、气笑了、吓哭、心在滴血、不敢睡这类）；夸张只许用在感受上，事实、数字、产品结论不许夸大。
-- **情绪承载字（机读行）。** 定稿理由里单列一行「情绪承载字：「XX」」，XX 必须是从定稿标题原文逐字摘出的、带身体或情绪反应的夸张短语。只陈述事件事实的词不算（比如新闻事实本身，没有感受层）。写承载字时先问一句：这几个字里有没有「我被怎么怎么样了」的身体或情绪反应？没有就换标题。
-- **情绪家族与不重样。** 夸张说法分家族：吓（吓得、吓哭、不敢睡、连夜）、慌（慌到、失眠）、疼（滴血、心疼）、气（气笑、气得）、麻（翻麻、麻了）、崩（崩溃）、冲动（想退、想注销、想删、剁住）、抖（直抖、发抖）、惊（我的天啊、我的天、天啊）、意外（真没想到、万万没想到、没想到）、赚（赚翻了、血赚）、香（真香）。本期家族不许与上一期相同；写稿时先看上一期的承载字再定本期。赚翻了、血赚只许配本期实测算清的省钱数（正文必须有账），不许用在理财、投资收益话题；真香只许配先嫌弃后离不开的真实反转（前后态度都要在正文里出现）。
-- **情绪前置。** 夸张短语默认写进标题前半段：承载短语的起点原则上不晚于加权第 10 字、且不超过标题总长的一半；不许先铺一段长事实、把情绪吊在最后（列表和信息流里尾巴最容易被截断或略过）。结构优先「情绪反应 + 事实」或「短事实 + 情绪反应 + 关键后果」；核心搜索词仍尽量留在前 10 字，冲突时先保情绪钩子，搜索词可退到封面副标题和正文首句。
-- **情绪须贴内容。** 先找本期最扎人的那个具体事实，再决定夸张说法，不许套放到哪期都成立的万能词。定稿理由单列机读行「情绪关联：「<本期具体事实> → <标题里的夸张短语>」」。多样化不只换家族，还要轮换反应机制与句式（身体反应、冲动动作、反问、自嘲、预期违背等）。
-- **共鸣自检。** 定稿理由声称的共鸣点，必须能在标题原文里指出承载情绪的那几个字；指不出，共鸣不成立。只写工具在干活的拟人化陈述（「XX 帮我做完了 X」式：痛点不在标题里、结果已经完成、没有未解的 tension）不算情绪钩子。
-- 外文产品名保留，它本身就是搜索词，后面紧跟一句中文人话解释它是什么。
+**Check the viral knowledge base before writing** (`core/viral-playbook.md`): pick a formula for the title there first, settle the body type (save-type or comment-type), then write.
 
-## 正文
+- Write as many versions as the table says, then pick — never pass on one version alone. Every version keeps its proof: which knowledge-base formula it came from (with its number, like F2), what kind of hook, and its weighted character count — all three marked beside that version.
+- **One formula per version at most.** Three versions must not be the same formula with swapped words.
+- **Every version must have a hook.** Five qualifying hook kinds, any one counts: questioning tone, personification, an emotion word, an expectation-breaking conflict, a strong promise tone. A "manual-style" title — just category words plus numbers plus list nouns, no tone at all — gets cut on the spot and never becomes a finalist.
+- **Trade-off order is fixed: resonance first, assets second, search terms third.** The settled-title reason leads with the resonance point (which emotion it hits, where the conflict sits), then asset signals (numbers, lists, things to take away) and body type (save-type or comment-type). When hook and assets don't both fit in 20 characters, sacrifice assets to save resonance — assets fall back to the cover subtitle and the body's first sentence.
+- **Count characters by the weighted rule** (see the table's hard-cap row). The number written beside a title is the weighted count, never the raw character count. Target range, hard cap, and core search term position all follow the table; a version over the cap gets cut directly.
+- **Title anchor (step 0 of writing — settle the anchor before starting titles).** The anchor is this episode's single most striking concrete point (a concrete fact, number, scene, or contrast), written as a machine-readable line in `post.md`: "标题锚点：「…」" (Title anchor: "…"). Its keyword is 4+ characters and must appear word for word in the settled title. The 3 candidate versions must be three different angles on the same anchor (number impact, contrast, scene immersion, consequence warning, counter-intuitive — pick any three) — never three versions that only swap emotion words over the same facts. Mark each version's angle. Besides resonance and asset signals, the settled-title reason adds one line, "reasons for rejecting": why each of the other two versions fits the anchor worse than the settled one (one sentence each). After settling, polish once more before saving: cut empty words, land concrete nouns and numbers in the title, read it through to check it sounds human; write one sentence on what changed.
+- **Order rule: anchor → angle → emotional tone.** Never pick emotion words first and then find facts to fit them. The emotion word list only covers the rear (guarding against lukewarm wording and two episodes in a row with the same style) — it doesn't decide what the title looks like.
+- **Emotion must be exaggerated.** Lukewarm wording (a bit panicked, pretty torn) doesn't pass. Push the feeling to the top with amplified, dramatic everyday wording (like 翻麻了, "overwhelmed to numbness"; 气笑了, "so angry it's funny"; 吓哭, "scared to tears"; 心在滴血, "heart bleeding"; 不敢睡, "afraid to sleep"). Exaggeration applies to feelings only — facts, numbers, and product conclusions must never be exaggerated.
+- **Emotion-carrying words (machine-readable line).** The settled-title reason carries its own line, "情绪承载字：「XX」" (Emotion-carrying words: "XX"), where XX must be an exaggerated phrase lifted character for character from the settled title's own text, carrying a body or emotion reaction. Words that only state the event's facts don't count (a news fact on its own has no feeling layer). When writing the carrying words, ask first: do these words contain an "I got hit how" body or emotion reaction? If not, change the title.
+- **Emotion families, no repeats.** Exaggerated wording falls into families: 吓 scare (吓得, 吓哭, 不敢睡, 连夜 — scared stiff, scared to tears, afraid to sleep, overnight), 慌 panic (慌到, 失眠 — panicked to, sleepless), 疼 pain (滴血, 心疼 — bleeding, heart aching), 气 anger (气笑, 气得 — laughed from anger, angered to), 麻 numb (翻麻, 麻了 — overwhelmed numb, gone numb), 崩 breakdown (崩溃 — collapsed), 冲动 impulse (想退, 想注销, 想删, 剁住 — want to return it, want to delete the account, want to delete it, hold off buying), 抖 trembling (直抖, 发抖 — shaking outright, trembling), 惊 shock (我的天啊, 我的天, 天啊 — oh my god, my god, god), 意外 surprise (真没想到, 万万没想到, 没想到 — really didn't expect, never in a million years, didn't expect), 赚 windfall (赚翻了, 血赚 — made a killing, earned big), 香 actually-great (真香 — actually great after all). This episode's family must differ from the last episode's; check the last episode's carrying words before settling this one. 赚翻了 and 血赚 only pair with a savings number actually worked out in this episode (the body must carry the math) — never on finance or investment-return topics. 真香 only pairs with a real reversal from disliking to can't-live-without-it (both attitudes must appear in the body).
+- **Emotion up front.** The exaggerated phrase goes in the title's first half by default: its start should be no later than weighted character 10, and it must not pass the halfway point of the title's total length. Never lay out a long fact first and hang the emotion at the end (in lists and feeds, tails get cut off or skipped most easily). Preferred structures: "emotion reaction + fact" or "short fact + emotion reaction + key consequence". The core search term should still sit in the first 10 characters when possible; on a clash, the emotion hook wins first, and the search term may fall back to the cover subtitle and the body's first sentence.
+- **Emotion must fit the content.** Find this episode's most striking concrete fact first, then decide the exaggerated wording — never a universal word that would fit any episode. The settled-title reason carries its own machine-readable line, "情绪关联：「<this episode's concrete fact> → <the exaggerated phrase in the title>」" (Emotion link: "<fact> → <phrase>"). Variety means more than swapping families — rotate reaction mechanisms and sentence shapes too (body reactions, impulsive actions, rhetorical questions, self-mockery, expectation breaks).
+- **Resonance self-check.** A resonance point claimed in the settled-title reason must be pointable to the exact words in the title text that carry the emotion. If you can't point to them, the resonance doesn't hold. Pure tool-at-work personification ("XX finished X for me" style: the pain point isn't in the title, the result is already done, no unresolved tension) doesn't count as an emotion hook.
+- Foreign product names stay — they are search terms themselves — followed at once by one plain-words Chinese sentence explaining what the thing is.
 
-- 字数上限看总表。日常按精简口径写：细节交给视频，正文只写钩子句、核心结论、能带走的清单要点、判断和二选一提问，以发布编辑器一屏装得下、文末一眼可见为准（精简目标看总表）。正文太长不只是难读：发布时在编辑器里补话题，光标锚不到文末，容易出岔子。
-- 不许出现的：标题党说法（震惊、不看后悔这类）、绝对化词（清单看敏感附册）、导流词（联系方式、私信领链接这类）、荐股和虚拟币内容、假装亲测（没测过不许写亲测）。
+## Body
 
-## 话题
+- Length cap per the table. Everyday writing follows the slim rule: details go to the video; the body only carries the hook sentence, the core conclusion, the takeaway list points, the judgment, and the this-or-that question — judged by whether it fits one screen in the publish editor with the ending visible at a glance (slim target per the table). A body too long isn't just hard to read: when you add topic tags in the editor, the cursor can't anchor to the end of the text, and things go wrong easily.
+- Never allowed: clickbait wording (shocking, you'll regret missing this, and the like), absolute words (list in the sensitive appendix), diversion wording (contact info, DM-for-link, and the like), stock tips and virtual currency content, fake first-hand testing (never write "tested it myself" for something untested).
 
-- 按总表定的数量备：大词、垂类词、长尾词都要有。这里只备清单，发的时候怎么逐个点蓝，看 04 手册。
+## Topic tags
 
-## 口播稿
+- Prepare the count the table sets: big terms, niche terms, and long-tail terms all present. This step only prepares the list — how to tap each one blue at publish time is in guide 04.
 
-- 字数看总表，落盘后要按文件实数，不许估。
-- 落盘格式：`scripts.txt` 一行一段，每行是 `段名|这一段的口播文字`。段名用短英文或拼音，方便做片时对段。
-- **落盘时就按字幕节奏断句：单条字幕不超过总表定的字数**（一句一断，断在标点上），保证任何一条字幕排进画面最多两行。不许把超长句留给做片阶段——到做片才发现字幕挤成 3 行再返工断句，是白烧一轮。
-- 结尾一段的最后一句用总表定的结尾固定句，不许省、不许换。用了带点赞关注诉求的品牌片尾时，这句就不要了，两边别重复（看总表片头片尾那一行）。
+## Voiceover script
 
-## 写稿验收（落盘后、做片前自己先过）
+- Word count per the table; go by the file's actual count once saved, never estimate.
+- Save format: `scripts.txt`, one segment per line, each line `segment name|that segment's voiceover text`. Segment names in short English or pinyin, so video work can match segments easily.
+- **Break lines to the subtitle rhythm when saving: no single subtitle over the table's character count** (one sentence per break, breaking at punctuation), so that every subtitle fits in at most 2 lines on screen. Never leave an over-long sentence for the video stage — discovering a 3-line squeeze at video time and going back to re-break lines wastes a whole burn round.
+- The last segment's last sentence uses the table's fixed closing line — never dropped, never swapped. When a brand outro carrying a like-and-follow ask is used, drop this sentence — don't repeat it on both sides (see the table's intro/outro row).
 
-- `post.md` 里要有：标题各版及选定理由（含标题锚点、情绪承载字、情绪关联三行机读行）、口播稿实际字数、正文实际字数、话题清单、第一条评论预案、素材需求清单、发布设置（含 AI 内容声明固定一行）。
-- 逐项对核心标准第 3 条：细节够不够、产品四问答没答清。
-- 字数不达标、只有结论没有步骤和数字和入口、没有明确判断或对比，退回重写，不许进做片。
+## Writing acceptance (after saving, self-check before video work)
+
+- `post.md` must contain: each title version with its reason for picking (including the three machine-readable lines: title anchor, emotion-carrying words, emotion link), the voiceover script's actual word count, the body's actual word count, the topic-tag list, the first-comment draft, the material needs list, and publish settings (including the fixed AI content declaration line).
+- Check item by item against core standard 3: enough detail, the four product questions answered or not.
+- Word count short, conclusions only with no steps, numbers, or entry points, no clear judgment or comparison — send back for rewrite, never into video work.

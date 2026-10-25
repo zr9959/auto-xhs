@@ -1,86 +1,88 @@
-# 阶段手册 05 · 汇报和发后跟进
+[中文](05-followup.zh-CN.md) | English
 
-> 什么时候读：总管派汇报或发后跟进单时。先读宪法页，再读这份。
-> 数字都看宪法页「数字总表」，这份手册只引用，不另写。
+# Stage guide 05 · Reporting and follow-up
 
-## 输入
+> When to read: when the manager dispatches a report or follow-up task. Read the constitution page first, then this guide.
+> All numbers come from the constitution page's numbers table. This guide only cites them, never writes its own.
 
-- 发布阶段交回的发布链接和实际发布时间，以选题台账（`paths.ledger_file`）当天条目为准。
-- 互动状态文件（`paths.interaction_file`），去重看它。
+## Input
 
-## 产出
+- The publish link and actual publish time handed back by the publish stage, with the ledger's (`paths.ledger_file`) day entry as the authority.
+- The interaction state file (`paths.interaction_file`) — dedup reads it.
 
-- 当天台账一行（发布阶段落盘，跟进阶段核对）。
-- 跟进的处理结果：回过的评论和私信，互动状态文件更新好。
-- 按下面的分级规矩汇报。没有新动静就静默，不发空报。
+## Output
 
-## 交回总管的证据清单
+- The day's ledger line (saved by the publish stage, checked by the follow-up stage).
+- Follow-up results: comments and DMs replied to, interaction state file updated.
+- Reports by the level rules below. No new activity means silence — no empty reports.
 
-- 这一轮实际覆盖的时间窗口（起止时刻）和检查路线（红点看了没、评论数变没变、直达链接什么状态）。
-- 每条处理过的互动：帖子链接、评论者、时间、原文摘要、回复原文。
-- 没核实成的项和页面原话；需要号主处理的私信类别。
-- 异常四要素（没有就写「无」）。
+## Evidence list to hand back to the manager
 
-## 汇报分三级
+- The time window this round actually covered (start and end times) and the check route (red dots looked at or not, comment counts changed or not, direct-link state).
+- Every handled interaction: post link, commenter, time, original summary, reply text.
+- Items that couldn't be verified, with the page's own words; DM categories needing the owner.
+- The four elements for problems (write "none" when there are none).
 
-先分清什么时候写一行、什么时候写全四要素：
+## Three report levels
 
-1. **全程顺利、没异常：写一行。** 只写选题加品类加来源、标题、链接、实际发布时间。不发流水账。
-2. **有可降级异常、但已按规矩处理好、成品没受影响：先一行结论，再用一小段补齐四要素。** 不许只写一句「已降级」。
-3. **闸口没过、没发出去、成品受了影响、需要号主动手、或跟已有记录对不上：先一行结论，再写全四要素和待发文件的路径。**
+First get clear on when to write one line and when to write all four elements:
 
-运行日志不受这个分级影响，日志里永远按阶段和四要素留全。
+1. **All smooth, no problems: one line.** Only topic plus category plus source, title, link, and actual publish time. No running commentary.
+2. **A degradable problem, handled by the rules, finished piece unaffected: one conclusion line first, then a short paragraph completing the four elements.** Never a single line saying only "degraded".
+3. **A gate failed, nothing posted, finished piece affected, owner action needed, or records disagreeing with what exists: one conclusion line first, then all four elements plus the ready-to-post file paths.**
 
-## 出错写四要素（所有环节通用）
+The run log ignores these levels — the log always keeps full stages and four elements.
 
-任何一步出问题，汇报和日志里都要写全四样：
+## Problems get four elements (same for every step)
 
-1. 卡在哪个环节、哪个具体对象（哪一步、哪个话题、哪个信源，说到具体那个东西）。
-2. 页面或工具的原话（报错文字照抄），或截图路径。
-3. 自己试了什么办法、各试了几次、每次什么结果。
-4. 最后怎么处置的（停下待发、跳过、降级），对成品有什么影响。
+Whenever any step breaks, reports and logs must carry all four:
 
-不许只写「故障」「失败」「不行」这种笼统词交差。笼统等于没汇报，事后没法复盘。日志的打点也一样：出问题当场就把四样记进去，不许等最后凭回忆补。
+1. Which step and which exact object (which step, which topic tag, which source — name the exact thing).
+2. The page's or tool's own words (copy error text verbatim), or the screenshot path.
+3. What you tried yourself, how many times each, and what each attempt gave.
+4. How it was handled in the end (stopped for a pack, skipped, degraded), and what it means for the finished piece.
 
-## 台账怎么写
+Never close with vague words like "broken", "failed", or "doesn't work". Vague equals unreported — no reviewing it later. Log stamps work the same: when a problem happens, log all four on the spot — never patch them in later from memory.
 
-发布后往台账（`paths.ledger_file`）补一行，至少要有：日期、品类、标题、链接、实际发布时间、备注。备注里写清：来源摘要、话题变蓝数 / 计划数、AI 声明选没选、第一条评论发没发、还没解决的毛病。实际发布时间一定要准，发后跟进算窗口就靠它。
+## How to write the ledger
 
-台账、运行日志、作品列表三边对不上时，先去核作品列表这个外部事实，再改记录。不许拿旧记录去盖真实的发布状态。
+After publishing, add one line to the ledger (`paths.ledger_file`) carrying at least: date, category, title, link, actual publish time, notes. Notes must state: source summary, topic tags blue count / planned count, AI declaration picked or not, first comment posted or not, and problems still unsolved. The actual publish time must be exact — follow-up window math depends on it.
 
-## 发后跟进
+When the ledger, run log, and post list disagree, check the post list first as the outside fact, then fix the records. Never use an old record to cover over the real publish state.
 
-发帖后的头一段时间最关键，跟进只盯当天刚发的这一条。窗口长度和检查间隔看总表，都以台账里的实际发布时间为起点算，满了就停，之后不再跟进。
+## Follow-up after posting
 
-如果是补发或延迟发布，不能假装固定钟点已经把窗口覆盖全了。要在互动状态里写清这一轮实际覆盖了哪一段，缺的那段由补跑或主会话另行补上。
+The stretch right after posting matters most — follow-up only watches the post that just went out today. Window length and check interval follow the table, both counted from the ledger's actual publish time; when the window ends, stop — no follow-up after that.
 
-### 省着查：先看红点
+For a make-up or delayed post, don't pretend a fixed clock time already covered the whole window. Write clearly in the interaction state which stretch this round actually covered, and let a make-up run or the main session cover the missing stretch separately.
 
-- 先看页面上的通知图标（赞、藏、评论、关注）和私信图标有没有红点。没红点，这一轮直接结束，不点开任何列表。
-- 目标帖有没有新评论，只在主页或笔记列表看评论数跟上一轮比变没变。没变就不打开评论区。变了、或有评论红点，才点开处理。
-- 只处理按时间最新、没处理过的新条目。看过的绝不重复看、绝不重复回。每处理完一条，立刻更新互动状态文件：帖子链接、评论者、时间、原文摘要、回复原文。拿不到稳定的条目标识时，就用这四项当去重键。
+### Save effort: red dots first
 
-### 直达链接打不开时
+- First look at the page's notification icons (likes, saves, comments, follows) and the DM icon — any red dots? No red dots means this round ends right there, without opening any list.
+- Whether the target post has new comments: only compare its comment count on the home page or post list against the last round. Unchanged means don't open the comments. Changed, or a comment red dot, means open and handle.
+- Only handle the newest unhandled items, by time. Never re-read, never re-reply to anything already seen. Right after handling each item, update the interaction state file at once: post link, commenter, time, original summary, reply text. When no stable item ID is available, use those four as the dedup key.
 
-公开链接出现 404、空白、或「当前笔记暂时无法浏览」，不等于笔记不存在，也不等于互动是 0。这样办：先从主站的个人主页或笔记管理进去，再用通知列表交叉核对。三条路都核不到，就在互动状态里写「本轮未核实」和页面原话。不许把没证据写成 0。
+### When a direct link won't open
 
-### 回评论的规矩
+A public link showing 404, blank, or "this post is temporarily unavailable" doesn't mean the post doesn't exist, and doesn't mean interactions are 0. Do this: enter from the main site's personal home page or post management first, then cross-check with the notification list. When all three routes fail to confirm, write "unverified this round" in the interaction state, plus the page's own words. Never write no-evidence as 0.
 
-- 以号主本人的口气回：口语、亲切、一两句。必须结合这条评论的内容和这篇的内容具体回应，不许用模板句，不许重复句式。可以自然接话，或追问一句带互动。
-- **授权范围：有内容的真诚评论（有具体观点、真实提问或真切感受的），发现即可直接回，不必逐条请示号主。** 不限于当天新帖与发后窗口——老帖上新出现的这类评论同样自动回。老帖新评论以日常任务（发后跟进、晨间巡视、周复盘）扫通知红点时顺带发现、顺带处理为准，不为老帖另开常态巡逻任务。
-- **不回的三类：** 广告卖号、引流、纯情绪扣帽子。负面评论里带具体不满点（事实或体验层面的），回一句接住、不争辩（句式范围：「你说的这个情况确实有，我把口径补在这里」「这点是我没讲清，补一句：……」——只接事实不接情绪）；纯情绪、扣帽子、引战的不回，只记入互动状态并在汇报中列类。
-- 专业问题拿不准的不许瞎答，回一句「这个我确认下再回你」，并汇报号主。
-- 不许出现导流词、链接、敏感词，不许做任何承诺。
+### Rules for replying to comments
 
-### 私信的规矩
+- Reply in the owner's own voice: spoken, warm, a sentence or two. Every reply must respond concretely to that comment's content and this post's content — no template sentences, no repeated sentence shapes. A natural follow-up works, or one question to keep it going.
+- **Scope: a sincere comment with substance (a concrete opinion, a real question, or a genuine feeling) may be answered directly as soon as it's found — no need to ask the owner item by item.** This isn't limited to today's new post and the follow-up window — the same kind of new comment on an old post gets auto-answered too. Old-post new comments get found and handled in passing, when daily tasks (follow-up, morning patrol, weekly review) sweep notification red dots — no separate standing patrol task just for old posts.
+- **Three kinds never answered:** ad sellers, diversion posts, pure emotional name-calling. A negative comment carrying a concrete complaint (factual or experience level) gets one sentence that catches it without arguing (sentence range: "你说的这个情况确实有，我把口径补在这里" — "What you describe is real, let me add the wording here"; "这点是我没讲清，补一句：……" — "I didn't explain this point clearly, one more line: …" — catch the fact, not the emotion). Pure emotion, name-calling, and flame-bait don't get answered — only logged in the interaction state and listed by kind in the report.
+- A professional question you're unsure about must not be answered by guessing — reply "这个我确认下再回你" (Let me confirm this and get back to you), and report it to the owner.
+- No diversion words, links, or sensitive words, and no promises of any kind.
 
-- 跟内容有关的正常私信，简短回。
-- 沾钱、联系方式、合作报价、账号安全的，不自动回，记下来汇报号主处理。
+### Rules for DMs
 
-### 只看不动的
+- Normal DMs about the content get a short reply.
+- Anything touching money, contact info, partnership quotes, or account safety doesn't get auto-answered — log it and report it for the owner to handle.
 
-点赞、收藏、新增关注只看不动，不自动回关。这类变化只记进互动状态文件，不单独触发汇报。
+### Look only, don't touch
 
-### 什么时候才汇报
+Likes, saves, and new follows are look-only, never auto-followed-back. These changes only go into the interaction state file — they never trigger a report on their own.
 
-只有真的回了评论或私信，或有需要号主处理的私信时，才报一行：回了几条、大致内容，或待处理私信的类别。没有新动静、或只有赞藏关注变化，静默结束，不发空报。
+### When to report at all
+
+Only when comments or DMs were actually answered, or when DMs needing the owner exist, does one line go out: how many answered and roughly what, or the categories of DMs waiting. No new activity, or only likes, saves, and follows changing, means ending in silence — no empty reports.

@@ -1,23 +1,25 @@
-# 画面怎么做
+[中文](scene-notes.zh-CN.md) | English
 
-这一份写清这个玩法的视频画面。做片的人（和智能助手）照这一份排每一期。
+# How the visuals are made
 
-## 一共几段，每段放什么
+This file spells out this scenario's video visuals. The person (or AI assistant) making the video lays out every episode from it.
 
-一段一段写。照这个样子：
+## How many segments, what goes in each
 
-- **第 1 段（开场）**：放什么。一句话钩子先把人留住，放当期最要紧的那个信息。
-- **第 2 段（正文）**：放什么。数据一条条摆，数字用动效库里的数字滚动，别一整屏堆字。
-- **最后一段（收尾）**：放什么。一句建议或者一个问题，再带结尾固定句。
+Write it segment by segment. Like this:
 
-每段还要写清两件事：这一段口播大概多少字、画面上会出现哪些数（这些数必须跟稿子里的对得上）。
+- **Segment 1 (opening)**: what goes in. One hook sentence to hold the viewer first, carrying the episode's most important piece of information.
+- **Segment 2 (body)**: what goes in. The data items one by one, numbers done with the motion library's number rollup — don't stack a whole screen of text.
+- **Last segment (close)**: what goes in. One piece of advice or one question, plus the fixed closing line.
 
-## 模板文件放哪
+For each segment, also write two things: roughly how many words its voiceover runs, and which numbers appear on screen (those numbers must match the script).
 
-填：这个玩法的场景模板文件放在哪。比如就放在本文件夹里，叫 `scene.html`；或者直接用 `pipeline/templates/` 里的通用模板改。
-写清哪种。别人做片时要能直接找到它。
+## Where the template file sits
 
-## 跟通用做片规矩不一样的地方
+Fill in: where this scenario's scene template file lives. For example, right in this folder, called `scene.html`; or adapted from the general template in `pipeline/templates/`.
+Say clearly which one. Whoever makes the video needs to find it directly.
 
-有就写，没有就写「没有」。常见的比如：这个玩法不用真实产品图，画面全是数据卡；或者封面是固定版式，只换日期和数字。
-字幕位置、静音验收这些硬规矩不许在这改，那些在 `core/` 里，全玩法统一。
+## Where it differs from the general video rules
+
+Write it if there is one, otherwise write "none". Common cases: this scenario doesn't use real product pictures, its visuals are all data cards; or its cover is a fixed layout, only the date and numbers change.
+Subtitle position, silence acceptance, and the other hard rules must not be changed here — those live in `core/` and apply to every scenario.

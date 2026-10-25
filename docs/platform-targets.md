@@ -1,63 +1,63 @@
-# 发到哪个平台：内容平台这一维
+[中文](platform-targets.zh-CN.md) | English
 
-先把两维分清，别混：
+# Which platform to publish to: the content-platform dimension
 
-- `adapters/` 管的是**哪个智能助手来干活**：Muse、Dots、Grok Bot。差别在谁来按按钮。
-- 这一份管的是**发到哪个内容平台**：现在只有小红书。差别在发到哪、按那个平台的什么规矩发。
+First, keep two dimensions apart — don't mix them:
 
-两维可以随便配：同一个助手，可以发不同平台；同一个平台，可以换不同助手。中间靠的还是文件约定，下面说清。
+- `adapters/` covers **which AI assistant does the work**: Muse, Dots, Grok Bot. The difference is who presses the buttons.
+- This file covers **which content platform it publishes to**: right now, only Xiaohongshu. The difference is where it goes and which rules of that platform apply.
 
-## 两个包：素材包和待发包
+The two dimensions combine freely: one assistant can publish to different platforms, and one platform can take different assistants. What connects them is still file conventions, explained below.
 
-做片做出来的成品，先是一个**素材包**，它不带平台味儿：
+## Two packs: material pack and ready-to-post pack
+
+The finished video-making output is first a **material pack**. It carries no platform flavor:
 
 ```
-素材包/
-├── video.mp4    母版视频。竖版，高清，以后各平台都从它出
-├── post.md      文案源：口播稿、要点、话题候选、数据出处，都在这
-└── cover.jpg    母版封面
+Material pack/
+├── video.mp4    Master video. Vertical, high-definition — every platform works from it later
+├── post.md      Script source: voiceover script, key points, topic candidates, data sources — all here
+└── cover.jpg    Master cover
 ```
 
-要发哪个平台，就在素材包的基础上，按那个平台的规矩改一份**待发包**。每个平台一份，互不影响：
+To publish to a platform, take the material pack and adapt one **ready-to-post pack** per that platform's rules. One per platform, no interference between them:
 
-- 标题按这个平台的长度习惯改。
-- 话题按这个平台的做法来。
-- 封面按这个平台的比例重做一张，母版那张不一定合用。
-- 发布时要选的声明、要走的步骤，按这个平台的清单来。
+- Rewrite the title to that platform's length habits.
+- Handle topics that platform's way.
+- Redo the cover at that platform's ratio — the master cover may not fit.
+- Pick declarations and follow steps by that platform's checklist.
 
-待发包的格式在 `orchestration/publish-checklist.template.md` 里已经定了（小红书那份）。新平台的待发包照同样的骨架写：文件还是那几个，清单内容换成新平台的。
+That way, one piece of material publishes to several platforms: topic picking, script writing, and video making happen once, and each platform only adds one step — "adapt a ready-to-post pack by its rules, then publish". No need to redo the whole chain per platform.
 
-这样，一份素材就能发好几个平台：选题、写稿、做片只做一遍，每个平台只多一步「按它的规矩改一份待发包，再发」。不用为每个平台重做一遍全套。
+## To add a new platform, hand in five things
 
-## 加一个新平台，要交五样
+To have this system publish to one more platform, prepare the five things below and put them in a platform guide, formatted like this file:
 
-想让这套系统多发一个平台，把下面五样备齐，放在一份平台说明里，格式跟这份文件一样就行：
+1. **Login method**: how to log in to this platform. The rule matches Xiaohongshu's: only the account owner scans the QR code themselves — nobody touches anyone else's password or verification code. Write clearly how to confirm the login worked.
+2. **Publish step checklist**: from opening the platform to pressing publish, step by step, in the style of `orchestration/publish-checklist.template.md`, each item tickable. Mark which steps are gates (no pass, no publish).
+3. **Platform rules and red lines**: what this platform checks and bans. For example, whether content declarations must be picked, how diversion counts, and any special requirements for this kind of content. Only write what has a source. What you haven't verified, write as "unverified" — no guessing.
+4. **Copy differences**: compared with Xiaohongshu, which parts of the copy change. For example, title length, whether topics are added, whether the first comment still goes out, what wording the body must not use. Only write the differences — don't copy what is the same.
+5. **One filled-in ready-to-post pack example**: take one piece of material that really ran (made-up content is fine), adapt it into a ready-to-post pack by this platform's rules, all four pieces complete, so later readers can check the format against it.
 
-1. **登录办法**：怎么登录这个平台。规矩跟小红书一样：只能账号主人本人扫码，别人的密码、验证码谁都不许碰。这一步怎么确认登录成功，写清。
-2. **发布步骤清单**：从打开平台到点发布，一步一步写，照 `orchestration/publish-checklist.template.md` 那个样子，逐项能打勾。哪一步是闸口（不过不许发）标出来。
-3. **平台规矩与红线**：这个平台查什么、禁什么。比如内容声明要不要选、导流怎么算、这一类内容有没有特别要求。只写有出处的，没核实过的写「未核实」，不许猜。
-4. **文案差异**：跟小红书比，文案要改哪几处。比如标题长度、话题加不加、第一条评论还发不发、正文里什么话不能说。只写差异，相同的别抄。
-5. **一份填好的待发包示例**：拿一条真实跑过的素材（虚构内容就行），按这个平台的规矩改成待发包，四件套齐全，让后面的人照着看格式对不对。
+With all five ready, add one line for the platform in this file's platform list, and the platform counts as connected.
 
-五样齐了，在这一份文件的平台清单里加一行，这个平台就算接进来了。
+## Platform list
 
-## 平台清单
-
-| 平台 | 状态 | 说明在哪 |
+| Platform | Status | Where it is explained |
 |---|---|---|
-| 小红书 | 在用 | 发布规矩在 `core/stages/04-publish.md`，待发包清单在 `orchestration/publish-checklist.template.md` |
-| 抖音 | 还没做，欢迎开发 | 见下面一节 |
+| Xiaohongshu | In use | Publish rules in `core/stages/04-publish.md`, ready-to-post checklist in `orchestration/publish-checklist.template.md` |
+| Douyin / TikTok | In use | `platforms/douyin/` (guide + runnable scripts) |
 
-## 抖音（还没做，欢迎开发）
+## Douyin / TikTok (in use — see the module)
 
-先说清状态：**抖音这一份还没做，也没实测过。** 下面写的是接口留好的样子，不是已经能用。谁想做，照上面五样交齐，就能接进来。
+State this clearly first: **the Douyin / TikTok module is built now — see `platforms/douyin/` (guide + runnable scripts: download, subtitle burn-in, outro join, sensitivity scan).** What follows is how the same material gets reused. The five things above now live in the module itself, kept here so a new port can follow the same shape. For TikTok: same pipeline, pick the outlet first (see the module); the sensitivity gates in the module are written for Douyin.
 
-同一份素材怎么复用，大概是这样：
+Roughly how the same material gets reused:
 
-- 母版视频是竖版高清，抖音同样主推竖版 1080×1920，跟小红书用同一份竖版素材正好，这一份可以直接当源，不用重做片。横版 1920×1080 在抖音也能发，但在信息流里上下有黑边、占的画面小，不是录屏、教程这类内容，就别用横版。
-- 文案要按抖音的习惯改：标题、话题、第一条评论的做法都跟小红书不一样，这正是五样里的第 4 样要写清的。
-- 要补的，就是上面那五样：抖音的登录办法、发布步骤清单、平台规矩与红线、文案差异、一份待发包示例。
+- The master video is vertical high-definition, and Douyin also pushes vertical 1080×1920 first — the same vertical material fits it directly as the source, no need to remake the video. Horizontal 1920×1080 also publishes on Douyin, but in the feed it gets black bars top and bottom and takes up less screen — unless the content is screen recording or tutorials, don't use horizontal.
+- Copy must change to Douyin's habits: title, topics, and first-comment practices all differ from Xiaohongshu's — and that is exactly what item 4 of the five things must spell out.
+- The five things above now live in the module: Douyin's login method (browser creator center), publish step checklist, platform rules and red lines (four sensitivity gates), copy differences, and runnable scripts. TikTok's own community rules are not a separate gate yet.
 
-补的时候注意一条：这个库只走浏览器里像人一样操作的路，不用任何非官方接口。抖音那边要是哪一步只能靠非官方接口才能做，就在平台说明里如实写「这一步做不到，只能半自动」，别绕路。
+One more thing when adding it: this library only takes the route of operating like a person inside a browser, never any unofficial interface. If some Douyin step can only be done through an unofficial interface, write honestly in the platform guide: "this step can't be done — semi-auto only". Don't route around it.
 
-做好了欢迎交回来，在上面的清单里把抖音那一行改成「在用」。
+New ports follow the same rule: hand in the five things, then add the platform's line to the list above.

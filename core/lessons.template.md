@@ -1,33 +1,35 @@
-# 教训册（模板）
+[中文](lessons.template.zh-CN.md) | English
 
-这份是空模板。用之前先复制一份，改名为 `lessons.md`，以后往那份里记。这份模板本身不要往里写你的记录。
+# Lessons log (template)
 
-## 怎么记
+This one is an empty template. Before using it, copy it and rename the copy `lessons.md`, and record into that copy from then on. Never write your own records into this template itself.
 
-- 按日期倒序追加，新的在上面。一条只记一件事。
-- 每条写三段，缺一段以后就看不懂：
-  1. **发生了什么：** 具体到哪条内容、哪个环节、实测的数字。不要写「出了点问题」这种看不出内容的。
-  2. **教训是什么：** 一句话说清下次怎么做才不再犯。
-  3. **升规矩了没：** 如果这条已经变成了固定规矩，写明升进了宪法页或哪份手册，并在那份文件里也改好。如果还没升，写「未升规矩」。
-- 流水账不要往这里记。这里只放「下次还会用得上的结论」。
-- 什么时候读：周复盘必读；选题、做片碰到像是老问题的情况，先翻一遍这里。
+## How to record
 
-## 条目格式（复制这段去填）
+- Append in reverse date order — newest on top. One entry, one event.
+- Each entry has three parts — missing one makes it unreadable later:
+  1. **What happened:** down to which piece of content, which step, and the measured numbers. Never write "something went wrong" with no content in it.
+  2. **What the lesson is:** one sentence on what to do next time so it doesn't repeat.
+  3. **Promoted to a rule or not:** if this entry already became a fixed rule, state which file and section it went into — and change that file too. If it hasn't been promoted yet, write "not promoted".
+- Don't put running commentary here. Only conclusions you'll use again next time.
+- When to read: must read at weekly reviews; when topics or video work hit something that looks like an old problem, flip through here first.
+
+## Entry format (copy this block and fill it in)
 
 ```markdown
-## YYYY-MM-DD 一句话标题
+## YYYY-MM-DD one-line title
 
-- 发生了什么：
-- 教训：
-- 升规矩：已升进（写文件和章节）/ 未升规矩
+- What happened:
+- Lesson:
+- Promoted to a rule: promoted to (file and section) / not promoted
 ```
 
-## 示例条目（虚构，看格式用，别当真事）
+## Sample entry (made up — for format only, not a real event)
 
-> 下面这条是编的，只是让你看一条该写成什么样。复制模板去用的时候，把这条删掉。
+> The entry below is invented, only to show what an entry should look like. When you copy the template for use, delete this entry.
 
-## 2026-01-01 验收只看画面，漏了一段没声音（虚构示例）
+## 2026-01-01 Acceptance only watched the picture, missed a silent stretch (made-up sample)
 
-- 发生了什么：一条讲示例产品的视频，中间有一段配音是空的，成片里那段只有画面没声音。验收时只抽帧看了画面，没听声音，发出去之后才发现。
-- 教训：验收不能只看画面。声音要单独验：全片跑一遍静音检测，再逐段对一下画面和配音的时长。
-- 升规矩：已升进做片手册的音频验收一节（本例为虚构，实际以你自己的手册为准）。
+- What happened: a video about a sample product had one voiceover stretch empty — that stretch showed picture with no sound. Acceptance only pulled frames and looked at pictures, never listened to sound, and the gap was only found after posting.
+- Lesson: acceptance can't watch pictures only. Sound needs its own check: run silence detection across the whole video, then match each segment's picture and voiceover lengths one by one.
+- Promoted to a rule: promoted to the video guide's audio acceptance section (this sample is made up — go by your own guides in practice).

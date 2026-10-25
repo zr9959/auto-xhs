@@ -1,47 +1,49 @@
-# 附册：视觉风格定版 —— 纸艺分层
+[中文](paper-style.zh-CN.md) | English
 
-> 可选风格。用这套风格时，做片阶段（03）开工前必读；验收逐项对照。不用时按 03 手册其他章节走，两者不混。色板和提示词是通用默认，换品类可改，但一期之内不许漂。
+# Appendix: visual style settled — layered paper-craft
 
-## 定版元素（每期一致，不许漂）
+> Optional style. When using this style, read it before video stage (03) starts; check against it item by item at acceptance. When not using it, follow the other sections of guide 03 — never mix the two. The color board and prompts are general defaults — change them for a different category, but never drift inside one episode.
 
-- **画法**：分层纸艺插画（layered paper-cut / paper collage）——半 3D 纸片层叠、层间柔和投影、边缘有纸片剪切感。不用扁平矢量、不用写实照片风、不用 3D 渲染风当主视觉。
-- **色板**：奶油纸色底（#f2e9d8 一带）+ 深青绿（teal）+ 焦橙（burnt orange）+ 近黑文字；警示、危险点缀用暗红。封面、正片、标题画面共用，不许逐期漂移。
-- **纹理：轻微**：只留隐约的纸纤维细纹，远看看不出、近看有一点纸感即可。不许做重纹理：粗颗粒、满屏噪点、夸张撕纸毛边、做旧污渍都不许。实现上用低透明度纸纤维纹理层统一覆在合成画面上（强度以抽帧放大后「隐约可见」为准），各层素材本身不带重纹理。
-- **生成提示词固定前缀**（生成背景、人物、道具图时逐字带上，只换后面的场景描述）：
+## Settled elements (same every episode, no drifting)
+
+- **Drawing method**: layered paper-cut / paper collage illustration — semi-3D paper layers stacked, soft shadows between layers, edges with a paper-cut feel. No flat vector, no realistic photo style, no 3D render style as the main visual.
+- **Color board**: cream paper base (around #f2e9d8) + deep teal + burnt orange + near-black text; warnings and danger accents in dark red. Cover, main video, and title card share it — no drifting episode by episode.
+- **Texture: light only**: just a hint of paper fiber grain — invisible from far away, a little paper feel up close. No heavy texture: coarse grain, full-screen noise, exaggerated torn-paper fray, or aged stains are all banned. In practice, one low-opacity paper fiber texture layer sits uniformly over the composited picture (strength judged by "faintly visible" when a pulled frame is zoomed in); the layer materials themselves carry no heavy texture.
+- **Generation prompt fixed prefix** (carried word for word when generating backgrounds, people, and prop pictures — only the scene description after it changes):
   `layered paper-cut illustration, cream paper background, deep teal and burnt orange palette, soft drop shadows, torn paper edges, semi-3D papercraft style, clean composition`
-  竖版构图在描述里注明 portrait composition。**生成图里不带文字**，一切文字后期确定性排版叠加。
+  For vertical compositions, note portrait composition in the description. **Generated pictures carry no text** — all text goes on later through deterministic layout compositing.
 
-## 场景拆层（每场必拆，不许整图平铺）
+## Splitting scenes into layers (every scene split, never one flat picture)
 
-每个场景至少拆成 4 层，素材清单与做片单里逐层列明：
+Every scene splits into at least 4 layers, listed layer by layer in the material list and the video dispatch:
 
-1. **背景层**：一张完整的纸艺场景底图——地点、地图、建筑、天空、地面、远山、室内陈设等环境细节齐全。**背景不许简单**：纯色、单渐变、只有光晕的底 = 不合格；背景本身要经得起单独看（有内容、有前后景深）。
-2. **中景层**：场景里的次级物件（家具、树木、车辆、货架、云层等），与背景分开出图、分开动。
-3. **主体层**：人物、主道具各自单独抠成纸艺元素（透明底 PNG），一个元素一张图，不许把人物和道具烙死在背景里。
-4. **前景层**：近景点缀（飘落的纸片、近处植物、光斑纸片等），制造纵深。
+1. **Background layer**: one complete paper-craft scene base picture — place, map, buildings, sky, ground, distant mountains, indoor furnishings, and other environment details all present. **The background must not be simple**: solid color, single gradient, or a base with only halos = failed; the background itself must hold up to being looked at alone (content, foreground and background depth).
+2. **Midground layer**: secondary objects in the scene (furniture, trees, vehicles, shelves, clouds, and the like), pictured and moved separately from the background.
+3. **Subject layer**: people and main props, each cut out as its own paper-craft element (transparent-background PNG) — one element per picture, never baking people and props into the background.
+4. **Foreground layer**: near ornaments (falling paper pieces, near plants, light-spot paper pieces, and the like) that create depth.
 
-- 层间靠**柔和投影 + 前后遮挡**出立体感；镜头运动时各层按景深给不同幅度的**视差位移**（远层慢、近层快）。
-- 图表、数字卡、结论卡同样做成纸艺元素（纸卡片、纸标签、纸印章），不许回落成扁平 UI 卡。
+- Layers get their 3D feel from **soft shadows + front-back overlap**; when the camera moves, each layer shifts by **parallax** according to depth (far layers slow, near layers fast).
+- Charts, number cards, and conclusion cards are likewise made as paper-craft elements (paper cards, paper labels, paper stamps) — never falling back to flat UI cards.
 
-## 动起来（与动效密度指标叠加执行）
+## Moving (runs on top of the motion density targets)
 
-- **每个元素在时间线上有自己的运动**：人物有动作或位移（走动、探头、摆手、点头——用分层肢体或整元素位移、旋转、弹跳实现）、道具会动（震动、翻页、弹跳、滚动）、中景与环境层有轻微环境动（云漂移、灯光闪烁、树叶轻晃）。不是所有层一起平移充数。
-- **任何 5 秒窗口内不许只有镜头推拉**：Ken Burns 式整图缩放不算动；验收抽相隔 2 秒的帧对，画面变化必须落在元素上，只有全局缩放的段落打回。
-- 动效密度的原有硬指标（每段 ≥4 个动效事件、全片每 10 秒 ≥2 个、关键数字 countUp、关键结论强调落点 ≥0.3 秒）继续有效，落点效果改用纸艺语言实现（纸印章盖下、对勾纸片贴上、纸卡翻面、撕纸揭示）。
+- **Every element has its own motion on the timeline**: people act or shift (walking, peeking out, waving, nodding — done with jointed limbs or whole-element shifts, rotations, bounces), props move (shaking, page-turning, bouncing, rolling), midground and environment layers carry light ambient motion (clouds drifting, lights flickering, leaves swaying gently). Not all layers sliding together to fake it.
+- **No 5-second window may contain only camera push-pull**: Ken Burns-style whole-picture zoom doesn't count as motion. At acceptance, pull frame pairs 2 seconds apart — the change must land on elements. A stretch with only global zoom gets sent back.
+- The original hard motion targets still hold (at least 4 motion events per segment, at least 2 per 10 seconds across the video, key numbers counting up, key conclusion emphasis landings of 0.3+ seconds) — landing effects now speak paper-craft language (paper stamp pressed down, checkmark paper piece stuck on, paper card flipped over, torn-paper reveal).
 
-## 自然与物理规律（动效做得再密，违反物理就出戏）
+## Nature and physics (however dense the motion, breaking physics looks wrong)
 
-- **重力**：落叶、掉落物、坠落元素必须加速下落（ease-in），不许匀速飘到底；落地要有停顿或滑出，不许穿过地面、桌面消失。
-- **关节**：拆件人物的头、臂、腿转动幅度在真人关节范围内，枢轴落在关节处，不反折、不过伸；运动全程拆件重叠余量不露缝、不脱位。
-- **接触与承重**：脚要踩实地面、手要扶住物件、坐姿的承重面贴合椅面——不悬空、不陷入。物件放在桌上要有接触阴影。
-- **遮挡顺序恒定**：层间前后关系全片一致，元素不许穿过桌椅、墙面和人物身体；飘落物的通道避开人脸和主体关键部位。
+- **Gravity**: falling leaves, dropped objects, and falling elements must accelerate downward (ease-in) — never float down at a steady speed. Landings need a pause or a slide-out — never passing through the ground or a tabletop and vanishing.
+- **Joints**: a jointed person's head, arms, and legs turn within real human joint range, pivots sitting on the joints — no folding backward, no overextending. Throughout the motion, jointed overlaps keep spare margin — no gaps showing, no parts coming loose.
+- **Contact and weight**: feet stand flat on the ground, hands hold objects, sitting weight presses onto the chair seat — nothing floating, nothing sinking in. Objects on a table need contact shadows.
+- **Overlap order stays fixed**: front-back relations between layers hold for the whole video — elements never pass through tables, chairs, walls, or people's bodies. Falling objects' paths avoid faces and key subject parts.
 
-## 多样化（纸艺定版后的范围）
+## Variety (after the paper-craft style is settled)
 
-画法与色板已由本附册定版、不再轮换；多样化只在构图、景别、场景、人物造型、排布与转场层面执行。
+Drawing method and color board are settled by this appendix and no longer rotate. Variety happens only at composition, shot scale, scene, person design, arrangement, and transition level.
 
-## 护栏
+## Guardrails
 
-- 真实界面与官方产品图仍用真图、装进纸艺框景出镜，不许纸艺图冒充实拍。
-- 品牌片头片尾不重制。
-- 封面与正片画法不得脱节：封面主视觉同样走纸艺风（见 03 手册封面一节），标题大字与期号角标仍走确定性排版合成。
+- Real interfaces and official product pictures still use real pictures, set inside paper-craft framing — never let a paper-craft picture pass itself off as a real shot.
+- Brand intro and outro clips don't get remade.
+- Cover and main video drawing methods must not come apart: the cover's main visual follows the paper-craft style too (see guide 03's cover section), and the big title text and issue-number corner label still go through deterministic layout compositing.

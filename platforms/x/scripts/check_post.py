@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
-"""X 发帖前检查：按模块 README 的写法规范逐项过。
+"""Pre-post check for X: run through the module README's writing rules item by item.
 
-用法：
-    python3 check_post.py --text "帖子正文"
+Usage:
+    python3 check_post.py --text "post text"
     python3 check_post.py --file draft.txt
-    python3 check_post.py --text "帖子正文" --kind reply   # 回复用更严的口径
+    python3 check_post.py --text "post text" --kind reply   # replies use a stricter rule
 
-检查项（FAIL = 硬规矩，WARN = 提醒）：
-  FAIL  禁用词（delve、moreover、furthermore、in conclusion、it's worth noting、
-        滥用的 game-changer、not just X, but Y 排比、每帖结尾必 CTA）
-  FAIL  Unicode 粗体（数学字母符号区 U+1D400–U+1D7FF）
-  FAIL  模板化串帖符号（🧵👇 全套）
-  WARN  hashtag 超过 2 个（标准 0–1 个）
-  WARN  emoji 超过 2 个（标准 0–2 个，多放句尾）
-  WARN  具体数少于 2 个（主线帖标准：≥2 个具体数 + 一个明确结论）
-  WARN  正文里带链接（免费号链接只放自回复，正文不放）
-  WARN  回复超过 30 词（回复中位约 10 词；只在 --kind reply 时判）
+Checks (FAIL = hard rule, WARN = heads-up):
+  FAIL  banned words (delve, moreover, furthermore, in conclusion, it's worth noting,
+        overused game-changer, not just X, but Y parallelism, a CTA at the end of every post)
+  FAIL  Unicode bold (Mathematical Alphanumeric Symbols, U+1D400–U+1D7FF)
+  FAIL  templated thread symbols (the full 🧵👇 set)
+  WARN  more than 2 hashtags (standard 0–1)
+  WARN  more than 2 emoji (standard 0–2, mostly at sentence ends)
+  WARN  fewer than 2 concrete numbers (main-line standard: ≥2 concrete numbers + one clear conclusion)
+  WARN  links in the main text (free accounts put links in self-replies only, not the main text)
+  WARN  reply over 30 words (reply median is about 10 words; only checked with --kind reply)
 
-退出码：有 FAIL 为 1，否则 0。
+Exit code: 1 if any FAIL, else 0.
 """
 
 import argparse
@@ -40,77 +40,77 @@ def report(results, status, name, detail):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="X 发帖前检查")
+    ap = argparse.ArgumentParser(description="Pre-post check for X")
     ap.add_argument("--text")
     ap.add_argument("--file")
     ap.add_argument("--kind", choices=["post", "reply"], default="post")
     args = ap.parse_args()
     if bool(args.text) == bool(args.file):
-        print("二选一：--text 传正文，或 --file 传草稿文件", file=sys.stderr)
+        print("Pick one: --text for post text, or --file for a draft file", file=sys.stderr)
         return 2
     text = args.text if args.text else open(args.file, encoding="utf-8").read()
     text = text.strip()
     if not text:
-        print("正文是空的", file=sys.stderr)
+        print("Post text is empty", file=sys.stderr)
         return 2
     results = []
     low = text.lower()
 
     found = [w for w in BANNED if w in low]
-    # “not just X, but Y”必须是同一句里的排比：X 通常就是几个词，but 离 not just
-    # 超过 40 个字就不是这个句式了，不然长帖子里随便一个 but 都会误伤。
+    # "not just X, but Y" must be a parallel in one sentence: X is usually just a few words, so if but sits
+    # more than 40 characters after not just, it isn't that construction — otherwise any but in a long post would false-alarm.
     if re.search(r"not just\b.{0,40}?\bbut\b", low):
-        found.append("not just X, but Y 排比")
+        found.append("not just X, but Y parallelism")
     if found:
-        report(results, "FAIL", "禁用词", "命中：" + "、".join(found))
+        report(results, "FAIL", "Banned words", "Hit: " + ", ".join(found))
     else:
-        report(results, "PASS", "禁用词", "没命中禁用词")
+        report(results, "PASS", "Banned words", "No banned words hit")
 
     bold = [ch for ch in text if 0x1D400 <= ord(ch) <= 0x1D7FF]
     if bold:
-        report(results, "FAIL", "Unicode 粗体", "用了数学字母符号区的粗体字，改回普通字")
+        report(results, "FAIL", "Unicode bold", "Mathematical Alphanumeric Symbols bold used — switch back to plain text")
     else:
-        report(results, "PASS", "Unicode 粗体", "没用")
+        report(results, "PASS", "Unicode bold", "Not used")
 
     if "🧵" in text and "👇" in text:
-        report(results, "FAIL", "模板化串帖符号", "🧵👇 全套是模板味，去掉")
+        report(results, "FAIL", "Templated thread symbols", "The full 🧵👇 set reads templated — drop it")
     else:
-        report(results, "PASS", "模板化串帖符号", "没用全套模板符号")
+        report(results, "PASS", "Templated thread symbols", "Full template set not used")
 
     tags = re.findall(r"#\w+", text)
     if len(tags) > 2:
-        report(results, "WARN", "hashtag", f"{len(tags)} 个，超了上限 2 个（标准 0–1 个）")
+        report(results, "WARN", "hashtag", f"{len(tags)} — over the max of 2 (standard 0–1)")
     else:
-        report(results, "PASS", "hashtag", f"{len(tags)} 个")
+        report(results, "PASS", "hashtag", f"{len(tags)}")
 
     emojis = EMOJI_RE.findall(text)
     if len(emojis) > 2:
-        report(results, "WARN", "emoji", f"{len(emojis)} 个，超了上限 2 个")
+        report(results, "WARN", "emoji", f"{len(emojis)} — over the max of 2")
     else:
-        report(results, "PASS", "emoji", f"{len(emojis)} 个")
+        report(results, "PASS", "emoji", f"{len(emojis)}")
 
     nums = re.findall(r"\d[\d,.]*", text)
     if args.kind == "post" and len(nums) < 2:
-        report(results, "WARN", "具体数", f"只找到 {len(nums)} 个数字，主线帖标准是 ≥2 个具体数")
+        report(results, "WARN", "Concrete numbers", f"Only {len(nums)} number{'s' if len(nums) != 1 else ''} found — main-line standard is ≥2 concrete numbers")
     else:
-        report(results, "PASS", "具体数", f"找到 {len(nums)} 个数字")
+        report(results, "PASS", "Concrete numbers", f"{len(nums)} number{'s' if len(nums) != 1 else ''} found")
 
     if re.search(r"https?://", text):
-        report(results, "WARN", "链接", "正文里带链接；免费号链接只放自回复，正文不放")
+        report(results, "WARN", "Links", "Links in the main text; free accounts put links in self-replies only, not the main text")
     else:
-        report(results, "PASS", "链接", "正文没带链接")
+        report(results, "PASS", "Links", "No links in the main text")
 
-    # 中文按字计、英文按词计，不然中文帖子按空格分词永远只有几个“词”，长度检查失效。
+    # Chinese counts by character, English by word — otherwise a Chinese post split on spaces is always just a few "words" and the length check never fires.
     words = (len(re.findall(r"[A-Za-z0-9]+", text))
              + len(re.findall(r"[\u4e00-\u9fff]", text)))
     if args.kind == "reply" and words > 30:
-        report(results, "WARN", "回复长度", f"{words} 词/字，回复中位约 10 词，太长了，砍到一个具体点")
+        report(results, "WARN", "Reply length", f"{words} words/chars — reply median is about 10 words, too long; cut it to one concrete point")
     else:
-        report(results, "PASS", "长度", f"{words} 词/字")
+        report(results, "PASS", "Length", f"{words} words/chars")
 
     fails = results.count("FAIL")
     warns = results.count("WARN")
-    print(f"结论：FAIL {fails} 项，WARN {warns} 项")
+    print(f"Summary: {fails} FAIL, {warns} WARN")
     return 1 if fails else 0
 
 

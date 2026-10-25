@@ -1,48 +1,50 @@
-# Muse 这条路怎么走
+[中文](README.zh-CN.md) | English
 
-这是三家里最完整的一条。已经有账号在用这条路日更，子 agent 分工、定时、浏览器发布都跑通过。
+# How the Muse path works
 
-## 装法
+This is the most complete of the three paths. An account already posts daily through it, and sub-agent division of labor, scheduling, and browser publishing have all been run through.
 
-1. 把仓库放到 Muse 能读到的工作目录里。
-2. 把 `skill/SKILL.md` 放进你的 skill 目录，或者在项目里指给它读。这个 skill 是个薄壳，不存规矩，只写读取顺序。
-3. 按根目录的设置向导填好配置：品类、信源、发布时间、自动化程度这些。
-4. 小红书登录你本人扫码。先在主站登录，再从主站入口进创作者平台。细节看设置向导和 `core/stages/` 里发布那份。
+## Setup
 
-## 一轮日更怎么跑
+1. Put the repo where Muse can read it as a working directory.
+2. Put `skill/SKILL.md` into your skill directory, or point the project at it. This skill is a thin shell — it holds no rules, only the reading order.
+3. Fill in the config by following the setup guide in the repo root: category, sources, publish time, automation level, and the rest.
+4. Log in to Xiaohongshu by scanning the QR code yourself. Log in on the main site first, then enter the creator platform from the main site. Details are in the setup guide and the publish guide in `core/stages/`.
 
-总管读 `core/CONSTITUTION.md` 开工，按 `orchestration/orchestrator.md` 派单：选题、写稿、做片、总管亲自验收、发布、收尾。同一时刻只跑一个阶段，上一单验过才派下一单。派单模板在 `orchestration/dispatch-templates.md`。
+## How one daily round runs
 
-## 定时怎么建
+The manager reads `core/CONSTITUTION.md` to start, then dispatches by `orchestration/orchestrator.md`: topic picking, script writing, video making, the manager's own acceptance check, publishing, wrap-up. Only one stage runs at a time — the next dispatch goes out only after the previous one passes. Dispatch templates are in `orchestration/dispatch-templates.md`.
 
-五件事各建一个定时任务：日更、早看门狗、晚看门狗、发后跟进、周复盘。模板在 `orchestration/scheduling/cron-claude.example.md`，五份都写好了，照着填占位符。
+## How to build the schedules
 
-## 自动化程度
+Build one scheduled task for each of the five jobs: daily post, early watchdog, late watchdog, post-publish follow-up, weekly review. Templates are in `orchestration/scheduling/cron-claude.example.md` — all five are written out, just fill in the placeholders.
 
-- 全自动：验收过了直接派发布单。
-- 半自动：验收过了停住，备好待发包等你放行。待发包格式看下面。
+## Automation level
 
-新号先用半自动。跑稳了再切全自动。风险说明看 `docs/compliance.md`。
+- Full-auto: once acceptance passes, the publish dispatch goes out directly.
+- Semi-auto: once acceptance passes, it stops and prepares the ready-to-post pack, waiting for you to approve it. The pack format is below.
 
-## 待发包（半自动时用）
+New accounts start in semi-auto. Switch to full-auto once it runs steadily. The risk notes are in `docs/compliance.md`.
 
-固定四个文件，和另外两家同一份格式：
+## Ready-to-post pack (used in semi-auto)
 
-- `video.mp4`：验收通过的成片
-- `cover.jpg`：单独做的封面
-- `post.md`：标题、正文、话题、AI 内容声明、第一条评论
-- `publish-checklist.md`：照着勾的发布清单，模板在 `orchestration/publish-checklist.template.md`
+Four fixed files, the same format as the other two assistants:
 
-## 哪里会降级
+- `video.mp4`: the finished video that passed acceptance
+- `cover.jpg`: the separately made cover
+- `post.md`: title, body, topics, AI content declaration, first comment
+- `publish-checklist.md`: the tick-through publish checklist, templated in `orchestration/publish-checklist.template.md`
 
-你的运行环境没有浏览器能力，就发不了。降成半自动：前面照跑，备好待发包，你人工发。其余环节不受影响。
+## Where it falls back
 
-## 托管浏览器的输入限制（实测，发布前先知道）
+If your runtime has no browser ability, it can't publish. It falls back to semi-auto: everything before publishing runs as usual, the ready-to-post pack is prepared, and you publish by hand. The other steps are unaffected.
 
-Muse 托管浏览器的页面输入有几个已知的限制，发布时绕着走（发布手册 04 的话题连续输入流法就是为这个定的）：
+## Hosted browser input limits (tested — know these before publishing)
 
-- 没有逐字按键和剪贴板通道：送不了逐字键入，也用不了复制粘贴的快捷键。
-- 右键调不出上下文菜单。
-- 往编辑器里填字时，落点恒在元素中央、不跟随光标：在正文编辑器里追加内容，容易落进正文中段。
+Muse's hosted browser has a few known limits on page input. Work around them when publishing (the publish guide 04's click-select topic method was set for exactly this):
 
-对应的做法：发布走新建发布页，话题在文末用一次连续输入输完（`#话题名` + 空格自动转蓝），中途不动光标；不要在草稿编辑页里补话题。要动网页登录态的活（发布、补话题、发后跟进），派单时先确认执行者手里有浏览器能力——没有浏览器工具的执行者只能做本地活（核查、写稿、做片），派错了就是白等一轮。
+- No per-keystroke input and no clipboard channel: it can't send keystroke-by-keystroke typing, and can't use copy-paste shortcuts.
+- Right-click doesn't bring up a context menu.
+- When filling text into an editor, the drop point stays fixed at the center of the element and doesn't follow the cursor: appending content in the body editor can easily land in the middle of the body text.
+
+What to do instead: publish from a fresh publish page, and add topics by click-select — type `#`, wait for the suggestions to pop up, click the official topic, and check on the spot that it turned blue. The pasting method is the backup. The old continuous-input method is abolished — don't use it. Don't add topics later on a draft edit page. For any job that touches web login state (publishing, adding topics, post-publish follow-up), confirm at dispatch time that the worker has browser ability — a worker without browser tools can only do local jobs (checks, writing, video making). Dispatching wrong means waiting a whole round for nothing.

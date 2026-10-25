@@ -1,169 +1,171 @@
-# 阶段手册 03 · 做片
+[中文](03-video.zh-CN.md) | English
 
-> 什么时候读：总管派做片单时。先读宪法页，再读这份。
-> 数字都看宪法页「数字总表」，这份手册只引用，不另写。
-> 这一阶段收尾必须跑一遍 `../validate.py <当天素材夹路径>`，输出贴进证据清单。
+# Stage guide 03 · Video
 
-## 输入
+> When to read: when the manager dispatches the video task. Read the constitution page first, then this guide.
+> All numbers come from the constitution page's numbers table. This guide only cites them, never writes its own.
+> This stage must end with one run of `../validate.py <day's material folder path>`, with the output pasted into the evidence list.
 
-- 写稿阶段交回的 `post.md` 全稿和 `scripts.txt`。
-- 素材需求清单。
-- 动效库（仓库的 `motion-lib/`），组件都从库里调。
+## Input
 
-## 产出
+- The full `post.md` and `scripts.txt` handed back by the writing stage.
+- The material needs list.
+- The motion library (the repo's `motion-lib/`) — every component comes from the library.
 
-- 成片视频文件（规格看总表）和单独做的封面图，落盘到当天素材夹。
-- 成片验收单，写进 `post.md` 或同目录的 `验收.md`。
-- 运行日志补一行「成片验收过」打点。
+## Output
 
-## 交回总管的证据清单
+- The finished video file (specs per the table) and a separately made cover image, saved to the day's material folder.
+- The finished-video acceptance checklist, written into `post.md` or a `验收.md` (acceptance notes) in the same folder.
+- One more line in the run log: the "成片验收过" (finished video passed acceptance) stamp.
 
-- 开工前置两闸的留痕：素材到位清单（逐项文件和素材性质）和每段单帧预检的结果（见下面「开工前先过两闸」）。
-- 成片验收单六项（内容见下面「成片验收单」一节）。
-- `validate.py` 的输出全文。
-- 每个主要软件的对应表：软件名、界面文件、出现的段落和时间点。
-- 本片用了哪些动效事件、分别在哪个时间点，附至少 3 张动效中间状态的抽帧。
-- 异常四要素（没有就写「无」）。
+## Evidence list to hand back to the manager
 
-## 开工前先过两闸（过了才许逐帧捕获）
+- Traces of the two pre-start gates: the material readiness list (each item's file and material type) and each segment's single-frame pre-check result (see "Two gates before starting" below).
+- The finished-video acceptance checklist's six items (see the "Finished-video acceptance checklist" section below).
+- The full `validate.py` output.
+- A mapping table for each major piece of software: software name, interface file, segments and time points where it appears.
+- Which motion events this video used, at which time points, plus at least 3 pulled frames showing mid-motion states.
+- The four elements for problems (write "none" when there are none).
 
-- **素材前置闸口。** 做片开工第一件事不是排版，也不是捕获，而是交一份素材到位清单：把 `post.md` 素材需求里的产品图、真实界面逐项列清——每项对应的文件已经落盘到当天素材夹，而且是真实官方素材（官方产品图、官方界面截图、官方发布图），不是自制示意图。总管核过清单才许捕获。真实产品明明有官方图、却拿自制示意图顶替的，开工前就打回换图，不许等成片验收才发现。先用示意图把整片拍完再换图重渲，是白烧一整轮的做法。
-- **单帧预检。** 全量捕获前，每段先截 1 张关键帧，过一遍缺陷清单再放行这一段：字幕最多 2 行、无元素互相压盖、无文字截断、字幕底边和版面分区合规。全段预检都过了，才许全量捕获。禁止整片捕完才第一次看图——版式缺陷（字幕 3 行、卡片压图、图压标题、文字截断）都是整片返工级的错误，预检就是拦它们的。
+## Two gates before starting (pass them before any frame-by-frame capture)
 
-## 做片方式：网页做片
+- **Material readiness gate.** The first job of video work is not layout, and not capture — it's handing in a material readiness list: every product picture and real interface in `post.md`'s material needs, listed item by item — each matching file already saved to the day's material folder, and genuinely official material (official product pictures, official interface screenshots, official release pictures), not homemade diagrams. The manager checks the list before capture is allowed. When the real product clearly has an official picture but a homemade diagram is offered instead, send it back for a picture swap before starting — never discover it at finished-video acceptance. Shooting the whole video with diagrams first and swapping pictures for a full re-render wastes a whole round.
+- **Single-frame pre-check.** Before full capture, grab 1 key frame per segment and run it past the defect list before that segment is cleared: subtitles at most 2 lines, no elements overlapping each other, no cut-off text, subtitle bottom edge and layout zones compliant. Only when every segment's pre-check passes is full capture allowed. Never capture the whole video before looking at a single picture — layout defects (3-line subtitles, cards over pictures, pictures over titles, cut-off text) are whole-video rework errors, and the pre-check exists to catch them.
 
-视频是用网页做的，不是用剪辑软件拖出来的：
+## How videos are made: web-page video
 
-1. 每条片子写一个网页：HTML/CSS 排版面（渐变、玻璃质感、发光、阴影这些都靠 CSS），GSAP 排动画时间线。
-2. 动效组件一律调 `motion-lib/` 里的现成组件，不复制库、不自己另造一套。
-3. 捕获时把时间线暂停，按总表定的帧率一帧一帧跳到每个时刻截图。
-4. 最后用 ffmpeg 把帧、配音合成成片。
+Videos are made from web pages, not dragged together in an editor:
 
-两条硬要求：
+1. Each video gets one web page: HTML/CSS for layout (gradients, glass feel, glow, shadows — all CSS), GSAP for the animation timeline.
+2. Motion components always come from the ready-made components in `motion-lib/` — no copying the library, no building a second set yourself.
+3. At capture time, pause the timeline and jump frame by frame to each moment at the table's frame rate, screenshotting each.
+4. At the end, ffmpeg joins frames and voiceover into the finished piece.
 
-- **动画必须是时刻的函数。** 捕获靠的是「跳到 t 时刻、截图」，所以每个效果都要能只凭时刻算出当时的样子。不许用自己跑的计时器、当前时间、随手取的随机数来驱动动画。需要随机感的效果，用固定种子算，这样跳到同一时刻，画面永远一样。
-- **库文件放本机，不用在线地址。** GSAP 这些库先下载到本机再引用（拉库的方法看仓库的脚本说明）。做片时断网也要能跑。
+Two hard requirements:
 
-动效基线：标题逐字或分行弹入、卡片错开时间飞入、关键数字滚动累加、条形图生长、主推项呼吸发光、背景光晕慢慢漂、产品图带推拉。这些是底线，不许退回全片匀速淡入淡出凑数。
+- **Animation must be a function of time.** Capture works by "jump to time t, screenshot" — so every effect must be computable from the time alone. No self-running timers, no current time, no grab-bag random numbers driving animation. Effects that need a random feel use a fixed seed, so jumping to the same moment always gives the same picture.
+- **Library files live on this machine, no online URLs.** Download GSAP and friends to this machine first, then reference them (the repo's script notes say how to pull them). Video work must run with the network off.
 
-## 横版怎么做
+Motion baseline: titles popping in character by character or line by line, cards flying in at staggered times, key numbers counting up, bar charts growing, the main item breathing with glow, background halos drifting slowly, product pictures with push-pull. These are the floor — never fall back to uniform fades across the whole video to fill time.
 
-默认竖版。只有 config 里把方向选成横版的，才按这一节走，一共动四处：
+## How landscape works
 
-1. **设置改两处。** `video.orientation` 改成 `landscape`，`video.width`、`video.height` 改成 1920、1080。只改一处，验收会提醒你对不上。
-2. **截图命令加上尺寸。** capture.js 多传 `--width 1920 --height 1080`，跟设置里填的要一样。
-3. **画面模板跟着改。** 模板顶部的 STAGE 改成 1920×1080（改法写在模板注释里），页面里的横竖就由这一处说了算。
-4. **字幕锚点按百分比走。** 字幕底边固定在画面高度 80%（总表那条），横版同比例；动效库里那套字幕类的像素数是按 1920 高算的，横版按新高度换算，换完照样抽帧量一遍底边。
+Portrait is the default. Only when config picks landscape does this section apply — four changes total:
 
-横版排版提醒一句：画面变宽了，内容就横着排，左右铺开用；标题一行别写太长，竖版那套上下堆的排法搬过来会显得空。
+1. **Change two settings.** `video.orientation` becomes `landscape`, `video.width` and `video.height` become 1920 and 1080. Change only one, and acceptance will warn you they don't match.
+2. **Add the size to the screenshot command.** capture.js takes extra `--width 1920 --height 1080`, matching what the settings say.
+3. **Change the picture template with it.** The STAGE at the top of the template becomes 1920×1080 (the template comments say how); that one place decides horizontal vs. vertical for everything in the page.
+4. **Subtitle anchor follows percentages.** The subtitle bottom edge stays fixed at 80% of frame height (the table's row) — same ratio for landscape. The motion library's subtitle class pixel numbers are worked out for a 1920 height, so convert them for the new height, then pull frames and measure the bottom edge again.
 
-## 素材本身是横的怎么办（宽屏素材特例）
+One landscape layout reminder: the picture got wider, so lay content out sideways and spread it left and right. Don't write one title line too long, and don't carry over portrait's vertical stacking — it looks empty.
 
-主素材本来就是横的（发布会完整版、横版录屏这类）时，成片保持横版原尺寸，不许套竖版画布留黑边：
+## When the source material is itself landscape (widescreen source special case)
 
-- 字幕烧进画面内底部：字号按画幅高换算（1080 高的画幅约 64px），带半透明底框，保证手机上读得清。
-- 评论卡要跟字幕在视觉上分得开：评论卡用贴纸风（彩色渐变底、白色描边、轻微倾斜、带「网友神评」这类小标签），不许跟字幕用同款黑底条，观众分不清哪个是哪个。
-- 台标贴在画面左上角内侧。
-- 片头片尾用横版那套（见上面片头片尾一节），同尺寸归一化后直接拼。
+When the main material is already landscape (a full event recording, a landscape screen recording, and the like), the finished video keeps the landscape original size — never fit it onto a portrait canvas with black bars:
 
-## 动效要看得出来
+- Burn subtitles into the lower part of the picture: font size scales with frame height (about 64px for a 1080-high frame), with a semi-transparent backing box, so it stays readable on phones.
+- Comment cards must look clearly different from subtitles: comment cards use a sticker style (color gradient base, white outline, slight tilt, a small label like "网友神评", top netizen comment) — never the same black-bar style as subtitles, or viewers can't tell which is which.
+- The channel logo sits inside the top-left corner.
+- Intro and outro use the landscape set (see the intro/outro section above), normalized to the same size, then joined directly.
 
-验收标准是「一眼看得出在动、关键处有爆点」，不是「技术上有动效」。
+## Motion must be visible
 
-- 每段的动效事件数、全片的密度，看总表。动态标题入场、数据描绘或数字滚动、真实图揭示或翻卡、强调落点，每段至少各来一个。
-- 关键数字必须滚动到位。关键结论（差价、结论句、主推项）必须配一个强调落点：扫光、呼吸发光、彩带、对勾标记，任选其一。落点之后按总表停一下，让人看清，不许一闪而过。
-- 幅度要大。入场位移、缩放、翻转要大到抽帧能截出明显的中间状态。小幅漂移、低透明度淡入只能当辅助，不许充数当主效果。
-- 段和段之间用转场：擦除、圆形扩散、模糊交叉都行，不许硬切。
-- 背景层常开（星尘、光晕、颗粒按题材选），但不许抢正文。
+The acceptance standard is "motion you can see at a glance, with punch at the key points" — not "technically there is motion".
 
-## 开头要有标题画面
+- Motion event counts per segment and density across the video follow the table. Dynamic title entry, data drawing or number counting, real-picture reveal or card flip, emphasis landing — each segment gets at least one of each.
+- Key numbers must count up to their value. Key conclusions (price gaps, conclusion sentences, the main item) must each get an emphasis landing: light sweep, breathing glow, confetti ribbon, checkmark — pick one. After the landing, pause per the table so people can see it clearly — never flash past it.
+- Moves must be big. Entry shifts, zooms, and flips must be large enough that pulled frames show clearly different mid-states. Small drifts and low-opacity fades are only helpers — never counted as main effects.
+- Segments connect with transitions: wipes, circle spreads, blur crosses all work — no hard cuts.
+- The background layer stays on (stardust, halos, grain, picked by topic) but must not fight the main text.
 
-品牌片头之后、正文第一段之前，必须有一个醒目的标题画面：大字标题加本期关键视觉，让观众一开头就知道这条讲什么。只有角标小字不算达标。标题画面的时长跟它的口播对齐（有固定开场白的频道，开场白念完就进正文，不另留一段静音标题页）。
+## The opening needs a title card
 
-## 画面要有实物，不能只有字
+After the brand intro clip, before the first main segment, there must be a bold title card: big title plus this episode's key visual, so viewers know at once what the video is about. A small corner label alone doesn't pass. The title card's length matches its voiceover (for a channel with a fixed opening line, the opening line ends and the main video starts — no separate silent title page left in).
 
-每条视频都要有跟内容关联的图形、人物、物体来撑画面：讲到的物体、图形、人物都要真的画出来或找来演，每一段必须有一个占主导的物体或图形在动（剖面图、实物示意、粒子、人物剪影这类都算）。不许整段只有文字——文字只作标注和字幕。官方产品图、真实界面算达标元素之一，但光有它还不够，还要配跟内容相关的图形。素材可以从免费素材库找（图标库、免费动画素材、免费插画），只用免费或开源授权、无水印的。验收抽帧逐段核：哪段只有文字，打回。
+## Pictures must carry the picture, not just words
 
-## 品牌片头片尾（用了才看这节）
+Every video needs pictures, people, and objects tied to the content to carry the screen: every object, graphic, and person talked about must really be drawn or acted out, and every segment must have one dominant object or graphic in motion (section diagrams, object illustrations, particles, person silhouettes, and the like all count). Never a whole segment of text only — text only labels and subtitles. Official product pictures and real interfaces count as qualifying elements, but on their own they're not enough — they still need matching graphics. Material can come from free libraries (icon libraries, free animation material, free illustration) — only free or open-licensed, watermark-free material. Acceptance checks pulled frames segment by segment: any segment with text only gets sent back.
 
-config 里填了 `brand.intro_file` / `brand.outro_file` 的，成片按「片头 + 正文 + 片尾」拼（`assemble.sh` 的 `--intro`、`--outro` 参数）：
+## Brand intro and outro (only read this section when used)
 
-- 片头片尾先归一化到跟正片一样的规格（宽高、帧率、编码、AAC 48kHz）再拼，规格对不上不许硬拼。
-- 方向必须一致：正片是竖的，片头片尾也必须是竖的，不许竖正片配横片头。横版频道同理，备一套横的。
-- 片尾自带「点赞关注」诉求的，正文结尾不再另做求关注的口播句或卡片（总表片头片尾那一行），两边别重复。
+When config fills in `brand.intro_file` / `brand.outro_file`, the finished video joins as "intro + main + outro" (`assemble.sh` `--intro` and `--outro` flags):
 
-## 画面文字只写内容
+- Intro and outro get normalized to the main video's specs first (size, frame rate, encoding, AAC 48kHz) before joining — mismatched specs never get force-joined.
+- Directions must match: a vertical main video needs vertical intro and outro — never a vertical main video with a horizontal intro. Landscape channels likewise keep a landscape set.
+- When the outro already carries a like-and-follow ask, the main video's ending drops its own ask line or card (the table's intro/outro row) — don't repeat it on both sides.
 
-画面上的字只写内容本身：产品名、功能、价格、结论。不许写交代素材出处的注释（「官方图」「来源：某某」这类一个字都不许有）。产品图旁边要标字，只写产品名本身就够。验收时逐帧查这一条。
+## On-screen text only says the content
 
-## 每条要长得不一样
+Words on screen only say the content itself: product names, features, prices, conclusions. Never write notes explaining where material came from ("official picture", "source: so-and-so" — not one character of that). Beside a product picture, label text only needs the product name itself. Acceptance checks this frame by frame.
 
-- 同一条里，开头动画和结尾动画不许相同。
-- 跨条要换：开头方式、结尾画面、版式、转场、图形样式、背景和点缀色，跟着当条题材变。不许连着两条用同一套开场、收尾、版式。
-- 只有总表定的那几项不变：规格、倍速、结尾固定句、字幕锚点这些。
+## Every video must look different
 
-## 视觉风格：纸艺分层（可选风格，见附册）
+- Within one video, the opening animation and the ending animation must not match.
+- Across videos, change with the topic: opening style, ending shot, layout, transitions, graphic style, background and accent colors. Never run two videos in a row on the same opening, ending, and layout.
+- Only the table's fixed items stay the same: specs, speed, fixed closing line, subtitle anchor, and the like.
 
-- 风格附册：`core/paper-style.md`（分层纸艺插画：色板、固定提示词前缀、每场至少 4 层、层间视差、元素独立运动、5 秒窗口禁纯推拉、物理规律、纸艺落点语言）。用这套风格时，做片开工前必读附册，验收逐项对照；不用时按本手册其他章节走，两者不混。
-- 真实界面与官方产品图仍用真图、装进纸艺框景出镜，不许纸艺图冒充实拍。
+## Visual style: layered paper-craft (optional style, see the appendix)
 
-## 封面单独做
+- Style appendix: `core/paper-style.md` (layered paper-craft illustration: color board, fixed prompt prefix, at least 4 layers per scene, parallax between layers, elements moving independently, no pure push-pull inside any 5-second window, physics rules, paper-craft landing language). When using this style, read the appendix before video work starts and check against it item by item at acceptance; when not using it, follow the other sections of this guide — never mix the two.
+- Real interfaces and official product pictures still use real pictures, set inside paper-craft framing — never let a paper-craft picture pass itself off as a real shot.
 
-- 每条单独做一张封面图，规格看总表。不许拿视频第一帧裁一下凑数。
-- 大字行数看总表，一个钩子，高对比。排版随题材变，但同一栏目要有一致的模板感。
-- 封面带期号角标：「第 X 期」，X 是这条在台账里的累计发布序号。第一条是第 1 期，逐条累加，不许跳号、重号。从哪天起强制带，看总表的 `publish.issue_required_from`。验收单里要核对期号和台账序号一致。
-- **封面主视觉用 AI 生成（标题文字不许模型直写）。** 主视觉用 AI 图像模型按本期定稿标题 + 内容现场生成：画面要有爆款封面的钩子（强主体、强情绪、高对比、第一眼看懂讲什么），提示词从本期标题与核心结论里提炼，不许用与内容无关的通用美图凑数。标题大字与「第 X 期」角标仍走确定性排版合成（排字后叠到 AI 主视觉上），不许让图像模型直接渲染中文标题文字（易错字糊字）。生成图逐项检查：无错字残字、无水印、无畸变主体；画面里若出现本期产品，必须是本产品本型号的样子——AI 把产品画歪、画成别款时，改走「AI 场景 + 官方产品图合成」，不许将错就错。
-- **封面留证（机器闸口）。** AI 生成的原始主视觉图必须留在当天素材夹里（文件名带 ai 或 media-generation- 前缀），验收单里单列机读行「封面主视觉：AI生成」——验收脚本按此核对，缺字段或文件夹里没有 AI 源图都算来源存疑、不过闸。
-- **生图失败不许降级定版。** 生图失败只许换提示词、换模型重试，禁止拿截图、视频帧凑数当封面；真生成不出就停发，按四要素汇报。硬闸口不许预设退路：验收条件里不许提前写「失败就用截图」这类退路。
+## The cover is made separately
 
-## 节奏和信息量
+- Make one cover image per video, specs per the table. Never crop the video's first frame to fill in.
+- Big-text line count per the table, one hook, high contrast. Layout changes with the topic, but one column keeps one consistent template feel.
+- The cover carries an issue-number corner label: "第 X 期" (Episode X), X being this video's cumulative publish number in the ledger. The first video is episode 1, counting up one by one — no skips, no repeats. From which date it becomes mandatory follows the table's `publish.issue_required_from`. The acceptance checklist must check the issue number against the ledger number.
+- **The cover's main visual is AI-generated (the model must never write the title text directly).** The main visual comes from an AI image model generating on the spot from this episode's settled title + content: the picture must carry a viral cover's hook (strong subject, strong emotion, high contrast, clear at first glance what it's about), with the prompt distilled from this episode's title and core conclusion — never a generic pretty picture unrelated to the content. The big title text and the "第 X 期" (Episode X) corner label still go through deterministic layout compositing (laid out, then overlaid onto the AI main visual) — never let the image model render Chinese title text directly (it garbles characters). Check the generated picture item by item: no wrong or leftover characters, no watermarks, no distorted subjects. When the picture shows this episode's product, it must look like this product, this model — when the AI draws the product crooked or as another model, switch to "AI scene + official product picture composite" instead, never ship it wrong.
+- **Cover provenance (machine gate).** The AI-generated raw main visual must stay in the day's material folder (filename carrying an ai or media-generation- prefix), and the acceptance checklist carries its own machine-readable line, "封面主视觉：AI生成" (Cover main visual: AI-generated) — the acceptance script checks against it, and a missing field or a missing AI source picture in the folder both count as provenance in doubt, failing the gate.
+- **A failed generation never gets a downgraded cover.** A failed generation may only be retried with a new prompt or a new model — never fill in with a screenshot or video frame as the cover. When it truly can't be generated, stop the post and report with the four elements. Hard gates never get a pre-written way out: acceptance conditions must never pre-write a fallback like "if it fails, use a screenshot".
 
-- 口播字数、成片时长看总表。前几秒必须是结论或冲突开场，不放片头。信息点的节奏、全片最少个数、中段转折、结尾的二选一问题，都看总表。
-- 数字给全。讲价格和收费，单价、订阅价、一年的总花费都要算出来摆上。讲产品，至少有一处跟同类的价格或功能对比。不许连着罗列一堆参数。
+## Rhythm and information load
 
-## 素材要真
+- Voiceover word count and finished length follow the table. The first seconds must be a conclusion or conflict opening, no intro clip. Info point rhythm, minimum count across the video, the mid-video turn, and the ending this-or-that question all follow the table.
+- Give numbers in full. For prices and fees, show unit price, subscription price, and the year's total cost. For a product, at least one price or feature comparison against a similar one. Never a run of parameters in a row.
 
-- 优先用真实素材：官网页面截图、软件里真操作出来的截图、官方发布的图。空镜可以自己生成，动态图形可以自己做（清单一条条亮出来、地址栏打字、鼠标点击的波纹、高亮框圈重点这类）。不许拿静态图缩放凑数当动态素材。
-- **拿图失败就按这个顺序降级，不许跳着乱找：** ①厂商官方发布页、产品页、新闻稿、官方素材包；②官方账号、开发者、当事人的一手原帖配图；③自己在官网或软件里真操作得到的截图或官方演示画面；④可信媒体随官方稿发的同一张官方图；⑤标明「示意/爆料渲染」的渲染图，或同产品线现有产品的图并在画面上标清是哪一款；⑥还是拿不到、而产品视觉又是这条的核心，就换题或停发，不许拿不相干的图充数。每一级最多花单源时限那么久。`post.md` 的素材清单要写清每个主要素材的来源类型、原始页面、落盘文件、出现的段落。失败时按四要素记下试过的页面和结果。
+## Material must be real
 
-### 产品图三条硬要求
+- Prefer real material: official site screenshots, screenshots from actually operating the software, officially released pictures. Empty shots can be generated, motion graphics can be made yourself (list items lighting up one by one, address bar typing, mouse click ripples, highlight boxes circling key points, and the like). Never pass off a static picture zoom as motion material.
+- **When a picture can't be had, degrade in this order — never jump around at random:** ① the vendor's official release page, product page, press release, official material pack; ② the official account, developer, or involved person's first-hand original post pictures; ③ screenshots or official demo pictures from actually operating the official site or software yourself; ④ the same official picture carried by a trusted media outlet with the official release; ⑤ a render labeled "illustration / leak render", or a picture of an existing product from the same line with the screen labeled as to which model it is; ⑥ still nothing, and the product's look is core to this video — swap topics or stop the post, never fill in with an unrelated picture. Each level gets at most one per-source time limit. `post.md`'s material list must state each major material's source type, original page, saved file, and segments where it appears. On failure, log the tried pages and results as the four elements.
 
-1. 必须是这个产品、这个型号的图。不许拿产品线合影、一堆产品的合照充数——合照里混着别的产品，是最常见的翻车。
-2. 产品图在正文里出现的段数看总表。讲哪个特性就配哪张图，不许只在封面和开头闪一下，后面全程文字卡。
-3. 验收时抽帧逐张看：图里的东西是不是本产品、是不是本型号。外形对不上，换图重做。
+### Three hard requirements for product pictures
 
-### 软件和服务类要真实界面
+1. It must be this product, this model — never a product-line group shot or a pile of products passed off as one. Group shots mixing other products are the most common failure.
+2. Product pictures appear in the main video for the segment count the table sets. Match the picture to the feature being talked about — never flash it only on the cover and at the opening, then run text cards for the rest.
+3. At acceptance, check pulled frames picture by picture: is what's in the picture this product, this model? Wrong shape means swap the picture and redo.
 
-讲到具体的软件、App、在线服务，「产品图」指的是它的真实界面：官网的产品界面图、真实的功能页或定价页截图、官方发布配图。只有标志（logo）和自己画的信息卡不算数。要求：讲到的每个主要软件都要有真实界面出镜，合计段数看总表；讲到哪个功能、哪个价格，就配哪一页的界面。拿不到就按四要素写清，不许拿不相干的图充数。验收按「软件名 → 界面文件 → 段落/时间点」逐个列，少一个主要软件就不算达标，不许只数总段数。
+### Software and services need real interfaces
 
-## 字幕
+For specific software, apps, and online services, "product picture" means its real interface: the official site's product interface pictures, real feature or pricing page screenshots, official release pictures. A logo alone and a homemade info card don't count. Requirement: every major piece of software talked about needs its real interface on screen, for the segment count the table sets in total; match the interface page to the feature or price being talked about. When it can't be had, write the four elements clearly — never fill in with an unrelated picture. Acceptance lists them one by one as "software name → interface file → segments / time points" — one missing major piece of software means the whole item fails, never just counting total segments.
 
-- **位置看总表，贴底锚定。** 字幕底边固定在总表定的锚点上（小红书竖版实测：画面高度 80%，1080×1920 时 y=1536），1 行、2 行都一样：行数变了块只向上长，底边纹丝不动。为什么定在这：画面最下面那一块是播放器的系统信息区（作者头像、昵称、标题、声明都叠在那里），它的顶边实测在高度 84.4%；字幕底边定在 80%，跟它留出安全间距，就不会压住。那条线以下，字幕和重点文字都不许进。验收两步：①抽帧量字幕背景条的底边，落在总表的合格带里才算过；②把成片放进带底部信息区的预览里看一眼，字幕跟作者信息区不重叠。数字是小红书竖版实测的参考默认，换个平台先按动效库说明里的方法自己重测，别照搬。
-- **版面分区与内容区利用。** 全片画面分四块排（1080×1920 的数字，都出自上面那套实测推导）：①顶部安全线 y=250（13%）：观众视角顶部有导航行（返回、搜索、分享），主体内容从这条线往下排；贴边的固定小元素（徽章、日期条这类）不在此限。②主内容区 y=250 到 1340，高 1090：标题、信息卡、真实界面图都排在这里，下界是两行字幕块顶再往上留一点间隔。③字幕区：块顶随行数变（2 行 1376 / 1 行 1440），底边固定 1536。④系统信息区：顶边 1621 以下禁入。**利用率硬要求：**每段主体内容（标题 + 信息卡 + 真实界面图的整体）纵向跨度至少占主内容区高度的 55%（约 600px），在区内居中分布、上下排满；内容区下部空置不许超过 25%（约 270px）。排版先按内容区排主体、再放字幕，不许反过来迁就字幕把内容挤小。验收抽帧逐帧核对，可以把动效库的 `.ml-guide` 导线打开叠着看（成片里不许带导线），空置超标就返工。
-- **形态：** 字幕是跟着口播一句一句走的。每条只放当前这一句，最多几行看总表。不许把整段口播堆成好几行的大字块。画面上的信息卡只放关键词和数字，不许跟字幕整段重复——同一段话在画面上出现两遍，不合格。断行按意思断，标点不许跑到下一行行首。验收抽帧要逐张看字幕形态，不过就重排。
+## Subtitles
 
-## 配音和音频
+- **Position per the table, bottom-anchored.** The subtitle bottom edge stays fixed at the table's anchor (Xiaohongshu vertical measured: 80% of frame height, y=1536 at 1080×1920). 1 line or 2 lines, it's the same: when the line count changes, the block only grows upward, the bottom edge never moves. Why here: the lowest band of the screen is the player's system info area (author avatar, nickname, title, declarations all stacked there), and its top edge measured at 84.4% of height. The subtitle bottom edge at 80% keeps a safe gap from it, so nothing gets covered. Below that line, no subtitles and no key text may enter. Acceptance in two steps: ① pull frames and measure the subtitle backing bar's bottom edge — inside the table's pass band it passes; ② drop the finished video into a preview with a bottom info area and eyeball that subtitles don't overlap the author info area. These numbers are measured reference defaults for Xiaohongshu vertical — on another platform, re-measure first by the motion library's method, don't copy them blindly.
+- **Layout zones and content-area use.** The whole frame splits into four zones (1080×1920 numbers, all derived from that same measurement round): ① top safe line y=250 (13%): the viewer's top has a navigation row (back, search, share), so main content lays out below this line; small fixed edge elements (badges, date bars, and the like) are exempt. ② main content area y=250 to 1340, height 1090: titles, info cards, and real interface pictures all go here, its lower bound sitting a little above the top of a two-line subtitle block. ③ subtitle zone: block top varies with line count (2 lines 1376 / 1 line 1440), bottom edge fixed at 1536. ④ system info area: below top edge 1621, no entry. **Use-rate hard requirement:** each segment's main body (title + info cards + real interface pictures as a whole) must span at least 55% of the main content area vertically (about 600px), spread centered in the area, filled top to bottom; blank space at the bottom of the content area must not pass 25% (about 270px). Lay out the main body in the content area first, then place subtitles — never squeeze content small to make room for subtitles. Acceptance checks pulled frames one by one; you can open the motion library's `.ml-guide` guide lines overlaid to look (finished videos must not carry the guide lines) — over-limit blank space means rework.
+- **Form:** subtitles follow the voiceover sentence by sentence. Each card carries only the current sentence, at most the table's line count. Never stack a whole voiceover segment into a multi-line big text block. Info cards on screen only carry keywords and numbers — never repeat a whole subtitle segment. Two copies of the same passage on screen at once don't pass. Break lines by meaning; punctuation must not land at the start of the next line. Acceptance pulls frames and checks subtitle form one by one — a fail means re-layout.
 
-- 配音的服务和音色读 config 的 `tts.provider`、`tts.voice`，不在手册里写死。倍速看总表，用 setpts/atempo 实现。最后一句旁白是总表定的结尾固定句，画面上也要同字出现，不许省、不许换（用了带诉求的品牌片尾时例外，见片头片尾一节）。
-- **配音开工先冒烟。** 配音开工前先跑 `pipeline/tts/tts-smoke.sh`，以它输出的 `LIVE=` 那一行定这一期用哪个引擎，把输出原文写进验收单：`LIVE=primary` 用主引擎；`LIVE=fallback` 说明主引擎不通、已自动切到备用引擎，这一期就用备用出片，验收单写明；`LIVE=NONE` 才是配音整体不可用，按闸口异常停下、报四要素（把脚本打印的失败输出附上）。**不许凭「搜不到、查无此服务」下不可用的结论**——判定一个引擎不行，只认实际调用的失败输出。工具和音色都装在长期目录里，别装临时目录，临时目录随时会被清，那才是真的「找不到」。
-- **引擎降级顺序。** 引擎整体不可用时按这个顺序降：主引擎 → 同引擎重试 1 次 → 备用引擎 → 还不行按闸口异常停下报四要素。不许没经同意就私自换一条没定版的声音硬发。启用了备用音色时，运行日志和验收单要写明这一期实际用的音色。
-- **每段配音先自查。** 每段生成后先记下实际时长、跑一遍这段的静音分布，别等全片合完才发现某段是坏的。判断坏段：时长跟同批其他段明显不成比例，或段内有达到总表标记值的静音。坏段先停用。同文本只许原样重试 1 次（缓存可能把同一份坏音频再返给你）。还不行就按意思把这段拆成两半分别合成，拆完逐小段再查。拆完还坏，才小改措辞或标点重录，但不许改事实和数字。每次处理都把原时长、静音区间、重试或拆分的结果写进运行日志，最后做逐段音画对齐表。
-- **音频验收是硬规矩。** 只抽帧看画面不算验收。发布前对成片跑全片静音检测（ffmpeg 的 silencedetect，阈值和时长看总表）：片头片尾之外出现超过总表上限的静音段，直接打回。合成时逐段对齐，每段画面时长跟该段配音时长的误差要小于总表定的值。配音返工换了版本，必须重新对齐那一段的画面，不许留空档。
+## Voiceover and audio
 
-## 合成和编码
+- Voiceover service and voice come from config's `tts.provider` and `tts.voice` — never hard-coded in a guide. Speed per the table, done with setpts/atempo. The last voiceover line is the table's fixed closing line, and the same words must appear on screen too — never dropped, never swapped (except when a brand outro carrying the ask is used — see the intro/outro section).
+- **Smoke-test voiceover before starting.** Before voiceover work starts, run `pipeline/tts/tts-smoke.sh` and take the `LIVE=` line it prints as this episode's engine decision, writing the raw output into the acceptance checklist: `LIVE=primary` means use the main engine; `LIVE=fallback` means the main engine is unreachable and it already switched to the backup automatically — this episode goes out on the backup, noted in the checklist; `LIVE=NONE` is the only case where voiceover as a whole is unavailable — stop at the gate and report the four elements (attaching the script's printed failure output). **Never conclude "unavailable" from "can't find it, no such service"** — the only proof an engine is down is an actual call's failure output. Tools and voices live in a long-term directory, never a temp directory — temp directories get cleared at any time, and that's what a real "can't find it" looks like.
+- **Engine degrade order.** When an engine as a whole is unavailable, degrade in this order: main engine → same engine retried once → backup engine → still failing means stop at the gate and report the four elements. Never quietly swap in an unapproved voice and ship it. When a backup voice is in use, the run log and acceptance checklist must state this episode's actual voice.
+- **Self-check every voiceover segment.** After generating each segment, note its actual length and run that segment's silence spread — don't wait until the whole video is joined to find a bad segment. A bad segment shows as: length clearly out of proportion with the rest of the batch, or a silence reaching the table's flag value inside the segment. Shelve a bad segment first. The same text may only be retried verbatim once (the cache may hand back the same bad audio again). Still bad, split the segment in two by meaning and synthesize each half, checking each small segment again. Still bad after splitting, only then lightly reword or re-punctuate and re-record — never change facts or numbers. Log every step's original length, silence intervals, and retry or split results in the run log, and finish with a per-segment audio-video alignment table.
+- **Audio acceptance is a hard rule.** Looking at pulled frames alone is not acceptance. Before publishing, run full-video silence detection on the finished video (ffmpeg silencedetect, threshold and length per the table): any silence past the table's cap outside intro/outro sends it straight back. When joining, align segment by segment — each segment's picture length must sit within the table's value of that segment's voiceover length. When a voiceover rework swaps versions, re-align that segment's picture — never leave a gap.
 
-- 规格、编码看总表。编码口径：H.264 High、yuv420p、video_track_timescale 600、AAC 48kHz、use_editlist 0、faststart，这样在手机上播才不出问题。
-- 捕获完先核对帧数齐不齐，再合成。帧数对不上不许往下走。回执说完成不算数，以实际帧数和文件为准。
+## Joining and encoding
 
-## 成片验收单（缺一项不算验收过）
+- Specs and encoding per the table. Encoding rule: H.264 High, yuv420p, video_track_timescale 600, AAC 48kHz, use_editlist 0, faststart — that's what plays cleanly on phones.
+- After capture, check frame counts match before joining. Mismatched frame counts never move forward. A receipt saying "done" doesn't count — actual frame counts and files do.
 
-验收结论写进当天 `post.md` 或同目录的 `验收.md`，至少要有这六项：
+## Finished-video acceptance checklist (missing one item means not accepted)
 
-1. 最终文件的身份：路径、大小、修改时间、总时长，加上 ffprobe 的关键字段（分辨率、视频编码和 Profile、像素格式、timescale、音频编码和采样率、faststart 和 editlist 的实际结果）。
-2. 全片完整解码一遍的结果，无报错才行。
-3. 逐段音画对齐表，加上静音检测的阈值和最长静音区间，并独立一行写「人工听检结论」：全片实际听过一遍的结论（无异常，或异常在哪）。只贴机器检测结果不算听检。
-4. 带时间点的抽帧清单：覆盖开头、每个正文段、转场前后、结尾。逐帧写明产品或界面的身份、字幕底边量着多少、字幕形态、有没有意外的空白帧、纯白帧、纯黑帧。**量到的数字必须写原始数值、帧的时刻和量法**（比如「59 秒帧，量字幕条底边 y=1536」），不许只写「位置合格」这类结论——只写结论的量数事后没法复核。
-5. 封面：文件、尺寸（看总表）、产品身份、文字查一遍。
-6. 敏感六面自查的结果（六个面看敏感附册）。
+Write the acceptance conclusion into the day's `post.md` or a `验收.md` (acceptance notes) in the same folder, with at least these six items:
 
-改动之后旧验收作废：任何返工、补帧、重渲，都让旧验收单失效。改完要给最终文件升个版本或重新标清文件身份，对新文件重跑：完整解码、全片静音、时长和编码检查、受影响段落的抽帧、全片关键时间点的抽帧。只验改过的那一小块，不许说全片通过。汇报「改好了、通过了」必须同时给新旧帧或文件、复验时间点和结果。没证据就只能写「已改、未复验」。
+1. The final file's identity: path, size, modification time, total length, plus ffprobe's key fields (resolution, video codec and Profile, pixel format, timescale, audio codec and sample rate, faststart and editlist actual results).
+2. A full clean decode pass over the whole video, no errors allowed.
+3. A per-segment audio-video alignment table, plus the silence detection threshold and longest silence interval, plus its own line stating the "human listening conclusion": the conclusion from actually listening through the whole video once (no problems, or where the problems are). Pasting machine detection results alone doesn't count as listening.
+4. A time-stamped pulled-frame list: covering the opening, every main segment, around transitions, and the ending. Each frame notes the product or interface identity, the measured subtitle bottom edge, the subtitle form, and any unexpected blank frames, pure-white frames, or pure-black frames. **Measured numbers must carry the raw value, the frame's time, and the method** (for example, "59-second frame, subtitle bar bottom edge measured y=1536") — never just a conclusion like "position OK". A bare-conclusion number can't be re-checked later.
+5. The cover: file, size (per the table), product identity, text checked once through.
+6. The sensitive six-face self-check result (the six faces are in the sensitive appendix).
+
+After a change, the old acceptance is void: any rework, frame patch, or re-render invalidates the old checklist. After changing, bump the final file's version or re-mark its identity clearly, and re-run on the new file: full decode, full-video silence, length and encoding checks, pulled frames for affected segments, pulled frames for the video's key time points. Checking only the small changed part never counts as a full pass. Reporting "fixed, passed" must come with old and new frames or files, re-check time points, and results. Without evidence, the only honest line is "changed, not re-checked".

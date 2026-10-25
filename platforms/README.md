@@ -6,7 +6,7 @@ Xiaohongshu is still this repo's default, complete pipeline (see `core/`). This 
 
 | Platform | Module | Maturity |
 |---|---|---|
-| Douyin | `douyin/` | Guide + runnable scripts: pick, download, subtitle, voiceover, cover, title, four sensitivity gates, publish; `scripts/` has subtitle burn-in, outro join, sensitivity scan, download wrapper |
+| Douyin / TikTok | `douyin/` | Guide + runnable scripts: pick the outlet first (Douyin or TikTok), then pick, download, subtitle, voiceover, cover, title, four sensitivity gates, publish; `scripts/` has subtitle burn-in, outro join, sensitivity scan, download wrapper |
 | X | `x/` | Guide + check script: five-stage warming, human-like writing, cold-start rules, image rule; `scripts/check_post.py` checks a post before you send it (posting itself is not automated — see the module's risk disclosure) |
 | YouTube | `youtube/` | Playbook + check script: titles, thumbnails, retention, Shorts, SEO, production standards, API-first workflow; `scripts/check_upload.py` checks an upload package (uploading itself goes through the API, no separate script) |
 | WeChat Official Accounts | `wechat-mp/` | Draft scripts + manual final publish: `scripts/build_draft.py` builds a draft package, `scripts/mp_api.py` probes and creates drafts; personal uncertified accounts cannot publish via API, content playbook still to come |
@@ -19,4 +19,4 @@ Xiaohongshu is still this repo's default, complete pipeline (see `core/`). This 
 - **Plain words.** Every module's docs, comments, and commit messages use short, plain sentences, no AI-flavored explanations.
 - **Contributing.** To add a platform or a use, follow the five-piece format in `scenarios/_template/`, or add a section to the matching module and state what you tested.
 
-Note: the scripts themselves still print their messages in Chinese for now; English messages are the next batch. The Xiaohongshu core guides (`core/`, `adapters/`, `docs/`) are also still in Chinese.
+Note: the scripts print their messages in English now, and the Xiaohongshu core guides (`core/`, `adapters/`, `docs/`) are in English too — every file has its Chinese version linked at the top.

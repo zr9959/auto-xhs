@@ -1,36 +1,38 @@
-# 玩法名（把这行换成你的玩法名）
+[中文](README.zh-CN.md) | English
 
-这一份是这个玩法的总说明。别人挑玩法先看这一份，写的时候就照下面几节填，别删节。
+# Scenario name (replace this line with your scenario's name)
 
-## 这个玩法干什么
+This is the scenario's main description. People picking a scenario read this one first — fill in the sections below as written, and don't delete sections.
 
-填：一句话说清每天发什么。比如「每天发一条本地菜价播报」「每天发一段一分钟英语听力」。
+## What this scenario does
 
-## 给谁看
+Fill in: one sentence saying what goes out every day. For example, "a daily local vegetable price report" or "a daily one-minute English listening clip".
 
-填：看的人是谁、在什么场景下看、看完能得到什么。越具体越好，后面写稿就靠这一段定角度。
+## Who it is for
 
-## 每天几点发
+Fill in: who watches it, in what situation, and what they get from it. The more specific, the better — the script angle later depends on this paragraph.
 
-填：几点开工、几点前发出去、为什么选这个点。比如天气要赶在大家出门前，菜价要赶在买菜前。
+## What time it goes out
 
-## 数据从哪来
+Fill in: what time work starts, by what time it must go out, and why that time. For example, weather has to beat people's morning commute, vegetable prices have to beat the grocery run.
 
-填：数据具体从哪个网站、哪个接口拿，一句话一个来源。把网址写全。
-死规矩：只许用免费能拿到的数据。要注册、要付费、要别人账号的，不许写进来。
+## Where the data comes from
 
-## 有什么风险
+Fill in: exactly which site, which API each source comes from — one source per line. Write the full URLs.
+Hard rule: only data that is free to get. Anything needing sign-up, payment, or someone else's account must not go in.
 
-填：这个玩法容易出什么错，出了错会怎样。比如数据可能延迟、某个说法容易踩敏感线、平台对这一类内容查得紧。想到的都写上，再写一句你打算怎么防。
+## What can go wrong
 
-## 建议哪一档
+Fill in: what this scenario tends to get wrong, and what happens when it does. For example, data may run late, one claim may touch a sensitive line, or the platform may watch this kind of content closely. Write down everything you can think of, plus one line on how you plan to guard against each.
 
-填：全自动、半自动、手动，推荐哪一档，为什么。新玩法一般先半自动，发布前人看一眼。
+## Which level to suggest
 
-## 文件都在这
+Fill in: full-auto, semi-auto, or manual — which one you recommend, and why. New scenarios usually start semi-auto, with a person looking before publishing.
 
-- `scenario.yaml`：这个玩法的身份证，字段是定死的，照着填。
-- `config.example.yaml`：这个玩法要多填的配置。通用的配置在仓库根的 `config.yaml` 里，这份只放这个玩法多出来的。
-- `stages-diff.md`：跟通用规矩不一样的地方。没有不一样就写「没有」。
-- `scene-notes.md`：画面怎么做，几段、每段放什么、模板文件放哪。
-- `sources.md`（要用就加）：数据怎么取，手把手写清。
+## Where the files are
+
+- `scenario.yaml`: the scenario's ID card — its fields are fixed, fill them in as written.
+- `config.example.yaml`: the extra config this scenario needs. General config lives in the repo root's `config.yaml` — this file only holds what this scenario adds.
+- `stages-diff.md`: where it differs from the general rules. If nothing differs, write "none".
+- `scene-notes.md`: how the visuals are made — how many segments, what goes in each, where the template file sits.
+- `sources.md` (add it if you need it): how the data is fetched, written out step by step.

@@ -1,38 +1,40 @@
-# 玩法清单
+[中文](README.zh-CN.md) | English
 
-「玩法」就是这套系统的一个用途。同一个发动机，换个玩法，就能发不一样的东西。
+# Scenario list
 
-发动机是通用的：搜资讯、写稿、网页做片、发布、跟进，这条链在 `core/`、`pipeline/`、`orchestration/` 里。玩法只管一件事：把这个用途特有的东西说清——数据从哪来、稿子怎么变、画面怎么做、跟通用规矩哪不一样。
+A "scenario" is one use of this system. Same engine, different scenario, different output.
 
-一个玩法一个文件夹，格式都一样，照 `scenarios/_template/` 填。
+The engine is general: search for material, write scripts, make web-page videos, publish, follow up — that chain lives in `core/`, `pipeline/`, and `orchestration/`. A scenario only handles one thing: spelling out what is specific to that use — where the data comes from, how the script changes, how the visuals are made, and where it differs from the general rules.
 
-## 清单
+One scenario, one folder, all in the same format. Fill it in from `scenarios/_template/`.
 
-| 玩法 | 干什么用 | 谁做的 | 建议档位 | 数据从哪来 | 能配的版本 |
+## List
+
+| Scenario | What it is for | Made by | Suggested level | Where the data comes from | Works with |
 |---|---|---|---|---|---|
-| 科技资讯 | 每天一条科技资讯或教程短视频，就是这个仓库自带的那套 | 官方示例 | 半自动起步 | 科技媒体、官方动态、社区热帖 | core v0.1 |
-| [天气预报](weather-forecast/) | 每天发一个城市的天气：今天概览、未来七天、出门建议 | 官方示例 | 半自动 | Open-Meteo，免费，不用注册 | core v0.1 |
+| Tech news | One tech news or tutorial short video a day — the set this repo ships with | Official example | Semi-auto to start | Tech media, official updates, hot community posts | core v0.1 |
+| [Weather forecast](weather-forecast/) | One city's weather a day: today's overview, the next seven days, going-out advice | Official example | Semi-auto | Open-Meteo, free, no sign-up | core v0.1 |
 
-科技资讯的完整示例在 [examples/example-issue/](../examples/example-issue/)，从选题到验收单全套都有，照着它就知道每一步产出长什么样。
+The full tech news example is in [examples/example-issue/](../examples/example-issue/) — topic to acceptance checklist, the complete set. Follow it and you'll see what every step produces.
 
-新加的玩法，提交的时候往这张表里加一行，别人才能找得到你。加法看 [CONTRIBUTING.md](../CONTRIBUTING.md)。
+When you add a scenario, add one row to this table when you submit it, or nobody will find yours. How to add one is in [CONTRIBUTING.md](../CONTRIBUTING.md).
 
-## 怎么挑玩法
+## How to pick a scenario
 
-- 先看「干什么用」对不对得上你想做的方向。对得上，就把那个文件夹整个看一遍，重点看它自己的 README 和 config 示例。
-- 再看「建议档位」。写半自动的，说明这个玩法要么数据容易出错、要么平台查得紧，先半自动跑稳再说，别一上来改全自动。
-- 最后看「数据从哪来」。数据要钱、要注册付费账号的玩法，这个库不收。清单里能看到的，都是免费能拿到的。
+- First check "What it is for" against the direction you want. If it matches, read that whole folder, focusing on its own README and config example.
+- Then check "Suggested level". A scenario marked semi-auto means either its data goes wrong easily, or the platform watches that kind of content closely — run it semi-auto until it's steady, don't switch it to full-auto on day one.
+- Finally check "Where the data comes from". Scenarios that need paid data or a paid registered account don't get into this library. Everything you can see in the list is free to get.
 
-## 老用户怎么回来找新玩法
+## How returning users find new scenarios
 
-这个库会一直长：新玩法、新平台，都会加进来。你想找新东西的时候，按这个顺序看：
+This library keeps growing: new scenarios, new platforms, all get added. When you come back looking for something new, go in this order:
 
-1. **看这张表。** 新玩法合进来，必须在表里加一行。表里没有的，就是还没有。
-2. **看仓库根目录的更新说明（CHANGELOG）。** 每次发新版本，改了什么、加了什么玩法，都会用大白话写在里面。养成习惯：回来先翻更新说明，再看清单。
-3. **在 GitHub 上 Watch 这个仓库。** 点 Watch 之后，有新版本发布你会收到通知，不用天天自己来看。
+1. **Read this table.** A new scenario coming in must add a row to the table. If it's not in the table, it doesn't exist yet.
+2. **Read the changelog at the repo root (CHANGELOG).** Every release writes what changed and what scenarios were added, in plain words. Get into the habit: when you come back, read the changelog first, then the list.
+3. **Watch this repo on GitHub.** After you click Watch, you'll get a notification when a new version ships — no need to check every day yourself.
 
-用法不变：把仓库更新到最新版，挑好玩法，照它的 README 一项一项填配置，剩下的交给你的智能助手。接口都是文件约定，不用装任何新东西。
+Usage doesn't change: update the repo to the latest version, pick a scenario, fill in the config item by item from its README, and hand the rest to your AI assistant. The interfaces are all file conventions — nothing new to install.
 
-## 想加新玩法
+## Want to add a scenario
 
-先去仓库的 issues 里搜一下有没有人已经在做、或者已经有人求过这个玩法。没有，就照 [CONTRIBUTING.md](../CONTRIBUTING.md) 来：复制空模板，填好，自查一遍，提交的时候在上面这张表里加一行。
+First search the repo's issues for anyone already building it, or anyone who already asked for it. If nobody has, follow [CONTRIBUTING.md](../CONTRIBUTING.md): copy the blank template, fill it in, check it yourself, and add one row to the table above when you submit.

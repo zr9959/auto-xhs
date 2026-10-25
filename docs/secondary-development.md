@@ -1,49 +1,51 @@
-# 二次开发：换用途、换平台，怎么下手
+[中文](secondary-development.zh-CN.md) | English
 
-这套系统本来是给小红书做的，但它的骨架不是小红书专用的。搜资讯、整合写稿、网页做片、发布、运营，这条链换个用途、换个平台，一样能跑。这一份说清：下手的时候，哪些不用动，哪些要重写。
+# Secondary development: switching uses and platforms, where to start
 
-先记住接口的定调：这个库靠的是**文件约定**。智能助手读文件干活，所以你新加的东西，不管是玩法还是平台，只要文件格式跟现有的对得上，就接进来了。不用写插件，不用起服务器，不用让用户装运行时。老用户更新一次仓库，新功能就能用。
+This system was built for Xiaohongshu, but its skeleton is not Xiaohongshu-specific. Searching for material, consolidating scripts, web-page video making, publishing, operating — that chain runs the same for a different use or a different platform. This file states: when you start, what stays untouched and what gets rewritten.
 
-## 哪些是通用的，不用动
+First, remember how the interface is set: this library runs on **file conventions**. AI assistants read files to work, so anything new you add — a use or a platform — connects as long as its file formats line up with the existing ones. No plugins to write, no servers to start, no runtime for users to install. When existing users update the repo once, the new feature works for them.
 
-这五样是发动机，跟用途、平台都无关，二次开发的时候原样用：
+## What is general — leave it alone
 
-- **搜集的方法**：怎么探活、怎么限时、怎么判断热度、事实要怎么核对。规矩在 `core/stages/01-sourcing.md`。
-- **写稿的标准**：说人话、有细节、数字给全、标题先写几版。规矩在 `core/stages/02-script.md` 和宪法页核心标准。
-- **网页做片**：稿排成网页、逐帧截图、合成。脚本在 `pipeline/`，动效在 `motion-lib/`。
-- **验收脚本**：`core/validate.py`。字数、时长、分辨率、静音、封面，一项一项查，哪儿的片都一样查。
-- **总管编排**：派单、串行、验收放行、打点、出错四要素。在 `orchestration/`。
+These five are the engine. They have nothing to do with use or platform, and secondary development uses them as-is:
 
-## 哪些要重写
+- **Sourcing method**: how to probe sources for liveness, how to cap time, how to judge heat, how facts get checked. Rules in `core/stages/01-sourcing.md`.
+- **Script standards**: plain words, real detail, numbers given in full, titles written in several versions first. Rules in `core/stages/02-script.md` and the constitution page's core standards.
+- **Web-page video making**: scripts laid out as web pages, frame-by-frame screenshots, joining. Scripts in `pipeline/`, motion in `motion-lib/`.
+- **Acceptance script**: `core/validate.py`. Word count, length, resolution, silence, cover — checked item by item, the same for any video.
+- **Manager orchestration**: dispatching, serial order, acceptance clearance, heartbeat entries, four-element errors. In `orchestration/`.
 
-换用途、换平台的时候，要动的是这五样：
+## What gets rewritten
 
-- **信源清单**：看哪些站、哪些版块、哪些数据源。写在配置和你自己的玩法里。
-- **品类和稿风**：讲什么品类、什么口气、给谁看。这是用途定的，不是发动机定的。
-- **画面模板**：每段放什么、版式什么样。数据类的全是数据卡，讲产品的要有产品图，模板完全不一样。
-- **发布那一步**：每个平台的入口、步骤、闸口都不一样。这一块必须按平台重写，老实写，没实测过的标没实测。
-- **平台规矩**：每个平台查的东西不一样。敏感词、声明、导流红线，都要按新平台的来。
+When switching uses or platforms, these five change:
 
-## 路线一：换用途，做玩法包
+- **Source list**: which sites, sections, and data sources to watch. Written in config and in your own use pack.
+- **Category and script voice**: which category to cover, what tone, who it is for. The use decides this, not the engine.
+- **Visual templates**: what goes in each segment, what the layout looks like. Data topics are all data cards; product topics need product pictures — completely different templates.
+- **The publish step**: every platform's entry, steps, and gates differ. This part must be rewritten per platform, honestly written — what hasn't been tested gets marked untested.
+- **Platform rules**: every platform checks different things. Sensitive words, declarations, diversion red lines — all per the new platform.
 
-你想发的还是小红书，只是内容换了——天气预报、菜价播报、治愈动画、本地提醒，都走这条：
+## Route 1: switch uses, make a scenario pack
 
-1. 复制 `scenarios/_template/`，照 `CONTRIBUTING.md` 填。
-2. 只写你这个用途特有的：数据来源、稿风、画面、跟通用规矩的差异。发动机一行不用改。
-3. 交回来的时候，在 `scenarios/README.md` 的清单里加一行。
+What you post is still Xiaohongshu, only the content changes — weather forecasts, vegetable price reports, calming animations, local reminders — all take this route:
 
-天气预报就是照这条做出来的第一个例子，在 `scenarios/weather-forecast/`，可以先看它再动手。
+1. Copy `scenarios/_template/` and fill it in by `CONTRIBUTING.md`.
+2. Only write what is specific to your use: data sources, script voice, visuals, and differences from the general rules. Not one line of the engine changes.
+3. When handing it back, add one line in `scenarios/README.md`'s list.
 
-## 路线二：换平台，加内容平台
+The weather forecast is the first example built this way, in `scenarios/weather-forecast/`. Read it first before starting.
 
-你想把同一套东西发到别的平台去——比如一份素材，小红书发一份，抖音再发一份——走这条：
+## Route 2: switch platforms, add a content platform
 
-1. 先看 `docs/platform-targets.md`，把素材包和待发包两个概念弄清。
-2. 把新平台要的五样备齐：登录办法、发布步骤清单、平台规矩与红线、文案差异、一份待发包示例。
-3. 做片之前都不用重做：选题、写稿、做片、验收全是通用的。你多做的只有最后一段：按新平台规矩把素材包改成它的待发包，再照它的清单发。
+You want the same material on other platforms — say, one copy on Xiaohongshu and another on Douyin — take this route:
 
-抖音那一节已经在 `docs/platform-targets.md` 里留好了，接口的样子都写清了，就等有人把五样补齐。我们没实测过抖音的发布，所以那一节标的是「还没做」，你补的时候也照这个规矩：没跑通的别写成能用。
+1. Read `docs/platform-targets.md` first, and get the material pack and ready-to-post pack concepts clear.
+2. Prepare the new platform's five things: login method, publish step checklist, platform rules and red lines, copy differences, and one ready-to-post pack example.
+3. Nothing before video making needs redoing: topic picking, script writing, video making, and acceptance are all general. The only extra work is the last stretch: adapt the material pack into that platform's ready-to-post pack by its rules, then publish by its checklist.
 
-## 最后一句
+The Douyin / TikTok module is built now — see `platforms/douyin/` (guide + runnable scripts). The same rule still applies to new ports: don't write untested steps as if they work.
 
-做完了，欢迎加回这个库：玩法加进玩法清单，平台加进平台清单。后面的人就不用再造一遍，直接拿你的用。这也是这个库长起来的办法。
+## Last line
+
+When done, contributions back into this library are welcome: uses go into the use list, platforms into the platform list. Later readers won't have to build it again — they take yours and use it. That is also how this library grows.

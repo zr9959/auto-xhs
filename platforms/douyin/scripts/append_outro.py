@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""把品牌片尾拼到正片后面。必须用分轨拼接，不许用 concat 直拼。
+"""Join the brand outro after the main video. Join on separate tracks — never a straight concat.
 
-教训：片尾音频用 concat demuxer 直拼时可能解码报错、尾段静音。
-本脚本先把片尾归一化到正片规格（尺寸、帧率、采样率），再用 concat 滤镜
-分轨拼视频 + 音频，拼完打印两段时长和成品时长。
+Lesson: joining outro audio with a straight concat demuxer can fail decoding and go silent at the end.
+This script first normalizes the outro to the main video's specs (size, frame rate, sample rate), then joins
+video + audio on separate tracks with the concat filter, and prints both segment durations and the finished duration.
 
-用法：
-    python3 append_outro.py --main 正片.mp4 --outro 片尾.mp4 --out 成片.mp4
+Usage:
+    python3 append_outro.py --main main.mp4 --outro outro.mp4 --out finished.mp4
 
-只依赖 ffmpeg / ffprobe。
+Only needs ffmpeg / ffprobe.
 """
 
 import argparse
@@ -20,7 +20,7 @@ from pathlib import Path
 def run(cmd):
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0:
-        print(f"命令失败：{' '.join(cmd)}\n{r.stderr.strip()}", file=sys.stderr)
+        print(f"Command failed: {' '.join(cmd)}\n{r.stderr.strip()}", file=sys.stderr)
         sys.exit(2)
     return r.stdout
 
@@ -39,7 +39,7 @@ def probe(path):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="正片 + 品牌片尾，分轨拼接")
+    ap = argparse.ArgumentParser(description="Main video + brand outro, joined on separate tracks")
     ap.add_argument("--main", required=True)
     ap.add_argument("--outro", required=True)
     ap.add_argument("--out", required=True)
@@ -47,12 +47,12 @@ def main():
     main_p, outro_p, out_p = Path(args.main), Path(args.outro), Path(args.out)
     for p in (main_p, outro_p):
         if not p.is_file():
-            print(f"找不到文件：{p}", file=sys.stderr)
+            print(f"File not found: {p}", file=sys.stderr)
             return 2
     w, h, fps, dur_main = probe(main_p)
     _, _, _, dur_outro = probe(outro_p)
-    # 两路视频都要先统一 SAR（concat 滤镜要求两路参数一致，否则报
-    # parameters do not match；实测里测试源的 SAR 就跟成品不一样）。
+    # Both video streams get the same SAR first (the concat filter requires matching parameters, or it errors
+    # with parameters do not match — in testing, the test source's SAR differed from the finished video's).
     fc = (
         f"[0:v]setsar=1,format=yuv420p[v0];"
         f"[0:a]aresample=48000,aformat=channel_layouts=stereo[a0];"
@@ -65,9 +65,9 @@ def main():
          "-filter_complex", fc, "-map", "[outv]", "-map", "[outa]",
          "-c:v", "libx264", "-c:a", "aac", str(out_p)])
     _, _, _, dur_out = probe(out_p)
-    print(f"拼好了：{out_p}（正片 {dur_main:.2f}s + 片尾 {dur_outro:.2f}s = 成片 {dur_out:.2f}s）")
+    print(f"Done: {out_p} (main {dur_main:.2f}s + outro {dur_outro:.2f}s = finished {dur_out:.2f}s)")
     if abs(dur_out - (dur_main + dur_outro)) > 0.5:
-        print("提醒：成片时长跟两段之和差 0.5 秒以上，检查片尾有没有被截断", file=sys.stderr)
+        print("Warning: finished duration differs from the two segments\' sum by over 0.5s — check whether the outro got cut", file=sys.stderr)
     return 0
 
 

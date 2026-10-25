@@ -1,47 +1,49 @@
-# 合规：先把风险说清
+[中文](compliance.zh-CN.md) | English
 
-这页只讲事实和风险，不给任何「这样做就安全」的保证。平台规则会变，看这页的同时，自己去小红书官方规则页复看一遍。
+# Compliance: state the risks first
 
-## 平台对 AI 托管的态度
+This page states facts and risks only. It gives no promise of the form "doing it this way is safe". Platform rules change — while reading this page, go re-check Xiaohongshu's official rules pages yourself.
 
-小红书发过治理公告，专门管 AI 托管这类事：账号全交给 AI 代写、代发、代互动，是平台明确在处置的方向，处置到封号这一档的案例有过。这不是吓唬，是这套流程最大的风险，没有之一。
+## The platform's stance on AI hosting
 
-所以这套流程的默认建议是半自动：内容备好，人看一眼，人点发布。全自动能跑通，不等于平台认账。跑全自动之前，先想清楚号是不是你输得起的。
+Xiaohongshu has issued governance notices aimed at exactly this kind of thing: handing an account fully to AI for writing, posting, and interacting is a direction the platform actively acts against, with cases going as far as bans. This is not a scare line. It is this workflow's biggest risk, bar none.
 
-## AI 声明要选
+So this workflow's default recommendation is semi-auto: prepare the content, a person looks at it, a person presses publish. That full-auto runs does not mean the platform accepts it. Before running full-auto, think hard about whether the account is one you can afford to lose.
 
-发布时，内容声明里要选「笔记含AI合成内容」这一类。这是每条必做的一步，写进了发布清单。漏选不光是流程没走完，平台查到 AI 内容没标，后果自己担。
+## The AI declaration must be picked
 
-## 导流红线
+At publish time, the content declaration must pick the "post contains AI-generated content" category. This is a required step for every post, written into the publish checklist. Skipping it is not just an unfinished step — if the platform finds AI content unmarked, the consequences are yours to carry.
 
-笔记、正文、评论、私信、简介，任何地方都不能放联系方式、外链、二维码，也不能用谐音变体绕。说「私信我发链接」这类话也算。平台对导流的处罚从扣分到封号都有。这条在规矩里是发布自查的一项，逐项查。
+## Diversion red line
 
-## 别的几条硬线
+Notes, body text, comments, DMs, and bio — nowhere may carry contact details, outside links, or QR codes, and no homophone variants to get around it. Lines like "DM me and I'll send the link" count too. Platform penalties for diversion run from point deductions to bans. This rule is one item in the pre-publish self-check, checked item by item.
 
-- 金融内容不给买卖建议，不碰虚拟货币交易建议。
-- 不做引战对立，不做破解、绕付费这类内容。
-- 不整段搬运别人的稿和图。事实可以转述，要用自己的结构重讲。
-- 绝对化词清零：「最」「第一」「100%」这类，不出现在标题、正文、口播、字幕、封面任何一处。
+## A few more hard lines
 
-细的敏感词口径在 `core/` 的敏感词附册里，这页不重复。
+- Financial content gives no buy or sell advice, and no virtual-currency trading advice.
+- No flame-bait confrontation, no cracking or payment-bypass content.
+- No wholesale copying of other people's scripts and images. Facts can be retold, but in your own structure.
+- Absolute words down to zero: "most", "number one", "100%" and the like appear nowhere — not in titles, body, voiceover, subtitles, or covers.
 
-## 经验做法，不是官方接口
+The detailed sensitive-words rules live in `core/`'s sensitive-words appendix. This page doesn't repeat them.
 
-发布流程里有几条是实操经验，不是小红书给的官方能力，提前说清：
+## Hands-on practices, not official interfaces
 
-- 话题要一个一个点选到变蓝，粘贴纯文字话题不算数。这是编辑器的实际行为，不是官方文档承诺。
-- 进创作者平台先从主站确认登录态、走站内入口，是踩过坑总结的路子。
-- 网页版的种种细节（比如草稿只存在建它的浏览器本地、网页端没有评论置顶入口），都是当时测到的样子。
+A few steps in the publish flow are hands-on experience, not official Xiaohongshu capabilities. Stated up front:
 
-平台一改版，这些经验就可能失效。自动发布跟着失效，是正常的事，不是这套流程坏了。失效的时候就退回半自动，人工发，不丢东西。
+- Topics must be tapped one by one until blue. Pasted plain-text topics don't count. That is how the editor actually behaves, not something the official docs promise.
+- Confirming login state on the main site first and entering through the on-site entry is the route learned from hitting problems.
+- Web-version details (for example, drafts live only in the browser that created them, and the web side has no comment pinning entry) are how things looked when tested.
 
-## 出事了怎么办
+Once the platform redesigns, these practices can stop working. Auto publishing stopping with them is normal — it doesn't mean this workflow is broken. When it breaks, fall back to semi-auto and publish by hand. Nothing is lost.
 
-- 先止损：有问题的笔记先设成仅自己可见，不要反复编辑重发同一份。
-- 词面误伤这类（比如绝对化词），改好后走 App 里的笔记申诉，只说事实和改了什么。
-- 涉敏感的，删掉，别申诉，顺手把全号同类内容查一遍。
-- 不要买任何「解限流」「包过审」的服务。这类多半是骗钱的，刷量本身又违规。
+## If something goes wrong
 
-## 最后一句
+- Stop the damage first: set the problem post to visible-to-self only. Don't keep editing and reposting the same copy.
+- For wording false hits (absolute words, for example): fix them, then appeal inside the app's post appeal, stating only facts and what changed.
+- For sensitive-topic cases: delete it, don't appeal, and check the whole account's similar content in passing.
+- Don't buy any "remove limits" or "guaranteed approval" service. Most of these just take your money, and boosting numbers is itself against the rules.
 
-这套流程能保证的只有一件事：每条内容出去之前，该查的查了、该标的标了、证据留了。号的安危，平台说了算，不在这套流程的保证范围内。
+## Last line
+
+This workflow can guarantee only one thing: before each piece of content goes out, the checks were run, the labels were picked, and the evidence was kept. The account's safety is the platform's call — outside what this workflow guarantees.

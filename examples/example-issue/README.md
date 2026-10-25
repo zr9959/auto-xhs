@@ -1,27 +1,29 @@
-# 这条示例怎么看
+[中文](README.zh-CN.md) | English
 
-这里放了一条完整的日更示例，从选题到验收单，全套都有。
+# How to read this example
 
-先说清：全是编的。产品「禾苗笔记」不存在，价格、来源、热度信号都是编的，数字只求前后对得上。看的时候学格式，不要把内容当真的。
+This is one complete daily example, from topic picking to the acceptance checklist, the full set.
 
-## 文件
+First, the honest part: it's all made up. The product "禾苗笔记" (Hemao Notes) doesn't exist, and the prices, sources, and heat signals are all invented — the numbers only need to line up with each other. Learn the format from it; don't take the content as real.
 
-- `post.md`：这一期的文案全套。选题留证、3 版标题、定稿标题、正文、话题、第一条评论、素材清单、发布设置、验收单，都在里面。
-- `scripts.txt`：口播稿，按段分好。格式是 `段名|文本`，一段一行。这一份一共 570 字，在推荐口径 480–650 里面。
+## Files
 
-## 每一步对应哪份手册
+- `post.md`: the episode's full copy set. Topic evidence, 3 title versions, the final title, the body text, topics, the first comment, the material list, publish settings, and the acceptance checklist are all in there.
+- `scripts.txt`: the voiceover script, split by segment. The format is `name|text`, one segment per line. This one runs 570 words in total, inside the recommended 480–650 range.
 
-| 示例里的部分 | 对应规矩 |
+## Which guide each step maps to
+
+| Part in the example | Matching rule |
 |---|---|
-| 选题留证 | `core/stages/` 里选题那份：定案要留六项，缺一项不算定案 |
-| 标题三版、正文、话题、首评 | `core/stages/` 里写稿那份 |
-| 素材清单 | `core/stages/` 里做片那份：讲到的产品要有真界面出镜 |
-| 验收单 | `core/stages/` 里做片那份的验收单，加上总管跑 `core/validate.py` |
-| 发布设置、话题点蓝 | `core/stages/` 里发布那份 |
+| Topic evidence | The topic-picking guide in `core/stages/`: a settled topic needs six items on record — one missing and it doesn't count as settled |
+| Three title versions, body text, topics, first comment | The script-writing guide in `core/stages/` |
+| Material list | The video-making guide in `core/stages/`: any product mentioned needs its real interface on screen |
+| Acceptance checklist | The video-making guide's checklist in `core/stages/`, plus the orchestrator running `core/validate.py` |
+| Publish settings, topic taps turning blue | The publishing guide in `core/stages/` |
 
-## 你自己的第一期怎么做
+## How to make your own first episode
 
-1. 复制这个目录，改个名字，当模板用。
-2. post.md 逐节换成你自己的内容，节标题不要删。验收脚本就靠这些节标题认结构。
-3. scripts.txt 换成你的口播稿，段名可以改，`段名|文本` 的格式别改。
-4. 做完跑一遍 `core/validate.py`，对着输出改到没有 FAIL。
+1. Copy this directory, rename it, and use it as a template.
+2. Replace `post.md` section by section with your own content — don't delete the section headings. The acceptance script reads the structure from those headings.
+3. Replace `scripts.txt` with your own voiceover script. Segment names can change, but the `name|text` format must not.
+4. When it's done, run `core/validate.py` once and fix things against its output until no FAIL is left.

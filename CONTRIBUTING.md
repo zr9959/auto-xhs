@@ -1,40 +1,42 @@
-# 怎么给这个库加东西
+[中文](CONTRIBUTING.zh-CN.md) | English
 
-这个库欢迎加新玩法，也欢迎加新平台。规矩不多，先把这一页看完再动手，能少走很多弯路。
+# How to add things to this repo
 
-先说清接口是什么：这个库的接口是**文件约定**，不是服务器，也不用装什么插件。智能助手是靠读文件干活的，所以玩法跟玩法、平台跟平台之间，都靠固定格式的文件交接。你加的东西只要文件格式对，老用户把仓库更新到最新版就能用，不用装任何新东西。
+This repo welcomes new scenario packs, and new platforms too. Not many rules — read this page first before starting, and you'll avoid a lot of wrong turns.
 
-## 加一个玩法包
+First, what the interface is: this repo's interface is **file conventions**, not a server, and no plugin to install. AI assistants work by reading files, so scenarios and platforms hand off to each other through fixed-format files. Anything you add, as long as its file format matches, works for existing users as soon as they update the repo to the newest version — nothing new to install.
 
-1. **先搜。** 去仓库的 issues 里搜一下，有没有人已经在做这个玩法，或者已经有人求过。在做的就别重复造，去帮他。
-2. **复制空模板。** 把 `scenarios/_template/` 整个文件夹复制一份，改成你的玩法名（英文小写加连字符），放进 `scenarios/` 里。
-3. **照着填。** 模板里每个文件都写了填什么。重点就三样：数据从哪来（写全网址）、跟通用规矩不一样的地方（只写不一样的，一样不许抄）、画面怎么做。
-4. **自查。** 下面那张清单，一项一项过，全过了再提交。
-5. **提交时加一行清单。** 在 `scenarios/README.md` 的玩法清单表里加一行你的玩法：名字、干什么用、谁做的、建议档位、数据从哪来、能配的版本。不加这一行，别人找不到你，等于白做。
+## Add a scenario pack
 
-## 提交前自查清单
+1. **Search first.** Search the repo's issues for whether someone is already building this scenario, or has already asked for it. If someone's on it, don't build a duplicate — go help them.
+2. **Copy the empty template.** Copy the whole `scenarios/_template/` folder, rename it to your scenario's name (lowercase English plus hyphens), and put it in `scenarios/`.
+3. **Fill it in as directed.** Every file in the template states what goes in it. Three things matter most: where the data comes from (full URLs), where it differs from the general rules (only the differences — never copy the parts that are the same), and how the picture gets made.
+4. **Self-check.** The checklist below, item by item — all passing before you submit.
+5. **Add one line when submitting.** Add one line for your scenario to the scenario list table in `scenarios/README.md`: name, what it's for, who made it, recommended level, where the data comes from, which versions it works with. Without that line, nobody finds yours — work for nothing.
 
-- [ ] 只用免费的数据源。要花钱、要付费账号的，不收。
-- [ ] 没有带进任何真实账号、密钥、个人信息。示例里的人名、城市、产品，要么是虚构的，要么是公开数据。
-- [ ] 全程说人话。文档、注释、提交说明都一样：短句，日常词，不许套话。
-- [ ] 示例能自己验一遍：跑一遍 `core/validate.py`，或者在玩法说明里写清为什么这个玩法跑不了通用验收（比如画面规格跟通用不一样），写清了也行，没写不行。
-- [ ] `scenario.yaml` 字段没改，值都填实了。`works_with` 写的是你真试过的版本，没试过的别往上写。
-- [ ] 通用规矩没有被你抄进玩法里。你的包里只留你这个玩法特有的东西。
+## Pre-submit self-check list
 
-## 求玩法
+- [ ] Only free data sources. Anything needing money or a paid account is not accepted.
+- [ ] No real accounts, keys, or personal information brought in. Names, cities, and products in examples are either made up or public data.
+- [ ] Plain words throughout. Docs, comments, and submit notes alike: short sentences, everyday words, no stock phrases.
+- [ ] The sample checks itself: run `core/validate.py` once, or state clearly in the scenario notes why this scenario can't run the general acceptance (for example, picture specs differing from the general ones). Stated clearly, it's fine; unstated, it's not.
+- [ ] `scenario.yaml` fields unchanged, values all filled in for real. `works_with` lists versions you truly tested — never write versions you didn't test.
+- [ ] The general rules were not copied into your scenario. Your pack keeps only what's special to your scenario.
 
-想要一个新玩法、自己又做不出来，就开个 issue 求。先搜，搜不到再开。开的时候写清两件事：
+## Asking for a scenario
 
-- 这个玩法干什么用，给谁看。
-- 数据从哪来，你知道的免费来源写上。不知道的就写不知道，别编。
+Want a scenario you can't build yourself? Open an issue and ask. Search first; only open when the search finds nothing. When opening, state two things clearly:
 
-有人认领了会在 issue 里说。做完了合进来，清单里会加一行，求的人也能第一时间用上。
+- What the scenario is for, and who it's for.
+- Where the data comes from — write down the free sources you know. When you don't know, write that you don't know — never invent.
 
-## 改通用规矩之前先想一件事
+Someone who picks it up will say so in the issue. Once it's built and merged, the list gains a line, and the asker can use it right away.
 
-动手前先分清：你想改的这条规矩，是所有玩法都受影响，还是只有你这个玩法？
+## Before changing a general rule, think about one thing first
 
-- **只有你这个玩法的**：写进你自己的 `stages-diff.md`，别动 `core/`。比如天气预报不做品类轮换，那是它一个玩法的事，写在它自己包里就对了。
-- **所有玩法都受影响的**：才去改 `core/`。改的时候在提交里写清：为什么改、哪些玩法会跟着变、你验过哪几个。数字只改宪法页的数字总表和 `config.yaml` 里对应的键，两边一起改，不许只改一边。
+Before starting, sort out: is the rule you want to change one that affects all scenarios, or only yours?
 
-拿不准是哪一种，就开 issue 先问一句，别人踩过的坑能帮你省很多事。
+- **Only yours**: write it in your own `stages-diff.md`, don't touch `core/`. For example, the weather forecast skipping category rotation is that one scenario's business — it belongs in its own pack.
+- **Affects all scenarios**: only then change `core/`. When changing, state clearly in the submit: why it changed, which scenarios change with it, and which ones you tested. Numbers change only in the constitution page's numbers table and the matching key in `config.yaml` — both together, never only one side.
+
+When unsure which kind it is, open an issue and ask first — other people's stepped-in pitfalls can save you a lot of trouble.

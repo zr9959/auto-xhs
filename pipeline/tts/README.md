@@ -1,59 +1,61 @@
-# 配音怎么做
+[中文](README.zh-CN.md) | English
 
-## 接口就一句话
+# How voiceover works
 
-分段文本进，音频文件加时长出。
+## The interface, in one line
 
-喂进去的是 `scripts.txt`，一行一段，格式是 `段名|这段要念的话`，比如：
+Segmented text goes in, audio files plus durations come out.
+
+What goes in is `scripts.txt`, one segment per line, in the format `name|the words to read`, for example:
 
 ```
-open|先说个常见的事：早上被闹钟一下惊醒，一整天都缓不过来。
-step1|数给你看。充一次电能用三十天，亮度有十二档可调。
+open|Here's something common: jolted awake by the alarm in the morning, and the whole day never recovers.
+step1|Let me count it for you. One charge lasts thirty days, and the brightness has twelve levels.
 ```
 
-吐出来的是每段一个音频文件（`open.mp3`、`step1.mp3` 这样命名），外加每段的时长（秒）。时长必须有，后面拼片时要拿它对齐画面，对不上就会音画错位。换哪家配音都行，守住这个进出格式，流水线其他地方不用改。
+What comes out is one audio file per segment (named like `open.mp3`, `step1.mp3`), plus each segment's duration in seconds. The durations are required — the stitching step later uses them to line up picture and sound, and a mismatch means sound and picture drift apart. Any voiceover provider works, as long as this in-out format holds — nothing else in the pipeline needs to change.
 
-## 两条免费的路
+## Two free routes
 
 | | edge-tts | sherpa-onnx + MeloTTS |
 |---|---|---|
-| 要不要联网 | 要，声音在微软那边生成 | 不要，模型下到本地，断网也能念 |
-| 音色 | 多，男女老少都有，现挑现用 | 跟着模型走，换音色要换模型 |
-| 上手 | 快，装个包就能跑 | 慢一点，要先下模型文件 |
-| 适合谁 | 先跑通流程、量不大的人 | 不想依赖外部服务、量大的人 |
+| Online or not | Online — the voice is generated on Microsoft's side | Offline — download the models locally and it reads with no connection |
+| Voices | Many, men and women, all ages, pick on the spot | Follows the model — changing voices means changing models |
+| Getting started | Fast, install one package and go | A bit slower, download the model files first |
+| Suits who | People getting the flow working first, or with small volume | People who don't want to depend on an outside service, or with large volume |
 
-建议：先用 edge-tts 把整条流程跑通，嫌它不稳或者量上来了，再换本地那条。
+Advice: get the whole flow working with edge-tts first. If it turns flaky, or the volume grows, switch to the local route.
 
-edge-tts 的装法：`pip install edge-tts`，装完就有 `edge-tts` 命令。音色用 `--voice` 挑，中文常用的比如 `zh-CN-XiaoxiaoNeural`（女声）、`zh-CN-YunyangNeural`（男声），全名单用 `edge-tts --list-voices` 看。
+Installing edge-tts: `pip install edge-tts`, and the `edge-tts` command is ready after that. Pick a voice with `--voice` — common Chinese ones are `zh-CN-XiaoxiaoNeural` (female) and `zh-CN-YunyangNeural` (male); the full list comes from `edge-tts --list-voices`.
 
-本地那条的大致接法：装 sherpa-onnx 的运行包，下 MeloTTS 的中文模型，按它文档把文本喂进去出 wav，再转成 mp3，时长用 ffprobe 量。细节跟着模型版本变，这里不写死步骤，装的时候看模型页面的说明。
+The local route, roughly: install the sherpa-onnx runtime package, download the MeloTTS Chinese model, feed text in the way its docs describe to get wav, convert to mp3, and measure durations with ffprobe. The details move with the model version, so the exact steps aren't pinned here — read the model page when you install it.
 
-## 开工先冒烟
+## Smoke-test before real work
 
-正式合成之前，先跑一遍冒烟脚本，定这一轮用哪个引擎：
+Before real synthesis, run the smoke script once to settle which engine this round uses:
 
 ```bash
 bash pipeline/tts/tts-smoke.sh
 ```
 
-它读 `config.yaml` 里 `tts.command`（主引擎）和 `tts.fallback_command`（备用引擎）两条命令，各拿一句短话试合成。最后一行输出结论：`LIVE=primary` 主引擎通；`LIVE=fallback` 主引擎不通、已切备用，这一轮就用备用出片，验收单里写明；`LIVE=NONE` 两个都不通，停下报四要素，别硬合成。判定引擎不行只认实际调用的失败输出，不许凭「好像没有这个服务」下结论。
+It reads `config.yaml` for `tts.command` (main engine) and `tts.fallback_command` (backup engine), and test-synthesizes one short line with each. The last line prints the verdict: `LIVE=primary` means the main engine works; `LIVE=fallback` means the main engine failed and the round switches to the backup — use the backup for this round's video and say so on the acceptance checklist; `LIVE=NONE` means neither works — stop and report back with the four required items, don't force a synthesis. An engine only counts as failed on the actual failed call output — never conclude from a feeling like "this service probably isn't there".
 
-## 附的示例脚本
+## The bundled example script
 
-`tts-edge-example.py` 就是按上面的接口写的最小例子：
+`tts-edge-example.py` is the smallest example written to the interface above:
 
 ```bash
-python3 tts-edge-example.py scripts.txt 音频目录
+python3 tts-edge-example.py scripts.txt audio-directory
 ```
 
-它逐段调 edge-tts 出 mp3，打印每段的时长，最后给一个总时长。音色用环境变量改：`TTS_VOICE=zh-CN-YunyangNeural python3 tts-edge-example.py scripts.txt 音频目录`。
+It calls edge-tts segment by segment to produce mp3s, prints each segment's duration, and gives a total at the end. Change the voice with an environment variable: `TTS_VOICE=zh-CN-YunyangNeural python3 tts-edge-example.py scripts.txt audio-directory`.
 
-## 单段配音出问题怎么办
+## What to do when one segment's voiceover breaks
 
-一段配音坏掉很常见：时长明显比同批其他段长出一截，或者中间有一大段没声音。别等全片拼完才发现，按这个顺序处理：
+A broken segment is common: its duration is clearly longer than the rest of the batch, or a long stretch in the middle has no sound. Don't wait until the whole video is stitched to find out — work through this order:
 
-1. 每段生成完，先量时长，再查一遍静音分布（脚本会顺手提醒，手动查用 `ffmpeg -i 这段.mp3 -af silencedetect=noise=-45dB:d=1.5 -f null -`）。段里有 1 秒以上的静音，这段先别用。
-2. 同一句话原样重试只许 1 次。再坏多半不是运气问题，重试还会拿到一样坏的结果。
-3. 还不行，就把这段话按意思拆成两半，分开生成，再逐半查一遍时长和静音。
-4. 拆了还坏，才动文字：换个说法或改改标点再生成。数字和事实不许跟着改。
-5. 每段最后都要跟画面对齐：这段画面时长和配音时长差多少，心里要有数，差超过半秒就调整画面时长，别留空档。
+1. After each segment is generated, measure its duration, then check its silence distribution (the script flags it for you; by hand, use `ffmpeg -i this-segment.mp3 -af silencedetect=noise=-45dB:d=1.5 -f null -`). Any silence over 1 second inside a segment means don't use that segment yet.
+2. Retrying the exact same line is allowed exactly 1 time. Past that, it's usually not bad luck — retrying will hand back the same broken result.
+3. If it still fails, split the line in half by meaning, generate each half separately, and check each half's duration and silence the same way.
+4. Only after splitting still fails, touch the wording: rephrase or change punctuation and generate again. Numbers and facts must not change along with it.
+5. Every segment must end up lined up with its picture: know how far apart the picture duration and the voiceover duration are, and if the gap passes half a second, adjust the picture duration — don't leave a dead gap.

@@ -21,3 +21,6 @@ motion-lib/vendor/confetti.browser.min.js
 node_modules/
 __pycache__/
 .DS_Store
+
+# 部署缓存（Cloudflare Pages 本地缓存，不进仓库）
+.wrangler/

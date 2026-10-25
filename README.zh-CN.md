@@ -2,9 +2,9 @@
   <img src="docs/assets/banner.png" alt="Auto-xhs：多平台全自动化运营发布" width="760">
 </p>
 
-<h1 align="center">多平台全自动化运营发布（小红书 / 抖音 / X / YouTube / 公众号，适配 Muse、Dots、Grok Bot）</h1>
+<h1 align="center">多平台全自动化运营发布（小红书 / 抖音 / TikTok / X / YouTube / 公众号，适配 Muse、Dots、Grok Bot）</h1>
 
-<p align="center">让云端 AI 智能助手替你运营多个平台：小红书是默认的完整流水线，抖音、X、YouTube、公众号各有独立模块。</p>
+<p align="center">让云端 AI 智能助手替你运营多个平台：小红书是默认的完整流水线，抖音 / TikTok、X、YouTube、公众号各有独立模块。</p>
 
 <p align="center">
   <img src="https://img.shields.io/github/license/zr9959/auto-xhs" alt="MIT 许可证">
@@ -30,7 +30,7 @@
 
 小红书仍是本仓库默认的完整流水线（`core/` 里从选题、写稿、做片到发布、跟评论全套）。`platforms/` 里还有四个平台的独立模块，按需启用、互不干扰：
 
-- **抖音**：热门视频 + 中文字幕流水线（选片、下载、字幕、配音、封面、标题、四道敏感闸、发布）。
+- **抖音 / TikTok**：热门视频 + 字幕流水线（先选出口：抖音或 TikTok，再选片、下载、字幕、配音、封面、标题、四道敏感闸、发布）。
 - **X**：养号、发帖、回复（五阶段养号、拟人化写法、冷启动规矩、配图铁律）。
 - **YouTube**：英文频道运营知识库（标题、封面、留存、Shorts、SEO、生产标准、API 优先路线）。
 - **微信公众号**：草稿箱 + 手动终发（个人未认证号调不通发布接口，内容玩法待补）。
@@ -78,6 +78,7 @@
 
 ```
 帮我把 auto-xhs 装好，仓库地址是 https://github.com/zr9959/auto-xhs ，照着仓库里的说明来：
+先问我用中文还是 English，之后全程用我选的语言——设置、日更、汇报都用这个语言。仓库文档中英都有，读我选的那个语言版。
 1. 先把这个仓库下载到本地（有 git 就 git clone，没有就下压缩包解压），进到仓库根目录，后面的命令都在根目录里跑。
 2. 跑 bash scripts/setup.sh，它会查环境、下第三方库、备好配置文件。缺什么你告诉我，我来装。
 3. 然后打开 SETUP.md，带我一项一项填 config.yaml。第一项先让我在全自动、半自动、手动三档里选一档，把三档的区别讲清，推荐我先用半自动，但别替我定。
@@ -173,7 +174,7 @@ python3 core/validate.py examples/example-issue
 
 新用途有现成的加法：一个用途做成一个「玩法包」，格式都定好了，照着 [scenarios/_template/](scenarios/_template/) 填就行。天气预报就是照这个格式做出来的例子，在 [scenarios/weather-forecast/](scenarios/weather-forecast/)。全部玩法列在 [scenarios/README.md](scenarios/README.md) 的清单里，老用户回来找新功能，先看那张表。
 
-也欢迎二次开发到别的平台：选题、写稿、做片、验收都是通用的，一份素材可以改成好几个平台的待发包，小红书发一份，抖音再发一份。要交的东西列在 [docs/platform-targets.md](docs/platform-targets.md) 里，抖音那一节接口已经留好，还没实测，欢迎来补。
+也欢迎二次开发到别的平台：选题、写稿、做片、验收都是通用的，一份素材可以改成好几个平台的待发包，小红书发一份，抖音 / TikTok 再发一份。要交的东西列在 [docs/platform-targets.md](docs/platform-targets.md) 里，抖音 / TikTok、X、YouTube、公众号四个模块已经在 [platforms/README.zh-CN.md](platforms/README.zh-CN.md) 里了。
 
 想加玩法、求个新玩法、或者改通用规矩，先看 [CONTRIBUTING.md](CONTRIBUTING.md)，一页写完了。
 

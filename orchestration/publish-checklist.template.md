@@ -1,45 +1,47 @@
-# 待发包和发布清单
+[中文](publish-checklist.template.zh-CN.md) | English
 
-发布过不了闸，或者用的是半自动模式，成片不会直接发出去，而是打包成一个「待发包」，等人来发。
+# Ready-to-post pack and publish checklist
 
-## 待发包里有什么
+When publishing fails a gate, or when the mode is semi-auto, the finished video doesn't go out directly. Instead it gets packed into a "ready-to-post pack" for a person to send.
 
-固定四个文件，三家平台都用这一份，不许各搞各的：
+## What is in the ready-to-post pack
 
-```
-待发包/
-├── video.mp4              验收通过的最终成片
-├── cover.jpg              单独做的封面图
-├── post.md                标题、正文、话题清单、AI 内容声明、第一条评论，全在里面
-└── publish-checklist.md   下面这份清单，复制一份放进来
-```
-
-video.mp4 必须是验收过的那个文件。换过文件、重渲过，旧验收作废，要重新验过才能进包。
-
-post.md 里固定有一节「发布设置」，其中「AI 内容声明」是每次都有的固定一行，写稿时就填好，写法固定：发布时选「笔记含 AI 合成内容」这一类。这一行不许缺——发布是必填项，临场才想起来容易漏，漏了要返工。发布的人照着这一行选，不用自己判断。
-
-## 发布清单（发的时候逐项勾）
+Four fixed files. All three assistants use this same pack — no separate versions:
 
 ```
-- [ ] 进小红书主站，窗口拉宽，确认是登录状态
-- [ ] 从主站里面的入口进创作者平台（不要直接开创作者平台的网址下结论）
-- [ ] 上传 video.mp4，确认传上去的是待发包里这个文件
-- [ ] 封面用 cover.jpg 上传设置，不要用视频第一帧
-- [ ] 标题、正文从 post.md 复制，不要手打，容易打错
-- [ ] 话题逐个加：输入 # ，等候选列表弹出来，点官方话题，当场看它变蓝，再加下一个
-- [ ] 数一遍：变蓝的话题数 = post.md 里计划的话题数。对不上，停，不要发
-- [ ] 内容声明照 post.md「发布设置」里的「AI 内容声明」那一行选（一般是「笔记含 AI 合成内容」这一类，页面上的实际叫法以当时页面为准）；原创声明不用勾
-- [ ] 不加地点、不用推广工具；要定时发布的，先在「高级选项」里打开定时设好时间再点发布，设完回笔记管理实读一遍时刻再登记
-- [ ] 点发布
-- [ ] 打开刚发的笔记看一遍：话题能点、视频能播、封面是对的那张
-- [ ] 用 post.md 里的文案发第一条评论
-- [ ] 把笔记链接和实际发布时间回填到选题台账
+Ready-to-post pack/
+├── video.mp4              The accepted final video
+├── cover.jpg              The separately made cover image
+├── post.md                Title, body, topic list, AI content declaration, first comment — all inside
+└── publish-checklist.md   This checklist, copied in
 ```
 
-## 哪一步过不去怎么办
+video.mp4 must be the accepted file. If the file was swapped or re-rendered, the old acceptance is void — it must pass acceptance again before entering the pack.
 
-- 话题点不蓝：停。不要把话题删了裸发，也不要留纯文字话题凑数。包留着，按四要素汇报（卡在哪个话题、页面什么样、试了几次、怎么处置）。
-- 主站确认没登录：停。发需要账号主人本人扫码，别人替不了。
-- 页面打不开、报错：退回主站，换一个站内入口再进。最多试 2 次。还不行就停，包留着，写清页面原话。
+post.md always has a "发布设置" (publish settings) section, in which the "AI 内容声明" (AI content declaration) line is always present, filled in at script-writing time in a fixed wording: at publish time, pick the "笔记含 AI 合成内容" (post contains AI-generated content) category. This line must not be missing — publishing requires it, and remembering it on the spot is easy to miss. A miss means rework. The publisher picks by this line, without judging for themselves.
 
-四要素的写法看 `orchestrator.md`。
+## Publish checklist (tick through item by item when sending)
+
+```
+- [ ] Open the Xiaohongshu main site, widen the window, confirm logged-in state
+- [ ] Enter the creator platform from the entry inside the main site (don't judge by opening the creator platform's URL directly)
+- [ ] Upload video.mp4, confirming the uploaded file is this one from the ready-to-post pack
+- [ ] Set the cover by uploading cover.jpg, don't use the video's first frame
+- [ ] Copy title and body from post.md, don't type by hand — hand typing makes mistakes
+- [ ] Add topics one by one: type # , wait for the candidate list to pop up, tap the official topic, watch it turn blue on the spot, then add the next one
+- [ ] Count once: blue topic count = planned topic count in post.md. On a mismatch, stop, don't publish
+- [ ] Pick the content declaration by the "AI 内容声明" line in post.md's "发布设置" section (usually the "笔记含 AI 合成内容" category; the page's actual wording at the time wins). No need to tick the originality declaration
+- [ ] No location, no promotion tools. For scheduled publishing, first open scheduling in "高级选项" (advanced options), set the time, then press publish; after setting, read the time back once in post management before logging it
+- [ ] Press publish
+- [ ] Open the just-published post and look it over: topics clickable, video plays, cover is the right one
+- [ ] Post the first comment with the text from post.md
+- [ ] Fill the post link and actual publish time back into the topic ledger
+```
+
+## What to do when a step won't pass
+
+- Topics won't turn blue: stop. Don't delete topics and publish bare, and don't pad with plain-text topics. Keep the pack, and report in four elements (which topic got stuck, what the page looked like, how many tries, how it was handled).
+- Main site confirms not logged in: stop. Publishing needs the account owner to scan the QR code personally — nobody can do it for them.
+- Page won't open, or errors: go back to the main site and enter through a different on-site entry. At most 2 tries. Still failing means stop, keep the pack, and write down the page's original wording.
+
+Four-element wording: see `orchestrator.md`.

@@ -1,36 +1,38 @@
-# 给 Grok 的项目说明
+[中文](AGENTS.zh-CN.md) | English
 
-你在帮用户运营一个小红书号，用的是 auto-xhs 这套流程。规矩不在这份文件里，规矩只在仓库的 `core/` 里存一份。你照着下面的顺序读，照着干。
+# Project instructions for Grok
 
-说明一句：这份文件按流程写的。你的多 agent、定时、浏览器能力都有，下面写的就是正路；个别地方留了备选写法，用不上就不用管。
+You are helping the user run a Xiaohongshu account, using the auto-xhs workflow. The rules are not in this file — the rules live in exactly one place, the repo's `core/`. Read in the order below, and work by it.
 
-## 读取顺序
+One note: this file follows the workflow. Your multi-agent, scheduling, and browser abilities are all there, and what follows is the main path. A few places leave fallback wordings — if you don't need them, ignore them.
 
-1. 先读 `core/CONSTITUTION.md`。
-2. 干到哪个阶段，读 `core/stages/` 里对应的那一份。不要一次全读完。
-3. 选题和发布两个阶段，按手册要求另读敏感词附册。
+## Reading order
 
-## 干法
+1. Read `core/CONSTITUTION.md` first.
+2. When you reach a stage, read the matching guide in `core/stages/`. Don't read them all at once.
+3. For the topic-picking and publishing stages, also read the sensitive-words appendix as the guide requires.
 
-总管协议看 `orchestration/orchestrator.md`，要点是：
+## Way of working
 
-- 一个人统筹：开工先做防重复三查，在运行日志里打点。
-- 阶段顺序固定：选题、写稿、做片、验收、发布、收尾。
-- 能派子 agent 就串行派：同一时刻只干一个阶段，上一阶段的证据清单验过，才开始下一阶段。子 agent 不再往下派。
-- 不能派子 agent，就自己按顺序做。每做完一个阶段，把产出落盘，按 `orchestration/orchestrator.md` 里的证据清单格式写好，再做下一个。不要一口气闷头干到底。
-- 验收不许跳：跑 `core/validate.py`，逐项对验收单。有 FAIL 就打回重做。
-- 派单怎么写，看 `orchestration/dispatch-templates.md`。
+The manager protocol is in `orchestration/orchestrator.md`. The key points:
 
-## 定时
+- One coordinator: start with the triple duplicate check, and log heartbeat entries in the run log.
+- Fixed stage order: topic picking, script writing, video making, acceptance, publishing, wrap-up.
+- If you can dispatch sub-agents, dispatch in series: only one stage at a time, and the next stage starts only after the previous stage's evidence list passes. Sub-agents don't dispatch further.
+- If you can't dispatch sub-agents, work through the stages yourself in order. After finishing each stage, save the output to files, write it up in the evidence list format from `orchestration/orchestrator.md`, then move to the next. Don't push through everything in one breath.
+- Never skip acceptance: run `core/validate.py` and tick through the acceptance list item by item. On FAIL, send it back for rework.
+- For dispatch wording, see `orchestration/dispatch-templates.md`.
 
-先看 `orchestration/scheduling/README.md`，用你自带的定时照五件事建。系统 cron 拉起（模板在 `orchestration/scheduling/cron-system.example`）和手动清单（`orchestration/scheduling/manual-checklist.md`）是备选，用不上就不用管。
+## Scheduling
 
-## 发布
+Read `orchestration/scheduling/README.md` first, and build the five jobs with your built-in scheduling. System cron startup (template in `orchestration/scheduling/cron-system.example`) and the manual checklist (`orchestration/scheduling/manual-checklist.md`) are fallbacks — if you don't need them, ignore them.
 
-- 有浏览器能力、先在主站确认登录态、能从主站入口进创作者平台，才谈自动发布。
-- 话题没全点蓝、AI 声明没选、文件和验收的对不上，任何一条不过，不许发。存待发包，按四要素汇报。
-- 没有浏览器能力：备待发包（`video.mp4`、`cover.jpg`、`post.md`、`publish-checklist.md`，模板在 `orchestration/publish-checklist.template.md`），交给用户人工发，发完把链接和时间回填台账。
+## Publishing
 
-## 出错
+- Auto publishing is only on the table with browser ability, login state confirmed on the main site first, and entry into the creator platform from the main site.
+- Topics not all blue, AI declaration not picked, or files not matching the accepted ones — if any one of these fails, don't publish. Save the ready-to-post pack and report in four elements.
+- Without browser ability: prepare the ready-to-post pack (`video.mp4`, `cover.jpg`, `post.md`, `publish-checklist.md`, templated in `orchestration/publish-checklist.template.md`), hand it to the user to publish by hand, and after publishing, fill the link and time back into the ledger.
 
-按四要素写：卡在哪个环节哪个对象、页面或工具的原话、试了什么各几次什么结果、最后怎么处置对成品有什么影响。只写「失败」不算数。
+## Errors
+
+Write all four elements: which step and which object got stuck, the page or tool's original wording, what you tried and how many times with what result each time, and how it was handled in the end and what it means for the finished video. Just writing "failed" doesn't count.

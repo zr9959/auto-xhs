@@ -1,77 +1,79 @@
-# 手动跑一轮：一页清单
+[中文](manual-checklist.zh-CN.md) | English
 
-没有定时、没有子 agent 的时候，照这页从头勾到尾，就是完整的一轮日更。慢一点，要人到场，但一步不少。
+# Running one round by hand: a one-page checklist
 
-## 开工
+With no scheduling and no sub-agents, tick through this page from top to bottom for a complete daily round. Slower, and it needs a person present, but no step is missing.
 
-- [ ] 打开 `core/CONSTITUTION.md` 读一遍
-- [ ] 建今天的工作目录和运行日志，写第一行打点（现在几点、今天干什么）
-- [ ] 查四处：今天的日志、选题台账、今天的工作目录、作品列表。确认今天没发过、没有一轮在跑
+## Start
 
-## 选题
+- [ ] Open `core/CONSTITUTION.md` and read it once
+- [ ] Create today's working directory and run log, and write the first heartbeat entry (what time it is now, what today is for)
+- [ ] Check four places: today's log, the topic ledger, today's working directory, the post list. Confirm nothing posted today and no round is running
 
-- [ ] 读 `core/stages/` 里选题那份，和敏感词附册的弃题清单
-- [ ] 扫信源，先探活，打不开的跳过
-- [ ] 定 1 个题：过了敏感清单、事实双源核对、和受众有关系
-- [ ] 把定案六项写进今天 post.md：品类、和昨天品类的关系、2 个来源和日期、一个热度信号、弃题核对结果、被否候选和理由
-- [ ] 日志打点：选题定案
+## Topic picking
 
-## 写稿
+- [ ] Read the topic-picking guide in `core/stages/`, and the sensitive-words appendix's drop list
+- [ ] Scan sources, probing liveness first — skip ones that won't open
+- [ ] Settle on 1 topic: passed the sensitive list, facts checked against two sources, related to the audience
+- [ ] Write the six settled items into today's post.md: category, relation to yesterday's category, 2 sources with dates, one heat signal, drop-list check result, rejected candidates with reasons
+- [ ] Log heartbeat entry: topic settled
 
-- [ ] 读 `core/stages/` 里写稿那份
-- [ ] 标题先写 3 版，选一版，理由写进 post.md
-- [ ] 正文、话题清单、第一条评论写进 post.md
-- [ ] 口播稿按段写进 scripts.txt，格式 `段名|文本`，一段一行
-- [ ] 数一遍口播字数和正文字数，对照数字总表
-- [ ] 日志打点：稿定，带字数
+## Script writing
 
-## 做片
+- [ ] Read the script-writing guide in `core/stages/`
+- [ ] Write 3 title versions first, pick one, write the reason into post.md
+- [ ] Write body, topic list, and first comment into post.md
+- [ ] Write the voiceover script into scripts.txt by segment, format `segment-name|text`, one segment per line
+- [ ] Count voiceover words and body words once, against the numbers table
+- [ ] Log heartbeat entry: script settled, with word counts
 
-- [ ] 读 `core/stages/` 里做片那份
-- [ ] 素材备齐：每个主要软件都有真实界面，写进 post.md 的素材清单
-- [ ] 按 pipeline/ 做片：网页排版、GSAP 动效（用 motion-lib/）、逐帧捕获、配音、ffmpeg 合成
-- [ ] 封面单独做一张，期号和台账序号对上
-- [ ] 跑 `core/validate.py`，没有 FAIL
-- [ ] 抽帧逐张看：产品对得上、字幕在安全带内、没有空白帧、静音检测过
-- [ ] 验收单六项写进 post.md。长阶段记得每 30 分钟往日志补一行
+## Video making
 
-## 发布（全自动和半自动在这里分岔）
+- [ ] Read the video-making guide in `core/stages/`
+- [ ] Prepare materials: every major piece of software has a real interface, written into post.md's material list
+- [ ] Make the video by pipeline/: web-page layout, GSAP motion (using motion-lib/), frame-by-frame capture, voiceover, ffmpeg joining
+- [ ] Make the cover as a separate image, issue number matching the ledger sequence number
+- [ ] Run `core/validate.py`, no FAIL
+- [ ] View sampled frames one by one: products match, subtitles inside the safe band, no blank frames, silence checked
+- [ ] Write the six-item acceptance list into post.md. For long stages, add one log line every 30 minutes
 
-半自动：
+## Publishing (full-auto and semi-auto split here)
 
-- [ ] 把 video.mp4、cover.jpg、post.md、publish-checklist.md 备成待发包（模板在 `orchestration/publish-checklist.template.md`）
-- [ ] 停在这里。人到场后，照发布清单逐项勾着发
-- [ ] 发完把链接和实际发布时间回填台账
+Semi-auto:
 
-全自动：
+- [ ] Pack video.mp4, cover.jpg, post.md, and publish-checklist.md into a ready-to-post pack (template in `orchestration/publish-checklist.template.md`)
+- [ ] Stop here. Once a person is present, publish by ticking through the publish checklist item by item
+- [ ] After publishing, fill the link and actual publish time back into the ledger
 
-- [ ] 读 `core/stages/` 里发布那份
-- [ ] 发布前合规自查八项，逐项写结果
-- [ ] 从主站进创作者平台，上传的文件和验收过的对得上
-- [ ] 话题逐个点蓝，蓝数 = 计划数，没全蓝就停，存待发包
-- [ ] 选 AI 声明，点发布
-- [ ] 打开公开页复查：话题能点、视频能播
-- [ ] 发第一条评论
-- [ ] 台账补登：日期、品类、标题、链接、实际发布时间
-- [ ] 日志打点：发布完成
+Full-auto:
 
-## 发后 2 小时
+- [ ] Read the publishing guide in `core/stages/`
+- [ ] Pre-publish compliance self-check, eight items, each with its result
+- [ ] Enter the creator platform from the main site; uploaded files match the accepted ones
+- [ ] Tap topics blue one by one, blue count = planned count; if not all blue, stop and save the ready-to-post pack
+- [ ] Pick the AI declaration, press publish
+- [ ] Open the public page to re-check: topics clickable, video plays
+- [ ] Post the first comment
+- [ ] Ledger entry: date, category, title, link, actual publish time
+- [ ] Log heartbeat entry: publish complete
 
-- [ ] 从实际发布时间算起，每 30 分钟看一次通知和私信有没有红点
-- [ ] 有新评论就回，回到位记进互动状态文件；涉及钱、联系方式、合作、账号安全的私信不回，报给号主
-- [ ] 直达链接打不开时，改从个人主页或笔记管理进，再看通知核对。都核不到就记「未核实」，不要记成 0
-- [ ] 满 2 小时停。没动静不用报
+## 2 hours after publishing
 
-## 收尾汇报
+- [ ] From the actual publish time, check notifications and DMs for red dots every 30 minutes
+- [ ] On new comments, reply, and log each reply into the interaction status file. DMs about money, contact details, partnerships, or account security don't get replies — report them to the account owner
+- [ ] When a direct link won't open, re-enter from the profile page or post management, then cross-check with notifications. If nothing verifies, log it as "unverified" — never as 0
+- [ ] Stop at 2 hours. No movement means no report needed
 
-- [ ] 顺利：一行——选题、标题、链接、发布时间
-- [ ] 有异常：先一行结论，再补四要素（卡在哪、页面原话、试了什么各几次、怎么处置的）
+## Wrap-up report
 
-## 一周一次（可以周末手动补）
+- [ ] Smooth run: one line — topic, title, link, publish time
+- [ ] With exceptions: one conclusion line first, then the four elements (where it stuck, the page's original wording, what was tried and how many times each, how it was handled)
 
-- [ ] 读 `core/stages/` 里复盘那份和教训册
-- [ ] 看本周台账：发了几条、品类分布、最好和最差各一条
-- [ ] 数据回填：次日才出的字段补上，没出的标待回填
-- [ ] 新教训写进教训册；成了规矩的，改 `core/` 对应文件
-- [ ] 草稿箱看一眼，没用的旧草稿删掉，拿不准的留着
-- [ ] 每月第一次做这节时，顺手复看敏感词附册，对照平台最新公告更新
+## Once a week (can be made up manually on a weekend)
+
+- [ ] Read the review guide in `core/stages/` and the lessons book
+- [ ] Look at the week's ledger: how many posts, category spread, best and worst one each
+- [ ] Data backfill: fill in fields that only come out the next day; mark not-yet-out ones as pending backfill
+- [ ] Write new lessons into the lessons book; whatever became a rule, change the matching `core/` file
+- [ ] Look at the draft box: delete useless old drafts, keep ones you're unsure about
+- [ ] On the month's first time doing this section, re-read the sensitive-words appendix and update it against the platform's latest notices

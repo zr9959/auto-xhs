@@ -1,33 +1,35 @@
-# 常见问题
+[中文](faq.zh-CN.md) | English
 
-## 要花钱吗？
+# Frequently asked questions
 
-工具这条线不花钱：GSAP、ffmpeg、Playwright、免费配音，都是免费的。但 agent 平台本身要不要钱，看你用哪家、什么套餐，那笔账不在这个仓库里。还有一笔是时间：网页做片一帧一帧截，一条片的渲染要等不少分钟。
+## Does it cost money?
 
-## 不会代码行不行？
+The tool chain costs nothing: GSAP, ffmpeg, Playwright, and free voiceover are all free. Whether the agent platform itself costs money depends on which one you use and what plan — that bill is not in this repo. There is one more cost, in time: web-page videos are captured frame by frame, so rendering one video takes quite a few minutes of waiting.
 
-不用你写代码，哪条路都一样。装环境、建定时，要照着向导敲几条命令，向导写到了能照抄的程度。脚本跑不通，把报错原话贴回给助手，它会告诉你下一步。再不行，就用 `orchestration/scheduling/manual-checklist.md`，纯手动跑，慢但能跑。
+## Can I use it without knowing code?
 
-## 号会不会封？
+You don't need to write code, on any path. Setting up the environment and building schedules means typing a few commands by following the guide, and the guide is written so you can copy every command as-is. If a script fails, paste the error's original wording back to the assistant and it will tell you the next step. If that still doesn't work, use `orchestration/scheduling/manual-checklist.md` — fully manual, slower, but it runs.
 
-没人能保证不会。平台对 AI 托管有明确治理，全自动代发代互动是风险最高的那一档。怕封就走半自动：备好待发包，你自己看一眼、自己点发布。细节看 `compliance.md`。
+## Can the account get banned?
 
-## 三家选哪家？
+Nobody can promise it won't. The platform governs AI hosting explicitly, and fully automated posting and interacting is the highest-risk tier. If you fear a ban, go semi-auto: prepare the ready-to-post pack, look at it yourself, and press publish yourself. Details are in `compliance.md`.
 
-三家都是云端 agent，差别在批准规则和你能不能用上。想全自动、又要现成跑通的，选 Muse，已经有号在日更用。手里有 ChatGPT Pro 或 Business Premium，可以试 Dots：能力跟 Muse 对齐，但我们没实测过，发布先在它的规则里设成要批准。Grok Bot 还在 beta，只开放给部分 SuperGrok Heavy 用户，发布前默认会停住等批准，同样没实测过。详表在 `capability-matrix.md`。
+## Which of the three should I pick?
 
-## 视频为什么用网页做？
+All three are cloud agents. The differences are approval rules and whether you can use them. For full-auto that already works, pick Muse — an account already posts daily with it. With ChatGPT Pro or Business Premium in hand, Dots is worth trying: capability matches Muse, but we haven't tested it, so set publishing to ask-for-approval in its rules first. Grok Bot is still in beta, only open to some SuperGrok Heavy users, and by default it stops before publishing and waits for approval — also untested by us. The full table is in `capability-matrix.md`.
 
-因为 agent 写 HTML 最顺手。版面用 CSS 排，动画用 GSAP，组件攒在 `motion-lib/` 里反复用，改一处文案不用重剪整条片。代价是渲染靠逐帧截图，慢。想要快，就得换工具链，这套流程不提供。
+## Why make videos as web pages?
 
-## 能不能换个品类，不做科技？
+Because agents write HTML most fluently. Layout goes in CSS, animation in GSAP, components pile up in `motion-lib/` for reuse, and changing one line of copy doesn't mean re-cutting the whole video. The cost is rendering by frame-by-frame screenshots, which is slow. To go faster you would need a different tool chain, and this workflow doesn't provide one.
 
-能。规矩里跟品类绑定的只有三处：配置里的品类清单、信源清单、选题手册里举的例子。把这三处换成你的领域，剩下的流程——写稿标准、做片、验收、发布过闸——原样能用。敏感词附册是按平台规则写的，换品类也建议留着。
+## Can I switch categories and stop doing tech?
 
-## 一定要每天发吗？
+Yes. Only three places in the rules tie to a category: the category list in config, the source list, and the examples in the topic-picking guide. Swap those three for your field, and the rest of the flow — writing standards, video making, acceptance, publishing gates — works unchanged. The sensitive-words appendix follows platform rules, so keep it even after switching categories.
 
-不用。频率在配置里，改成一周三条也行。日更那套时刻只是推荐值。发得少，看门狗和跟进照样能用，把触发时间对上你的发布节奏就行。
+## Must I post every day?
 
-## 发不出去、话题点不蓝怎么办？
+No. Frequency lives in config — three posts a week works too. The daily-post times are only recommended values. Posting less often doesn't break the watchdogs or follow-up — just line their trigger times up with your publishing rhythm.
 
-先停，别硬发。话题点不蓝是发布闸口，不许删话题裸发。把待发包存好，按清单从主站重新进一次创作者平台再试，最多两次。还不行就人工在 App 里发，待发包里的东西一样不少。报错怎么写进汇报，看 `orchestration/orchestrator.md` 的四要素。
+## What if publishing fails, or topics won't turn blue?
+
+Stop first. Don't force it. Topics not turning blue is a publishing gate — deleting topics and publishing bare is not allowed. Save the ready-to-post pack, re-enter the creator platform from the main site by the checklist, and try again, at most twice. If it still fails, publish by hand in the app — nothing in the ready-to-post pack goes missing. For how to write the error into a report, see the four elements in `orchestration/orchestrator.md`.

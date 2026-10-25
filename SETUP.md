@@ -1,102 +1,108 @@
-# 第一次设置，一项一项来
+[中文](SETUP.zh-CN.md) | English
 
-不用懂代码。每一项都写了：这项管什么、怎么填、推荐填什么。
-填的东西都在 `config.yaml` 里。还没这个文件的话，先跑一次 `bash scripts/setup.sh`，它会把示例配置复制一份给你，顺带把环境和第三方库都备好。
+# First-time setup, one item at a time
 
-赶时间的话，把 README 里「最省事的装法」那段话复制给你的智能助手（Muse、Dots、Grok Bot 都行）就行，仓库地址已经写在那段话里，它会带着你一项一项填。
+No code knowledge needed. Every item states: what it controls, how to fill it in, and what's recommended.
+Everything you fill in goes in `config.yaml`. If that file doesn't exist yet, run `bash scripts/setup.sh` first — it copies the sample config for you, and prepares the environment and third-party libraries along the way.
 
-## 第 0 项：先选自动化到什么程度
+In a hurry? Copy the "easiest way to install" paragraph from the README to your AI assistant (Muse, Dots, or Grok Bot all work) — the repo address is already in that paragraph, and it walks you through the items one by one.
 
-这一项最先定，填 `automation.mode`。三档是这样：
+## Before Item 0: which language?
 
-- **全自动（full）**：搜资讯、写稿、做片、发布，全包，你只看结果。省事，但号是你的，平台对全自动托管查得严，新号不建议一上来就用这档。
-- **半自动（semi）**：前面全自动，做到发布前停住，备好一个待发包，你看一眼，自己点发布。**推荐先用这档**，跑稳一两周再说。
-- **手动（manual）**：只帮你搜资讯、写稿，做片和发布你自己来。适合先试试稿子质量怎么样。
+First, ask the operator whether they want Chinese or English, and use that language for everything after — setup, daily runs, and reports. The repo docs come in both languages; read the version in the language picked. (Standing rule: `core/CONSTITUTION.md`.)
 
-随时能改，改一档不用重装。
+## Item 0: pick your automation level first
 
-## 第 1 项：你的号做什么方向
+Set this one first: fill in `automation.mode`. The three levels work like this:
 
-填 `account.name`（昵称，照账号上显示的写）、`account.channel_name`（你在视频开头自称什么，没有就不填）。
-方向不用写进配置，但你要先想清一句话：给谁看、讲什么、什么不讲。想不清这句，选题那一步就没法判断「这个题跟看的人有什么关系」，稿子容易平淡。
+- **Full-auto (`full`)**: sourcing, writing, video, publishing — the whole package, you only look at results. Easiest, but the account is yours, and platforms watch fully automated hosting closely — a new account shouldn't start on this level.
+- **Semi-auto (`semi`)**: everything automatic up to publishing, where it stops with a ready-to-post pack ready — you look it over and press publish yourself. **Start on this level**, and talk about moving up after a steady week or two.
+- **Manual (`manual`)**: it only helps you source topics and write scripts; video and publishing are yours. Fits trying out script quality first.
 
-## 第 2 项：给谁看
+You can change levels any time — changing one needs no reinstall.
 
-同样先想清：看的人多大年纪、平时在什么场景下会需要你讲的东西、最头疼什么。越具体越好。比如「上班族，通勤路上刷手机，头疼各种会员收费」，就比「年轻人」好用得多。这个想清楚了，跟智能助手说一遍，让它记在选题的要求里。
+## Item 1: what direction your account takes
 
-## 第 3 项：品类和轮换
+Fill in `account.name` (nickname, written as the account shows it) and `account.channel_name` (what you call yourself at the start of videos — leave it blank if you don't have one).
+Direction doesn't go in config, but settle one sentence first: who it's for, what it covers, what it never covers. Without that sentence settled, the topic step can't judge "what does this topic have to do with the viewer", and scripts come out flat.
 
-填 `content.categories`，把示例品类换成你自己的，再定三件事：
+## Item 2: who it's for
 
-- 轮换：跟昨天尽量不同，别连着几天都讲同一类。
-- 容易扎堆的那个品类，一周最多几条，填 `content.category_weekly_cap`。
-- 一周里资讯和教程的大致比例，填 `content.weekly_mix`。教程类能被搜到，老用户回头看的多，比例别太低。
+Settle this one too: how old the viewers are, in what situation they'd need what you cover, what hurts most. The more concrete, the better. For example, "office workers, scrolling on the commute, hurting over all kinds of membership fees" works far better than "young people". Once it's settled, tell the AI assistant once, so it keeps it in the topic requirements.
 
-## 第 4 项：信源清单
+## Item 3: categories and rotation
 
-填配置里的 `sources`，一个源写四样：名字、网址、看什么（榜单、某个版块、某个官方账号都行）、最多花几分钟。
-先填 4 到 6 个就够，别贪多。两句提醒：
+Fill in `content.categories` — swap the sample categories for your own — then settle three things:
 
-- 评论区只用来看热度和大家在烦什么，不能当事实用。
-- 一个事要讲，先有官方说法，再找一个不相干的来源对上，才算核实过。对不上就不讲，或者明说这是还没官宣的消息。
+- Rotation: as different from yesterday as possible, not the same category several days running.
+- The category that tends to pile up: its weekly max, in `content.category_weekly_cap`.
+- The week's rough news-to-tutorial ratio, in `content.weekly_mix`. Tutorials get searched for, and old viewers come back to them — don't let the ratio run too low.
 
-## 第 5 项：小红书登录（只能你本人扫码）
+## Item 4: source list
 
-这一步谁都替不了你，密码和验证码也不要给任何人、不要写进任何文件。步骤：
+Fill in `sources` in config — four things per source: name, URL, what to watch (a chart, a board, an official account — any of them), and max minutes to spend.
+Four to six sources is enough to start — don't be greedy. Two reminders:
 
-1. 在智能助手能用的那个浏览器里，打开小红书主站 `www.xiaohongshu.com`。
-2. 用小红书 App 扫码登录，登的是你自己的号。
-3. 把浏览器窗口拉宽，确认主站右上角是你自己的头像，这才算登好了。
-4. 以后进创作者平台办事，一律从主站里面的入口点进去，不要在地址栏直接输创作者平台的网址。直接输那个网址，它会单独弹一个登录页，看着像登录过期，其实不是。判断登没登，只看主站。
-5. 哪天主站也显示没登录了，重新扫一次就行。成片和稿子都会存好等你，不会丢。
+- Comment sections only show heat and what people are annoyed about — never use them as facts.
+- Before covering something, first have the official word, then find an unrelated source that matches it — only then does it count as checked. When they don't match, either don't cover it, or say clearly it's still unannounced news.
 
-## 第 6 项：几点发、多久发一次
+## Item 5: Xiaohongshu login (only you can scan the code)
 
-填 `schedule` 那一组。推荐值已经填好了：早上 6 点开工，8 点前发出去。中间留两个钟头，是因为做一条视频光渲染就要半小时左右。
-两个看门狗别关：早的那个查有没有真开工，晚的那个查有没有发出去。以前真出过「任务看着在跑、其实什么都没干」的事，就靠它们发现的。
-每周复盘留一次，填 `schedule.review_weekday` 和 `review_time`。
+Nobody can do this step for you, and passwords and verification codes go to no one and into no file. Steps:
 
-## 第 7 项：配音
+1. In the browser your AI assistant can use, open the Xiaohongshu main site `www.xiaohongshu.com`.
+2. Scan the code with the Xiaohongshu app to log in — logging into your own account.
+3. Widen the browser window and confirm the main site's top-right shows your own avatar — only then does it count as logged in.
+4. From then on, every creator platform job enters through the main site's own entry point — never type the creator platform's URL straight into the address bar. Typing it directly pops a standalone login page that looks like an expired login, but it isn't. Judging logged-in or not only looks at the main site.
+5. Whenever the main site itself shows logged out, scan once more and you're back. Finished videos and scripts stay saved waiting for you — nothing gets lost.
 
-填 `tts.provider`（下面两条路分别填 `edge`、`sherpa`）和 `tts.voice`。两条路都免费：
+## Item 6: when to post, and how often
 
-- **edge-tts**：要联网，音色多，上手最快。先用这条。
-- **sherpa-onnx 加 MeloTTS**：在本机跑，不用联网，要先下一次模型文件。网络不方便，或者想全在本机搞定时用这条。
+Fill in the `schedule` group. Recommended values are already filled in: start work at 6 in the morning, post before 8. The two hours in between exist because rendering one video alone takes about half an hour.
+Don't turn off either watchdog: the early one checks real work actually started, the late one checks the post actually went out. A real case of "the task looked like it was running but did nothing" got caught by them.
+Keep one weekly review: fill in `schedule.review_weekday` and `review_time`.
 
-音色自己听几个挑一个顺耳的，挑好把名字填进 `tts.voice`。定了就别老换，看的人认声音。
-倍速填 `video.speed`，推荐 1.5。结尾固定句填 `video.ending_line`，可以换成你自己的话。
+## Item 7: voiceover
 
-## 第 8 项：视频长什么样
+Fill in `tts.provider` (the two routes below take `edge` and `sherpa` respectively) and `tts.voice`. Both routes are free:
 
-填 `video` 那一组，推荐值都能直接用。先定画面方向，再说三个最容易踩的：
+- **edge-tts**: needs internet, many voices, fastest to start. Use this one first.
+- **sherpa-onnx plus MeloTTS**: runs on your own machine, no internet needed, but downloads a model file once first. Use it when the network is awkward, or when you want everything on your own machine.
 
-- 画面方向填 `video.orientation`，顺手把 `video.width`、`video.height` 对上。默认竖版 1080×1920（填 portrait），小红书和抖音都主推竖版，手机上全屏。录屏、教程这类横着看更舒服的，选横版 1920×1080（填 landscape，宽高改成 1920、1080）。选一次写进 config，后面每条都按这个出，不用条条改。
-- 字幕位置别动。它是贴底锚定的：底边固定在画面高度 80% 那条线上，是拿小红书 App 的观众画面实测量出来的——手机上播放时，头像、昵称、标题都叠在最下面那块，字幕底边定在那块上方留了间距的地方，才不会被盖住。要换个平台用，先按动效库说明里的方法重测，再改 config 里的 `subtitle_bottom_pct` 和 `system_info_top_pct` 两个数。
-- 口播稿 480 到 650 字，成片 80 到 110 秒。短了讲不清，长了人划走。
-- 封面单独做一张 3:4 的大字图，别拿视频第一帧凑。带期号的话，期号从 `publish.issue_required_from` 填的那天起算硬规矩。
+Listen to a few voices yourself and pick one that sounds good, then put its name in `tts.voice`. Once picked, don't keep switching — viewers recognize the voice.
+Speed goes in `video.speed` — 1.5 is recommended. The fixed closing line goes in `video.ending_line` — you can swap in your own words.
 
-## 第 9 项：敏感和合规
+## Item 8: what videos look like
 
-填 `compliance.sensitive_review`，推荐每月复看一次。
-规矩就三条，先记牢：发布时要选 AI 内容声明；稿子里不许有导流的话（联系方式、外链、二维码这些）；敏感词表在 `core/sensitive-words.template.md`，选题前先过一遍弃题清单，沾上的题直接不做。更细的在 `docs/compliance.md` 里，都是大白话。
+Fill in the `video` group — the recommended values work as-is. Set the frame direction first, then the three easiest to trip over:
 
-## 第 10 项：你的数据放哪
+- Frame direction goes in `video.orientation` — and match `video.width` and `video.height` to it. Portrait 1080×1920 is the default (fill in portrait); Xiaohongshu and Douyin both push portrait, full screen on phones. Screen recordings and tutorials read better wide — pick landscape 1920×1080 (fill in landscape, width and height to 1920 and 1080). Pick once in config, and every post after follows it — no per-post changes.
+- Don't move the subtitle position. It's bottom-anchored: the bottom edge fixed on the line at 80% of frame height, measured from real viewer screens on the Xiaohongshu app — on phones during playback, avatars, nicknames, and titles all stack on the lowest band, and the subtitle bottom edge sits above that band with a gap, so nothing gets covered. To use it on another platform, re-measure first by the motion library's method, then change `subtitle_bottom_pct` and `system_info_top_pct` in config.
+- Voiceover scripts run 480 to 650 words; finished videos run 80 to 110 seconds. Too short says too little; too long and people swipe away.
+- Make the cover as its own 3:4 big-text picture — never the video's first frame as a fill-in. With issue numbers on, the issue count becomes a hard rule from the date filled in `publish.issue_required_from`.
 
-填 `paths` 那一组，默认放在仓库的 `data/` 里。三样东西：每天的素材夹、选题和发布记录、处理过的评论私信记录。
-这些是你自己的数据，永远不要发到公开仓库。仓库的 `.gitignore` 已经把它们挡住了，你别手动改这个文件。
+## Item 9: sensitivity and compliance
 
-## 第 11 项：花多少钱，心里有个数
+Fill in `compliance.sensitive_review` — once a month re-read is recommended.
+Three rules to memorize first: pick the AI content declaration at publish time; the script must carry no diversion wording (contact info, outside links, QR codes, and the like); the sensitive word list lives in `core/sensitive-words.template.md` — run the drop list before picking topics, and drop any topic it touches outright. Finer details live in `docs/compliance.md`, all in plain words.
 
-工具全是免费的：做视频的库、合成用的 ffmpeg、配音，都不花钱。
-要花钱的只有一样：智能助手本身。你用 Muse、Dots、Grok Bot，哪家都要你自己有账号，订阅费或者用量费算你自己的。本项目不接任何要付费的接口。
-三家的门槛先说清：Dots 要 ChatGPT Pro 或 Business Premium 才能用，我们还没实测过它跑这套系统；Grok Bot 还在 beta，只开放给部分 SuperGrok Heavy 用户，同样没实测过。Muse 这条是现行在跑、验过的。
-还有一样不花钱花时间：做一条视频，渲染大约半小时，机器要开着。
+## Item 10: where your data goes
 
-## 最后：自检一遍
+Fill in the `paths` group — the default sits in the repo's `data/` folder. Three things: each day's material folder, topic and publish records, and handled comment and DM records.
+This is your own data — never send it to a public repo. The repo's `.gitignore` already blocks it — don't hand-edit that file.
 
-两条都过了，才算设置完：
+## Item 11: what it costs, so you know
 
-1. 跑 `bash scripts/check-env.sh`，没有标「缺」的就行。
-2. 拿示例验一遍：`python3 core/validate.py examples/example-issue`。口播字数和 post.md 结构两项是 PASS 就对了；成片和封面那几项报 FAIL 是正常的，示例里本来就没有真视频。
+The tools are all free: the video libraries, ffmpeg for joining, voiceover — none of it costs money.
+The only thing that costs is the AI assistant itself. Muse, Dots, or Grok Bot — whichever you use, you need your own account, and subscription or usage fees are yours. This project connects to no paid interface.
+Three assistants' bars, stated first: Dots needs ChatGPT Pro or Business Premium to use, and we haven't tested it running this system yet. Grok Bot is still in beta, open only to some SuperGrok Heavy users, also untested. Muse is the one currently running and verified.
+One more thing costs no money but costs time: rendering one video takes about half an hour, with the machine on.
 
-然后就可以跑第一条了。第一条建议用半自动：备好待发包，你自己看一遍再发。
+## Finally: self-check once
+
+Both must pass before setup counts as done:
+
+1. Run `bash scripts/check-env.sh` — nothing marked "missing" means pass.
+2. Check with the sample: `python3 core/validate.py examples/example-issue`. Voiceover word count and post.md structure both PASS is the expected result. The video and cover items reporting FAIL is normal — the sample ships with no real video.
+
+Then the first real post can run. Use semi-auto for the first one: a ready-to-post pack prepared, you look it over yourself, then post.

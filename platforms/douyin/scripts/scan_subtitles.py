@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""字幕敏感扫描：中英双扫的「扫」这一步。
+"""Subtitle sensitivity scan: the "scan" step of the bilingual Chinese-English scan.
 
-用法：
-    python3 scan_subtitles.py --srt 字幕.srt --wordlist 词库.txt
-    python3 scan_subtitles.py --text "要扫的一段话" --wordlist 词库.txt
+Usage:
+    python3 scan_subtitles.py --srt subtitles.srt --wordlist wordlist.txt
+    python3 scan_subtitles.py --text "a passage to scan" --wordlist wordlist.txt
 
-词库格式：一行一个词或短语，# 开头的是注释行。词库文件自己填——
-仓库里只带格式模板（sensitive-words.template.txt），不带任何现成词表。
-命中 = 原文里逐字出现该词（英文不区分大小写）；谐音、拆字、拼音首字母、
-全角圈字等变体形态要另外写进词库才算命中，脚本不猜变体。
+Wordlist format: one word or phrase per line; lines starting with # are comments. Fill in the wordlist yourself —
+the repo only ships the format template (sensitive-words.template.txt), no ready-made wordlist.
+A hit means the word appears in the text character for character (English is case-insensitive); homophones, split characters,
+pinyin initials, full-width circled characters, and other variant forms only count if written into the wordlist — the script doesn't guess variants.
 
-退出码：0 没命中，1 有命中，2 用法或文件不对。
+Exit codes: 0 no hit, 1 hit, 2 wrong usage or file problem.
 """
 
 import argparse
@@ -41,26 +41,26 @@ def load_wordlist(path):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="字幕敏感扫描")
+    ap = argparse.ArgumentParser(description="Subtitle sensitivity scan")
     ap.add_argument("--srt")
     ap.add_argument("--text")
     ap.add_argument("--wordlist", required=True)
     args = ap.parse_args()
     if bool(args.srt) == bool(args.text):
-        print("二选一：--srt 传字幕文件，或 --text 传一段话", file=sys.stderr)
+        print("Pick one: --srt for a subtitle file, or --text for a passage", file=sys.stderr)
         return 2
     wl = Path(args.wordlist)
     if not wl.is_file():
-        print(f"找不到词库：{wl}", file=sys.stderr)
+        print(f"Wordlist not found: {wl}", file=sys.stderr)
         return 2
     words = load_wordlist(wl)
     if not words:
-        print("词库是空的（只有注释行），先填词再扫")
+        print("Wordlist is empty (comment lines only) — fill in words first, then scan")
         return 0
     if args.srt:
         sp = Path(args.srt)
         if not sp.is_file():
-            print(f"找不到字幕：{sp}", file=sys.stderr)
+            print(f"Subtitle file not found: {sp}", file=sys.stderr)
             return 2
         body = strip_srt(sp.read_text(encoding="utf-8-sig"))
     else:
@@ -71,10 +71,10 @@ def main():
         if w.lower() in lowered:
             hits.append(w)
     if not hits:
-        print(f"扫完：没命中（原文 {len(body)} 字，词库 {len(words)} 条）")
+        print(f"Scan done: no hits (text {len(body)} chars, wordlist {len(words)} entries)")
         return 0
-    print(f"扫完：命中 {len(hits)} 条：{', '.join(hits)}")
-    print("命中即整条弃用，不许删词、打码、剪段挽救（见模块 README 四道闸）")
+    print(f"Scan done: {len(hits)} hit{'s' if len(hits) != 1 else ''}: {', '.join(hits)}")
+    print("A hit drops the whole clip — no deleting words, blurring, or cutting around it (see the module README's four gates)")
     return 1
 
 

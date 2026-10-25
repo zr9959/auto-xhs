@@ -1,172 +1,174 @@
-# 派单模板
+[中文](dispatch-templates.zh-CN.md) | English
 
-六个阶段各一份。总管派活时复制对应那份，把 `{{占位符}}` 换成当天的实际值再发。
+# Dispatch templates
 
-占位符说明：
+One per stage, six in all. When the manager dispatches work, copy the matching template and replace the `{{placeholders}}` with the day's actual values before sending.
 
-- `{{date}}`：当天日期，如 2026-01-05。
-- `{{work_dir}}`：当天的工作目录，选题、写稿、做片的产出都放这里。
-- `{{stage_doc}}`：本阶段要读的手册路径，在 `core/stages/` 里。
-- `{{prev_output}}`：上一阶段的产出文件路径。
-- `{{deadline}}`：本阶段截止时间，数字从 `core/CONSTITUTION.md` 的数字总表抄。
-- `{{ledger}}`：选题台账文件路径，在配置里定。
-- `{{log_file}}`：当天的运行日志文件。
+Placeholder notes:
 
-每份模板末尾都要带上这句，六份都一样：
+- `{{date}}`: today's date, e.g. 2026-01-05.
+- `{{work_dir}}`: today's working directory. Topic-picking, script-writing, and video-making output all go here.
+- `{{stage_doc}}`: this stage's guide path, inside `core/stages/`.
+- `{{prev_output}}`: the previous stage's output file paths.
+- `{{deadline}}`: this stage's deadline, copied from `core/CONSTITUTION.md`'s numbers table.
+- `{{ledger}}`: the topic ledger file path, set in config.
+- `{{log_file}}`: today's run log file.
 
-> 交回时按 `orchestration/orchestrator.md` 里的证据清单格式写。遇上闸口异常，停下，按四要素交回，不许自己想办法绕过去。
+Every template must end with this line, the same for all six:
+
+> When handing back, write by the evidence list format in `orchestration/orchestrator.md`. On a gate exception, stop and hand back in four elements. Don't find a way around it yourself.
 
 ---
 
-## 1. 选题单
+## 1. Topic-picking dispatch
 
 ```
-阶段：选题
-日期：{{date}}
-工作目录：{{work_dir}}
-要读的手册：{{stage_doc}}（选题那份），另读敏感词附册的弃题清单
-输入：{{ledger}}（去重和看品类轮换用）
-截止：{{deadline}}
+Stage: topic picking
+Date: {{date}}
+Working directory: {{work_dir}}
+Guides to read: {{stage_doc}} (the topic-picking guide), plus the sensitive-words appendix's drop list
+Input: {{ledger}} (for dedup and category rotation)
+Deadline: {{deadline}}
 
-干什么：按手册扫信源，定 1 个题，写进 {{work_dir}}/post.md 的选题部分。
-先探活：每个渠道先花不到 1 分钟看能不能打开，结果写进 {{log_file}}。打不开的跳过，不要卡在一个渠道上。
+What to do: scan sources by the guide, settle on 1 topic, and write it into the topic section of {{work_dir}}/post.md.
+Probe liveness first: for each channel, spend under 1 minute checking whether it opens, and write the results into {{log_file}}. Skip channels that won't open — don't get stuck on one channel.
 
-交回要带：
-- 定案的品类，和昨天品类的关系
-- 至少 2 个核对来源，各自的日期
-- 一个能看得见的热度信号（比如某帖的点赞数、某榜单的名次）
-- 敏感弃题清单的核对结果
-- 被否掉的候选，各一句否掉的理由
-- 各渠道实际通断
-- 搜集一共用了多久
-- 要是走了兜底选题，写明「兜底」，和它的热度名次
+Hand back:
+- The settled category, and its relation to yesterday's category
+- At least 2 checking sources, each with its date
+- One visible heat signal (for example, a post's like count, a ranking position)
+- The sensitive drop-list check result
+- Rejected candidates, one sentence of rejection reason each
+- Each channel's actual live/dead state
+- How long sourcing took in total
+- If a fallback topic was used, mark it "fallback", with its heat rank
 ```
 
-## 2. 写稿单
+## 2. Script-writing dispatch
 
 ```
-阶段：写稿
-日期：{{date}}
-工作目录：{{work_dir}}
-要读的手册：{{stage_doc}}（写稿那份）
-输入：{{prev_output}}（选题定案，在 post.md 里）
-截止：{{deadline}}
+Stage: script writing
+Date: {{date}}
+Working directory: {{work_dir}}
+Guides to read: {{stage_doc}} (the script-writing guide)
+Input: {{prev_output}} (the settled topic, in post.md)
+Deadline: {{deadline}}
 
-干什么：把稿写全，落盘两个文件——{{work_dir}}/post.md 补全，{{work_dir}}/scripts.txt 写口播分段稿。
+What to do: write the full script, saved to two files — complete {{work_dir}}/post.md, and write the segmented voiceover script to {{work_dir}}/scripts.txt.
 
-交回要带：
-- post.md 和 scripts.txt 的路径
-- 口播稿实际字数（按文件数，不许估）
-- 正文实际字数
-- 3 版标题和选定哪一版的理由
-- 产品四问各写在哪一段（讲产品时才有）
-- 全文的判断句在哪、对比或转折在哪
-- 话题清单
-- 第一条评论的文案
-- 异常四要素，没有写「无」
+Hand back:
+- Paths of post.md and scripts.txt
+- Voiceover script's actual word count (counted from the file, no estimating)
+- Body text's actual word count
+- 3 title versions and the reason for the picked one
+- Where each of the four product questions is answered, by paragraph (only when covering a product)
+- Where the full text's judgment sentences are, where the comparisons or turns are
+- Topic list
+- First comment text
+- Four-element exceptions, or "none"
 ```
 
-## 3. 做片单
+## 3. Video-making dispatch
 
 ```
-阶段：做片
-日期：{{date}}
-工作目录：{{work_dir}}
-要读的手册：{{stage_doc}}（做片那份）
-输入：{{prev_output}}（post.md 和 scripts.txt）
-截止：{{deadline}}
+Stage: video making
+Date: {{date}}
+Working directory: {{work_dir}}
+Guides to read: {{stage_doc}} (the video-making guide)
+Input: {{prev_output}} (post.md and scripts.txt)
+Deadline: {{deadline}}
 
-干什么：按 pipeline/ 的网页做片流水线出片——HTML 排版、GSAP 动效、逐帧捕获、ffmpeg 合成。动效组件用 motion-lib/，不要自己另写一套。封面单独做一张。收尾跑一遍 core/validate.py。
+What to do: produce the video by pipeline/'s web-page video pipeline — HTML layout, GSAP motion, frame-by-frame capture, ffmpeg joining. Use motion-lib/ components, don't write a second set yourself. Make the cover as a separate image. At the end, run core/validate.py once.
 
-交回要带：
-- 成片路径、封面路径
-- validate.py 的输出全文
-- 成片验收单，六项写全（格式看手册）
-- 每个主要软件一行：软件名 → 界面文件 → 出现在哪一段、哪个时间点
-- 动效清单：用了哪几个动效、各在哪个时间点，带至少 3 张动效中间态的抽帧
-- 异常四要素，没有写「无」
+Hand back:
+- Finished video path, cover path
+- validate.py output in full
+- Finished video acceptance list, all six items (format in the guide)
+- One line per major piece of software: software name → interface file → which segment and time point it appears in
+- Motion list: which motions were used, at which time points, with at least 3 sampled mid-motion frames
+- Four-element exceptions, or "none"
 ```
 
-## 4. 验收单（总管自己做，不派）
+## 4. Acceptance dispatch (the manager does it, never dispatched)
 
-这一步没有派单模板。总管亲自做，步骤在 `orchestrator.md` 的「验收」一节。
+This step has no dispatch template. The manager does it personally, steps in `orchestrator.md`'s "Acceptance" section.
 
-验收时对着这张单子逐项打勾：
-
-```
-- [ ] 跑过 core/validate.py，输出存进 {{work_dir}}
-- [ ] validate.py 没有 FAIL
-- [ ] 做片交回的验收单六项齐全
-- [ ] 抽帧逐张看过：产品对得上、字幕在安全带内、没有空白帧
-- [ ] 真实界面清单齐：每个主要软件都有界面出镜
-- [ ] 封面期号和台账序号一致
-- [ ] 敏感六面自查有逐项结果，不是只写「查过」
-
-结论：通过 / 打回（打回写明哪项、回哪个阶段重做）
-```
-
-打回之后，旧结论作废。重做完，重新从第一项验。
-
-## 5. 发布单
+Tick through this list item by item at acceptance:
 
 ```
-阶段：发布
-日期：{{date}}
-工作目录：{{work_dir}}
-要读的手册：{{stage_doc}}（发布那份），另读敏感词附册
-输入：{{prev_output}}（验收通过的成片、封面、post.md，以验收单记的文件为准）
-截止：{{deadline}}
+- [ ] core/validate.py run, output saved into {{work_dir}}
+- [ ] validate.py reports no FAIL
+- [ ] Video-making handover's acceptance list has all six items
+- [ ] Sampled frames viewed one by one: products match, subtitles inside the safe band, no blank frames
+- [ ] Real interface list complete: every major piece of software appears on screen
+- [ ] Cover issue number matches the ledger sequence number
+- [ ] Sensitive six-surface self-check has per-item results, not just "checked"
 
-干什么：按手册的入口路线进创作者平台发布。上传的文件必须和验收单记的对得上，文件名、大小、修改时间有一项对不上就停，先回来确认。
-
-交回要带：
-- 发布前合规自查八项，逐项写结果
-- 话题点蓝结果：蓝了几个、计划几个，一个一个核对的
-- 发布链接和实际发布时间
-- AI 声明已选的凭证
-- 第一条评论已发的凭证
-- 发后打开公开页复查的结果：话题能点、视频能播
-- 发后才发现话题缺失或没变蓝：先走编辑页补话题（笔记管理里卡片悬停出现的铅笔图标），补完再验一遍蓝。编辑页也补不上，才按四要素交回，不要删帖重发
-- 要是停下待发：待发包四个文件的路径，加上平台草稿存没存上的原话
-- 异常四要素，没有写「无」
+Conclusion: pass / send back (on send-back, state which item and which stage it goes back to)
 ```
 
-## 6. 跟进单 / 复盘单
+After a send-back, the old conclusion is void. Once redone, verify again from the first item.
 
-这两个是单独的定时任务，不跟日更一轮走。模板放一起，格式一样。
-
-跟进单：
+## 5. Publishing dispatch
 
 ```
-阶段：发后跟进
-日期：{{date}}
-要读的手册：{{stage_doc}}（跟进那份）
-输入：{{ledger}} 里今天最新一条（标题、链接、实际发布时间）
-窗口：从实际发布时间算，0 到 2 小时，每 30 分钟查一次，满 2 小时停
+Stage: publishing
+Date: {{date}}
+Working directory: {{work_dir}}
+Guides to read: {{stage_doc}} (the publishing guide), plus the sensitive-words appendix
+Input: {{prev_output}} (accepted finished video, cover, post.md, as recorded in the acceptance list)
+Deadline: {{deadline}}
 
-干什么：先看通知和私信图标有没有红点。没红点、评论数没变，这一轮直接结束，不点开列表。有新的才处理，处理一条记一条到互动状态文件。
-直达链接打不开、空白、提示看不了，不等于帖子不存在：改从主站个人主页或笔记管理进，再用通知列表核对。三条路都核不到，写「未核实」和页面原话，不许写成 0。
-交回要带：本轮覆盖的时间段、查的路线、每条处理过的互动（帖子、谁、何时、原文大意、回复原文）、没核实到的项和页面原话、要账号主人处理的私信类别。
-汇报规矩：真回了评论或私信，或者有要主人处理的私信，才报一行。没动静就安静结束。
+What to do: publish through the creator platform by the guide's entry route. Uploaded files must match the ones recorded in the acceptance list — if filename, size, or modification time mismatches on any one of them, stop and come back to confirm first.
+
+Hand back:
+- Pre-publish compliance self-check, eight items, each with its result
+- Topic blue-tap result: how many turned blue, how many were planned, checked one by one
+- Publish link and actual publish time
+- Proof the AI declaration was picked
+- Proof the first comment was posted
+- Post-publish public page re-check result: topics clickable, video plays
+- If a missing or un-blue topic is found only after publishing: first go to the edit page to add topics (the pencil icon that appears when hovering a card in post management), then check blue again. If the edit page can't add them either, hand back in four elements — don't delete and repost
+- If stopped and held for sending: the four ready-to-post pack file paths, plus the platform draft's own wording on whether it saved
+- Four-element exceptions, or "none"
 ```
 
-复盘单：
+## 6. Follow-up dispatch / review dispatch
+
+These two are separate scheduled jobs, not part of the daily round. Templates sit together, same format.
+
+Follow-up dispatch:
 
 ```
-阶段：周复盘
-日期：{{date}}（周日）
-要读的手册：{{stage_doc}}（复盘那份），另读教训册全文
-输入：本周的 {{ledger}} 条目、各帖验收单、本周的反馈和运行日志
-截止：{{deadline}}
+Stage: post-publish follow-up
+Date: {{date}}
+Guides to read: {{stage_doc}} (the follow-up guide)
+Input: {{ledger}}'s latest entry for today (title, link, actual publish time)
+Window: from the actual publish time, 0 to 2 hours, checking every 30 minutes, stopping at 2 hours
 
-干什么：看本周发了几条、品类分布、哪条好哪条差，把结论写进教训册；成了规矩的，按复盘手册的规矩升进 core/ 对应文件。顺手做数据回填、草稿清理、口径一致性巡检。每月第一次复盘，再复看一遍敏感词附册的时效，对照平台最新公告更新。
+What to do: first check whether the notification and DM icons have red dots. No red dots and no comment-count change means this round ends right here — don't open the list. Only handle new items, logging each one into the interaction status file as you go.
+A direct link that won't open, shows blank, or says it can't be viewed does not mean the post doesn't exist: re-enter from the main site's profile page or post management, then cross-check with the notification list. If all three routes fail to verify, write "unverified" plus the page's original wording — never write it as 0.
+Hand back: this round's covered time span, routes checked, each handled interaction (post, who, when, rough original text, reply text), items not verified with page wording, and DM categories needing the account owner.
+Reporting rule: report one line only if you actually replied to a comment or DM, or if there is a DM needing the owner. No movement means a quiet end.
+```
 
-交回要带：
-- 本周发帖数、品类分布、最好和最差各一条和依据（数据没出就写没出，不许编）
-- 数据回填逐条结果
-- 草稿清理：删了几条、各是什么；没删的列出来待确认
-- 一致性巡检：逐项核对结果、发现的差异
-- core/ 这次改了哪几处、为什么
-- 异常四要素，没有写「无」
-最后在汇报处发一句话总结。
+Review dispatch:
+
+```
+Stage: weekly review
+Date: {{date}} (Sunday)
+Guides to read: {{stage_doc}} (the review guide), plus the full lessons book
+Input: this week's {{ledger}} entries, each post's acceptance list, this week's feedback and run logs
+Deadline: {{deadline}}
+
+What to do: look at how many posts went out this week, category spread, which did well and which did badly, and write conclusions into the lessons book. Whatever became a rule goes up into the matching core/ file by the review guide's rule-promotion rules. Also do data backfill, draft cleanup, and wording-consistency patrol. On the month's first review, re-read the sensitive-words appendix for timeliness and update it against the platform's latest notices.
+
+Hand back:
+- This week's post count, category spread, best and worst one each with evidence (if data hasn't come out, write that it hasn't — never invent it)
+- Data backfill results, item by item
+- Draft cleanup: how many deleted, what each was; ones not deleted, listed for confirmation
+- Consistency patrol: check results item by item, differences found
+- Which parts of core/ changed this time, and why
+- Four-element exceptions, or "none"
+Finally, post a one-sentence summary at the report spot.
 ```

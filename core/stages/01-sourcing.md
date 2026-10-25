@@ -1,94 +1,96 @@
-# 阶段手册 01 · 选题
+[中文](01-sourcing.zh-CN.md) | English
 
-> 什么时候读：总管派选题单时。先读宪法页，再读这份，同时读敏感附册（复制后的 `sensitive-words.md`，没有就先从模板复制）的弃题清单——弃题在这一关就要筛掉。
-> 数字都看宪法页「数字总表」，这份手册只引用，不另写。
+# Stage guide 01 · Topics
 
-## 输入
+> When to read: when the manager dispatches the topic task. Read the constitution page first, then this guide, plus the sensitive appendix's drop list (the copied `sensitive-words.md`; if there isn't one yet, copy it from the template first) — dropped topics get filtered at this gate.
+> All numbers come from the constitution page's numbers table. This guide only cites them, never writes its own.
 
-- 总管派单给的信息：日期、昨天的品类、近一周的品类分布。
-- 选题台账（`paths.ledger_file`），去重和轮换都看它。
-- 你在 config 里填好的信源清单。
+## Input
 
-## 产出
+- What the manager's dispatch gives you: date, yesterday's category, the past week's category spread.
+- The topic ledger (`paths.ledger_file`) — dedup and rotation both read it.
+- The source list you filled in config.
 
-- 定下来的选题 1 个（或兜底选题），写进当天素材夹的 `post.md` 选题部分。
-- 运行日志补一行「选题定案」打点。
+## Output
 
-## 交回总管的证据清单
+- 1 settled topic (or a fallback topic), written into the day's material folder in the topic section of `post.md`.
+- One more line in the run log: the "选题定案" (topic settled) stamp.
 
-- 定案留证六项：品类、跟昨天品类的关系、至少 2 个核对来源及日期、一个看得见的热度信号、敏感弃题清单的核对结果、被否掉的候选及每个一句否决理由。
-- 搜集用了多久，每个渠道探活的结果（通还是不通）。
-- 走了兜底的话，注明「兜底选题」和它的热度名次、信号。
-- 异常四要素（没有就写「无」）。
+## Evidence list to hand back to the manager
 
-## 信源清单（在 config 里填，这里是填法）
+- Six items of settled-topic proof: category, relationship to yesterday's category, at least 2 checking sources with dates, one visible heat signal, the sensitive drop-list check result, and the rejected candidates with one line each on why they were rejected.
+- How long sourcing took, and each channel's probe result (up or down).
+- If you went to fallback, mark it "fallback topic" with its heat rank and signal.
+- The four elements for problems (write "none" when there are none).
 
-信源写进 `config.yaml` 的 `sources`。先照这个空表想清你到底要看哪些，再填进去：
+## Source list (fill it in config — here's how to fill it)
 
-| 信源 | 类型 | 看什么 | 入口 | 备注 |
+Sources go in `config.yaml` under `sources`. Work out which ones you actually watch using this empty table, then fill it in:
+
+| Source | Type | What to watch | Entry point | Notes |
 |---|---|---|---|---|
-| （示例行，填完删）媒体 A | 行业媒体 | 头版、每日榜 | 填网址 | 填完换成你自己的 |
-| （示例行，填完删）官方 B | 厂商官方 | 发布页、更新说明 | 填网址 | 一手来源，核事实用 |
-| （示例行，填完删）社区 C | 社交/论坛 | 对应版块的热帖 | 填版块名 | 只看热度和痛点 |
+| (Sample row, delete when filled) Media A | Industry media | Front page, daily charts | Fill in the URL | Replace with your own when filled |
+| (Sample row, delete when filled) Official B | Vendor official | Release pages, update notes | Fill in the URL | First-hand source, for fact-checking |
+| (Sample row, delete when filled) Community C | Social / forum | Hot posts in the matching board | Fill in the board name | Heat and pain points only |
 | | | | | |
 
-填的时候注意：
+When filling it in, note:
 
-- 官方一手源至少留一两个。核关键事实靠它。
-- 社交和论坛类信源要自己准备只读的浏览方式，只看不互动，并守平台的规矩。不在这套文件里写任何账号和登录信息。
-- 每个信源都要有单源时限，到了就跳过，看总表。
+- Keep at least one or two official first-hand sources. Key facts get checked against them.
+- Social and forum sources need a read-only way of browsing you prepare yourself — look, don't interact, and follow the platform's rules. Never write any account or login info into these files.
+- Every source gets its own per-source time limit. When it's up, skip it — see the table.
 
-## 搜集怎么做
+## How to source
 
-- **先探活。** 开头花总表定的探活时间，逐个渠道试一下能不能打开、能不能搜。把这一轮的实际通断写进运行日志。不许沿用昨天的结论，渠道状态每天都可能变。
-- **分两段。** 前一段广扫，后一段只核排在前面的候选（个数看总表）。到了搜集总上限立刻停，只能在已核实的候选里定案。不许为了多看一个题把整轮拖长。
-- **某个源打不开就跳过。** 撞登录墙、被拦、页面空白，记一句四要素就跳。单个媒体打不开只跳这一个；社交、论坛这类辅助源都不可用时，降级成「媒体 + 官方」的流程，照常出题。双源核对只对最后定下的那个题做，不对每个候选都做全套，太费时间。
+- **Probe liveness first.** Spend the table's probe time at the start trying each channel: does it open, can you search? Write this round's actual up/down state into the run log. Never carry over yesterday's conclusion — a channel's state can change daily.
+- **Two stretches.** The first stretch scans wide; the second only checks the leading candidates (count per the table). When the total sourcing cap hits, stop at once — settle only among already-checked candidates. Never stretch the whole round longer just to see one more topic.
+- **A source that won't open gets skipped.** Login wall, blocked, blank page — log one line of four elements and skip. One media outlet down means skipping just that one. When all social and forum helper sources are down, degrade to the "media + official" flow and still produce a topic. Two-source checking only happens for the finally settled topic — not a full round for every candidate, that costs too much time.
 
-## 题怎么判断
+## How to judge a topic
 
-三个条件一起看，缺一个都靠后：
+Three conditions together — missing one pushes it down the list:
 
-1. **新。** 在总表的新鲜度窗口内。
-2. **热。** 已经有人在讨论、转发，或在某个榜单上排得上。给得出一个看得见的信号：点赞评论量、转发量、榜位，任选其一写清。
-3. **跟受众有关系。** 能一句话说清跟看的人有什么关系（见宪法页核心标准第 1 条）。只有媒体发了稿、没人讨论的题靠后；大家正在聊的题优先。完全没人讨论的冷门题，除非跟受众关系极强，不然不选。
+1. **New.** Inside the table's freshness window.
+2. **Hot.** People are already discussing and sharing it, or it ranks on some chart. Give one visible signal: likes and comments, shares, chart position — pick one and state it clearly.
+3. **Connected to the audience.** Say in one sentence what it has to do with the viewer (see constitution core standard 1). A topic only the media covered, with nobody discussing it, goes down the list; a topic people are already talking about goes first. A cold topic nobody discusses only gets picked when its audience connection is extremely strong.
 
-再加几条：
+A few more rules:
 
-- **评论区不算事实依据。** 评论只用来看风向、判热度、挖真实痛点。事实要回官方和媒体核。
-- **一手原帖算一手来源。** 官方账号、开发者、当事人自己发的原帖（发布、更新说明、带原始截图和数据的实测帖），跟官方动态同级。转述型的帖子只算线索。
-- **原帖的图可以拿来当素材。** 图进自己的版式重新排版、加标注，内容用自己的话讲。不许整段翻译照搬，那是搬运，有处罚风险。
-- **定案之后可以再找参考材料。** 题定下来后，可以去其他语言、其他地区的来源找参考，帮着理解和换成本地说法。但选题本身只从你清单里的信源出，参考材料不算选题来源。
-- **多源汇总成自己的稿。** 所有渠道先扫一圈，各家的说法和材料互相核对：对得上的才用，对不上的标清分歧或舍掉。最后汇总成自有结构、自有说法，加自己的判断。单个来源写得再好也只是素材之一。
-- **对外不标来源。** 汇总改编之后就是自己的稿，正文、画面、封面都不标信息来源。台账里照常记来源，那是给自己核对用的，不对外。
+- **Comments are not fact evidence.** Comments show direction, judge heat, and dig up real pain points. Facts go back to official and media sources to check.
+- **A first-hand original post counts as a first-hand source.** Original posts from official accounts, developers, or the people involved (releases, update notes, test posts with original screenshots and data) rank with official updates. Retelling posts are only leads.
+- **An original post's pictures can be used as material.** Re-lay the picture into your own layout with your own labels, and tell it in your own words. Never translate a whole piece and repost it as-is — that's reposting, and it risks penalties.
+- **More reference material can come after settling.** Once the topic is settled, you can look at sources in other languages and regions for reference, to help understanding and rephrasing. But the topic itself only comes from the sources on your list — reference material doesn't count as a topic source.
+- **Many sources get merged into your own script.** Sweep every channel first, cross-check each side's claims and material: use what matches, mark disagreements clearly or drop them. Finally merge it into your own structure, your own wording, plus your own judgment. Even the best single source is only one ingredient.
+- **No source labels outside.** Once merged and adapted, it's your own script — body, pictures, and cover carry no source labels. The ledger still records sources as usual; that's for your own checking, not for the public.
 
-## 品类轮换
+## Category rotation
 
-- 品类清单在 `content.categories` 里，下面是示例，改成你自己的：示例品类 A、示例品类 B、示例品类 C、示例品类 D、示例品类 E。数量按你的方向定，五到七个比较顺手。
-- 跟昨天的品类尽量不同。单个品类一周别超总表定的上限。一周的资讯和教程配比看总表。
-- 教程类的题优先挑带明确搜索词的。用户会搜的题，流量能留得久。
-- 受众偏好顺序按你的定位自己排。一个通用的排法：先是帮人省钱、避坑的，再是提效率的，最后才是纯参数的。
+- The category list lives in `content.categories`. Below are examples — change them to your own: Sample category A, Sample category B, Sample category C, Sample category D, Sample category E. Set the count to your direction; five to seven works well.
+- Stay as different from yesterday's category as possible. One category must not pass the table's weekly cap. The week's news-to-tutorial ratio follows the table.
+- Tutorial topics should preferably carry a clear search term. Topics people search for keep their traffic longer.
+- Order audience preferences by your own positioning. One general order: first things that save people money or help them avoid traps, then things that raise efficiency, and only last pure parameter talk.
 
-## 两道关先过
+## Two gates first
 
-- **敏感一票否决。** 先过敏感附册的弃题清单，命中一条直接弃，不讨论换角度。沾敏感的题在这一关就筛掉，不留到发布前。
-- **事实核对。** 定案的关键事实要有官方一手源加至少 1 个独立来源复核关键数字和说法；没有官方源时，要有至少 2 个互相独立的来源一致。官方原帖能证明它自己发布的事实（价格、规格这类），但性能、评价、市场影响这类第三方判断，还要独立来源复核。单来源的传闻不用。核不上就舍掉这条事实，或标明是爆料。不许把一条转述链当多个来源。
+- **Sensitive content is a straight veto.** Run the sensitive appendix's drop list first — one hit drops the topic, no discussion about a different angle. Topics touching sensitive content get filtered at this gate, not left for pre-publish.
+- **Fact-checking.** A settled topic's key facts need an official first-hand source plus at least 1 independent source confirming the key numbers and claims; with no official source, at least 2 mutually independent sources must agree. An official original post can prove facts about its own release (price, specs, and the like), but third-party judgments like performance, reviews, and market impact still need an independent source to confirm. Single-source rumors don't get used. A fact that won't check out gets dropped, or labeled as a leak. Never treat one retelling chain as several sources.
 
-## 定案留证
+## Settled-topic proof
 
-定案打点和当天的 `post.md` 要同时写清八项，缺一项不算定案：品类、跟昨天品类的关系、至少 2 个核对来源及日期、一个看得见的热度信号、敏感弃题清单的核对结果、被否候选及每个一句否决理由、续集核对结果（近 30 天已发选题的后续，有、无 + 处置）、活动匹配结果（有、无 + 参加的活动名与要求点）。
+The settled stamp and the day's `post.md` must both state eight items — missing one means the topic isn't settled: category, relationship to yesterday's category, at least 2 checking sources with dates, one visible heat signal, the sensitive drop-list check result, rejected candidates with one rejection reason each, the sequel check result (follow-ups on the last 30 days of posted topics — yes or no, plus how handled), and the event matching result (yes or no, plus the event name and requirement points joined).
 
-## 续集核对（定案前先扫一遍）
+## Sequel check (sweep once before settling)
 
-定案前先扫近 30 天已发选题有没有实质后续：官宣、发售、价格或政策变化、结果落地。有的，按「续集当天加更」处置：发现当天就加更发布，不等次日日更；定案留证写清后续是什么、怎么处置。没有的，写「无」。其他渠道先发现的后续，走预排选题区交接、当天接手。
+Before settling, sweep the last 30 days of posted topics for real follow-ups: announcements, releases, price or policy changes, results landing. When there is one, handle it as a "same-day sequel extra post": publish the extra post the day you find it, don't wait for the next day's post; the settled proof states what the follow-up is and how it was handled. When there is none, write "none". Follow-ups other channels found first come through the queued-topic area and get picked up the same day.
 
-## 预排选题（先查预排，再自搜）
+## Queued topics (check the queue before searching yourself)
 
-派单前先查预排选题区：有没过期的预排，直接用预排核验定案，不再自搜；用掉后由总管删掉这条预排、按常规补登已发表格。没有预排，才走正常搜集。
+Before dispatching, check the queued-topic area: an unexpired queued topic gets used directly for a check-and-settle, with no self-search. Once used, the manager deletes that queued entry and logs the posted entry as usual. Only with no queued topic do you run normal sourcing.
 
-## 活动匹配（选题时顺带查）
+## Event matching (check while picking topics)
 
-每天选题时顺带查平台创作中心的活动中心，把进行中活动（名称、时间、主题）记进当日选题简报，并维护一份进行中活动清单。未来 2–3 天内搜到的候选方向与清单中任一活动主题一致时，按该活动执行：先细读活动要求全文（参与方式、必带话题或标签、格式、截止时间），再按要求做创作（带指定话题、投指定活动页等），并在 post.md 与选题记录注明参加的活动名与满足的要求点，定案留证加记一项「活动匹配结果」（有、无 + 参加的活动名与要求点）。护栏三条：方向先合格（新鲜度、热度、受众关系、事实核对、敏感清单照常过），不为活动硬凑不相关的题、不硬改选题事实；活动要求与现有硬闸口（合规清单、AI 声明必选、话题规则、原创声明不勾）冲突时硬闸口优先，不参加或只参加不冲突的部分，并留痕；活动只认活动中心里的官方活动，不编造。
+Each day while picking topics, check the platform creator center's activity center, record ongoing events (name, dates, theme) in the day's topic brief, and keep a list of ongoing events. When a candidate direction found in the next 2–3 days matches any listed event theme, follow that event: first read the event requirements in full (how to join, required topics or tags, format, deadline), then create per the requirements (carry the required topics, submit to the event page), and note the event name and the requirement points met in post.md and the topic record; the settled proof adds one item, "event matching result" (yes or no, plus the event name and requirement points joined). Three guardrails: the direction must pass on its own first (freshness, heat, audience connection, fact-checking, sensitive list all still apply) — never force an unrelated topic for an event, never bend a topic's facts; when event requirements clash with existing hard gates (compliance list, mandatory AI declaration, topic-tag rules, no originality declaration), the hard gates win — skip the event or join only the non-clashing part, leaving a trace; only official events inside the activity center count — never invent one.
 
-## 没题时怎么兜底
+## When there's no topic: fallback
 
-搜到总上限，还是没有一个候选能同时过事实、敏感、受众关系三关，不要停发，也不要硬凑一个不合格的。改从当轮的热度排名里选：把扫到的话题按热度从高到低排，取排最前面、且能过敏感清单和事实核对的那个。新鲜度在兜底时可以按总表放宽，但敏感和事实两关不放宽。定案留证里注明「兜底选题」，写清它的热度名次和信号。
+When the total cap is reached and still no candidate passes the fact, sensitive, and audience-connection gates together, don't stop posting, and don't force an unqualified one. Fall back to the round's heat ranking: rank the swept topics by heat, highest first, and take the top one that passes the sensitive list and fact-checking. Freshness may widen per the table for fallback, but the sensitive and fact gates never widen. The settled proof must mark it "fallback topic" and state its heat rank and signal.

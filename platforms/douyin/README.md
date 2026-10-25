@@ -1,8 +1,18 @@
 [中文](README.zh-CN.md) | English
 
-# Douyin module: trending videos + Chinese subtitles
+# Douyin / TikTok module: trending videos + subtitles
 
-Every day, find the hottest videos on video platforms, download them, add Chinese subtitles, and post them to Douyin. The format is the original plus subtitles: keep the original picture and sound, don't re-cut it into a commentary video.
+Every day, find the hottest videos on video platforms, download them, add subtitles, and post them to Douyin or TikTok. The format is the original plus subtitles: keep the original picture and sound, don't re-cut it into a commentary video.
+
+## Douyin or TikTok — pick one first
+
+Douyin is the Chinese name; TikTok is the international one. Same pipeline, two outlets — pick before you start, because the outlet decides three things:
+
+- **Audience and subtitle language**: Douyin = viewers in China, Chinese subtitles. TikTok = international viewers, subtitles in the audience's language (English by default).
+- **Where it gets published**: Douyin goes through the Douyin creator center in the browser; TikTok goes through TikTok's creator center / upload page.
+- **Where it gets downloaded from**: the download step just takes a video URL — pass a Douyin URL for Douyin, a TikTok URL for TikTok.
+
+One honest limit: the four sensitivity gates below are written for Douyin. TikTok's own community rules are not a separate gate yet — check those before posting to TikTok. The pipeline steps, the scripts, and the stop line are the same for both.
 
 ## Pipeline (7 steps)
 
@@ -60,7 +70,7 @@ Free routes first: if any step costs money, stop, look for a free replacement, a
 Only needs Python 3 standard library + ffmpeg (the download step also needs yt-dlp). Get these steps working before talking about full-auto.
 
 ```bash
-# 1. Download a candidate clip (if yt-dlp is missing it tells you how to install it, no silent failure)
+# 1. Download a candidate clip — pass a Douyin or TikTok video URL, whichever outlet you picked (if yt-dlp is missing it tells you how to install it, no silent failure); the script prints the outlet it guessed from the URL first — confirm it before continuing
 bash scripts/fetch_video.sh <video URL> [save directory] [max height, default 1080]
 
 # 2. Sensitivity scan: copy the wordlist template first, fill in your own words, then scan. Scan before burning: a hit drops the whole clip, don't burn first
@@ -77,4 +87,4 @@ python3 scripts/append_outro.py --main main.mp4 --outro outro.mp4 --out finished
 
 Test record (2026-10-25): subtitle burn-in with 2 lines, bottom edge 460px; outro 640×360 normalized to 1080×1920, 3s + 1s = 4.04s; sensitivity scan correct on hit, no-hit, and empty wordlist; the download wrapper on this machine correctly reported that yt-dlp was not installed (no live download tested — install yt-dlp first).
 
-Not yet code, still needs a person or another tool: speech transcription, voiceover synthesis, cover generation, final publish (through the browser creator center). The wordlist content is not in the repo — the template only shows the format; the wordlist is yours.
+Not yet code, still needs a person or another tool: speech transcription, voiceover synthesis, cover generation, final publish (through the matching outlet's creator center — Douyin or TikTok). The wordlist content is not in the repo — the template only shows the format; the wordlist is yours.

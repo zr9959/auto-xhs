@@ -1,21 +1,23 @@
 #!/usr/bin/env python3
-"""成片机器验收，只看不改。
+"""Machine acceptance for the finished video — read-only, it never edits.
 
-用法：python3 core/validate.py <当天素材夹路径>
+Usage: python3 core/validate.py <day's material folder path>
 
-阈值读仓库根目录的 config.yaml（就是 core 的上一级）。
-只认简单的「小节名: 键: 值」写法，不用装任何额外的库。
-没有 config.yaml 时用脚本里的推荐默认值，输出第一行会写明。
+Thresholds come from the repo-root config.yaml (one level above core).
+Only the simple "section: key: value" form is recognized — no extra libraries needed.
+Without a config.yaml, the script's built-in recommended defaults apply, and the first output line says so.
 
-查这些项：口播字数、post.md 结构、成片规格（顺带看一眼方向和宽高对不对得上）、全片静音、封面、期号，
-只提醒不判错的画面检查：最低码率、空白帧、画面冻止（码率与空白帧的来历见 issue #1）、成片大小，
-只提醒不判错的文字检查：定稿标题加权字数、正文字数、话题个数、字幕单条长度、标题情绪与锚点，
-外加一项旁白码率提示（对一下这期的旁白是不是用定的那个引擎合成的）。
-元素溢出画面这一项不做机器检查：抽出来的帧只有像素，分不清「满幅背景」（正常）
-和「卡片被裁出画面」（毛病），硬做一个只会天天误报。这一项靠模板规矩防：
-同一块区域只许一个带延迟的入场，见 motion-lib/README 的排版规矩。
-退出码：有 FAIL 是 1，全过（PASS/WARN）是 0。
-数字口径以 core/CONSTITUTION.md 的数字总表为准，两边要一致。
+Checks: voiceover character count, post.md structure, finished-video specs (including whether orientation
+matches the dimensions), whole-video silence, cover, issue number;
+warn-only picture checks: minimum bitrate, blank frames, frozen frames (bitrate and blank frames come from issue #1),
+finished-video size;
+warn-only text checks: final title weighted length, body length, topic count, single subtitle length, title emotion and anchor;
+plus a narration bitrate note (checking whether this episode's narration came from the designated voice engine).
+Element overflow is not machine-checked: sampled frames are just pixels — they can't tell a "full-bleed background" (fine)
+from a "card cropped out of frame" (a defect), and a hard check would false-alarm daily. That one is prevented
+by template rules instead: only one delayed entrance per area — see the layout rules in motion-lib/README.
+Exit code: 1 if any FAIL, 0 if everything is PASS/WARN.
+All numbers follow the numbers table in core/CONSTITUTION.md — the two must agree.
 """
 
 import json
@@ -24,7 +26,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-# 推荐默认值，跟宪法页数字总表一致。config 里填了的，以 config 为准。
+# Recommended defaults, matching the numbers table in the constitution page. Values in config win.
 DEFAULTS = {
     "video.script_chars_min": 480,
     "video.script_chars_max": 650,
@@ -64,11 +66,11 @@ def run(cmd):
     return subprocess.run(cmd, capture_output=True, text=True, timeout=600)
 
 
-# ---------- 读 config ----------
+# ---------- read config ----------
 def parse_scalar(val):
-    # 先把行尾注释去掉：一个字一个字看，引号里面的 # 不算注释。
-    # 以前图省事，引号开头的就整行不切，结果「"路径" # 注释」会把注释
-    # 一起当成值，路径就成了废的，这里改对。
+    # Strip trailing comments, one character at a time: a # inside quotes is not a comment.
+    # An earlier shortcut skipped cutting any line starting with a quote, so `"path" # comment`
+    # kept the comment as part of the value and broke the path — fixed here.
     out = []
     quote = ""
     for ch in val:
@@ -100,7 +102,7 @@ def parse_scalar(val):
 
 
 def parse_simple_yaml(text):
-    # 只够读这套 config 的小节缩进结构，列表之类的复杂写法不认
+    # Only enough to read this config's indented section structure; lists and other complex forms are not recognized.
     root = {}
     stack = [(-1, root)]
     for raw in text.splitlines():
@@ -140,7 +142,7 @@ def load_settings():
                 settings[dotted] = v
 
     walk(parsed, "")
-    # 台账路径有人会写 ledger 也有人会写 ledger_file，两个都认
+    # The ledger path may be written as ledger or ledger_file — accept both.
     ledger_alt = parsed.get("paths", {})
     if isinstance(ledger_alt, dict) and "ledger" in ledger_alt:
         settings["paths.ledger_file"] = ledger_alt["ledger"]
@@ -154,12 +156,12 @@ def num(key):
     return float(CFG[key])
 
 
-# ---------- 1. 口播字数 ----------
+# ---------- 1. voiceover character count ----------
 def check_scripts(folder):
-    name = "口播字数"
+    name = "Voiceover chars"
     cand = sorted(folder.glob("scripts*.txt")) or sorted(folder.glob("script*.txt"))
     if not cand:
-        report("FAIL", name, "找不到 scripts.txt")
+        report("FAIL", name, "scripts.txt not found")
         return
     f = cand[0]
     total = 0
@@ -168,17 +170,17 @@ def check_scripts(folder):
         line = line.strip()
         if not line:
             continue
-        # 一行一段，竖线前是段名，后面才是口播文字
+        # One segment per line: the part before | is the segment name, the rest is the voiceover text.
         text = line.split("|", 1)[1] if "|" in line else line
         total += len(re.sub(r"\s", "", text))
         segs += 1
     lo, hi = int(num("video.script_chars_min")), int(num("video.script_chars_max"))
     ok = lo <= total <= hi
     report("PASS" if ok else "FAIL", name,
-           f"{f.name} 共 {segs} 段，合计 {total} 字（标准 {lo}–{hi}）")
+           f"{f.name}: {segs} segments, {total} chars total (standard {lo}–{hi})")
 
 
-# ---------- 2. post.md 结构 ----------
+# ---------- 2. post.md structure ----------
 def section(text, *titles):
     lines = text.splitlines()
     out, capture = [], False
@@ -193,35 +195,35 @@ def section(text, *titles):
 
 
 def check_postmd(folder):
-    name = "post.md 结构"
+    name = "post.md structure"
     f = folder / "post.md"
     if not f.exists():
-        report("FAIL", name, "post.md 不存在")
+        report("FAIL", name, "post.md not found")
         return None
     text = f.read_text(encoding="utf-8")
     missing = []
     if not (re.search(r"标题三版|三版标题", text) or ("①" in text and "②" in text and "③" in text)):
-        missing.append("3 版标题")
+        missing.append("3 title versions")
     if section(text, "标题") is None and not re.search(r"^##\s*标题", text, re.M):
-        missing.append("定稿标题段")
+        missing.append("final title section")
     if section(text, "正文") is None:
-        missing.append("正文段")
+        missing.append("body section")
     if section(text, "话题") is None:
-        missing.append("话题段")
+        missing.append("topics section")
     if section(text, "置顶评论", "第一条评论", "首评") is None:
-        missing.append("置顶评论段")
+        missing.append("pinned comment section")
     if "素材清单" not in text:
-        missing.append("素材清单")
+        missing.append("material list")
     if missing:
-        report("FAIL", name, "缺：" + "、".join(missing))
+        report("FAIL", name, "Missing: " + ", ".join(missing))
     else:
-        report("PASS", name, "3 版标题/定稿标题/正文/话题段/置顶评论段/素材清单齐全")
+        report("PASS", name, "3 title versions / final title / body / topics / pinned comment / material list all present")
     return text
 
 
-# ---------- 挑成片 ----------
+# ---------- pick the finished video ----------
 def pick_video(folder, post_text):
-    # 先认 post.md 里写明的成片名，找不到再挑最大的 mp4（跳过样片和预览）
+    # First honor the finished-video name written in post.md; otherwise pick the largest mp4 (skip samples and previews).
     if post_text:
         for m in re.finditer(r"([\w.\-]+\.mp4)", post_text):
             p = folder / m.group(1)
@@ -234,12 +236,12 @@ def pick_video(folder, post_text):
     return max(mp4s, key=lambda p: p.stat().st_size)
 
 
-# ---------- 3. 成片规格 ----------
+# ---------- 3. finished video specs ----------
 def check_video(folder, post_text):
-    name = "成片规格"
+    name = "Video specs"
     v = pick_video(folder, post_text)
     if v is None:
-        report("FAIL", name, "素材夹里找不到成片 mp4")
+        report("FAIL", name, "No finished mp4 in the material folder")
         return None
     r = run(["ffprobe", "-v", "error", "-select_streams", "v:0",
              "-show_entries", "stream=codec_name,width,height",
@@ -257,49 +259,50 @@ def check_video(folder, post_text):
     d_lo, d_hi = num("video.duration_min_seconds"), num("video.duration_max_seconds")
     problems = []
     if codec.lower() != want_codec:
-        problems.append(f"编码 {codec}≠{want_codec}")
+        problems.append(f"codec {codec}≠{want_codec}")
     if (w, h) != (str(want_w), str(want_h)):
-        problems.append(f"分辨率 {w}x{h}≠{want_w}x{want_h}")
+        problems.append(f"resolution {w}x{h}≠{want_w}x{want_h}")
     if not (d_lo <= dur <= d_hi):
-        problems.append(f"时长 {dur:.1f}s 不在 {d_lo:.0f}–{d_hi:.0f}")
-    detail = (f"{v.name}：{codec} {w}x{h}，时长 {dur:.1f}s"
-              f"（标准 {want_w}x{want_h}/{want_codec}/{d_lo:.0f}–{d_hi:.0f}s）")
+        problems.append(f"duration {dur:.1f}s outside {d_lo:.0f}–{d_hi:.0f}")
+    detail = (f"{v.name}: {codec} {w}x{h}, {dur:.1f}s"
+              f"(standard {want_w}x{want_h}/{want_codec}/{d_lo:.0f}–{d_hi:.0f}s)")
     report("FAIL" if problems else "PASS", name,
-           detail + ("；问题：" + "、".join(problems) if problems else ""))
-    # 方向也要跟宽高对得上：选了横版，宽就该大于高；选了竖版，高就该大于等于宽。
-    # 对不上多半是改方向时漏改了宽高，只提醒不判错——宽高对不对，
-    # 上面那项已经按 config 验过了。
+           detail + ("; problems: " + ", ".join(problems) if problems else ""))
+    # Orientation must also match the dimensions: landscape means width greater than height;
+    # portrait means height greater than or equal to width. A mismatch usually means the
+    # dimensions weren't updated when the orientation changed — warn only, since the item
+    # above already checks dimensions against config.
     ori = str(CFG["video.orientation"]).lower()
     if ori == "landscape" and not want_w > want_h:
-        report("WARN", "画面方向",
-               f"方向选的是横版（landscape），可宽高填的是 {want_w}x{want_h}，"
-               "横版应该宽大于高。把 width 改成 1920、height 改成 1080 就对了。")
+        report("WARN", "Orientation",
+               f"Orientation is landscape, but dimensions are {want_w}x{want_h}; "
+               "landscape needs width greater than height. Set width to 1920 and height to 1080.")
     elif ori == "portrait" and not want_h >= want_w:
-        report("WARN", "画面方向",
-               f"方向选的是竖版（portrait），可宽高填的是 {want_w}x{want_h}，"
-               "竖版应该高大于等于宽。把 width 改成 1080、height 改成 1920 就对了。")
+        report("WARN", "Orientation",
+               f"Orientation is portrait, but dimensions are {want_w}x{want_h}; "
+               "portrait needs height greater than or equal to width. Set width to 1080 and height to 1920.")
     return v
 
 
 
-# ---------- 3b. 成片大小（只提醒不判错） ----------
+# ---------- 3b. finished video size (warn only) ----------
 def check_size(video):
-    name = "成片大小"
+    name = "Video size"
     if video is None:
         return
-    # 老 config.yaml 里可能还没有这个键（CRF 改版后才加），缺了就按 100 算
+    # Older config.yaml files may not have this key (added in the CRF change) — default to 100 when missing.
     cap = float(CFG.get("video.max_size_mb") or 100)
     mb = video.stat().st_size / 1e6
-    detail = f"{video.name} {mb:.1f}MB（上限 {cap:.0f}MB）"
+    detail = f"{video.name} {mb:.1f}MB (cap {cap:.0f}MB)"
     if mb > cap:
-        report("WARN", name, detail + "；超了拼片脚本本该自动升 CRF 重拼，人工确认这版是不是最终版")
+        report("WARN", name, detail + "; over the cap — the assemble script should have auto-raised CRF and re-encoded; confirm by hand whether this is the final cut")
     else:
         report("PASS", name, detail)
 
 
-# ---------- 4j. 标题情绪与锚点（只提醒不判错） ----------
+# ---------- 4j. title emotion and anchor (warn only) ----------
 def _machine_line(post_text, label):
-    # 机读行两种写法都认：「标签：「内容」」或「标签：内容」
+    # Machine lines accept two forms: label: 「content」 or label: content
     if not post_text:
         return None
     m = re.search(label + r"\s*[:：]\s*「([^」]+)」", post_text)
@@ -312,64 +315,64 @@ def _machine_line(post_text, label):
 def check_emotion_anchor(post_text):
     title = extract_final_title(post_text)
     if not title:
-        report("WARN", "标题情绪与锚点", "post.md 里找不到定稿标题，人工核对")
+        report("WARN", "Title emotion and anchor", "No final title found in post.md — check by hand")
         return
     carrier = _machine_line(post_text, "情绪承载字")
     if not carrier:
-        report("WARN", "情绪承载字", "post.md 定稿理由里没有「情绪承载字」机读行，补上再发")
+        report("WARN", "情绪承载字", "post.md has no 「情绪承载字」 machine line in the final-title rationale — add it before publishing")
     elif carrier not in title:
-        report("WARN", "情绪承载字", f"承载字「{carrier}」不在定稿标题原文里，逐字摘错了，重摘")
+        report("WARN", "情绪承载字", f"Carrier 「{carrier}」 is not in the final title text — copied wrong, pick it character by character again")
     else:
         idx = title.index(carrier)
         w_before = title_weight(title[:idx])
         w_total = title_weight(title)
         if w_before > 10 or w_before > w_total / 2:
             report("WARN", "情绪前置",
-                   f"承载短语起点在加权第 {w_before:g} 字（标题共 {w_total:g} 字），情绪吊在后半段了，往前挪")
+                   f"Carrier phrase starts at weighted char {w_before:g} (title is {w_total:g} chars) — the emotion sits in the back half, move it forward")
         else:
-            report("PASS", "情绪前置", f"承载短语起点在加权第 {w_before:g} 字，前半段，过")
-        report("PASS", "情绪承载字", f"承载字「{carrier}」在标题原文里")
+            report("PASS", "情绪前置", f"Carrier phrase starts at weighted char {w_before:g} — front half, passes")
+        report("PASS", "情绪承载字", f"Carrier 「{carrier}」 is in the title text")
     link = _machine_line(post_text, "情绪关联")
     if not link:
-        report("WARN", "情绪关联", "post.md 定稿理由里没有「情绪关联」机读行（格式：具体事实 → 夸张短语），补上再发")
+        report("WARN", "情绪关联", "post.md has no 「情绪关联」 machine line in the final-title rationale (format: concrete fact → punchy phrase) — add it before publishing")
     elif "→" not in link:
-        report("WARN", "情绪关联", "「情绪关联」行里没有 → ，格式写成「具体事实 → 夸张短语」")
+        report("WARN", "情绪关联", "The 「情绪关联」 line has no → — write it as 「concrete fact → punchy phrase」")
     else:
         phrase = link.split("→", 1)[1].strip()
         if phrase and phrase not in title:
-            report("WARN", "情绪关联", f"关联行箭头右侧「{phrase}」不在定稿标题里，对不上")
+            report("WARN", "情绪关联", f"Right side of the link 「{phrase}」 is not in the final title — mismatch")
         else:
-            report("PASS", "情绪关联", "关联行齐全，右侧短语在标题里")
+            report("PASS", "情绪关联", "Link line complete, right-side phrase is in the title")
     anchor = _machine_line(post_text, "标题锚点")
     if not anchor:
-        report("WARN", "标题锚点", "post.md 里没有「标题锚点」机读行，写稿第 0 步先定锚点")
+        report("WARN", "标题锚点", "post.md has no 「标题锚点」 machine line — step 0 of script writing is to set the anchor first")
     elif anchor not in title:
-        report("WARN", "标题锚点", f"锚点「{anchor}」没有逐字出现在定稿标题里，标题跑偏了")
+        report("WARN", "标题锚点", f"Anchor 「{anchor}」 does not appear character for character in the final title — the title drifted")
     else:
-        report("PASS", "标题锚点", f"锚点「{anchor}」逐字在标题里")
+        report("PASS", "标题锚点", f"Anchor 「{anchor}」 is in the title character for character")
 
 
-# ---------- 5b. 封面 AI 来源（只提醒不判错） ----------
+# ---------- 5b. cover AI source (warn only) ----------
 def check_cover_ai(folder, post_text):
-    name = "封面 AI 来源"
+    name = "Cover AI source"
     if not post_text or "封面主视觉：AI生成" not in post_text:
-        report("WARN", name, "验收单或 post.md 里没有「封面主视觉：AI生成」机读行；用 AI 主视觉时补上这一行")
+        report("WARN", name, "Neither the acceptance sheet nor post.md has the 「封面主视觉：AI生成」 machine line; add it when the cover main visual is AI-generated")
         return
     srcs = [p for p in folder.glob("ai*") if p.suffix.lower() in (".jpg", ".jpeg", ".png")] \
         + [p for p in folder.glob("*media-generation-*") if p.suffix.lower() in (".jpg", ".jpeg", ".png")]
     if not srcs:
-        report("WARN", name, "写了 AI 生成，但素材夹里找不到带 ai 或 media-generation- 前缀的源图，留证缺了")
+        report("WARN", name, "Marked AI-generated, but no source image with an ai or media-generation- prefix in the material folder — the proof file is missing")
     else:
-        report("PASS", name, f"AI 源图在素材夹里：{srcs[0].name}")
+        report("PASS", name, f"AI source image in the material folder: {srcs[0].name}")
 
-# ---------- 4. 静音检测 ----------
+# ---------- 4. silence detection ----------
 def check_silence(video):
-    name = "全片静音"
+    name = "Whole-video silence"
     if video is None:
-        report("FAIL", name, "无成片可测")
+        report("FAIL", name, "No finished video to test")
         return
     db = num("audio.silence_threshold_db")
-    db = -abs(db)  # config 里写 45 或 -45 都按 -45dB 算
+    db = -abs(db)  # Whether config says 45 or -45, treat it as -45dB.
     win = num("audio.silence_window_seconds")
     max_gap = num("audio.silence_max_gap_seconds")
     r = run(["ffmpeg", "-nostats", "-i", str(video),
@@ -379,20 +382,20 @@ def check_silence(video):
     durs = [e - s for s, e in zip(starts, ends)]
     mx = max(durs) if durs else 0.0
     over = [d for d in durs if d > max_gap]
-    detail = (f"阈值 {db:.0f}dB/{win}s，共 {len(durs)} 段静音，最长 {mx:.2f}s"
-              f"（标准：无 >{max_gap:.0f}s 静音段）")
+    detail = (f"threshold {db:.0f}dB/{win}s, {len(durs)} silent segments, longest {mx:.2f}s"
+              f"(standard: no segment >{max_gap:.0f}s)")
     if len(starts) > len(ends):
-        # 片尾那段静音没有结束时间，长度算不准，只提示不判错
-        detail += "；另有 1 段片尾静音未闭合，未计入"
+        # A trailing silence segment has no end time, so its length is uncertain — noted, not failed
+        detail += "; plus 1 unclosed trailing silence segment, not counted"
     report("FAIL" if over else "PASS", name,
-           detail + (f"；超标段 {len(over)} 个" if over else ""))
+           detail + (f"; {len(over)} segments over the limit" if over else ""))
 
 
-# ---------- 4b. 最低码率（只提醒不判错） ----------
+# ---------- 4b. minimum bitrate (warn only) ----------
 def check_bitrate(video):
-    name = "最低码率"
+    name = "Minimum bitrate"
     if video is None:
-        report("WARN", name, "无成片可测，跳过")
+        report("WARN", name, "No finished video to test, skipped")
         return
     r = run(["ffprobe", "-v", "error", "-select_streams", "v:0",
              "-show_entries", "stream=bit_rate",
@@ -406,30 +409,31 @@ def check_bitrate(video):
         if raw:
             kbps = int(raw) / 1000.0
         else:
-            # 个别编码不写流码率，就拿整个文件的码率近似（会略高一点，只作提醒够用）
+            # Some encoders don't write a stream bitrate — approximate with the whole file's bitrate (slightly high, good enough for a warning).
             fmt = info.get("format") or {}
             if fmt.get("bit_rate"):
                 kbps = int(fmt["bit_rate"]) / 1000.0
     except Exception:
         kbps = None
     if kbps is None:
-        report("WARN", name, "ffprobe 读不到码率，跳过（只提醒的检查，读不到不判错）")
+        report("WARN", name, "ffprobe can't read a bitrate — skipped (warn-only check, unreadable is not a failure)")
         return
     floor = num("video.min_bitrate_kbps")
-    detail = f"视频流约 {kbps:.0f} kb/s（下限 {floor:.0f} kb/s）"
+    detail = f"Video stream about {kbps:.0f} kb/s (floor {floor:.0f} kb/s)"
     if kbps < floor:
-        report("WARN", name, detail + "；码率偏低，字边容易糊，平台再转码一次会更糊。"
-                                   "拼片时把码率地板加上（见 pipeline/assemble.sh）")
+        report("WARN", name, detail + "; bitrate is low — text edges will blur, and the platform's re-encode will blur them more. "
+                                   "Set the bitrate floor when assembling (see pipeline/assemble.sh)")
     else:
         report("PASS", name, detail)
 
 
-# ---------- 4c. 空白帧（只提醒不判错） ----------
-# 判据（在天气预报好成品和空白样本上实测标定过，2026-10-18）：
-# 每 0.5 秒抽一帧，缩到 96x96 灰度图，每 4 个像素取 1 个算直方图。
-# 一帧里若有 98% 以上的像素都挤在中位灰度 ±10 以内、且整体方差 <= 100，
-# 就算「近乎无内容」：纯色帧方差 0、覆盖 1.0；只有一行标题的帧方差约 25、覆盖约 0.99；
-# 正常成片的帧方差 288 起步、覆盖最高约 0.76，两边离得很远，不容易误报。
+# ---------- 4c. blank frames (warn only) ----------
+# Criteria (calibrated on the weather-forecast good cut and blank samples, 2026-10-18):
+# sample one frame every 0.5s, shrink to 96x96 grayscale, histogram over every 4th pixel.
+# A frame counts as 'nearly empty' when over 98% of pixels fall within median gray ±10 and
+# overall variance <= 100: a solid-color frame has variance 0, coverage 1.0; a frame with only
+# one title line has variance ~25, coverage ~0.99; normal finished frames start at variance 288
+# with coverage at most ~0.76 — the two sides are far apart, so false alarms are unlikely.
 BLANK_FPS = 2
 BLANK_SIZE = 96
 BLANK_COVERAGE = 0.98
@@ -459,18 +463,18 @@ def _frame_is_blank(fr):
 
 
 def check_blank_frames(video):
-    name = "空白帧"
+    name = "Blank frames"
     if video is None:
-        report("WARN", name, "无成片可测，跳过")
+        report("WARN", name, "No finished video to test, skipped")
         return
     frame_bytes = BLANK_SIZE * BLANK_SIZE
-    # run() 用 text=True 会把二进制帧读坏，这里单独用二进制方式跑
+    # run() uses text=True, which would corrupt binary frames — run this one in binary mode.
     proc = subprocess.run(["ffmpeg", "-v", "error", "-i", str(video),
                            "-vf", f"fps={BLANK_FPS},scale={BLANK_SIZE}:{BLANK_SIZE},format=gray",
                            "-f", "rawvideo", "-"], capture_output=True, timeout=600)
     data = proc.stdout or b""
     if len(data) < frame_bytes:
-        report("WARN", name, "抽不到帧，跳过（只提醒的检查，测不了不判错）")
+        report("WARN", name, "No frames sampled — skipped (warn-only check, untestable is not a failure)")
         return
     step = 1.0 / BLANK_FPS
     blanks = []
@@ -492,23 +496,23 @@ def check_blank_frames(video):
             cur = 0
     longest_seconds = longest * step
     limit = num("video.blank_min_seconds")
-    detail = (f"每 {step:.1f}s 抽一帧共 {len(blanks)} 帧，最长连续近乎空白 "
-              f"{longest_seconds:.1f}s（标准：不超过 {limit:.1f}s，只提醒）")
+    detail = (f"One frame every {step:.1f}s, {len(blanks)} frames total, longest near-blank run "
+              f"{longest_seconds:.1f}s (standard: at most {limit:.1f}s, warn only)")
     if longest_seconds >= limit and longest > 0:
         start = longest_start * step
         report("WARN", name, detail +
-               f"；超标段约在 {start:.1f}–{start + longest_seconds:.1f}s，"
-               "多半是场景时长按配音定、动画先演完了，剩下几秒画面没东西。"
-               "把那段动画补满，或把场景时长改短")
+               f"; over-limit run around {start:.1f}–{start + longest_seconds:.1f}s — "
+               "usually a scene timed to the voiceover whose animation finished early, leaving seconds of nothing. "
+               "Fill that animation out, or shorten the scene")
     else:
         report("PASS", name, detail)
 
 
-# ---------- 4d. 画面冻止（只提醒不判错） ----------
+# ---------- 4d. frozen frames (warn only) ----------
 def check_freeze(video):
-    name = "画面冻止"
+    name = "Frozen frames"
     if video is None:
-        report("WARN", name, "无成片可测，跳过")
+        report("WARN", name, "No finished video to test, skipped")
         return
     limit = num("video.freeze_warn_seconds")
     r = run(["ffmpeg", "-nostats", "-i", str(video),
@@ -517,9 +521,10 @@ def check_freeze(video):
     ends = [float(x) for x in re.findall(r"freeze_end: ([\d.]+)", r.stderr)]
     spans = [(s, e) for s, e in zip(starts, ends) if e - s >= limit]
     if len(starts) > len(ends):
-        spans.append((starts[-1], -1))  # 冻到片尾的那段没有结束时间
-    # 间隔不到 1 秒的相邻静止段并成一段：中间那点微动多半是字幕切换或背景漂移，
-    # 不并的话段数虚高，看着吓人，实际是同一段静止
+        spans.append((starts[-1], -1))  # A freeze running to the end has no end time.
+    # Merge adjacent still segments less than 1s apart: the tiny motion between them is usually
+    # a subtitle change or background drift — without merging, the count inflates and looks
+    # scarier than the one real still stretch.
     merged = []
     for s, e in spans:
         if merged and merged[-1][1] >= 0 and s - merged[-1][1] < 1.0:
@@ -528,19 +533,19 @@ def check_freeze(video):
             merged.append((s, e))
     spans = merged
     if not spans:
-        report("PASS", name, f"没有 ≥{limit:.0f}s 的静止段")
+        report("PASS", name, f"No still segments ≥{limit:.0f}s")
         return
-    desc = "、".join(f"{s:.1f}–{e:.1f}s" if e >= 0 else f"{s:.1f}s–片尾"
+    desc = ", ".join(f"{s:.1f}–{e:.1f}s" if e >= 0 else f"{s:.1f}s–end"
                      for s, e in spans[:3])
     report("WARN", name,
-           f"有 {len(spans)} 段画面静止 ≥{limit:.0f}s：{desc}。"
-           "先对照抽帧看：是合法的静态信息卡，还是动画演完了、转场卡住了。"
-           "后一种要回做片改，别直接放行")
+           f"{len(spans)} still segments ≥{limit:.0f}s: {desc}. "
+           "Check against sampled frames first: a legitimate static info card, or animation finished / transition stuck? "
+           "The second kind goes back to video making — don't wave it through")
 
 
-# ---------- 4e. 定稿标题加权字数（只提醒不判错） ----------
+# ---------- 4e. final title weighted length (warn only) ----------
 def title_weight(title):
-    # 加权口径：中文与全角标点 1 字，英文字母、数字、半角符号 0.5 字，emoji 1 字
+    # Weighting: Chinese and full-width punctuation count 1, ASCII letters, digits, and half-width symbols count 0.5, emoji count 1.
     w = 0.0
     for ch in title:
         if ch.isspace():
@@ -555,7 +560,7 @@ def extract_final_title(post_text):
     m = re.search(r"定稿标题\s*[:：]\s*(.+)", post_text)
     if m:
         return m.group(1).strip().strip("《》\"'` ")
-    # 找单独的「## 标题」一节，取它下面第一行非空文字
+    # Find a standalone "## 标题" section and take the first non-empty line under it
     lines = post_text.splitlines()
     capture = False
     for ln in lines:
@@ -568,48 +573,48 @@ def extract_final_title(post_text):
 
 
 def check_title(post_text):
-    name = "标题加权字数"
+    name = "Title weighted length"
     title = extract_final_title(post_text)
     if not title:
-        report("WARN", name, "post.md 里找不到定稿标题，人工核对（只提醒的检查）")
+        report("WARN", name, "No final title found in post.md — check by hand (warn-only check)")
         return
     w = title_weight(title)
     cap = num("content.title_max_chars")
-    detail = f"定稿标题《{title}》加权 {w:g} 字（上限 {cap:.0f} 字）"
+    detail = f'Final title "{title}" weighted {w:g} chars (cap {cap:.0f} chars)'
     if w > cap:
-        report("WARN", name, detail + "；超了平台上限，先改短再发")
+        report("WARN", name, detail + "; over the platform cap — shorten before publishing")
     else:
         report("PASS", name, detail)
 
 
-# ---------- 4f. 正文字数（只提醒不判错） ----------
+# ---------- 4f. body length (warn only) ----------
 def check_body(post_text):
-    name = "正文字数"
+    name = "Body length"
     if not post_text:
-        report("WARN", name, "没有 post.md 可测，跳过")
+        report("WARN", name, "No post.md to test, skipped")
         return
     body = section(post_text, "正文")
     if body is None:
-        report("WARN", name, "post.md 里找不到正文段，人工核对")
+        report("WARN", name, "No body section in post.md — check by hand")
         return
     n = len(re.sub(r"\s", "", body))
     cap = int(num("content.body_max_chars"))
-    detail = f"正文 {n} 字（上限 {cap} 字）"
+    detail = f"Body {n} chars (cap {cap} chars)"
     if n > cap:
-        report("WARN", name, detail + "；超上限了，删到限内再发")
+        report("WARN", name, detail + "; over the cap — cut it down before publishing")
     else:
         report("PASS", name, detail)
 
 
-# ---------- 4g. 话题个数（只提醒不判错） ----------
+# ---------- 4g. topic count (warn only) ----------
 def check_topics(post_text):
-    name = "话题个数"
+    name = "Topic count"
     if not post_text:
-        report("WARN", name, "没有 post.md 可测，跳过")
+        report("WARN", name, "No post.md to test, skipped")
         return
     sec = section(post_text, "话题")
     if sec is None:
-        report("WARN", name, "post.md 里找不到话题段，人工核对")
+        report("WARN", name, "No topics section in post.md — check by hand")
         return
     items = []
     for ln in sec.splitlines():
@@ -618,19 +623,19 @@ def check_topics(post_text):
             continue
         items += [t.strip() for t in re.split(r"[、，,；;\s]+", ln) if t.strip()]
     lo, hi = int(num("content.topics_min")), int(num("content.topics_max"))
-    detail = f"话题段数到 {len(items)} 个（标准 {lo}–{hi} 个）"
+    detail = f"Topics section has {len(items)} topics (standard {lo}–{hi})"
     if lo <= len(items) <= hi:
         report("PASS", name, detail)
     else:
-        report("WARN", name, detail + "；个数不在标准内，发之前对一下计划")
+        report("WARN", name, detail + "; count outside the standard — check against the plan before publishing")
 
 
-# ---------- 4h. 字幕单条长度（只提醒不判错） ----------
+# ---------- 4h. single subtitle length (warn only) ----------
 def check_subtitle_len(folder):
-    name = "字幕单条长度"
+    name = "Single subtitle length"
     cand = sorted(folder.glob("scripts*.txt")) or sorted(folder.glob("script*.txt"))
     if not cand:
-        report("WARN", name, "找不到 scripts.txt，跳过")
+        report("WARN", name, "scripts.txt not found, skipped")
         return
     cap = int(num("video.subtitle_max_chars"))
     worst, worst_seg = 0, ""
@@ -646,46 +651,47 @@ def check_subtitle_len(folder):
                 worst, worst_seg = len(piece), seg_name
     if worst > cap:
         report("WARN", name,
-               f"最长一条字幕 {worst} 字（{worst_seg} 段，上限 {cap} 字）；"
-               "这么长排进画面要挤成 3 行。回写稿阶段把这句断成两条，别留给做片返工")
+               f"Longest single subtitle {worst} chars ({worst_seg} segment, cap {cap} chars); "
+               "that long, it squeezes into 3 lines on screen. Go back to script writing and split this line in two — "
+               "don't leave it for video-making rework")
     else:
-        report("PASS", name, f"最长一条字幕 {worst} 字（上限 {cap} 字）")
+        report("PASS", name, f"Longest single subtitle {worst} chars (cap {cap} chars)")
 
 
-# ---------- 4i. 旁白码率提示（只提醒，永不判错） ----------
+# ---------- 4i. narration bitrate note (warn only, never fails) ----------
 def check_narration(folder):
-    name = "旁白码率"
+    name = "Narration bitrate"
     cands = sorted(folder.glob("audio/*.mp3")) + sorted(folder.glob("n-*.mp3"))
     if not cands:
-        return  # 素材夹里没留旁白源文件，这项就不出声
+        return  # No narration source file kept in the material folder — this check stays silent.
     f = cands[0]
     r = run(["ffprobe", "-v", "error", "-show_entries", "format=bit_rate",
              "-of", "csv=p=0", str(f)])
     try:
         kbps = int(r.stdout.strip().split(",")[0]) / 1000.0
     except (ValueError, IndexError):
-        report("WARN", name, f"{f.name} 的码率读不出来，人工确认")
+        report("WARN", name, f"Can't read {f.name}'s bitrate — confirm by hand")
         return
     expect = num("tts.expected_bitrate_kbps")
     if expect > 0 and abs(kbps - expect) / expect > 0.25:
         report("WARN", name,
-               f"{f.name} 约 {kbps:.0f} kb/s，跟预期的约 {expect:.0f} kb/s 对不上；"
-               "多半是这期换了配音引擎或参数，确认是有意换的再往下走")
+               f"{f.name} is about {kbps:.0f} kb/s, but expected about {expect:.0f} kb/s — "
+               "this episode probably switched voice engines or settings; confirm the switch was intentional before continuing")
     elif expect > 0:
-        report("PASS", name, f"{f.name} 约 {kbps:.0f} kb/s，与预期 {expect:.0f} kb/s 对得上")
+        report("PASS", name, f"{f.name} is about {kbps:.0f} kb/s, matching the expected {expect:.0f} kb/s")
     else:
         report("PASS", name,
-               f"{f.name} 约 {kbps:.0f} kb/s（config 里没填预期码率，只记录数值；"
-               "想让这项能报警，把 tts.expected_bitrate_kbps 填上）")
+               f"{f.name} is about {kbps:.0f} kb/s (no expected bitrate in config, so this just logs the number; "
+               "to make this check warn, fill in tts.expected_bitrate_kbps)")
 
 
-# ---------- 5. 封面 ----------
+# ---------- 5. cover ----------
 def check_cover(folder):
-    name = "封面"
+    name = "Cover"
     cands = sorted(folder.glob("cover*.jpg")) + sorted(folder.glob("cover*.png")) \
         + sorted(folder.glob("封面*.jpg")) + sorted(folder.glob("封面*.png"))
     if not cands:
-        report("FAIL", name, "找不到 cover 封面图")
+        report("FAIL", name, "No cover image found")
         return
     f = cands[0]
     r = run(["ffprobe", "-v", "error", "-select_streams", "v:0",
@@ -695,19 +701,19 @@ def check_cover(folder):
     want_w, want_h = int(num("video.cover_width")), int(num("video.cover_height"))
     ok = (w, h) == (str(want_w), str(want_h))
     report("PASS" if ok else "FAIL", name,
-           f"{f.name}：{w}x{h}（标准 {want_w}x{want_h}）")
+           f"{f.name}: {w}x{h} (standard {want_w}x{want_h})")
 
 
-# ---------- 6. 期号 ----------
+# ---------- 6. issue number ----------
 def check_issue(folder, post_text):
     name = "期号"
     m = re.search(r"(\d{4}-\d{2}-\d{2})", folder.name)
     if not m:
-        report("WARN", name, f"素材夹名 {folder.name} 里看不出日期，跳过核对")
+        report("WARN", name, f"Folder name {folder.name} shows no date — skipping the check")
         return
     date = m.group(1)
     epoch = str(CFG["publish.issue_required_from"] or "")
-    # 没填强制起始日就不判错，只提醒；填了就从那天起算强制
+    # Without a forced start date this only warns, never fails; once set, it's enforced from that date.
     strict = bool(epoch) and date >= epoch
     ledger = Path(str(CFG["paths.ledger_file"])).expanduser()
     if not ledger.is_absolute():
@@ -726,19 +732,19 @@ def check_issue(folder, post_text):
         if mm:
             recorded = int(mm.group(1))
     if seq is None:
-        report("WARN", name, f"台账里查无 {date} 条目，无法核对期号")
+        report("WARN", name, f"No {date} entry in the ledger — can't check the issue number")
         return
     if recorded is None:
         report("FAIL" if strict else "WARN", name,
-               f"post.md 未记录期号；台账序号为第 {seq} 期"
-               + ("（已到强制起始日，缺失判 FAIL）" if strict
-                  else "（未设强制起始日，只提醒）"))
+               f"post.md records no issue number; the ledger sequence is issue {seq}"
+               + (" (past the forced start date, missing counts as FAIL)" if strict
+                  else " (no forced start date set, warn only)"))
         return
     if recorded != seq:
         report("FAIL" if strict else "WARN", name,
-               f"post.md 记第 {recorded} 期，台账序号为第 {seq} 期，不一致")
+               f"post.md says issue {recorded}, but the ledger sequence is issue {seq} — mismatch")
     else:
-        report("PASS", name, f"post.md 与台账一致：第 {seq} 期")
+        report("PASS", name, f"post.md matches the ledger: issue {seq}")
 
 
 def main():
@@ -747,13 +753,13 @@ def main():
         return 2
     folder = Path(sys.argv[1]).expanduser()
     if not folder.is_dir():
-        print(f"素材夹不存在：{folder}")
+        print(f"Material folder not found: {folder}")
         return 2
     if CFG_FOUND:
-        print("配置：用了仓库根的 config.yaml")
+        print("Config: using the repo-root config.yaml")
     else:
-        print("配置：没找到仓库根的 config.yaml，用内置推荐默认值")
-    print(f"验收对象：{folder}")
+        print("Config: no repo-root config.yaml found, using built-in recommended defaults")
+    print(f"Checking: {folder}")
     check_scripts(folder)
     post_text = check_postmd(folder)
     check_title(post_text)
@@ -773,8 +779,8 @@ def main():
     check_issue(folder, post_text)
     fails = [r for r in RESULTS if r[0] == "FAIL"]
     warns = [r for r in RESULTS if r[0] == "WARN"]
-    print(f"结论：FAIL {len(fails)} 项，WARN {len(warns)} 项，"
-          f"PASS {len(RESULTS) - len(fails) - len(warns)} 项")
+    print(f"Summary: {len(fails)} FAIL, {len(warns)} WARN, "
+          f"{len(RESULTS) - len(fails) - len(warns)} PASS")
     return 1 if fails else 0
 
 

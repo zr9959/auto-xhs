@@ -1,37 +1,39 @@
-# motion-lib：网页做片的动效库
+[中文](README.zh-CN.md) | English
 
-做片的方法是：一条视频就是一个网页，动画在网页里排好，再一帧一帧截图，最后拼成视频。这个库就是给那个网页用的动效组件，样式在 `motion.css`，动作在 `motion.js`，都挂在 `window.MotionLib` 上。
+# motion-lib: the motion library for web-page videos
 
-## 一条硬规矩：所有动效都得能定格
+How a video gets made here: one video is one web page. The animation is laid out on the page, then screenshotted frame by frame, then stitched into a video. This library is the motion kit for that page. Styles live in `motion.css`, motion lives in `motion.js`, both on `window.MotionLib`.
 
-截图时时间线是停住的，一帧一帧跳到某个时刻 t 再截。所以每个效果都只能由 t 算出来：同一个 t 跳多少次，画面都得一模一样。
+## One hard rule: every effect must freeze
 
-- 不许用自己跑的时钟（比如 `requestAnimationFrame` 自由跑、`Date.now()`）决定画面。
-- 不许用 `Math.random()` 掷骰子。要随机就用 `MotionLib.mulberry32(种子)`，种子定了，结果就定了。
-- 星尘、彩带、Lottie 这类画布效果，登记成帧更新器（`addFrameUpdater`）。截图那边每跳一帧会喊 `runFrameUpdaters(t)`，它们按 t 把这一帧重画一遍。
+When screenshotting, the timeline is stopped — it jumps to a time t, frame by frame, and shoots. So every effect can only be computed from t: jump to the same t as many times as you like, the picture must be identical every time.
 
-不守这条，截出来的帧会跟时间对不上，成片就会跳、会闪。
+- Never let a clock that runs on its own (like a free-running `requestAnimationFrame`, or `Date.now()`) decide the picture.
+- Never use `Math.random()` to roll dice. For randomness, use `MotionLib.mulberry32(seed)` — once the seed is set, the result is set.
+- Canvas effects like starfields, confetti, and Lottie get registered as frame updaters (`addFrameUpdater`). The screenshot side calls `runFrameUpdaters(t)` on every frame jump, and they redraw that frame from t.
 
-## 一条排版规矩：同一块区域，只许一个带延迟的入场
+Break this rule and the captured frames won't line up with the time — the finished video will jump and flicker.
 
-两张卡片落在同一块区域、又各自带不同的入场延迟，动画演到一半就会叠在一起，还可能盖住下面的字。截图是逐帧定格的，叠住的那一帧会原样截进成片，躲不掉。
+## One layout rule: one delayed entrance per area
 
-- 同一块区域里，要么只放一个带入场的元素；要么把几张卡片放进一个布局容器（比如纵向 flex 排好、留好间距），让它们入场前、入场中、停稳后都不重叠。
-- 实在要错峰入场，先把每张卡片在每个时刻的位置都想清楚：任何一个时刻都不许重叠，不只是停稳之后不重叠。
+Two cards landing in the same area, each with its own entrance delay, will overlap halfway through the animation and can cover the text below. Screenshots freeze frame by frame, so the overlapped frame goes straight into the finished video — there is no hiding from it.
 
-## 先备齐第三方库
+- In one area, either place only one element with an entrance, or put the cards into one layout container (a vertical flex column with spacing set) so they never overlap before, during, or after entering.
+- If entrances really must be staggered, work out each card's position at every moment first: no overlap at any moment, not just after everything settles.
 
-GSAP 和 lottie-web 的本体不在仓库里，先跑一次：
+## Get the third-party libraries first
+
+The GSAP and lottie-web sources are not in the repo. Run once:
 
 ```bash
 bash scripts/fetch-vendor.sh
 ```
 
-它会把 GSAP 3.15.0、lottie-web 5.13.0、canvas-confetti 1.9.4 下载到 `vendor/`，版本和校验都在脚本里写死了。版本明细看 `vendor/README.md`。
+It downloads GSAP 3.15.0, lottie-web 5.13.0, and canvas-confetti 1.9.4 into `vendor/`. Versions and checksums are pinned in the script. Version details are in `vendor/README.md`.
 
-## 网页里怎么引
+## How to include it in a page
 
-在页面 `<head>` 里引样式，`</body>` 前按这个顺序引脚本（路径按你的页面放在哪一层自己调）：
+Include the stylesheet in the page `<head>`, and the scripts in this order right before `</body>` (adjust the paths to where your page sits):
 
 ```html
 <link rel="stylesheet" href="../../motion-lib/motion.css">
@@ -42,102 +44,102 @@ bash scripts/fetch-vendor.sh
 <script src="../../motion-lib/motion.js"></script>
 ```
 
-然后建一条停住的时间线，往上面排组件，最后把截图要用的三个口子留出来：
+Then build a paused timeline, lay the components on it, and leave the three hooks the screenshot side needs:
 
 ```js
 const ML = window.MotionLib;
-ML.usePlugins();                       // 把引了的插件都登记上
+ML.usePlugins();                       // register every plugin you included
 const tl = gsap.timeline({ paused: true });
-// ……往 tl 上排组件……
+// ……lay components on tl……
 
 window.__renderFrame = function (scene, t) {
-  tl.seek(t, false);                   // 第二个参数别改 true，不然数字滚动不刷新
-  ML.runFrameUpdaters(t);              // 星尘、彩带、Lottie 跟这一帧一起到位
+  tl.seek(t, false);                   // don't change this second argument to true, or number rollups won't refresh
+  ML.runFrameUpdaters(t);              // starfield, confetti, and Lottie land on this frame together
 };
 ```
 
-现成例子看 `pipeline/templates/scene-template.html`，拿它改最快。
+The ready-made example is `pipeline/templates/scene-template.html` — start from it, it's fastest.
 
-## 组件清单
+## Component list
 
-签名都是 `(tl, 目标, {at, dur, ...})`，`at` 是在时间线上第几秒开始。
+Signatures are all `(tl, target, {at, dur, ...})`, where `at` is the second on the timeline it starts at.
 
-| 组件 | 干什么 | 一句用法 |
+| Component | What it does | One-line usage |
 |---|---|---|
-| `splitChars` | 把标题拆成一个字一个元素 | `const chars = ML.splitChars(el)` |
-| `titleIn` | 标题逐字进场，flip 翻入 / wave 升起 / blur 变清 | `ML.titleIn(tl, el, {at:.15, mode:"flip"})` |
-| `countUp` | 数字从小滚到大，价格、数量都能用 | `ML.countUp(tl, el, {to:899, at:2, prefix:"¥"})` |
-| `barGrow` | 横条从左往右长，ratio 是长满的比例 | `ML.barGrow(tl, bar, {at:1, ratio:.65})` |
-| `drawPath` | 沿 SVG 路径描线，走势线、对勾都行 | `ML.drawPath(tl, path, {at:1})` |
-| `ringSweep` | 圆环扫过百分之几 | `ML.ringSweep(tl, circle, {at:1, pct:.67})` |
-| `cardIn` | 卡片从某个方向滑进来，带回弹 | `ML.cardIn(tl, el, {at:0, from:"left"})` |
-| `stackConverge` | 几张卡飞过来叠成一摞 | `ML.stackConverge(tl, [a,b,c], finals, {at:1})` |
-| `flipCard` | 3D 翻卡，正面翻到背面 | `ML.flipCard(tl, inner, {at:8})` |
-| `shine` | 一道光从元素上扫过去 | `ML.shine(tl, el, {at:3})` |
-| `underlineDraw` | 下划线描出来，就是 drawPath | `ML.underlineDraw(tl, path, {at:1})` |
-| `breathe` | 发光一涨一缩，强调主推项 | `ML.breathe(tl, el, {at:5, repeats:5})` |
-| `wipeIn` | 遮罩擦除，画面一点点露出来 | `ML.wipeIn(tl, el, {at:2, dir:"left"})` |
-| `circleReveal` | 一个圆涨开，把画面露出来 | `ML.circleReveal(tl, el, {at:2})` |
-| `blurCrossfade` | 旧的糊掉淡出，新的同时变清 | `ML.blurCrossfade(tl, oldEl, newEl, {at:4})` |
-| `glowDrift` | 光晕在整段里慢慢挪 | `ML.glowDrift(tl, [{el:"#g", dx:120, dy:60}], 总时长)` |
-| `starfield` | 满屏小星点，按种子和 t 重画 | `ML.starfield(canvas, {count:110, seed:11})` |
-| `confettiBursts` | 到点喷一束彩带，落点只由 t 算 | `ML.confettiBursts(canvas, [{t0:9.5, x:540, y:600, seed:21}])` |
-| `mountLottie` | 把 Lottie 动画钉在时间线上 | `ML.mountLottie(el, {path:".../check.json", at:9.5})` |
-| `morphTo` | 一条路径变成另一个形状 | `ML.morphTo(tl, path, "M…", {at:0})` |
+| `splitChars` | Splits a title into one element per character | `const chars = ML.splitChars(el)` |
+| `titleIn` | Title enters character by character: flip in / wave up / blur to sharp | `ML.titleIn(tl, el, {at:.15, mode:"flip"})` |
+| `countUp` | Number rolls up from small to big — prices, counts, anything | `ML.countUp(tl, el, {to:899, at:2, prefix:"¥"})` |
+| `barGrow` | A horizontal bar grows left to right; ratio is how full it gets | `ML.barGrow(tl, bar, {at:1, ratio:.65})` |
+| `drawPath` | Draws along an SVG path — trend lines, check marks, anything | `ML.drawPath(tl, path, {at:1})` |
+| `ringSweep` | A ring sweeps across a percentage | `ML.ringSweep(tl, circle, {at:1, pct:.67})` |
+| `cardIn` | A card slides in from a direction, with a bounce | `ML.cardIn(tl, el, {at:0, from:"left"})` |
+| `stackConverge` | Several cards fly in and stack into one pile | `ML.stackConverge(tl, [a,b,c], finals, {at:1})` |
+| `flipCard` | 3D card flip, front to back | `ML.flipCard(tl, inner, {at:8})` |
+| `shine` | A beam of light sweeps across an element | `ML.shine(tl, el, {at:3})` |
+| `underlineDraw` | An underline draws itself — it's just drawPath | `ML.underlineDraw(tl, path, {at:1})` |
+| `breathe` | A glow swells and shrinks, to highlight the main item | `ML.breathe(tl, el, {at:5, repeats:5})` |
+| `wipeIn` | A mask wipe, the picture shows bit by bit | `ML.wipeIn(tl, el, {at:2, dir:"left"})` |
+| `circleReveal` | A circle grows open and reveals the picture | `ML.circleReveal(tl, el, {at:2})` |
+| `blurCrossfade` | The old one blurs out, the new one sharpens at the same time | `ML.blurCrossfade(tl, oldEl, newEl, {at:4})` |
+| `glowDrift` | A glow drifts slowly across the whole segment | `ML.glowDrift(tl, [{el:"#g", dx:120, dy:60}], total duration)` |
+| `starfield` | A screen full of small stars, redrawn from seed and t | `ML.starfield(canvas, {count:110, seed:11})` |
+| `confettiBursts` | A burst of confetti at a set time, landing spots computed from t only | `ML.confettiBursts(canvas, [{t0:9.5, x:540, y:600, seed:21}])` |
+| `mountLottie` | Pins a Lottie animation to the timeline | `ML.mountLottie(el, {path:".../check.json", at:9.5})` |
+| `morphTo` | One path turns into another shape | `ML.morphTo(tl, path, "M…", {at:0})` |
 
-样式类在 `motion.css` 顶部有一组变量（`--ml-color-a` 主色、`--ml-color-b` 辅色、`--ml-color-c` 点缀色等），换风格先改变量，别到处翻色值。常用的类：`.ml-stage` 舞台、`.ml-glass` 玻璃卡、`.ml-card` 实色卡、`.ml-img-frame` 图片框、`.ml-grad-text` 渐变字、`.ml-topbar` 顶部彩条。字幕走 `.ml-subs` 一套，规矩看下面两节。
+The style classes have a set of variables at the top of `motion.css` (`--ml-color-a` main color, `--ml-color-b` secondary color, `--ml-color-c` accent color, and so on). To restyle, change the variables first — don't go hunting for color values everywhere. Common classes: `.ml-stage` stage, `.ml-glass` glass card, `.ml-card` solid card, `.ml-img-frame` image frame, `.ml-grad-text` gradient text, `.ml-topbar` top color bar. Subtitles use the `.ml-subs` set — the rules are in the two sections below.
 
-Lottie 示例素材在 `vendor/examples/`：`check.json` 是圆环描完打对勾，`sparkles.json` 是几颗四角星轮流闪，都是本项目自己写的，随便用。
+Lottie example assets live in `vendor/examples/`: `check.json` is a ring drawing itself then a check mark, `sparkles.json` is a few four-pointed stars flashing in turn. Both were written for this project — use them freely.
 
-## 字幕锚定标准（贴底锚定，CSS 类 `.ml-subs` 一套）
+## Subtitle anchor standard (bottom-anchored, the `.ml-subs` class set)
 
-字幕不许浮动，必须**贴底锚定**：行数变化时块只向上生长、底边纹丝不动，文字在块内贴底对齐。
+Subtitles must not float. They must be **bottom-anchored**: when the line count changes, the block only grows upward — the bottom edge never moves, and text sits at the bottom inside the block.
 
-锚点怎么来的（小红书竖版，1080×1920）：在 App 里以观众身份看视频，画面最下面有一块是播放器自己的地盘——作者头像、昵称、标题、声明都叠在那里，这块叫系统信息区。实测它的顶边在画面高度 **84.4%（y=1621）**；字幕底边定在 **80%（y=1536）**，跟它留出 **85px** 的安全间距，这样 1 行、2 行都不会压住头像。位置偏高会跟正文脱节，偏低会撞信息区，只有贴底锚定，每条都一致。
+Where the anchor comes from (Xiaohongshu portrait, 1080×1920): watch a video in the app as a viewer, and the bottom of the picture belongs to the player itself — author avatar, nickname, title, and declarations all sit on top of it. That area is called the system info area. Measured, its top edge sits at **84.4% of the picture height (y=1621)**. The subtitle bottom edge is set at **80% (y=1536)**, leaving **85px** of safety gap to it, so 1-line and 2-line subtitles never press on the avatar. Higher and the subtitles disconnect from the body; lower and they hit the info area. Only bottom anchoring keeps every line consistent.
 
-| 项 | 数值 |
+| Item | Value |
 |---|---|
-| 画布 | 1080×1920 |
-| 背景条底边 | **y = 1536**（高度 80%），容器 `bottom: calc(100% - 1536px)` |
-| 系统信息区顶边（实测） | y = 1621（84.4%），字幕底边与它留 85px 间距 |
-| 字号 / 行高 | 46px / 64px |
-| 背景条内边距 | 上下各 16px（左右 28px），圆角 26px |
-| 最多行数 | 2 行（长句先在断句处拆成两条字幕，不许出第 3 行、不许缩字号） |
-| 1 行块 | 高 96px，块顶 y = 1440（75.0%） |
-| 2 行块 | 高 160px，块顶 y = 1376（71.7%） |
+| Canvas | 1080×1920 |
+| Background bar bottom edge | **y = 1536** (80% of height), container `bottom: calc(100% - 1536px)` |
+| System info area top edge (measured) | y = 1621 (84.4%), subtitle bottom edge leaves 85px of gap to it |
+| Font size / line height | 46px / 64px |
+| Background bar padding | 16px top and bottom (28px left and right), 26px corner radius |
+| Max lines | 2 lines (split a long sentence into two subtitle lines at a sentence break first — never a 3rd line, never shrink the font) |
+| 1-line block | 96px tall, block top y = 1440 (75.0%) |
+| 2-line block | 160px tall, block top y = 1376 (71.7%) |
 
-用法（字幕层独立于场景，逐句换 `.ml-subs-line` 的内容就行，位置不用再算）：
+Usage (the subtitle layer stands apart from the scene — just swap the contents of `.ml-subs-line` line by line, no need to recompute positions):
 
 ```html
 <div class="ml-subs"><div class="ml-subs-bar">
-  <span class="ml-subs-line">这一句先说完，</span>
-  <span class="ml-subs-line">下一句再接上。</span>
+  <span class="ml-subs-line">Finish this line first,</span>
+  <span class="ml-subs-line">then pick up the next one.</span>
 </div></div>
 ```
 
-**验收量法**：成片任意抽两帧（1 行、2 行各一帧），量字幕背景条**底边**的 y，落在 **1526–1546** 才算过。量法：取画面中部横带逐行扫深色像素，最下面一行深色就是底边；背景条的投影是半透明的虚边，颜色明显浅，别算进去。
+**How to measure for acceptance**: pull any two frames from the finished video (one 1-line frame, one 2-line frame) and measure the y of the subtitle background bar's **bottom edge** — it only passes inside **1526–1546**. How to measure: take a horizontal band across the middle of the picture, scan rows for dark pixels — the lowest dark row is the bottom edge. The bar's shadow is a semi-transparent soft edge, clearly lighter in color — don't count it.
 
-### 换平台、换设备，先自己重测一遍
+### New platform, new device? Measure it yourself first
 
-上面这套数字只对小红书竖版负责。换个平台（比如抖音）、换个播放器，系统信息区的位置就不一样了，照这个方法重测：
+The numbers above only cover Xiaohongshu portrait. On another platform (like Douyin) or another player, the system info area sits somewhere else — re-measure with this method:
 
-1. 在目标 App 里以观众身份打开任意一条视频，截一张完整的播放画面。截图时视频要是高度填充的状态，别带上下黑边。
-2. 在截图上量系统信息区顶边：头像、昵称那一行的最上沿，换算成占视频高度的百分比。
-3. 字幕底边定在它上方一点，留安全间距（按 1920 高留 85px 上下，画布矮就按比例少留一点），换算成百分比，这就是你的锚点。
-4. 顶部安全线同理：量顶部导航行（返回、搜索那些图标）的下沿，主体内容从它下面开始排。
-5. 新数字写进你的 `config.yaml`（`video.subtitle_bottom_pct`、`video.system_info_top_pct`），动效库 `.ml-subs` 里的像素按画布高度换算。
+1. In the target app, open any video as a viewer and screenshot one full playback frame. The video must be filling the height when you shoot — no black bars top and bottom.
+2. On the screenshot, measure the system info area's top edge: the top of the avatar-and-nickname row, converted to a percentage of the video height.
+3. Set the subtitle bottom edge a little above it, leaving a safety gap (about 85px on a 1920-tall canvas; scale it down proportionally on a shorter canvas). Convert to a percentage — that is your anchor.
+4. The top safe line works the same way: measure the bottom edge of the top navigation row (back, search, and those icons), and lay the main content out below it.
+5. Write the new numbers into your `config.yaml` (`video.subtitle_bottom_pct`, `video.system_info_top_pct`), and convert the pixel values in the motion library's `.ml-subs` by canvas height.
 
-## 版面分区（排版前先看这张表）
+## Layout zones (read this table before laying anything out)
 
-字幕锚点落定后，主内容区其实很大，排版必须把内容排满，不许内容挤在上半截、下半截空着。四区数字（1080×1920）都由上面那套实测推导：
+Once the subtitle anchor is set, the main content area is actually large — the layout must fill it. Never squeeze the content into the top half and leave the bottom half empty. All four zone numbers (1080×1920) come from the same measurements above:
 
-| 区 | 范围 | 说明 |
+| Zone | Range | Notes |
 |---|---|---|
-| 顶部安全线 | y = 250（13%），这条线以上不排主体 | 观众视角顶部导航行约在高度 11%–14.5%；贴边的固定小元素（徽章、日期条这类）不在此限 |
-| 主内容区 | y 250 → 1340，高 1090px | 标题、信息卡、真实界面图全排在这里；下界 1340 = 两行字幕块顶 1376 再留 36px 间隔 |
-| 字幕区 | 块顶 1376（2 行）/ 1440（1 行），底边固定 y = 1536（80%） | 见上面「字幕锚定标准」 |
-| 系统信息区 | 顶边 1621（84.4%）以下 | 禁入：主体内容和字幕都不许伸进去 |
+| Top safe line | y = 250 (13%) — no main content above this line | From the viewer side, the top navigation row sits around 11%–14.5% of the height. Small fixed edge elements (badges, date bars, and the like) are exempt |
+| Main content area | y 250 → 1340, 1090px tall | Titles, info cards, and real interface pictures all go here. The bottom edge 1340 = the 2-line subtitle block top 1376 minus 36px of gap |
+| Subtitle area | Block top 1376 (2 lines) / 1440 (1 line), bottom edge fixed at y = 1536 (80%) | See "Subtitle anchor standard" above |
+| System info area | Below top edge 1621 (84.4%) | Off-limits: neither main content nor subtitles may reach into it |
 
-利用率硬要求：每段主体内容（标题 + 信息卡 + 真实界面图的整体）纵向跨度至少占主内容区的 **55%**（约 600px），在区内居中分布、上下排满；内容区下部空置不许超过 **25%**（约 270px）。排版先排主体、再放字幕，不许反过来迁就字幕把内容挤小。
+Hard usage rule: each segment's main body (title + info cards + real interface pictures as a whole) must span at least **55%** of the main content area vertically (about 600px), centered in the area, filled top to bottom. Empty space at the bottom of the content area must not pass **25%** (about 270px). Lay out the main body first, then place the subtitles — never shrink the content to fit around the subtitles.
 
-验收核对分区，用 `motion.css` 里的 `.ml-guide` 导线类（仅验收用，默认不启用）：在页面里加上 `<div class="ml-guide on">`，里面放五个 `<i class="g250" data-label="顶部安全线 250"></i>` 这样带编号的子元素，截图时五条线就会叠在画面上，照着量就行。核对完去掉 `.on`。**正式出片严禁带着 `.on` 渲染**，导线进了成片就是不合格。
+To check zones during acceptance, use the `.ml-guide` guide-line class in `motion.css` (acceptance only, off by default): add `<div class="ml-guide on">` to the page, with five numbered child elements inside like `<i class="g250" data-label="Top safe line 250"></i>`, and the five lines will overlay the picture when you screenshot — measure against them. Remove `.on` when the check is done. **Never render a finished video with `.on` on** — guide lines in the finished video mean it fails.

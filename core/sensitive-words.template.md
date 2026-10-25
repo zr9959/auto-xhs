@@ -1,118 +1,120 @@
-# 敏感内容自查附册（模板）
+[中文](sensitive-words.template.zh-CN.md) | English
 
-> 用之前先复制一份，改名为 `sensitive-words.md`，再按你自己的品类增删。
+# Sensitive content self-check appendix (template)
+
+> Before using it, copy it and rename the copy `sensitive-words.md`, then add or remove entries for your own categories.
 >
-> 先把丑话说在前面：**平台从没公开发过完整的敏感词表。** 市面上卖的、传的「违禁词大全」都是第三方拼的，没有出处、没有版本，只能当提醒，不能当标准。这份附册是按公开的法律法规、平台公约和官方表述规范整理的，里面的例词都只是示例，不是官方名单。
+> First, the ugly truth up front: **the platform has never published a complete sensitive word list.** The "banned word encyclopedias" sold and passed around online are all stitched together by third parties — no source, no version — useful only as reminders, never as a standard. This appendix is organized from public laws and regulations, platform conventions, and official wording rules. Every example word inside is only an example, not an official list.
 >
-> 平台的治理重点是会变的，专项一个接一个。这份附册放几个月就可能过期。要自己定期复看平台的官方规则（社区公约、创作者中心的规则公告、专项治理公告），过期就更新。复看节奏看宪法页总表。
+> The platform's governance focus keeps moving, one special campaign after another. This appendix can go stale in a few months. Re-read the platform's official rules yourself on a schedule (community conventions, creator center rule announcements, special governance announcements), and update it when it's stale. The re-read rhythm follows the constitution page's numbers table.
 >
-> 总原则：不碰敏感内容，拿不准的题宁可弃，不可擦边。
+> Standing rule: don't touch sensitive content. A topic you're unsure about is better dropped than edged around.
 
-## 一、十条红线
+## 1. Ten red lines
 
-1. **时政题整体不做。** 一条内容的核心如果是政治事件本身（选举、政府表态、外交、军事、制裁攻防），而不是产品和技术，一律弃。普通账号没有新闻采编资质，把定位守在你自己定的内容范围里。
-2. **台港澳表述零容错。** 台湾是中国的一个省，港澳是特别行政区。绝不称「国家」，绝不跟中国并列，不用「两岸三地 / 中台 / 中港」。台湾地区领导人不称「总统」。细则看第五节。
-3. **不点评政府政策，不传没证实的涉华负面传闻**（后门、监控、数据泄露这类指控）。只转当事企业官方声明里的事实部分，不转述、不站队。
-4. **制裁、出口管制这类题只报产品层面的既成事实**（比如某型号暂停供货），要有企业官方来源。没有官方源就弃。不解读政策、不预测走向、不渲染对立。这是风险最高的一类，格外小心。
-5. **翻墙、代理、节点这类内容不做。** 教程、推荐、测评、测速、下载方式、暗示词，一律不做。只能做不给任何操作方法的风险提示。视频里也不强调素材是怎么弄到的。
-6. **加密货币不做。** 行情、预测、交易所和钱包教程、项目推荐，一律不做。避坑也只讲一句监管层面的事实，不点币种涨幅、不放行情图。
-7. **金融投资建议零发布。** 不荐股、不预测涨跌、不说「值得买入 / 上车」、不承诺收益、不给开户导流。平台的金融公约对这类有明文禁项，处罚是限流、下架、封号。
-8. **绝对化词和功效承诺词全稿清零。** 「最、第一、顶级、100%、永久、根治、保本」这类，不许出现在标题、口播、字幕、封面任何一处。引用跑分、销量、排名，要带出处、范围、时间。
-9. **AI 内容必须标注。** 发布时选平台的 AI 声明。AI 魔改历史、影视、英烈题材绝不碰。英烈和历史敏感事件不娱乐化、不揭秘化。
-10. **画面和文字一样要查。** 违规常常是素材带进来的：素材里的地图、国旗、政要照片、标语、二维码、外站水印，不是文案写出来的。画面要逐帧抽查。
+1. **Political topics as a whole are out.** When a piece of content's core is a political event itself (elections, government statements, diplomacy, military, sanctions offense and defense) rather than products and technology, drop it, period. An ordinary account has no news-gathering credentials — keep your positioning inside the content range you set yourself.
+2. **Taiwan, Hong Kong, and Macao wording has zero tolerance.** Taiwan is a province of China; Hong Kong and Macao are special administrative regions. Never call them "countries", never list them alongside China, never use 「两岸三地」 (two shores, three places) / 「中台」 (China-Taiwan) / 「中港」 (China-Hong Kong). Taiwan's regional leader is never called "president". Details in section 5.
+3. **No commenting on government policy, no spreading unconfirmed negative rumors about China** (backdoor, surveillance, data leak accusations, and the like). Only relay the factual parts of the involved company's official statement — no retelling, no taking sides.
+4. **Sanctions and export-control topics only report settled product-level facts** (for example, a model pausing supply), with a company official source. No official source means drop it. No interpreting policy, no predicting directions, no inflaming opposition. This is the highest-risk category — extra care.
+5. **VPN, proxy, and node content is out.** Tutorials, recommendations, reviews, speed tests, download methods, hint words — all out. Only a risk warning with no operating method at all is allowed. Videos must not emphasize how the material was obtained either.
+6. **Cryptocurrency is out.** Prices, predictions, exchange and wallet tutorials, project recommendations — all out. A warning only states one regulatory-level fact — no coin price moves, no market charts.
+7. **Zero financial investment advice published.** No stock tips, no rise/fall predictions, no "worth buying / get on board", no return promises, no account-opening diversion. The platform's finance convention lists these as explicit bans, and penalties run from throttling to takedown to banning.
+8. **Absolute words and efficacy promises go to zero across the whole script.** Words like 「最」 (most), 「第一」 (number one), 「顶级」 (top-class), 「100%」, 「永久」 (permanent), 「根治」 (cure outright), 「保本」 (principal guaranteed) must not appear in titles, voiceover, subtitles, or covers anywhere. Cited benchmarks, sales, and rankings must carry source, scope, and date.
+9. **AI content must be labeled.** Pick the platform's AI declaration at publish time. AI-altered history, film and TV, or hero and martyr topics are never touched. Heroes, martyrs, and historically sensitive events must not be entertained or "revealed".
+10. **Pictures get checked like text.** Violations often ride in with the material: maps, flags, politician photos, slogans, QR codes, outside-site watermarks inside the material are not written by the copy. Pictures need frame-by-frame spot checks.
 
-## 二、弃题清单（选题时逐条过，命中一条就弃，不讨论换角度）
+## 2. Drop list (run through it item by item at topic time — one hit drops the topic, no discussion about a different angle)
 
-1. 主角是选举、政党、议会表决、政府人事，产品只是背景板。
-2. 涉及政府部门的政策表态、反制、制裁攻防，要复述立场或预测走向才能讲清。
-3. 涉及军事：武器装备、军演、军方采购、战场上的技术应用。
-4. 点名批评或表扬某个国家、政府、政要，是标题或结论的卖点。
-5. 核心来源是没证实的涉华负面爆料，又没有当事企业或权威机构的回应能对上。
-6. 必须用错误地图、错误台港澳称谓，才能呈现素材原貌。
-7. 历史敏感事件、英烈、国家象征的娱乐化、揭秘化、AI 魔改处理。
-8. 带民族、宗教冲突背景的新闻。
-9. 加密货币、翻墙代理服务、博彩平台的产品新闻和「新奇推荐」，换个包装也不行。
-10. 必须给投资建议、开户路径、交易教程才能成立的题。
-11. 敏感时间窗口（重要会议、重要纪念日、突发重大舆情期间）的涉外、涉政策擦边题。窗口里只发纯产品题。
-12. 评论区能预见必然引战、删评也压不住的题。
+1. The lead is an election, a political party, a parliament vote, or government personnel — the product is just the backdrop.
+2. It touches government policy statements, countermeasures, or sanctions offense and defense, and can only be told by restating a position or predicting a direction.
+3. It touches the military: weapons and equipment, military exercises, military procurement, battlefield technology use.
+4. It names and criticizes or praises a country, government, or politician as the title's or conclusion's selling point.
+5. The core source is an unconfirmed negative leak about China, with no response from the involved company or an authoritative body to match it against.
+6. It can only be presented with a wrong map or wrong Taiwan, Hong Kong, and Macao wording to keep the material's original look.
+7. Entertainment, "reveal", or AI-altered treatment of historically sensitive events, heroes and martyrs, or national symbols.
+8. News with an ethnic or religious conflict background.
+9. Cryptocurrency, VPN proxy services, or gambling platform product news and "novel recommendations" — a different wrapper doesn't save them.
+10. Topics that only work by giving investment advice, account-opening paths, or trading tutorials.
+11. Sensitive time windows (important meetings, important anniversaries, sudden major public opinion events) with foreign- or policy-adjacent edge topics. Inside a window, only pure product topics go out.
+12. Topics where the comment section can foreseeably explode into flame wars that even deleting comments can't hold down.
 
-**有的题改一改还能发，要同时满足：** 落点回到具体产品、参数、企业官方公告；政策分析和立场句删光；台港澳、地图、机构名称全部改规范；封面没有政要头像、国旗变形、地图、名单截图；全稿过第四节的分类扫描，没有最高级（S 级）残留。
+**A topic that can still go out after changes must meet all of these at once:** the landing point returns to a specific product, parameters, or a company official announcement; policy analysis and position sentences are deleted entirely; Taiwan, Hong Kong, Macao, map, and institution names are all corrected to standard forms; the cover carries no politician portraits, deformed flags, maps, or name-list screenshots; the whole script passes section 4's category scan with no top-level (S-level) residue left.
 
-**一句口诀：这条新闻去掉政治背景，还剩不剩产品信息？剩不下就弃；剩得下，只讲剩下的部分。**
+**One slogan to remember: strip the political background off this news — is there product information left? Nothing left means drop it. Something left means tell only the leftover part.**
 
-## 三、高频误触速查
+## 3. Frequent accidental hits — quick reference
 
-级别：S = 沾边就弃题，A = 改了能发，B = 注意措辞。
+Levels: S = touching it drops the topic, A = fixable, B = mind the wording.
 
-| 误触点 | 级 | 不能这样 | 改成这样 |
+| Hit point | Level | Don't do this | Do this instead |
 |---|---|---|---|
-| 地图 / 台港澳 | S/A | 把台港澳称国家；「两岸三地 / 中台」；直接截海外地图 | 写「中国台湾」或只写地名、企业名；并列时写「国家和地区」；地图只用带审图号的标准地图，不然删地图改文字或示意图 |
-| 外国政要 / 政府机构 | A/S | 调侃辱骂元首；拿政要言论做对立钩子；引涉华负面原话展开评论 | 只留「职务 + 机构 + 已公开决定」的事实句；不引金句、不加立场词；政要照片不上封面 |
-| 制裁 / 出口管制 | S 为主 | 解读谁卡谁、预测走向、渲染对立、往军事上联想 | 只限具体产品的可买性变化加企业官方公告；删动机分析和名单全表；没官方源就弃 |
-| 翻墙 / 代理工具 | S | 教程、推荐、测速、价格、下载、节点、「科学上网」这类暗示 | 只有避坑警示能发：来历不明的工具有数据风险、涉违法。不点名、不演示、不给替代路子 |
-| 加密货币 | S | 行情、预测、教程、带单、项目推荐 | 整类弃。避坑只讲监管定性一句 |
-| 赌博擦边 | S | 赌球、博彩平台、玩法引流、「以小博大」 | 游戏题只讲玩法和更新，不讲概率和付费技巧 |
-| 色情低俗 | A/S | 性暗示的标题封面、挑逗向卖点、低俗谐音 | 只讲技术和参数，用官方产品图，标题不玩双关 |
-| 未成年人 | A/S | 未成年出镜带货、「学生党必买」、同侪压力话术 | 儿童产品只对家长讲：安全功能和家长管控 |
-| 金融投资 | S/B | 荐股、预测涨跌、保本承诺、开户导流、收益人设 | 只报已披露的财报事实数字，不预测、不给买卖建议、不出现交易操作画面 |
-| 医疗健康声称 | A/S | 「能治 / 能降 / 能测」的功效断言、医生背书、「医院同款」 | 只说「厂商宣称可监测某项，不是医疗器械认证、不能替代医疗诊断」；没注册的功能按厂商说法注明 |
-| 安全避坑 | B/A | 漏洞利用步骤、黑客工具、绕过付费和验证的教程、曝光真实个人信息 | 只讲风险和防范：开双重验证、认准官网、及时更新。案例截图打码。教绕过风控、破解的按 S 删 |
-| 系统技巧 | A/S | 越狱、绕激活锁、绕付费验证、盗版安装教程 | 官方功能技巧可以讲；绕限制的改成风险提示，不给步骤 |
-| 导流 | A | 微信号、二维码、外链、「私信我发链接」、截图带外站联系方式 | 只用站内承接（置顶评论、合集）。素材截图先清掉联系方式和二维码 |
-| 引战叙事 | A/S | 「吊打 / 碾压 / 打脸」、煽动抵制、地域性别职业对立 | 对比只比参数、价格、实测，结论用「适合哪类人」收尾 |
-| 谣言爆料 | A/S | 渲染图当真机、传闻当定论、无源的「内部消息」、旧闻当新闻 | 爆料标明「未官宣 / 爆料」；渲染图和 AI 图注明；有官方回应以官方为准 |
-| 版权搬运 | B/A | 整段搬运别人的视频、没授权的影视和发布会片段 | 自己口播加摘要转述加少量引用；发布会素材优先用厂商官方公开的 |
+| Maps / Taiwan, Hong Kong, Macao | S/A | Calling Taiwan, Hong Kong, or Macao countries; 「两岸三地 / 中台」; screenshotting an overseas map directly | Write "中国台湾" (Taiwan, China) or just the place or company name; when listing side by side, write "国家和地区" (countries and regions); maps only from standard maps carrying a map review number — otherwise delete the map and switch to text or a diagram |
+| Foreign politicians / government bodies | A/S | Mocking or insulting heads of state; using a politician's words as an opposition hook; opening up commentary on an original negative quote about China | Keep only a factual sentence of "title + body + already-public decision"; don't quote golden lines, don't add position words; politician photos never go on covers |
+| Sanctions / export controls | Mostly S | Interpreting who blocks whom, predicting directions, inflaming opposition, linking toward the military | Only a specific product's buyability change plus a company official announcement; delete motive analysis and full name lists; no official source means drop it |
+| VPN / proxy tools | S | Tutorials, recommendations, speed tests, prices, downloads, nodes, hint phrases like 「科学上网」 (scientific internet access) | Only a warning can go out: tools of unknown origin carry data risk and legal risk. No names, no demos, no alternate routes |
+| Cryptocurrency | S | Prices, predictions, tutorials, shilling, project recommendations | Drop the whole category. A warning only states the regulatory classification in one sentence |
+| Gambling edges | S | Match betting, gambling platforms, gameplay diversion, "small stake, big win" | Game topics only cover gameplay and updates — no odds, no paid tricks |
+| Sexual or vulgar content | A/S | Sexually suggestive title covers, teasing selling points, vulgar homophones | Only technology and parameters, with official product pictures; titles play no double meanings |
+| Minors | A/S | Minors on camera selling goods, "must-buy for students" framing, peer-pressure wording | Children's products speak only to parents: safety features and parental controls |
+| Financial investment | S/B | Stock tips, rise/fall predictions, principal guarantees, account-opening diversion, return personas | Only report already-disclosed earnings facts and numbers — no predictions, no buy/sell advice, no trading-operation footage |
+| Medical and health claims | A/S | "Can cure / can lower / can measure" efficacy claims, doctor endorsements, "same as hospitals use" | Only say "the vendor claims it can monitor X — not a certified medical device, not a substitute for medical diagnosis". Unregistered features follow the vendor's wording with a note |
+| Safety warnings | B/A | Vulnerability exploit steps, hacker tools, paywall- and verification-bypass tutorials, exposing real personal information | Only risks and defenses: turn on two-factor authentication, use the official site, update promptly. Blur case screenshots. Teaching how to bypass risk controls or crack things counts as S — delete |
+| System tricks | A/S | Jailbreaking, bypassing activation locks, bypassing payment verification, pirated install tutorials | Official feature tricks are fine; bypassing limits becomes a risk warning with no steps |
+| Diversion | A | WeChat IDs, QR codes, outside links, "DM me for the link", screenshots carrying outside-site contact info | Only in-site handoff (pinned comment, collections). Clean contact info and QR codes out of material screenshots first |
+| Flame-bait narratives | A/S | 「吊打 / 碾压 / 打脸」 (crush / steamroll / slap-in-the-face), boycott incitement, region, gender, or profession opposition | Comparisons only compare parameters, prices, and real tests; conclusions end with "who it's for" |
+| Rumor leaks | A/S | Treating renders as real phones, rumors as settled facts, sourceless "insider news", old news as news | Label leaks "未官宣 / 爆料" (unannounced / leak); label renders and AI pictures; an official response overrules |
+| Copyright reposting | B/A | Reposting someone else's whole video, unlicensed film and event clips | Your own voiceover plus summary retelling plus small quotes; event material prefers the vendor's officially public material |
 
-## 四、敏感词 12 类
+## 4. Twelve sensitive word categories
 
-例词只是示例，不是官方名单。命中要改整句的意思，**不许用谐音、拆字绕过去**——绕本身就是平台重点识别的行为。
+Example words are only examples, not an official list. On a hit, rewrite the whole sentence's meaning — **never dodge with homophones or split characters**. Dodging is itself one of the platform's key detection targets.
 
-1. **涉政时政：** 领导人戏称和缩写、涉政事件代称、影射式的说法、军队番号装备细节。处理：整体删或弃题；必须提时用规范全称加中性事实句。
-2. **涉分裂领土：** 「两岸三地」「中台」这类。处理：按第五节改，改不了就删句。
-3. **黄赌毒：** 博彩平台名、赌球术语、毒品俗称、涉黄暗示。处理：整类不出现；避坑只讲「被查处」的事实。
-4. **医疗功效：** 根治、治愈、抗癌、防癌、无毒副作用、医院同款。处理：改成「厂商宣称具备某监测功能，不是医疗诊断依据」。
-5. **绝对化广告：** 最、第一、顶级、极致、史上最、100%、永久、国家级、没依据的「全球首款」。处理：改成能核实的限定说法，带出处、范围、时间。平台对这类比广告法执法还严，按全禁执行。
-6. **金融承诺：** 保本保息、稳赚、翻倍、必涨、上车、抄底、内幕消息。处理：只报财报事实，加风险提示。
-7. **导流：** 微信号及变体、二维码、私我领链接、评论区扣 1 领、短链。处理：改站内承接，素材先清。
-8. **迷信：** 转运、招财、辟邪、算命、占卜、开光。处理：玄学类应用只讲功能形态，加一句「娱乐性质、没有科学依据」，不导流付费算命。
-9. **低俗辱骂：** 脏话及谐音、歧视性标签、对某个群体的整体概括。处理：全稿清掉；评论区引战辱骂及时删或举报。
-10. **夸大虚假：** 震惊体、无源的「官方确认 / 内部消息 / 独家揭秘」。处理：传闻标明未确认，不夸大来源等级。
-11. **未成年营销：** 「学生党专属福利」、面向未成年人的抽奖和交易引导。处理：不拿未成年人当营销对象。
-12. **工具规避：** 科学上网、梯子、机场、节点、翻墙、越狱、破解版、激活工具。处理：词一出现就复核。教程形态删稿；风险提示形态可以留，但要确保没有任何操作信息。
+1. **Politics and current affairs:** mocking nicknames and abbreviations for leaders, code names for political events, insinuating wording, army unit numbers and equipment details. Handling: delete as a whole, or drop the topic; when it must be mentioned, use the standard full name plus a neutral factual sentence.
+2. **Separatism and territory:** phrases like 「两岸三地」 and 「中台」. Handling: fix per section 5; if it can't be fixed, delete the sentence.
+3. **Porn, gambling, drugs:** gambling platform names, match-betting terms, drug slang, sexual innuendo. Handling: the whole category never appears; warnings only state the fact of "having been investigated".
+4. **Medical efficacy:** 根治 (cure outright), 治愈 (cure), 抗癌 (anti-cancer), 防癌 (cancer-proof), 无毒副作用 (no toxic side effects), 医院同款 (same as hospitals use). Handling: change to "the vendor claims a certain monitoring feature — not a basis for medical diagnosis".
+5. **Absolute advertising:** 最 (most), 第一 (number one), 顶级 (top-class), 极致 (ultimate), 史上最 (most in history), 100%, 永久 (permanent), 国家级 (national-level), an unsupported "world's first". Handling: change to a checkable qualified claim carrying source, scope, and date. The platform enforces this class harder than advertising law enforcement does — treat it as a full ban.
+6. **Financial promises:** 保本保息 (principal and interest guaranteed), 稳赚 (steady profit), 翻倍 (double), 必涨 (bound to rise), 上车 (get on board), 抄底 (buy the dip), 内幕消息 (insider news). Handling: only report earnings facts, plus a risk note.
+7. **Diversion:** WeChat IDs and variants, QR codes, "DM me for the link", "comment 1 to get it", short links. Handling: switch to in-site handoff, clean material first.
+8. **Superstition:** 转运 (luck-changing), 招财 (wealth-attracting), 辟邪 (evil-warding), 算命 (fortune-telling), 占卜 (divination), 开光 (consecration). Handling: mysticism apps only cover their functional form, plus one line noting "for entertainment, no scientific basis" — never divert to paid fortune-telling.
+9. **Vulgar abuse:** dirty words and their homophones, discriminatory labels, blanket generalizations about a group. Handling: clean the whole script; flame-bait abusive comments in the comment section get deleted or reported promptly.
+10. **Exaggerated fakery:** shock-body style, sourceless "officially confirmed / insider news / exclusive reveal". Handling: label rumors as unconfirmed, don't inflate the source's level.
+11. **Minor-targeted marketing:** "student-only perks", lotteries and transaction guidance aimed at minors. Handling: never use minors as a marketing target.
+12. **Tool circumvention:** 科学上网 (scientific internet access), 梯子 (ladder), 机场 (airport), 节点 (nodes), 翻墙 (climbing the wall), 越狱 (jailbreak), 破解版 (cracked version), 激活工具 (activation tools). Handling: the moment a word appears, re-check. Tutorial form means delete the script; risk-warning form may stay, but only with zero operating information.
 
-判定是综合的：平台看的是词加语境加画面加账号历史，没有「换个同义词就能过」的规律。网上的查词工具只能初筛提醒，会误报也会漏报，结果不能当合规证据。
+Judgment is combined: the platform reads words plus context plus pictures plus account history — there is no rule like "swap in a synonym and you're through". Online word-check tools can only pre-screen and remind — they over-report and under-report, and their results never count as compliance evidence.
 
-## 五、台港澳和地图规范
+## 5. Taiwan, Hong Kong, Macao, and map rules
 
-- 台湾是中国的一个省，港澳是特别行政区。文字、地图、图表里都不得称「国家」。多个名称并列时写「国家和地区」。
-- 不用「两岸三地」「中台」「中港」。对应说法是「台湾—大陆」「香港澳门—内地」。
-- 台湾地区领导人称「台湾地区领导人」，不称「总统」。台湾当局的机构名称尽量换个说法绕开，绕不开就加引号。「国立」「中央」这类机构字样要处理：去掉「国立」，或加地域前缀。
-- 分裂类术语引用时加引号。不用「福尔摩沙」称台湾。
-- 地图只用主管部门的标准地图，带审图号。绝不截地图应用、外媒、影视、游戏里的地图。能不用就不用，用示意图代替。
+- Taiwan is a province of China; Hong Kong and Macao are special administrative regions. Text, maps, and charts must never call them "countries". When several names list side by side, write "国家和地区" (countries and regions).
+- Never use 「两岸三地」 or 「中台」 or 「中港」. The matching phrasings are "台湾—大陆" (Taiwan–mainland) and "香港澳门—内地" (Hong Kong and Macao–mainland).
+- Taiwan's regional leader is called "台湾地区领导人" (Taiwan regional leader), never "president". Taiwan authorities' institution names should be reworded to dodge them where possible; where dodging is impossible, add quotation marks. Institution wording like 「国立」 (national) and 「中央」 (central) needs handling: drop 「国立」, or add a regional prefix.
+- Put separatist terms in quotation marks when quoting them. Never call Taiwan 「福尔摩沙」 (Formosa).
+- Maps only come from the competent authority's standard maps, carrying a map review number. Never screenshot maps from map apps, foreign media, films, or games. When in doubt, skip the map and use a diagram instead.
 
-## 六、发布前自查（六个面逐项打勾，缺一不可）
+## 6. Pre-publish self-check (six faces, tick each one — none may be skipped)
 
-- [ ] **标题：** 没有绝对化词、没有对立钩子、没有政要和政策卖点、没有没证实的断言。
-- [ ] **正文：** 台港澳称谓和机构名称规范；没有导流信息；爆料只标性质，不冒充定论。
-- [ ] **口播稿：** 通读一遍。口语最容易顺嘴滑出功效承诺和立场句，重点查。
-- [ ] **字幕：** 配音转成文字后人工校一遍。识别错字有可能「造」出敏感词或错的专名。
-- [ ] **封面文字和画面：** 封面字过绝对化和对立检查；画面逐帧抽查地图、国旗、二维码、水印、外站界面、未成年人出镜。
-- [ ] **话题和评论：** 不蹭时政热搜话题；第一条评论的预案保持中性，把讨论引回产品；引战评论准备好删或举报。
+- [ ] **Title:** no absolute words, no opposition hooks, no politician or policy selling points, no unconfirmed claims.
+- [ ] **Body:** Taiwan, Hong Kong, Macao titles and institution names in standard form; no diversion information; leaks labeled by nature only, never passed off as settled.
+- [ ] **Voiceover script:** read it through once. Spoken language slips most easily into efficacy promises and position sentences — check those hardest.
+- [ ] **Subtitles:** after the voiceover becomes text, proofread it by hand. Recognition typos can "create" a sensitive word or a wrong proper name.
+- [ ] **Cover text and picture:** cover text passes the absolute-word and opposition checks; pictures get frame-by-frame spot checks for maps, flags, QR codes, watermarks, outside-site interfaces, minors on camera.
+- [ ] **Topic tags and comments:** don't ride political trending topics; the first-comment draft stays neutral and steers discussion back to the product; flame-bait comments get ready to delete or report.
 
-选题阶段先过第二节弃题清单再立项。敏感窗口（重要会议、重要纪念日、突发舆情）期间，只发纯产品题。
+At topic stage, run section 2's drop list before starting a topic. During sensitive windows (important meetings, important anniversaries, sudden public opinion events), only pure product topics go out.
 
-## 七、误触之后怎么办
+## 7. After an accidental hit
 
-1. **先止损：** 把涉事笔记设成仅自己可见。不要反复编辑、重发同一内容。
-2. **分级处理：** 涉政、领土、未成年这类 S 级的，直接删，不申诉，并把全账号的同类历史一起查一遍、下架。词面误伤（绝对化词这类）的，改好后走 App 的「帮助与客服 → 笔记申诉 / 违规申诉」，只陈述事实、整改动作，附官方来源。
-3. **恢复期：** 接下来一到两周只发纯安全题。不买任何「解限流」服务，那类多是诈骗，刷量本身也违规。「限流」没有官方自查入口，看违规通知和审核状态就行。
+1. **Stop the loss first:** set the involved post to visible-to-self only. Don't repeatedly edit and repost the same content.
+2. **Handle by level:** S-level items (politics, territory, minors) get deleted directly, no appeal — and check the whole account's history of the same kind, taking it down too. Word-level false hits (absolute words and the like) get fixed, then appealed through the app's "Help & Support → Post Appeal / Violation Appeal", stating only facts and the fix, with official sources attached.
+3. **Recovery period:** for the next one to two weeks, only purely safe topics go out. Never buy any "de-throttling" service — most are scams, and 刷量 (fake engagement) itself breaks the rules. There is no official self-check entry for "throttling" — violation notices and review status are enough to watch.
 
-## 主要依据（供复看时找原文）
+## Main sources (for finding the original text at re-read time)
 
-- 《网络信息内容生态治理规定》：违法和不良信息的清单，是平台审核的上位依据。
-- 小红书《社区公约》：反对制造对立、AI 辅助要标明、保护未成年人。
-- 小红书《社区金融生态公约》：金融类明文禁项。
-- 网信办「清朗」系列专项：自媒体发布不实信息的整治口径。
-- 平台的专项治理公告（创作者中心里看）：AI 魔改、AI 托管、赌球、涉未成年人这些按月在变。
-- 新华社禁用词规范：港澳台和领土表述的来源。
-- 《地图管理条例》：公开地图要送审、带审图号。
+- Regulations on the Governance of the Online Information Content Ecosystem: the list of illegal and harmful information, the platform review's higher-level basis.
+- Xiaohongshu Community Convention: against manufacturing opposition, AI assistance must be labeled, protection of minors.
+- Xiaohongshu Community Financial Ecosystem Convention: explicit bans for finance content.
+- The Cyberspace Administration's "Qinglang" campaign series: the enforcement line for self-media publishing false information.
+- Platform special governance announcements (read them in the creator center): AI alteration, AI hosting, match betting, minor-related items that change month by month.
+- Xinhua's banned-word usage rules: the source for Hong Kong, Macao, Taiwan, and territory wording.
+- Regulations on Map Management: public maps must be submitted for review and carry a review number.

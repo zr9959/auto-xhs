@@ -1,37 +1,37 @@
 #!/bin/bash
-# 一键把环境备齐：先查缺什么，再下第三方库，再备好你的配置文件。
-# 已经备好的不会动你的：config.yaml 只要存在，就不覆盖。
+# Set up the environment in one go: first check what's missing, then download third-party libraries, then prepare your config file.
+# What's already set up stays yours: if config.yaml exists, it is never overwritten.
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-echo "第一步：查环境缺什么"
+echo "Step 1: check what's missing from the environment"
 if ! bash scripts/check-env.sh; then
-  echo "先把上面标「缺」的东西装好，再重新跑这个脚本。后面的步先不做了。"
+  echo "Install everything marked 'missing' above first, then run this script again. Later steps wait."
   exit 1
 fi
 
 echo
-echo "第二步：下第三方库"
+echo "Step 2: download third-party libraries"
 if ! bash scripts/fetch-vendor.sh; then
-  echo "库没下成，卡在哪上面已经写了。处理完重新跑这个脚本就行，前面的步不会白跑。"
+  echo "The libraries didn't download — the output above says where it stuck. Fix it and run this script again; earlier steps won't be wasted."
   exit 1
 fi
 
 echo
-echo "第三步：备配置文件"
+echo "Step 3: prepare the config file"
 if [ -f config.yaml ]; then
-  echo "config.yaml 已经有了，没动它。"
+  echo "config.yaml already exists — left untouched."
 elif [ -f config.example.yaml ]; then
   cp config.example.yaml config.yaml
-  echo "已经把 config.example.yaml 抄了一份，叫 config.yaml，你改这一份就行。"
+  echo "Copied config.example.yaml to config.yaml — edit that copy."
 else
-  echo "没找到 config.example.yaml，这一步跳过。等仓库里有了示例配置，再自己抄一份改名叫 config.yaml。"
+  echo "config.example.yaml not found — skipping this step. Once the repo has an example config, copy it and name it config.yaml yourself."
 fi
 
 echo
-echo "都齐了。接下来按这个顺序走："
-echo "  1. 打开 SETUP.md，一项一项对着填 config.yaml。每一项填什么、推荐填什么，那里都写了。"
-echo "  2. 自动化程度那一项，先选一个再往下走：全自动、发布前人工看一眼、还是只备稿。可以改，不用一次定死。"
-echo "  3. 小红书登录只能你本人扫码，步骤在 SETUP.md 里。配好之前，先拿 examples/ 里的虚构示例把流程跑一遍。"
+echo "All set. Next, in this order:"
+echo "  1. Open SETUP.md and fill in config.yaml item by item. What each item does and what's recommended is all there."
+echo "  2. For the automation level item, pick one before continuing: full-auto, look-before-publishing, or drafts-only. You can change it later — no need to decide once and for all."
+echo "  3. Xiaohongshu login can only be done by you scanning the QR code — the steps are in SETUP.md. Before that's set up, run through the flow once with the fictional example in examples/."

@@ -1,52 +1,54 @@
-# Dots 这条路怎么走
+[中文](README.zh-CN.md) | English
 
-先纠正一个容易搞混的：Dots 不是 ChatGPT 那个聊天框。官方名字就叫 Dots（OpenAI 行文里常写成小写的 dots，一个 agent 叫一个 dot），没有「ChatGPT Dots」这个叫法。它是 OpenAI 在 2026 年 9 月 29 日 DevDay 上发布的单独产品，是一个常驻的云端 agent：每个 Dot 有自己专属的一台云端电脑和一个浏览器，用的模型是 GPT-6 Astra。入口在 ChatGPT 里（chatgpt.com/dots），也能从 Slack、Teams 里给它派活。它能定时跑，能把活分给子 agent，还能接 4000 多个应用。
+# How the Dots path works
 
-所以这条路跟 Muse 那条基本是一个接法：有云端电脑、有浏览器、有定时、有子 agent，不是半自动的阉割版。
+First, clear up an easy mix-up: Dots is not the ChatGPT chat box. The official name is just Dots (OpenAI's own writing often uses lowercase "dots", and one agent is called a dot). There is no product called "ChatGPT Dots". It is a separate product OpenAI released at DevDay on September 29, 2026 — an always-on cloud agent: each Dot has its own cloud computer and browser, runs on the GPT-6 Astra model. You enter it inside ChatGPT (chatgpt.com/dots), and you can also hand it work from Slack and Teams. It can run on a schedule, split work across sub-agents, and connect to 4000+ apps.
 
-一句实话放前面：我们没有 Dots 账号，这条路没实测过。下面是按官方发布口径写的接法，你跑第一条的时候自己盯着点。
+So this path connects basically the same way as the Muse path: it has a cloud computer, a browser, scheduling, and sub-agents. It is not a cut-down semi-auto version.
 
-## 谁能用
+One honest statement up front: we have no Dots account, so this path is untested. What follows is the connection method written from the official release statements. When you run your first post, watch it yourself.
 
-- 要有 ChatGPT Pro 或者 Business Premium。
-- 目前一个用户先建一个 Dot，用这一个跑这套系统就行。
+## Who can use it
 
-## 装法
+- You need ChatGPT Pro or Business Premium.
+- For now, one user builds one Dot first. That one Dot runs this whole system.
 
-1. 在 chatgpt.com/dots 建一个 Dot。
-2. 把规矩给它：总指令用本目录的 `dots-instructions.md`，再把仓库 `core/` 整份作为它的知识给它读（宪法页加六份阶段手册）。完整的规矩以 `core/` 为准，指令只写总的干法。
-3. 按根目录的设置向导填好 `config.yaml`，把填好的配置也给它。
-4. 建定时：Dots 能设定时跑（scheduled runs）。五件事各建一个——日更、早看门狗、晚看门狗、发后跟进、周复盘，目的和边界照 `orchestration/scheduling/README.md` 写。
-5. 小红书登录：在它的云端浏览器里打开小红书主站，你本人扫码登录。密码和验证码只你自己输，别给任何人、别写进任何文件。
+## Setup
 
-## 最关键的一步：先把「发布」设成要批准
+1. Build a Dot at chatgpt.com/dots.
+2. Give it the rules: the master instructions are `dots-instructions.md` in this directory, and the whole repo `core/` goes to it as knowledge (the constitution page plus the six stage guides). The complete rules are `core/` — the instructions only state the general way of working.
+3. Fill in `config.yaml` by following the setup guide in the repo root, and give the filled-in config to it too.
+4. Build the schedules: Dots can run scheduled runs. Build one for each of the five jobs — daily post, early watchdog, late watchdog, post-publish follow-up, weekly review — with purpose and limits written as in `orchestration/scheduling/README.md`.
+5. Xiaohongshu login: open the Xiaohongshu main site in its cloud browser and scan the QR code yourself. Passwords and verification codes are typed only by you — never give them to anyone, never write them into any file.
 
-Dots 有一套自定义规则：每个动作可以设成自动放行、先问你再干、或者禁止。这套系统说的半自动和全自动，在 Dots 这里就是这一条规则的区别：
+## The most important step: set "publish" to ask for approval first
 
-- **先这么设（推荐）**：发布、发第一条评论这类往外发东西的动作，设成「动手前先问我」。它把前面的活全干完，备好待发包，停住等你点头；你看过，点批准，它才发。这就是半自动。
-- **跑稳了再改**：确认它选题、稿子、片子都靠谱了，再把发布的规则改成自动放行，就是全自动。改之前想清：号是你的，平台对全自动托管查得严，风险说明看 `docs/compliance.md`。
-- **删东西这类动作**，建议一直设成禁止或者要批准，别放行。
+Dots has a custom rules system: each action can be set to auto-approve, ask you first, or forbidden. This system's semi-auto and full-auto are exactly this one rule's difference in Dots:
 
-还有一条跟这套系统不冲突：没任务的时候，Dots 只做只读的「主动研究」——看看信源、整理信息，不会自己动手发东西。
+- **Set it this way first (recommended)**: for outward actions like publishing and posting the first comment, set "ask me before acting". It does all the earlier work, prepares the ready-to-post pack, stops, and waits for your nod. You look it over, approve, and only then does it publish. That is semi-auto.
+- **Change it once it runs steadily**: once you are sure its topics, scripts, and videos are solid, change the publish rule to auto-approve. That is full-auto. Before changing, think it through: the account is yours, and platforms watch fully automated hosting closely. The risk notes are in `docs/compliance.md`.
+- **Delete-type actions** should stay forbidden or ask-first. Don't auto-approve them.
 
-## 一天怎么跑
+One more rule that doesn't conflict with this system: when it has no task, Dots only does read-only "proactive research" — looking at sources and sorting information. It won't publish anything on its own.
 
-跟 Muse 那条一样走总管模式，总管协议看 `orchestration/orchestrator.md`：
+## How a day runs
 
-1. 到点它自己开工，先做防重复三查。
-2. 按顺序派子 agent：选题、写稿、做片。每个阶段的产出和证据清单交回来，它验过才放行下一阶段。
-3. 做片的脚本在它自己的云端电脑里跑，不用你的电脑开着。
-4. 验收跑 `core/validate.py`，逐项对验收单，有 FAIL 打回重做。
-5. 到发布这一步，按你设的规则走：要批准就停住等你，自动放行就自己发。
-6. 发后跟进、周复盘，靠定时接着跑。
+Same manager model as the Muse path. The manager protocol is in `orchestration/orchestrator.md`:
 
-## 待发包
+1. At the scheduled time it starts on its own, and first runs the triple duplicate check.
+2. It dispatches sub-agents in order: topic picking, script writing, video making. Each stage hands back its output and evidence list, and the manager only clears the next stage after checking them.
+3. The video-making scripts run on its own cloud computer. Your computer doesn't need to stay on.
+4. Acceptance runs `core/validate.py`, checked item by item against the acceptance list. Any FAIL goes back for rework.
+5. At the publish step, it follows the rule you set: ask-first means it stops and waits for you; auto-approve means it publishes on its own.
+6. Post-publish follow-up and weekly review keep running on schedule.
 
-发布设成要批准时，它停住等你的那一份就是待发包，跟另外两家同一份格式：
+## Ready-to-post pack
 
-- `video.mp4`：验收通过的成片
-- `cover.jpg`：单独做的封面
-- `post.md`：标题、正文、话题、AI 内容声明、第一条评论
-- `publish-checklist.md`：照着勾的发布清单，模板在 `orchestration/publish-checklist.template.md`
+When publish is set to ask for approval, the pack it stops and waits with is the ready-to-post pack, the same format as the other two assistants:
 
-批准之前先看这四样，看完再点。清单里两条别跳：话题要一个一个点到变蓝，蓝数对不上就停；内容声明要选 AI 合成那一项。
+- `video.mp4`: the finished video that passed acceptance
+- `cover.jpg`: the separately made cover
+- `post.md`: title, body, topics, AI content declaration, first comment
+- `publish-checklist.md`: the tick-through publish checklist, templated in `orchestration/publish-checklist.template.md`
+
+Before approving, look at all four. Two checklist lines not to skip: topics must be tapped one by one until blue — if the blue count doesn't match, stop. And the content declaration must pick the AI-generated item.

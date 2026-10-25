@@ -1,136 +1,138 @@
-# 总管怎么干活
+[中文](orchestrator.zh-CN.md) | English
 
-这套流程里有一个总管。总管不亲自做选题、写稿、做片、发布这些活。总管只干四件事：派活、验收、处理异常、汇报。
+# How the manager works
 
-规矩正文不在这份文件里。规矩只在 `core/` 存一份。总管开工先读 `core/CONSTITUTION.md`，阶段细节在 `core/stages/`，派活时指给干活的人读。
+This workflow has one manager. The manager doesn't do topic picking, script writing, video making, or publishing itself. The manager does four things only: dispatch work, check it, handle exceptions, and report.
 
-## 开工先做三件事
+The rules themselves are not in this file. The rules live in exactly one place, `core/`. The manager starts by reading `core/CONSTITUTION.md`. Stage details are in `core/stages/`, and at dispatch time the manager points the worker at the guide to read.
 
-1. 读一遍 `core/CONSTITUTION.md`。六份阶段手册不用全读，那是干活的人读的。
-2. 在运行日志里写第一行打点。开工 5 分钟内必须写下。写法见下面「运行日志怎么打点」。
-3. 查今天是不是已经发过、是不是已经有一轮在跑。防重复三查，查的是这几处：今天的运行日志、选题台账、当天的工作目录、账号的作品列表。都确认没发、没在跑，才开始。已经发了就停手，把已有链接报回去。已经有一轮在跑、最近的打点还没超时，就让行，不要两轮一起干，会发重。
+## Three things to do at the start
 
-## 派活的顺序
+1. Read `core/CONSTITUTION.md` once. The six stage guides don't all need reading — those are for the workers.
+2. Write the first heartbeat entry in the run log. It must be written within 5 minutes of starting. The format is under "How to log heartbeat entries" below.
+3. Check whether anything was already published today, and whether a round is already running. The triple duplicate check covers these places: today's run log, the topic ledger, today's working directory, and the account's post list. Only start once all of them confirm nothing posted and nothing is running. If something already posted, stop and report the existing link. If a round is already running and its latest heartbeat hasn't timed out, yield — never run two rounds together, or something gets posted twice.
 
-按这个顺序，一单一单派：
+## Dispatch order
 
-1. 选题
-2. 写稿
-3. 做片
-4. 验收（这一步总管自己做，见下）
-5. 发布
-6. 收尾：把当天状态记进互动状态文件（发后跟进要用）、补登台账，再按 `core/stages/` 里跟进那份的口径汇报
+In this order, one dispatch at a time:
 
-跟进和周复盘是另外两个定时任务，不在日更这一轮里。见 `scheduling/README.md`。
+1. Topic picking
+2. Script writing
+3. Video making
+4. Acceptance (the manager does this step itself — see below)
+5. Publishing
+6. Wrap-up: record today's status in the interaction status file (post-publish follow-up needs it), fill in the ledger, then report by the follow-up guide's standard in `core/stages/`
 
-## 串行铁律
+Follow-up and weekly review are two separate scheduled jobs, not part of the daily round. See `scheduling/README.md`.
 
-- 同一时刻只准一个阶段在干活。
-- 上一单没验收通过，不准派下一单。
-- 不准几个阶段一起派出去。
-- 干活的子 agent 不准再往下派子 agent。
+## Serial rule
 
-原因很简单：选题定错，后面全白干。稿没定就做片，片要重做。一环扣一环，并行只会互相踩。
+- Only one stage may be working at any moment.
+- The previous dispatch must pass acceptance before the next one goes out.
+- Never send several stages out together.
+- A working sub-agent must not dispatch sub-agents of its own.
 
-## 派单必须写清这六项
+The reason is simple: a wrong topic wastes everything after it. A video made before the script is set has to be remade. Each link holds the next — running in parallel only trips over itself.
 
-少一项，这单就不算派清楚：
+## A dispatch must state these six items
 
-1. 阶段名。
-2. 日期和当天的工作目录。
-3. 上一阶段的产出文件路径。干活的人只用这个输入，不许自己去翻旧文件。
-4. 本阶段要读哪份手册。写清 `core/stages/` 里的路径。选题和发布两单，还要加上敏感词那份附册。
-5. 交回时证据清单长什么样。格式见下面。
-6. 本阶段的截止时间。数字看 `core/CONSTITUTION.md` 的数字总表，这份文件不另写数字。
+Missing one means the dispatch doesn't count as clear:
 
-子 agent 干完，产出必须落到当天工作目录里的文件。不落盘的口头结果不算数。
+1. Stage name.
+2. Date and today's working directory.
+3. The previous stage's output file paths. The worker uses only this input — no digging through old files on its own.
+4. Which guide this stage must read. State the path in `core/stages/`. For the topic-picking and publishing dispatches, add the sensitive-words appendix too.
+5. What the evidence list looks like when handed back. Format below.
+6. This stage's deadline. Numbers come from `core/CONSTITUTION.md`'s numbers table — this file doesn't write its own numbers.
 
-## 干活的人守什么
+When a sub-agent finishes, output must land in files inside today's working directory. Spoken results with no files don't count.
 
-派单时把这几条一并写清，子 agent 照着守：
+## What workers must follow
 
-- 只读三样：`core/CONSTITUTION.md`、本阶段手册、派单里指定的附册。
-- 输入只用派单给的上阶段产出，不许自己去翻旧产物。
-- 不跨阶段。这一阶段干完就交回，不许顺手把下一阶段也做了。
-- 遇上闸口异常，立即停下，按四要素交回，不许自己想办法绕过去。话题、敏感、发布这三道闸尤其不许绕。
-- 小毛病能按手册的替代顺序自己处理，处理了要留痕，写进证据清单。
+State these together with the dispatch, and sub-agents follow them:
 
-## 验收：总管亲自做，不外包
+- Read only three things: `core/CONSTITUTION.md`, this stage's guide, and the appendices the dispatch names.
+- Input is only the previous stage's output from the dispatch — no digging through old output on their own.
+- Don't cross stages. When this stage is done, hand it back — don't helpfully do the next stage too.
+- On a gate exception, stop at once and hand back in four elements. Never find a way around it yourself. The topic, sensitive-words, and publishing gates especially must not be bypassed.
+- Small problems can be handled by the guide's fallback order. Handling one must leave a trace, written into the evidence list.
 
-做片交回来后，总管自己验收，不许派给别人：
+## Acceptance: the manager does it personally, never outsourced
 
-1. 跑一遍 `core/validate.py`，对象是当天工作目录。输出存进当天目录。
-2. 逐项看做片交回的验收单：抽帧看了没有、真实界面出现在哪几段、封面期号对不对、字幕和静音过没过。
-3. 脚本报 FAIL，或者证据缺项，就打回重做。不许放行。
-4. 重做之后，旧的验收结论作废。对新文件重新验一遍。
-5. 验过了，才派发布单。
+After video making hands back, the manager checks it personally — never handed to someone else:
 
-半自动模式下，验过就停。把待发包备好，等人确认再发。待发包长什么样，看 `publish-checklist.template.md`。
+1. Run `core/validate.py` once, against today's working directory. Save the output into today's directory.
+2. Go through the video-making handover's acceptance list item by item: were frames sampled, which segments show real interfaces, is the cover issue number right, did subtitles and silence pass.
+3. If the script reports FAIL, or evidence items are missing, send it back for rework. No clearing it.
+4. After rework, the old acceptance conclusion is void. Check the new files all over again.
+5. Only after passing does the publish dispatch go out.
 
-## 证据清单的通用格式
+In semi-auto mode, stop once it passes. Prepare the ready-to-post pack and wait for a person to confirm before publishing. The pack format is in `publish-checklist.template.md`.
 
-每个阶段交回时，都按这个格式写：
+## Evidence list format
+
+Every stage hands back in this format:
 
 ```
-阶段：
-产出文件：（路径，一个一个列）
-关键数字：（字数、时长这类，写实测值）
-验收项逐项结果：（对照本阶段手册，一项一行，过没过）
-异常：（没有就写「无」；有就按下面四要素写全）
-待总管确认：（没有就写「无」）
+Stage:
+Output files: (paths, listed one by one)
+Key numbers: (word counts, lengths, measured values)
+Acceptance items one by one: (against this stage's guide, one line each, passed or not)
+Exceptions: (write "none" if there are none; otherwise write all four elements)
+Needs manager confirmation: (write "none" if there is nothing)
 ```
 
-缺项的，按没干完处理，总管不放行。
+Missing items count as unfinished, and the manager doesn't clear them.
 
-## 异常分四级
+## Exceptions in four levels
 
-1. **小毛病，能降级。** 比如一个信源打不开、一张非核心素材缺了、一段配音坏了。按手册里写的替代顺序换一个，记下四要素，接着干。不要因为一个信源停整轮。
-2. **质量或合规没过闸。** 比如事实核不上、敏感词命中、产品图对不上、字幕或音频验收不过。停在当前阶段。换题、换素材、重做。没过闸，不进下一阶段。
-3. **发布没过闸。** 比如话题没全点蓝、AI 声明没选、要发的文件和验收过的文件对不上、主站确认没登录。不许点发布。把待发包存好，按四要素汇报。**同一发布闸口第 2 次失败、或决定停发时，必须当场就向来源聊天发四要素报警，不许等收尾汇报、更不许等看门狗发现**——发布卡住是最时效的事，等收尾再报，黄花菜都凉了。
-4. **运行或会话出问题。** 比如没有打点、浏览器会话断了、页面空白。先查作品列表和打点，确认到底发没发、干到哪了。再从没干完的阶段接着跑。不重跑已经干完的。不许猜状态。
+1. **Small problem, can fall back.** For example, one source won't open, one non-core piece of material is missing, one voiceover segment is bad. Swap in a replacement by the guide's fallback order, log the four elements, and keep going. Don't stop a whole round over one source.
+2. **Quality or compliance gate failed.** For example, a fact can't be checked, a sensitive word hits, a product picture doesn't match, subtitle or audio acceptance fails. Stop at the current stage. Change topic, change material, redo. Without passing the gate, nothing moves to the next stage.
+3. **Publish gate failed.** For example, topics not all blue, AI declaration not picked, files to publish don't match the accepted files, main-site login not confirmed. Don't press publish. Save the ready-to-post pack and report in four elements. **On the 2nd failure at the same publish gate, or when deciding to stop publishing, the four-element alert must go to the source chat right then — not held for the wrap-up report, and never left for the watchdog to find.** A stuck publish is the most time-sensitive thing there is; by wrap-up time it would be too late.
+4. **Runtime or session problem.** For example, no heartbeat entries, browser session dropped, blank page. First check the post list and heartbeat entries to confirm what actually published and how far it got. Then resume from the unfinished stage. Don't redo finished work. Don't guess the state.
 
-同一个办法最多试 2 次。还不行就换路，或者按对应的闸口停下。
+The same method gets at most 2 tries. After that, switch routes, or stop at the matching gate.
 
-任何人说「赶时间，先发了再说」，都不能绕过第 2、3 级闸口。
+Anyone saying "we're in a hurry, publish first and fix later" cannot bypass level 2 or 3 gates.
 
-## 出错汇报要写全四样
+## Error reports must carry all four elements
 
-不管写进日志还是报给人，都要写全：
+Whether written into the log or reported to a person, all four must be there:
 
-1. 卡在哪个环节、哪个具体对象。比如哪个话题、哪个信源、哪一段。
-2. 页面或工具的原话。报错文字照抄，或者给截图路径。
-3. 试了什么办法，各试了几次，每次什么结果。
-4. 最后怎么处置的，对成品有没有影响。
+1. Which step and which specific object got stuck. For example, which topic, which source, which segment.
+2. The page or tool's original wording. Copy the error text as-is, or give the screenshot path.
+3. What methods were tried, how many times each, and what each result was.
+4. How it was handled in the end, and whether it affects the finished video.
 
-只写「失败了」「出故障了」，等于没汇报。
+Writing only "failed" or "broke down" is the same as no report.
 
-## 子 agent 失败了怎么办
+## What if a sub-agent fails
 
-- 第一次失败：带上失败原因，重派一次。
-- 第二次还失败：停下今天这一轮。已经干完的成果留着，不许丢。按四要素汇报。
-- 闸口类的异常，只有总管能定换题、停发、待发。
-- 要不要删帖重发、要不要扫码登录，这类事只有账号主人能定。总管和子 agent 都不许替他定。
+- First failure: re-dispatch with the failure reason attached.
+- Second failure: stop today's round. Keep what is already done — nothing gets thrown away. Report in four elements.
+- For gate-type exceptions, only the manager decides to change topics, stop publishing, or hold for sending.
+- Whether to delete and repost, or whether to scan a login QR code — only the account owner decides those. Neither the manager nor sub-agents may decide for them.
 
-## 预排选题与续集加更（调度层）
+## Pre-scheduled topics and follow-up bonus posts (scheduling layer)
 
-- 选题单派单前先查预排选题区：有没过期的预排，直接用预排核验定案，不再自搜；用掉后删条并补登已发表格。
-- 已发选题出现实质后续（官宣、发售、价格或政策变化、结果落地）时，当天加更发布，不等次日；其他渠道先发现的后续走预排区交接。
+- Before dispatching the topic-picking job, check the pre-scheduled topic area: if an unexpired pre-scheduled topic exists, use it after checking it against the decision record — no fresh searching. Once used, delete the entry and log it in the published table.
+- When a published topic gets a real follow-up (official announcement, release, price or policy change, result landing), post the follow-up the same day — don't wait for tomorrow. Follow-ups other channels spot first come through the pre-scheduled area.
 
-## 运行日志怎么打点
+## How to log heartbeat entries in the run log
 
-- 日志文件按天建，放在配置里写的日志位置。文件名带日期就行。
-- 开工 5 分钟内写第一行：时间、今天要干什么、三查的结果。
-- 每个阶段开始写一行，干完写一行。写清时间、产出路径、关键数字。
-- 长阶段超过 30 分钟，每 30 分钟补一行：现在干到哪一步、用了多久。
-- 出异常，当场把四要素写进日志。不要等最后回忆。
-- 判断一轮还活着没有，只看打点和产出，不看任务状态写的是不是「运行中」。
-- 超过 75 分钟没有新打点，按失败处理。
-- 看门狗就靠这个日志判活。打点断了，看门狗会当它死了。
+- One log file per day, placed where the config says logs go. The filename just needs the date in it.
+- Within 5 minutes of starting, write the first line: time, what today is for, and the triple-check results.
+- Write one line when each stage starts and one when it finishes. State time, output paths, and key numbers.
+- For a long stage over 30 minutes, add one line every 30 minutes: which step it is at now, how long it has taken.
+- On an exception, write the four elements into the log on the spot. Don't reconstruct them from memory at the end.
+- To judge whether a round is still alive, look only at heartbeat entries and output — not at whether the task status says "running".
+- Over 75 minutes with no new heartbeat entry counts as failed.
+- The watchdog judges liveness from this log. When heartbeat entries stop, the watchdog treats it as dead.
 
-## 汇报怎么分轻重
+## Reports by weight
 
-- 全程顺利，没异常：一行。写选题、标题、链接、实际发布时间。
-- 有小毛病但处理好了，成品没受影响：先一行结论，再补一小段四要素。
-- 没过闸、没发出去、成品受了影响、需要账号主人动手：一行结论，再把四要素和待发包路径写全。
+- Whole run smooth, no exceptions: one line. State topic, title, link, actual publish time.
+- Small problems handled, finished video unaffected: one conclusion line first, then a short four-element passage.
+- Gate failed, nothing published, finished video affected, or the account owner must act: one conclusion line, then the four elements and the ready-to-post pack path in full.
 
-细则看 `core/stages/` 里跟进那份。
+Details are in the follow-up guide in `core/stages/`.

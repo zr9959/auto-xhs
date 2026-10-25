@@ -1,118 +1,120 @@
-# 阶段手册 04 · 发布
+[中文](04-publish.zh-CN.md) | English
 
-> 什么时候读：总管派发布单时。先读宪法页，再读这份，同时读敏感附册（复制后的 `sensitive-words.md`）——发布前自查要过六个面。
-> 数字都看宪法页「数字总表」，这份手册只引用，不另写。
-> 入口铁律和话题闸口是宪法页的硬闸口，任何情况都不许绕。碰到发布闸口问题，停下交回总管，不许自己变通着发出去。
+# Stage guide 04 · Publishing
 
-## 输入
+> When to read: when the manager dispatches the publishing task. Read the constitution page first, then this guide, plus the sensitive appendix (the copied `sensitive-words.md`) — the pre-publish self-check runs six faces.
+> All numbers come from the constitution page's numbers table. This guide only cites them, never writes its own.
+> The entry rule and the topic-tag gate are constitution hard gates — no situation gets around them. On a publish-gate problem, stop and hand back to the manager — never improvise your way to posting it.
 
-- 做片阶段交回、并经总管验过的最终成片、`post.md`、封面图。一切以验收单里记的文件身份为准。
-- 话题清单和第一条评论预案，都在 `post.md` 里。
+## Input
 
-## 产出
+- The final finished video, `post.md`, and cover image handed back by the video stage and checked by the manager. Everything follows the file identity recorded in the acceptance checklist.
+- The topic-tag list and first-comment draft, both in `post.md`.
 
-- 发布出去的笔记 1 条；或闸口停下时的待发包。
-- 选题台账（`paths.ledger_file`）补上当天一行。
-- 运行日志补一行「发布完成」打点。
+## Output
 
-## 交回总管的证据清单
+- 1 published post; or a ready-to-post pack when a gate stops it.
+- The topic ledger (`paths.ledger_file`) gains the day's line.
+- One more line in the run log: the "发布完成" (publish finished) stamp.
 
-- 发布前合规自查八项的逐项结果，一项一项写明，不许只写「自查过」。
-- 话题：变蓝数 / 计划数、逐个核对的结果、发后在公开页复查的结果（话题能点、视频能播）。
-- 发布链接和实际发布时间；AI 声明已选的凭证；第一条评论已发的凭证。
-- 停下待发的话：待发包三件的路径（最终视频、`post.md`、封面），加上平台草稿到底存没存上的原话。
-- 异常四要素（没有就写「无」）。
+## Evidence list to hand back to the manager
 
-## 入口铁律（硬规矩）
+- The eight pre-publish compliance self-check items, each result stated one by one — never a single line saying "self-checked".
+- Topic tags: blue count / planned count, each tag's check result, and the post-publish public-page re-check result (tags clickable, video playable).
+- The publish link and actual publish time; proof the AI declaration was picked; proof the first comment went out.
+- If stopped for a pack: the pack's three item paths (final video, `post.md`, cover), plus the platform draft's own words on whether it actually saved.
+- The four elements for problems (write "none" when there are none).
 
-凡是进创作者平台办事——发布、改已发的笔记、清草稿、看数据——都从主站进：
+## Entry rule (hard rule)
 
-1. 先开小红书主站，把浏览器窗口拉宽（窄窗口会把一些入口和按钮藏掉，找不到先拉宽、再找）。
-2. 在主站确认是登录状态。
-3. 从主站里面的入口点进创作者平台。这条路进去不用再登录一次。
+Anything done on the creator platform — publishing, editing a published post, clearing drafts, reading data — enters from the main site:
 
-全程不许在地址栏直接输创作者平台的域名打开它，更不许拿它单独弹出的登录页下结论：它弹登录页，不等于登录过期。
+1. Open the Xiaohongshu main site first, and widen the browser window (a narrow window hides some entries and buttons — if you can't find one, widen first, then look).
+2. Confirm logged-in status on the main site.
+3. Enter the creator platform through the main site's own entry point. This way in needs no second login.
 
-判断「登录过期」只有一个标准：主站宽屏下也确认是没登录。
+Never type the creator platform's domain straight into the address bar, and never draw a conclusion from its standalone login popup: it showing a login page does not mean the login expired.
 
-**正确入口再点名一次：** 主站宽屏确认登录态后，点顶部「发布」进创作中心。菜单里的「更多」→「创作中心」这条线禁用：实测两次落到登录页、随后登录态丢失。创作者平台右下角的圆形头像图标是智能客服入口，永远不要点它；不小心打开了，用它的关闭按钮关掉，不在里面输入任何内容。
+There is exactly one standard for judging "login expired": the main site, in a wide window, also confirms you're logged out.
 
-主站明明登着，从站内入口点过去却落到登录页或报错，这是平台不稳或入口有问题：退回主站，换一个站内入口再进，重试次数看总表。都进不去就停下，按四要素把每次的落点和页面原话报回来。不许把扫码登录页直接摆给号主当结论——只有主站本身没登录，才可以说需要号主本人扫码。
+**The correct entry, named once more:** after confirming logged-in status on the main site in a wide window, tap the top "发布" (Publish) to enter the creation center. The menu path "更多" (More) → "创作中心" (Creation Center) is banned: it landed on a login page twice in testing, and login status was lost after. The round avatar icon at the creator platform's bottom-right is a smart customer-service entry — never tap it. If you open it by accident, close it with its own close button and type nothing inside it.
 
-## 发布前合规自查（八项，逐项过）
+When the main site is clearly logged in but the in-site entry lands on a login page or errors, that's platform instability or an entry problem: go back to the main site, try another in-site entry, retries per the table. If none of them get in, stop and report each attempt's landing point and the page's own words as the four elements. Never hand the owner a QR login page as the conclusion — only when the main site itself is logged out may you say the owner needs to scan a code in person.
 
-1. **AI 声明已选。** 发布时选上平台的内容声明（笔记含 AI 合成内容那一项）。
-2. **六个面查绝对化词。** 标题、正文、口播稿、字幕、封面文字和画面、话题和第一条评论，都不许有绝对化词（词表看敏感附册）。
-3. **零导流。** 笔记、评论、私信里都不许出现联系方式、外链、二维码、口令，换个写法、谐音变体也算。资料只许在站内正文或合集里讲。
-4. **不标来源。** 爆料类的只标性质（未官宣、爆料），不标具体来源。汇总改编之后就是自己的稿，全帖不标来源。
-5. **不是整段搬运。** 不许整段照搬、整段翻译别人的全文。一手原帖的图和素材可以用，但要进自己的版式重新排版加工，不许原样直发。
-6. **无引战、无破解。** 不许有性别、地域、品牌粉丝之间的对立引战；不许有破解、盗版、绕付费的内容。
-7. **金融不给建议。** 沾上金融的，不给买卖建议，不碰虚拟币交易建议。
-8. **敏感六面自查。** 按敏感附册过六个面：标题、正文、口播稿、字幕、封面文字和画面逐帧看、话题和第一条评论；敏感词分类逐类扫。命中就改整句的意思，不许谐音绕过去。
+## Pre-publish compliance self-check (eight items, one by one)
 
-自查结果逐项写进验收材料，不许只写一句「自查过」。
+1. **AI declaration picked.** At publish time, pick the platform's content declaration (the item for posts containing AI-composed content).
+2. **Absolute words swept across six faces.** Title, body, voiceover script, subtitles, cover text and picture, topic tags and first comment — no absolute words anywhere (word list in the sensitive appendix).
+3. **Zero diversion.** Posts, comments, and DMs must carry no contact info, outside links, QR codes, or passwords — a reworded or homophone variant counts too. Material may only be received inside the site, in the body text or collections.
+4. **No source labels.** Leak-type posts only label the nature (unannounced, leak), never the specific source. Once merged and adapted, it's your own script — the whole post carries no source labels.
+5. **Not wholesale copying.** Never copy or translate someone else's full text wholesale. A first-hand original post's pictures and material may be used, but only re-laid out and reworked into your own layout — never reposted as-is.
+6. **No flame wars, no cracking.** No gender, region, or brand-fanbase flame-baiting; no cracking, piracy, or paywall-bypass content.
+7. **No financial advice.** Anything touching finance gives no buy or sell advice and no virtual currency trading advice.
+8. **Sensitive six-face self-check.** Run the six faces per the sensitive appendix: title, body, voiceover script, subtitles, cover text and picture frame by frame, topic tags and first comment; sweep the sensitive word categories one by one. On a hit, rewrite the whole sentence's meaning — no homophone dodges.
 
-## 发布步骤
+Write each self-check result into the acceptance material, item by item — never a single line saying "self-checked".
 
-1. 上传视频。上传的文件必须跟验收单里记的最终文件一致：文件名、大小、修改时间对不上，就停下重新确认，不许凭印象选文件。
-2. 封面用做片时单独做的那张封面图上传设置，不许用视频第一帧。
-3. 填标题和正文（用 `post.md` 里的定稿）。
-4. 话题逐个变蓝，做法看下面话题一节（第一方法是在正文文末连续输入）。
-5. 内容声明只选 AI 声明那一项（笔记含 AI 合成内容）。**原创声明不用勾**——每篇只勾 AI 声明这一项。
-6. 不加地点、不投平台的推广工具。定时发布要用的话，看下面「定时发布」一节，别在这里随手点。
-7. 点发布前，最后核对一遍话题全蓝、数量对上（硬闸口）。
+## Publish steps
 
-## 定时发布（要用时看这节）
+1. Upload the video. The uploaded file must match the final file recorded in the acceptance checklist: filename, size, and modification time off means stop and re-confirm — never pick a file from memory.
+2. Set the cover with the separately made cover image from video work — never the video's first frame.
+3. Fill in title and body (the settled versions in `post.md`).
+4. Turn topic tags blue one by one, as the topic section below says (the first method is tapping to select inside the publish page).
+5. For content declarations, pick only the AI declaration item (post contains AI-composed content). **Don't check the originality declaration** — each post checks the AI declaration item only.
+6. No location, no platform promotion tools. For scheduled publishing, see the "Scheduled publishing" section below — don't tap it casually here.
+7. Before pressing publish, check once more that all topic tags are blue and the count matches (hard gate).
 
-- 定时的开关在发布编辑页的**「高级选项」**里：先点开高级选项、打开定时、把时间设好，再点发布。直接点主「发布」按钮不会弹定时选择，会立即发出去。
-- **设好的时刻以笔记管理里的实读为准。** 设定时之后，必须回创作者平台的笔记管理，亲眼读一遍那条显示的「定时发布」时刻，以实读的时刻回报和登记。执行者嘴上回报的时刻不算数——回报跟平台实存对不上的事出过不止一次，凡是涉及时刻的登记（排期、互动状态）一律写实读值。
+## Scheduled publishing (read this section when using it)
 
-## 话题：第一方法是逐个点选，连续输入流已废止
+- The schedule switch lives in the publish editor's "高级选项" (Advanced options): open advanced options first, turn scheduling on, set the time, then press publish. Pressing the main "发布" (Publish) button directly pops no schedule picker — it publishes at once.
+- **A set time counts only as read in post management.** After setting a schedule, you must go back to the creator platform's post management and read with your own eyes the "scheduled publish" time shown there — report and record that read value. The operator's spoken time doesn't count: reported times have mismatched the platform's stored value more than once, so every time-related record (schedule, interaction state) always writes the read value.
 
-不许把话题当纯文本粘进去就完事，粘进去的是黑字，点不动，不算数。
+## Topic tags: the first method is tap-to-select one by one; continuous input is retired
 
-**第一方法：逐个点选（在新建发布页里做）。** 正文填好后，在文末逐个处理：
+Never treat topic tags as plain text to paste in and call done — pasted text stays black, can't be tapped, and doesn't count.
 
-1. 输入 `#`。
-2. 等候选列表真的弹出来。没弹出来就删掉重输，重试次数看总表。
-3. 点选官方话题。
-4. 当场核对这一个已经变蓝，再做下一个。
+**First method: tap to select one by one (inside the new publish page).** After the body is filled in, handle them one by one at the end of the text:
 
-**话题一律在新建发布页里加，不在草稿编辑页里补。** 草稿编辑页的输入落点不稳（落进正文中段、跟光标对不上这类毛病都出过），在那里补话题是反复翻车的做法。草稿里话题没弄好的，删掉重走新建发布页。
+1. Type `#`.
+2. Wait until the candidate list really pops up. If it doesn't pop, delete and retype — retries per the table.
+3. Tap the official topic.
+4. Check on the spot that this one turned blue, then do the next.
 
-不要点编辑器下方推荐的话题片，用计划里的那几个。
+**All topic tags go in on the new publish page — never patch them in on the draft edit page.** The draft edit page's input landing point is unstable (landing mid-body, cursor mismatch, and the like have all happened) — patching tags there is a repeatedly failing approach. A draft with tags done wrong gets deleted, and you walk the new publish page again.
 
-**备选方法：点选粘贴法。** 普通输入反复把话题文字落到正文中段、或键盘输不出大写字母时，不要在普通输入上一轮轮硬试（同一办法重试上限 2 次照旧）——改用粘贴法：把话题文字粘贴到正文末尾触发候选下拉、再点选条目，逐个当场验蓝，效果与手输点选完全等价。
+Don't tap the recommended topic chips below the editor — use the planned ones.
 
-**连续输入流已废止。** 以前写过「文末一次连续输完整个话题串、每个后面跟空格自动转蓝」，实测证明并不稳定（一次输完经常转不全蓝），不要再试。
+**Backup method: paste-to-select.** When plain typing keeps dropping topic text mid-body, or the keyboard won't type capital letters, don't keep hammering plain input round after round (the 2-retry cap per approach still applies) — switch to paste: paste the topic text at the end of the body to trigger the candidate dropdown, then tap entries, checking each one blue on the spot. It works exactly as well as typed tap-to-select.
 
-正文若被编辑器插进了中段（落点错位），把出错的那段剪切出来、重新贴到正确位置，修完逐字复核全文顺序和内容没有增减，再继续。
+**Continuous input is retired.** An older version of this guide said "type the whole topic string continuously at the end of the body, each followed by a space to turn blue automatically". Testing proved it unstable (one continuous input often leaves some tags un-blue) — don't try it again.
 
-**两条已知误报，先知道省得白停：** 发布页有时会提示「视频分辨率较低，建议上传 1080P 及以上」或「视频时长不足 15 秒，不支持添加章节」。成片实测参数达标时（分辨率、时长都对得上验收单），这两条是平台误报：运行日志记一行就行，不许为它停发、重传或改片，最终以发布后公开页实测（能播、时长对得上）为准。
+When the editor inserts body text mid-passage (wrong landing point), cut the misplaced stretch out and paste it back in the right place, then re-check the full text character by character for order and content — no additions, no losses — before continuing.
 
-**话题硬闸口：** 点发布之前，逐个核对全部话题都是蓝色、数量对上。这一步没全过，不许点发布。
+**Two known false alarms — know them first, so you don't stop for nothing:** the publish page sometimes warns "视频分辨率较低，建议上传 1080P 及以上" (video resolution is low, 1080P or above recommended) or "视频时长不足 15 秒，不支持添加章节" (video under 15 seconds, chapters not supported). When the finished video's measured parameters meet the standard (resolution and length both matching the acceptance checklist), these two are platform false alarms: one line in the run log is enough. Never stop posting, re-upload, or change the video for them — the post-publish public page measurement (plays, length matches) is the final word.
 
-点不蓝就停，这样办：
+**Topic-tag hard gate:** before pressing publish, check one by one that every topic tag is blue and the count matches. Until this step fully passes, no pressing publish.
 
-- 先在平台存草稿，再去草稿箱或笔记管理里确认能看到这条的标题和成片，确认了才可以写「已存平台草稿」。
-- 平台草稿没存上的，只能写「本地待发包已齐」，并列清三件的路径：最终视频、`post.md`、封面。
-- 汇报写清卡在哪个话题、页面是什么样（报错文字照抄，或截图存到当天素材夹）。
-- 不许把话题删掉发，也不许留空硬发。任何赶时间、先发了再说的说法都不能绕过这一条。碰到这种冲突说法，停下按四要素上报。
+When a tag won't turn blue, stop, and do this:
 
-## 第一条评论（发布后立刻发）
+- Save a draft on the platform first, then confirm in the draft box or post management that you can see this entry's title and finished video — only then may you write "platform draft saved".
+- When the platform draft didn't save, you may only write "local ready-to-post pack complete", listing the three item paths: final video, `post.md`, cover.
+- The report states which topic tag stuck, and what the page looked like (copy error text verbatim, or save a screenshot to the day's material folder).
+- Never delete a tag to post, never post with a gap. No "hurry up, post it now" talk gets around this rule. On a clash like that, stop and report with the four elements.
 
-发布后立刻以号主身份发第一条评论，文案是写稿时就备好、写在 `post.md` 里的那份：放视频里没讲完的补充或清单（站内内容），加一个二选一问题，把回答的门槛降到点一下就行。
+## First comment (right after publishing)
 
-说清一件事：自己发的第一条评论自然排在最前面。网页端没有给评论设「置顶」的入口，不许去网页端找这个按钮，更不许假报已经置顶。正式的置顶标记只有 App 里能点，那是号主本人在 App 里顺手做的事，这个流程里不许替他报。
+Right after publishing, post the first comment as the account owner, using the draft prepared during writing and kept in `post.md`: leftovers the video didn't cover, or a list (in-site content), plus a this-or-that question that lowers answering to a single tap.
 
-## 发后复查
+One thing to get straight: a first comment you post yourself naturally sits at the top. The web side has no entry for setting a comment to "pinned" — don't go looking for that button on the web side, and never falsely report it as pinned. A formal pinned mark can only be tapped in the app, and that's the owner doing it casually in the app — this flow never reports it for them.
 
-- 发布后打开这条笔记复查：话题是蓝色能点、视频能播，把链接带回来。
-- 公开页播不了、画面空白、或时长跟验收文件明显对不上，不许报发布成功。先用笔记管理的预览和公开页两边交叉核对，按四要素记下。没经号主同意，不许删帖重发。
-- 复查发现话题缺了或没变蓝：先自己走编辑页补话题（入口看下一条），补完再验蓝、再汇报。编辑页也补不上，才报号主。
-- 改已发的笔记：笔记管理里把鼠标悬在卡片上，右上角会出现铅笔图标（悬停才出现），点它进编辑页。
+## Post-publish re-check
 
-## 发布出问题怎么办
+- After publishing, open the post and re-check: topic tags blue and clickable, video playable — bring the link back.
+- Public page won't play, blank picture, or length clearly off from the accepted file: never report publish success. Cross-check the post management preview against the public page first, and log it as the four elements. Without the owner's agreement, never delete and repost.
+- Re-check finds a topic tag missing or not blue: first patch it yourself through the edit page (entry point in the next line), re-check blue, then report. Only when the edit page can't patch it either do you report to the owner.
+- Editing a published post: in post management, hover the mouse over the card — a pencil icon appears at the top-right (only on hover). Tap it to enter the edit page.
 
-- **发布续跑。** 发布中途浏览器会话断了，先查阶段打点和账号作品列表，确认到底发出去没有。没发成的，就拿已验收的成片从发布这一步续跑，不重跑选题、写稿、做片。已经发成的，只补记录。
-- **登录真过期。** 只有主站确认没登录才算。不要硬试。把成片和文案存好待发，汇报里写明需要号主本人重新扫码。
+## When publishing breaks
+
+- **Resume publishing.** A browser session dying mid-publish: check stage stamps and the account's post list first to confirm whether it actually went out. When it didn't go out, resume from the publish step with the already-accepted finished video — don't rerun topics, writing, or video. When it did go out, only patch the records.
+- **Login truly expired.** Only a main-site confirmed logged-out counts. Don't force retries. Save the finished video and copy as a ready-to-post pack, and state in the report that the owner needs to scan a code again in person.

@@ -1,7 +1,7 @@
 #!/bin/bash
-# 把做片要用的第三方库下载到 motion-lib/vendor/。
-# 版本在下面写死了，下载完会核对压缩包的哈希，哈希对不上就停，不会把坏文件留下。
-# 库的清单和许可证看 motion-lib/vendor/README.md。
+# Download the third-party libraries video making needs into motion-lib/vendor/.
+# Versions are pinned below; after download, each archive's hash is verified — on a mismatch it stops
+# and leaves no bad file behind. The library list and licenses are in motion-lib/vendor/README.md.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -16,7 +16,7 @@ CONFETTI_SHA="c7c7d003c8b444d4f8e340e0b2c2a474abf2803ce34d184f783c1107217853e2"
 
 for cmd in curl tar; do
   if ! command -v "$cmd" >/dev/null 2>&1; then
-    echo "缺 $cmd，先装上它再跑这个脚本。" >&2
+    echo "Missing $cmd — install it, then run this script again." >&2
     exit 1
   fi
 done
@@ -29,22 +29,22 @@ sha_of() {
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
-# 下一个包，核对哈希，打印卡在哪一步。
+# Download one package, verify its hash, and print which step it gets stuck on.
 get_pkg() {
   local name="$1" ver="$2" want_sha="$3"
   local file="$TMP/$name-$ver.tgz"
-  echo "下载 $name $ver …"
+  echo "Downloading $name $ver …"
   if ! curl -fsSL --retry 2 -o "$file" "https://registry.npmjs.org/$name/-/$name-$ver.tgz"; then
-    echo "卡在下载 $name：网不通，或者 npm 那边连不上。检查网络后重新跑这个脚本。" >&2
+    echo "Stuck downloading $name: no network, or npm unreachable. Check the connection, then run this script again." >&2
     exit 1
   fi
   local got_sha
   got_sha="$(sha_of "$file")"
   if [ "$got_sha" != "$want_sha" ]; then
-    echo "卡在校验 $name：下载到的文件哈希对不上，可能是下坏了，也可能源被换了。" >&2
-    echo "  想要的：$want_sha" >&2
-    echo "  实际的：$got_sha" >&2
-    echo "这个文件已经扔掉，没有装。先别改脚本里的哈希，确认来源没问题再说。" >&2
+    echo "Stuck verifying $name: the downloaded file's hash doesn't match — possibly a bad download, possibly a swapped source." >&2
+    echo "  Wanted: $want_sha" >&2
+    echo "  Got: $got_sha" >&2
+    echo "That file was discarded, nothing installed. Don't edit the hash in the script — confirm the source is fine first." >&2
     exit 1
   fi
   mkdir -p "$TMP/$name"
@@ -58,23 +58,23 @@ get_pkg "canvas-confetti" "$CONFETTI_VER" "$CONFETTI_SHA"
 mkdir -p "$VENDOR/gsap"
 cp "$TMP/gsap/package/dist/"*.min.js "$VENDOR/gsap/"
 cp "$TMP/lottie-web/package/build/player/lottie.min.js" "$VENDOR/lottie.min.js"
-# 这个包装里的浏览器版没压缩，就用它，文件名按库里一直用的名字放。
+# This package's browser build is unminified — use it as is, saved under the name this repo has always used.
 cp "$TMP/canvas-confetti/package/dist/confetti.browser.js" "$VENDOR/confetti.browser.min.js"
 
-# 最后再核对两个关键文件的大小，大小不对说明解压或拷贝出了问题。
+# Finally, re-check two key files' sizes — a mismatch means the extract or copy went wrong.
 check_size() {
   local file="$1" want="$2"
   local got
   got="$(wc -c < "$file" | tr -d ' ')"
   if [ "$got" != "$want" ]; then
-    echo "卡在检查：$file 大小是 $got，想要 $want，对不上，先别用。" >&2
+    echo "Stuck checking: $file is $got bytes, want $want — mismatch, don't use it yet." >&2
     exit 1
   fi
 }
 check_size "$VENDOR/gsap/gsap.min.js" "72927"
 check_size "$VENDOR/lottie.min.js" "305704"
 
-echo "装好了："
-echo "  GSAP $GSAP_VER：$VENDOR/gsap/ 下 $(ls "$VENDOR/gsap" | wc -l | tr -d ' ') 个文件"
-echo "  lottie-web $LOTTIE_VER：$VENDOR/lottie.min.js"
-echo "  canvas-confetti $CONFETTI_VER：$VENDOR/confetti.browser.min.js（只作参考，做片不直接用它）"
+echo "Installed:"
+echo "  GSAP $GSAP_VER: $(ls "$VENDOR/gsap" | wc -l | tr -d ' ') files in $VENDOR/gsap/"
+echo "  lottie-web $LOTTIE_VER: $VENDOR/lottie.min.js"
+echo "  canvas-confetti $CONFETTI_VER: $VENDOR/confetti.browser.min.js (reference only, not used directly in video making)"

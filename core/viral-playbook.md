@@ -1,196 +1,198 @@
-# 爆款知识库（标题 · 钩子 · 结构 · 封面）
+[中文](viral-playbook.zh-CN.md) | English
 
-> 写稿前必查：起标题先在这里选公式，正文先定型（收藏型还是评论型），再动笔。
-> 这份是通用提炼版：公式、钩子和结构顺序是从公开爆款帖里归纳出来的打法，跟品类无关；例子都是示意，照着结构换成你自己的内容。字数、话题、敏感这些硬规矩以宪法页和敏感附册为准，两边冲突时从严。
+# Viral knowledge base (titles · hooks · structures · covers)
 
-## 用之前先过这几条硬约束
+> Must check before writing: pick a formula for the title here first, settle the body type (save-type or comment-type), then write.
+> This is a general distilled version: the formulas, hooks, and structure order are playbook patterns generalized from public viral posts, independent of category. The examples are illustrations — swap in your own content following the structure. Hard rules on length, topic tags, and sensitivity follow the constitution page and the sensitive appendix; where the two conflict, the stricter one wins.
 
-- **取舍总序：共鸣第一，资产第二，搜索词第三。** 先问这句标题戳不戳人、有没有对立面；再看有没有资产信号（数字、清单、步骤、总账这类「能带走、以后还要用」的东西）；最后才是关键词靠不靠前。宁可牺牲数字和资产密度，不可牺牲共鸣。资产塞不进标题，就退到封面副标题和正文首句补回。
-- **标题总长不超过宪法页总表的硬上限**（加权口径：中文和全角标点 1 字，英文字母、数字、半角符号 0.5 字，emoji 1 字）。超限的版本直接淘汰。
-- **每版标题必须有钩子**，五种形态任一成立：①反问语气；②拟人化（产品像人一样行动）；③情绪词（扎心、真香、翻脸、离谱这类日常词）；④预期违背的冲突（贵的不一定好、参数缩水体验反升这类反差）；⑤强承诺语气（时间封顶、覆盖率、一次讲完）。只有品类词加数字加清单名词、没有语气的说明书式标题不合格。
-- **情绪外壳 + 资产内核**：外壳（共鸣）负责让人点进来，内核（清单、步骤、资源）负责让人收藏。两样都有最好；只有共鸣没有资产的，收藏会很差；只有资产没有共鸣的，没人点。
-- 不用绝对化词，不贬损竞品（对比只用可核查的官方数据），不引战站队，零导流，不拿抽奖送礼换互动。
-- **标题承诺必须兑现**：标题里的数字、对比、结果、步骤数，正文逐项给到。兑现不了的钩子不用。
+## Hard constraints to clear first
 
-一个粗判据：**帖里有一份「以后还要用的东西」，收藏通常不会差；没有，基本就是看完就走。** 定型（收藏型还是评论型）时先答这个问题。
+- **Trade-off order: resonance first, assets second, search terms third.** First ask whether the title hits a nerve and has an opposing side; then whether it carries asset signals (numbers, lists, steps, total bills — "things to take away and use later"); only last whether keywords sit near the front. Rather sacrifice number and asset density than sacrifice resonance. Assets that don't fit the title fall back to the cover subtitle and the body's first sentence.
+- **Title length never passes the constitution table's hard cap** (weighted: Chinese characters and full-width punctuation 1, Latin letters, digits, and half-width symbols 0.5, emoji 1). A version over the cap gets cut directly.
+- **Every title version must have a hook**, in any one of five forms: ① questioning tone; ② personification (the product acting like a person); ③ emotion words (heart-piercing, actually-great, falling-out, outrageous, and the like in everyday wording); ④ expectation-breaking conflict (expensive isn't necessarily better, specs down but experience up, and the like); ⑤ strong promise tone (time capped, coverage rate, everything in one go). A manual-style title — just category words plus numbers plus list nouns, no tone — doesn't pass.
+- **Emotion shell + asset core**: the shell (resonance) gets people to tap in; the core (lists, steps, resources) gets people to save. Both is best; resonance with no assets saves poorly; assets with no resonance gets no taps.
+- No absolute words, no trashing competitors (comparisons use only checkable official data), no flame-bait side-taking, zero diversion, no lottery or gift-for-interaction.
+- **Title promises must be kept**: numbers, comparisons, results, and step counts in the title must each be delivered in the body. A hook that can't be kept doesn't get used.
 
-## 一、标题公式库
+One rough test: **a post carrying something "to use again later" usually saves fine; without it, it's mostly watch-and-go.** When settling the type (save-type or comment-type), answer that question first.
 
-起标题时从这里挑，每版用不同公式（同式最多一版）。公式后面标了证据强弱，那是从公开样本里归纳的方向感，不是保证。
+## 1. Title formula library
 
-### F1 数字清单式
-- 公式：`[数字] + [品类/对象] + [清单名词（功能/工具/设置/技巧）]`
-- 适用：教程、工具合集、功能盘点。
-- 要点：数字必须跟正文分点数严格一致。这式最容易写成说明书式，必须叠一个钩子（感叹语气、结果词、反问、降门槛标签任选其一）。
-- 示意：「这 6 个设置关掉，手机立刻顺了」（钩子：结果承诺）
-- 证据：强。高频句式，数字更多时候以复合形态出现（配结果、配资源，见 F15、F16）。
+Pick from here when starting a title — a different formula per version (same formula at most once per set). The strength note after each formula is a sense of direction generalized from public samples, not a guarantee.
 
-### F2 数字横测 + 对比悬念式
-- 公式：`实测/横测 + [数字]款[品类]：[对比悬念]`
-- 适用：产品横评、方案对比。
-- 要点：悬念只留中性表述，不许带贬损尾巴（「智商税」这类不用）；标题优先保冲突钩子（反问、预期违背），对比维度（价格、续航、发热、售后）放正文和封面；样本量能做大就做大，3 款不如 6 款有说服力。
-- 示意：「横测 6 款平价耳机：贵的就一定好？」
-- 证据：中。对比类评论强、收藏弱，按评论型用它。
+### F1 Numbered list style
+- Formula: `[number] + [category / object] + [list noun (features / tools / settings / tricks)]`
+- Fits: tutorials, tool roundups, feature counts.
+- Points: the number must strictly match the body's point count. This style slips into manual-style most easily — it must stack one hook (exclamatory tone, result word, question, lowered-barrier label, pick one).
+- Example: "这 6 个设置关掉，手机立刻顺了" (Turn off these 6 settings and your phone runs smooth right away) — hook: result promise.
+- Evidence: strong. High-frequency sentence shape; numbers more often appear in compound forms (with results, with resources — see F15, F16).
 
-### F3 痛点场景 + 解法承诺式
-- 公式：`[具体痛点场景] + [解法承诺]`
-- 适用：避坑、故障排查、设置教程。
-- 要点：痛点越具体越好（写清人群、场景、症状）；承诺的解法正文必须给到步骤。
-- 示意：「电脑越用越卡？多半是这 3 个设置没关」
-- 证据：中。痛点很少单独成式，多跟疑问、共鸣复合着用。
+### F2 Numbered test + comparison suspense style
+- Formula: `tested / head-to-head + [number] [category]: [comparison suspense]`
+- Fits: product head-to-heads, plan comparisons.
+- Points: suspense stays neutrally worded — no trashing tail ("IQ tax" and the like never used). The title protects the conflict hook first (questions, expectation breaks); comparison dimensions (price, battery life, heat, after-sales) go in the body and cover. Bigger samples beat smaller ones when you can manage them — 6 models persuade more than 3.
+- Example: "横测 6 款平价耳机：贵的就一定好？" (Head-to-head on 6 budget earbuds: is pricier really better?)
+- Evidence: medium. Strong comments, weak saves — use it as comment-type.
 
-### F4 警告式
-- 公式：`[先别/别再/千万不要] + [动作] + [对象]`
-- 适用：避坑、抢购提醒、更新风险——避坑和安全类选题里近乎标配，其他品类是小众式。
-- 要点：警告的风险点正文逐项讲清（代价、截止时间、依据），只警告不给依据就是标题党。
-- 示意：「新机开订，先别冲」
-- 证据：中强（品类内）。
+### F3 Pain-point scene + solution promise style
+- Formula: `[concrete pain-point scene] + [solution promise]`
+- Fits: avoiding traps, fault diagnosis, settings tutorials.
+- Points: the more concrete the pain point, the better (name the people, the scene, the symptoms). The promised solution must come with steps in the body.
+- Example: "电脑越用越卡？多半是这 3 个设置没关" (Computer slower the longer you use it? Probably these 3 settings left on)
+- Evidence: medium. Pain points rarely stand alone as a style — they mostly compound with questions and resonance.
 
-### F5 疑问 / 二选一式
-- 公式：`[选购纠结问题]？` 或 `[A] 还是 [B]？`
-- 适用：观点类、选购纠结类、新旧款对比。
-- 要点：只学提问结构，问题保持中立（价格、需求、时机），不设品牌站队；正文必须给出你的明确判断，不许只问不答。
-- 示意：「手机一年一换，还是三年一换更划算？」
-- 证据：中。勾评论是它的强项，冲收藏别单靠它。
+### F4 Warning style
+- Formula: `[not yet / stop / never] + [action] + [object]`
+- Fits: avoiding traps, rush-buy reminders, update risks — near-standard inside trap-avoidance and safety topics, a niche style elsewhere.
+- Points: the warned risk points get itemized in the body (cost, deadline, basis). A warning with no basis is clickbait.
+- Example: "新机开订，先别冲" (New phone open for orders — don't rush in yet)
+- Evidence: medium-strong (inside its categories).
 
-### F6 求助 + 悬念式
-- 公式：`[真实困惑] 怎么办？/ 你们都怎么选？`
-- 适用：征集型、经验求助型选题。
-- 要点：只留提问本身；原文常配的抽奖、送礼等利益引导一律删掉。
-- 示意：「预算就这么多，显示器到底怎么选？」
-- 证据：弱中。能激活表达欲，但样本不成大类。
+### F5 Question / this-or-that style
+- Formula: `[purchase dilemma question]?` or `[A] or [B]?`
+- Fits: opinion pieces, purchase dilemmas, old vs. new comparisons.
+- Points: only borrow the question structure — keep the question neutral (price, need, timing), no brand side-taking. The body must give your clear judgment — never ask without answering.
+- Example: "手机一年一换，还是三年一换更划算？" (Swap phones every year, or every three years — which pays off better?)
+- Evidence: medium. Drawing comments is its strength; don't rely on it alone for saves.
 
-### F7 共鸣 / 处境式
-- 公式：`[身份处境] + [说破一句心里话]`
-- 适用：职场、工具焦虑、副业工具类。
-- 要点：本系统只用两型——「处境 + 说破心里话」和「共鸣外壳 + 干货内核」（外壳共鸣、帖内给清单和方法）。纯情绪宣泄不用；共鸣点到为止，不贩卖焦虑，不下「再不学就淘汰」式断言。
-- 示意：「卷疯了的同事，都在偷偷用这几个工具」
-- 证据：强（在生活化、职场类品类里是头部大类）。
+### F6 Help request + suspense style
+- Formula: `[real confusion] 怎么办？ (what to do?) / 你们都怎么选？ (how do you all pick?)`
+- Fits: crowd-asking and experience-request topics.
+- Points: keep only the question itself; the lottery, gifts, and other benefit lures that often come with the original get deleted outright.
+- Example: "预算就这么多，显示器到底怎么选？" (Budget's this much — how do you actually pick a monitor?)
+- Evidence: weak-medium. It activates the urge to answer, but the samples don't form a big class.
 
-### F8 反常识 / 反共识式
-- 公式：`[违反直觉的真实结论] + [对象]`
-- 适用：冷知识、反直觉实测。
-- 要点：结论必须是真实测过、可核查的，不许编反常识；只借句式不借站队；不能条条都用，读者会脱敏。
-- 示意：「关掉这个功能，手机反而更省电」
-- 证据：中。评论强、收藏弱。
+### F7 Resonance / situation style
+- Formula: `[identity situation] + [one line that says the quiet part out loud]`
+- Fits: workplace, tool anxiety, side-gig tool topics.
+- Points: this system uses only two shapes — "situation + saying the quiet part out loud" and "resonance shell + practical core" (shell resonates, body delivers lists and methods). Pure emotional venting is out. Resonance stops at the point — no anxiety-selling, no "learn now or get left behind" verdicts.
+- Example: "卷疯了的同事，都在偷偷用这几个工具" (Colleagues drowning in hustle culture are all quietly using these tools)
+- Evidence: strong (a top class in lifestyle and workplace categories).
 
-### F9 热点切入式
-- 公式：`[热点事件/名场面] + [跟本品类的切入角]`
-- 适用：新品发布、系统大更新、厂商大事件。
-- 要点：热点必须跟你的长期品类相关，硬蹭伤号；切入角落回产品和购买账。纯新闻宣告时效一过就衰减，要冲收藏必须在帖内补资产（清单、步骤、口径）。
-- 示意：「发布会最出圈的那一幕，其实在说价格要变了」
-- 证据：强。
+### F8 Counter-intuitive / counter-consensus style
+- Formula: `[counter-intuitive true conclusion] + [object]`
+- Fits: cold facts, counter-intuitive test results.
+- Points: the conclusion must be truly tested and checkable — never invent a counter-intuitive claim. Borrow only the sentence shape, not side-taking. Don't use it for every post — readers go numb to it.
+- Example: "关掉这个功能，手机反而更省电" (Turn this feature off and the phone actually saves more battery)
+- Evidence: medium. Strong comments, weak saves.
 
-### F10 陈述式「内容 + 作用」
-- 公式：`[讲什么] + [看完有什么用]`
-- 适用：干货、攻略、抢购指南；搜索流量占比高的选题尤其适合。
-- 要点：这是最「平」的公式，纯陈述就是说明书式，不合格——必须叠一个轻钩子（反问、时效紧迫、降门槛标签）。带时间或覆盖率承诺的优先用 F14。
-- 示意：「首发怎么抢？省流版攻略在这」
-- 证据：中。
+### F9 Hot-event entry style
+- Formula: `[hot event / famous scene] + [angle into your category]`
+- Fits: new product launches, big system updates, big vendor events.
+- Points: the hot event must connect to your long-term category — hard trend-jacking hurts the account. The entry angle lands back on products and purchase math. Pure news announcements decay once the moment passes — to push saves, the post must add assets (lists, steps, wording).
+- Example: "发布会最出圈的那一幕，其实在说价格要变了" (The launch event's most viral moment was really saying prices are about to change)
+- Evidence: strong.
 
-### F11 系列连载式
-- 公式：`[系列名] + [本期对象]`，标题和封面带期数或编号
-- 适用：可连载的品类盘点（产品、工具、设置技巧）。
-- 要点：跟封面期号咬合；连载靠评论区的追更和求教程续命，第一条评论可以放上期回顾一句加下期预告一句。单期选题不硬凑连载。
-- 示意：「每天认识一个 AI 产品：今天这个管日程」
-- 证据：中。低频但真实有效。
+### F10 Statement style ("what + what it's good for")
+- Formula: `[what it covers] + [what you get from reading it]`
+- Fits: practical guides, walkthroughs, rush-buy guides — especially good for topics with a high search-traffic share.
+- Points: this is the flattest formula — pure statement reads as manual-style and fails. It must stack a light hook (question, time pressure, lowered-barrier label). Time- or coverage-promising versions should use F14 first.
+- Example: "首发怎么抢？省流版攻略在这" (How to grab launch day? The skim-friendly guide is here)
+- Evidence: medium.
 
-### F12 降门槛标签式
-- 公式：`[0基础/小白/新手] + 教会你 + [任务]`
-- 适用：选购指南、入门教程。
-- 要点：「教会你」是承诺，正文步骤必须完整到零基础能跟着做完。
-- 示意：「0 基础教会你选手机」
-- 证据：中。跟 F14 相邻，合并看待。
+### F11 Series / serial style
+- Formula: `[series name] + [this episode's object]`, with episode numbers on title and cover
+- Fits: serial category counts (products, tools, settings tricks).
+- Points: lock it to the cover issue number. Serials live on comment-section follow-ups and tutorial requests — the first comment can carry one line of last-episode recap plus one line of next-episode preview. Don't force a serial onto a one-off topic.
+- Example: "每天认识一个 AI 产品：今天这个管日程" (One AI product a day: today's one manages schedules)
+- Evidence: medium. Low frequency but genuinely effective.
 
-### F13 领取 / 福利口径式
-- 公式：`[人群] 可以免费领 [时长] 的 [会员/服务] 了`
-- 适用：官方免费活动、会员福利、教育优惠。
-- 要点：福利信息必须有官方口径核实，写明领取条件和截止时间；不写「限时、马上涨价」式催促；正文给完整步骤加一个避坑提醒（如提前取消自动续费）。福利信息本身就是可复用资产，这式收藏往往高于点赞。
-- 示意：「学生又能免费领一年的会员了，步骤在这」
-- 证据：强。
+### F12 Lowered-barrier label style
+- Formula: `[0基础 / 小白 / 新手] (zero background / newbie / beginner) + 教会你 (teach you) + [task]`
+- Fits: buying guides, beginner tutorials.
+- Points: "teach you" is a promise — the body's steps must be complete enough for a zero-background reader to follow through.
+- Example: "0 基础教会你选手机" (Zero background? This teaches you to pick a phone)
+- Evidence: medium. Adjacent to F14 — read them together.
 
-### F14 教程承诺式（时间封顶 + 掌握度）
-- 公式：`[时间上限] 内 + [掌握/学会/搞定] + [具体对象] 的 [覆盖率/结果]`
-- 适用：工具用法、软件功能、设置教程。
-- 要点：四个部件缺一不可——时间封顶（先把学习门槛打掉）、结果动词（掌握，不是「介绍」）、具体对象（点名到功能，不说大词）、覆盖率数字（95% 这种接近全量又留余地的，比 100% 可信，也不是绝对化词）。情绪浓度可以是零，照样能登顶收藏榜——收藏决策看的是「值不值得存着以后照着做」。
-- 红线：时间跟覆盖率必须跟正文严格对应。说 20 分钟，内容消费时长就压在这个量级；说 95%，正文要真覆盖到这个比例的大头，并注明没讲的那部分是什么。兑现不了就降承诺，不许虚标。
-- 示意：「20 分钟内，掌握这个工具 95% 的常用用法」
-- 证据：强。证据最硬的新式之一。
+### F13 Claim / perk wording style
+- Formula: `[people] can claim [duration] of [membership / service] free`
+- Fits: official free events, membership perks, education discounts.
+- Points: perk information must be verified against an official source, with claim conditions and deadlines stated. No "limited time, price going up soon" pressure wording. The body gives full steps plus one trap-avoidance reminder (like canceling auto-renewal in advance). The perk information itself is a reusable asset — this style's saves often beat its likes.
+- Example: "学生又能免费领一年的会员了，步骤在这" (Students can claim another free year of membership — steps inside)
+- Evidence: strong.
 
-### F15 资源包式（自备可带走资产）
-- 公式：`整理好了 + [数字] 个 + [资源名]` 或 `[开源/免费] + [具体工具]`
-- 适用：工具合集、资源整理、开源项目介绍。跟 F13 的区别：F13 是官方福利，这式是你自己整理或发现的资产。
-- 要点：资源必须真实存在、逐项可打开可用，数量跟标题一致；不写「全网首个」等绝对化词，但要保留钩子的语气，只改词面改成平淡陈述同样不合格；资源入口只许走平台内合规方式，不许「私信我领」。
-- 示意：「开源还免费，这个工具能自己干活」
-- 证据：强。收藏/点赞比的头部样本多出自资产型标题。
+### F14 Tutorial promise style (time cap + mastery)
+- Formula: `[time cap] + [master / learn / get done] + [specific object]'s [coverage / result]`
+- Fits: tool usage, software features, settings tutorials.
+- Points: four parts, none optional — time cap (kills the learning barrier first), result verb (master, not "introduce"), specific object (name the feature, no big words), coverage number (95% — near-total with room left — reads more believable than 100%, and isn't an absolute word). Emotion can be zero and it can still top the save charts — the save decision looks at "is this worth keeping to follow later".
+- Red line: time and coverage must strictly match the body. Say 20 minutes, and the content's consumption time presses into that range. Say 95%, and the body must truly cover the bulk of that share, noting what part it doesn't cover. A promise that can't be kept gets lowered — never inflated.
+- Example: "20 分钟内，掌握这个工具 95% 的常用用法" (In 20 minutes, master 95% of this tool's everyday uses)
+- Evidence: strong. One of the hardest-evidenced new styles.
 
-### F16 结果实证式（可复现的操作结果）
-- 公式：`[工具] 替我/帮我 + [做完一件具体事] + [量化结果]`
-- 适用：工具实测、效率工具演示。
-- 红线（全库最严）：只许报可复现的操作结果（投了多少份、生成了什么、省了几步），过程要在正文完整演示到别人能照做；**严禁报收益类结果**（赚了多少、月入多少、第几个月回本），不管数据多好看都不碰——讲钱只算明账：单价、订阅价、年费总额。结果数字必须真实，演示不出来的不许写进标题。
-- 示意：「让它替我投了 500 份简历，结果这样」
-- 证据：中强。结果可复制的，收藏也会跟着高。
+### F15 Resource pack style (bring-your-own takeaway asset)
+- Formula: `整理好了 (sorted out) + [number] + [resource name]` or `[open-source / free] + [specific tool]`
+- Fits: tool roundups, resource collections, open-source project intros. Difference from F13: F13 is an official perk; this one is an asset you sorted out or found yourself.
+- Points: resources must really exist, each openable and usable, with the count matching the title. No "first on the whole internet" absolute wording — but only deleting absolute words and leaving a flat statement fails too; keep the hook's tone. Resource entry points only go through in-platform compliant routes — never "DM me for it".
+- Example: "开源还免费，这个工具能自己干活" (Open-source and free — this tool does the work itself)
+- Evidence: strong. Head samples by save/like ratio mostly come from asset-type titles.
 
-### F17 存下吧命令式（品类限定）
-- 公式：`用 [机型/系统] 的存下吧 + [很难找全了等稀缺断言]`
-- 适用：只在机型设置、隐藏功能清单这类选题里用，不外推全品类。
-- 要点：开头先点名人群，把帖变成「给你的」；「存下吧」是直接的收藏命令；稀缺断言用「很难找全了」这类程度表述，不许配「全网最全」等绝对化词；清单必须真的全，点名的机型正文必须确实对应。
-- 示意：「用安卓的存下吧，这份设置清单很难找全了」
-- 证据：中（品类限定内成立）。
+### F16 Result proof style (reproducible operation result)
+- Formula: `[tool]替我 / 帮我 (did it for me / helped me) + [finished one concrete thing] + [quantified result]`
+- Fits: tool tests, efficiency tool demos.
+- Red line (strictest in the whole library): only report reproducible operation results (how many applications sent, what was generated, how many steps saved), with the process demonstrated in full in the body so others can follow it. **Never report earnings-type results** (how much earned, monthly income, which month it broke even), no matter how good the numbers look — money talk only does open accounting: unit price, subscription price, yearly total. Result numbers must be real; anything that can't be demonstrated doesn't go in the title.
+- Example: "让它替我投了 500 份简历，结果这样" (Had it send 500 résumés for me — here's what happened)
+- Evidence: medium-strong. Reproducible results pull saves up with them.
 
-### 反例（只记录，不进可用公式）
-- 收益叙事标题：「靠 X 赚了……」「分红 X 万」「月入 X」——一律禁用，理由见 F16 红线。
-- 只删绝对化词、剩下说明书式陈述的标题——照样不合格，缺钩子。
-- 抽奖、赠送类标题在公开榜单里很显眼，那是利益换互动，本系统禁用，不学。
+### F17 Save-this command style (category-limited)
+- Formula: `用 [phone model / system] 的存下吧 (save this, users of [model/system]) + [hard-to-find-in-full scarcity claim]`
+- Fits: only phone-model settings and hidden-feature list topics — never generalized to all categories.
+- Points: name the audience first, making the post "for you". "存下吧" (save this) is a direct save command. Scarcity claims use degree wording like "很难找全了" (hard to find in full) — never "全网最全" (most complete on the whole internet) absolute wording. The list must truly be complete, and the named model must genuinely match the body.
+- Example: "用安卓的存下吧，这份设置清单很难找全了" (Android users, save this — this settings list is hard to find in full)
+- Evidence: medium (holds inside its limited categories).
 
-### 标题加分动作（选完公式后逐项过）
-- 样本量升级：横测和清单的数字能做大就做大（3 款改 6 款），正文同步兑现。
-- 品类词细分：大词换细分词，人群更准、竞争更小。
-- 维度具象化：标题点名一个对比维度（价格、续航、发热、售后），显得测得深。
+### Anti-examples (recorded only — never usable formulas)
+- Earnings-narrative titles: "靠 X 赚了……" (earned … with X), "分红 X 万" (dividends of X ten-thousands), "月入 X" (monthly income X) — all banned, for the F16 red-line reasons.
+- Titles with only absolute words deleted, leaving manual-style statements — still failed, missing a hook.
+- Lottery and gift titles look loud on public charts — that's benefits traded for interaction. This system bans them; don't learn from them.
 
-## 二、开头钩子库
+### Title bonus moves (run through each after picking a formula)
+- Sample size upgrade: for head-to-heads and lists, make the number bigger when you can (3 models to 6), and keep the body in sync.
+- Category word narrowing: swap a big word for a narrower one — sharper audience, less competition.
+- Dimension naming: name one comparison dimension in the title (price, battery life, heat, after-sales) to show the test went deep.
 
-第一句定生死：开头先让人一目了然「讲什么、跟我有什么关系」。写稿时按选题挑一式。
+## 2. Opening hook library
 
-- **H1 警告式**：第一句先拦动作（先别更新、先别下单），紧接一句给依据（截止日期、翻车案例口径）。不许光警告不给理由。
-- **H2 痛点共鸣式**：第一句复述读者正在纠结的具体场景（预算、旧机型、使用习惯），第二句就给简化路径（帮你算清、帮你缩到两个选项），不铺垫背景。
-- **H3 数据口径式**：涉及榜单、价格、统计的，第一句先亮口径（按什么算、数据到哪天、来源哪家），可信度先行，清单在后。
-- **H4 名场面式**：用事件里最出圈的一个具体画面开场，一句带过玩梗，立刻落回产品事实和购买账，不停留在玩梗。
-- **H5 可信度铺垫式**：福利、活动、政策类第一句先给可核查的背书（官方页面、往年同活动、已生效日期），再进流程。背书必须真实，不许虚构亲测。
-- **H6 时效节点式**：开订、发售、截止类第一句直接报时间节点，加一句「别等……才……」的行动提醒。时效信息不许埋到中段。
-- **H7 清单预告式**：第一句报清单总量加一句价值陈述（存下来慢慢对），数字跟正文分点数一致。
-- **H8 时间封顶式**（跟 F14 配套）：教程类第一句等于时间成本加交付物（例：「这条 90 秒，把价格和代价一次算清」）。标题里的承诺，开头第一句要再兑现一次；承诺时长跟成片实际时长对得上。
+The first sentence decides life or death: the opening must make clear at a glance "what this is about, and what it has to do with me". Pick one style per topic when writing.
 
-## 三、正文结构模板
+- **H1 Warning style**: first sentence blocks an action (don't update yet, don't order yet), immediately followed by a basis sentence (deadline, failure-case wording). Never warn with no reason.
+- **H2 Pain-point resonance style**: first sentence restates the reader's exact dilemma scene (budget, old model, usage habits); second sentence gives the simplified path (help you work out the math, narrow it to two options) — no background setup.
+- **H3 Data caliber style**: for charts, prices, and statistics, the first sentence leads with the caliber (how it's counted, data as of when, from which source) — credibility first, list after.
+- **H4 Famous-scene style**: open with the event's single most viral concrete scene, one line of meme play, then land straight back on product facts and purchase math — don't linger on the meme.
+- **H5 Credibility setup style**: for perks, events, and policy topics, the first sentence gives a checkable backing (official page, last year's same event, already-effective date) before the process. Backing must be real — never invent first-hand testing.
+- **H6 Time-node style**: for order openings, releases, and deadlines, the first sentence reports the time node directly, plus one "don't wait until … to …" action reminder. Time information must not be buried mid-piece.
+- **H7 List preview style**: first sentence reports the list total plus one value statement (save it and check against it slowly) — the number matches the body's point count.
+- **H8 Time-cap style** (pairs with F14): for tutorial topics, the first sentence equals time cost plus deliverable (example: "this video is 90 seconds, price and cost worked out in one go"). The title's promise gets kept again in the first sentence; promised length matches the finished video's actual length.
 
-选题定时先定本帖目标：要收藏走收藏型，要评论走评论型。两者难兼得，不许一稿两头讨好。
+## 3. Body structure templates
 
-### 型 A 收藏型（清单 / 教程 / 领取）
-1. 钩子开头（H1–H8 挑一式；教程类优先 H8）。
-2. 数据口径行：来源、口径定义、统计或查询时间，先亮可信度再进清单。
-3. 编号分点清单：每点一句结论加硬细节（数字、价格、入口、型号）；每点先痛点后解法。
-4. 教程和步骤类加验证闭环：最后一步写明做完怎么确认生效，不收在总结句上。
-5. 结尾价值陈述式求收藏：把「以后还要翻出来看」的价值说破（如「这张表存下来，下次买的时候对着看」）。
-- 资源包变体（套 F15）：帖内直接给一份能带走的资产（编号清单、对照表、步骤卡），标题和正文都明说这份东西在帖里。
-- 共鸣外壳可用、内核必须是资产：标题可以走 F7，但正文必须落到清单、方法、资源。只有共鸣没有资产的，收藏会掉得很惨。
+Settle this post's goal when the topic is set: saves mean save-type, comments mean comment-type. Both are hard to serve at once — never write one draft chasing both.
 
-### 型 B 评论型（二选一 / 对比 / 答疑）
-1. 钩子开头（同上挑一式）。
-2. 痛点和适合谁：先答产品四问，圈定讨论人群。
-3. 分点展开加至少一处对比：对比做成表或卡（价格阶梯、参数、年费总账），只用可核查的官方数据，不许只在口播里念数字。
-4. 明确判断：值不值得、先别急、适合谁不适合谁，先给立场再抛问题。
-5. 二选一收尾：「你站 A 还是 B」压成两个选项，降低回复门槛；答疑型可换「有问必答」式承诺，但追问要真回。
+### Type A save-type (lists / tutorials / claims)
+1. Hook opening (pick one of H1–H8; tutorials prefer H8).
+2. Data caliber line: sources, caliber definitions, statistics or query time — credibility before the list.
+3. Numbered point list: each point one conclusion plus hard details (numbers, prices, entry points, models); each point pain point first, then solution.
+4. Tutorial and step types add a verification loop: the last step states how to confirm it worked — not tucked into a summary sentence.
+5. Ending value statement asking for the save: spell out the "look it up again later" value (like "save this table — check against it next time you buy").
+- Resource pack variant (fits F15): the post directly hands over a takeaway asset (numbered list, comparison table, step card), with title and body both stating the asset is in the post.
+- Resonance shell allowed, core must be assets: the title may run F7, but the body must land on lists, methods, and resources. Resonance with no assets, and saves fall hard.
 
-### 通用件（两型共用）
-- 细节颗粒度：每几句一个具象名词（型号、数字、具体天数），把「效果很好」换成可核查的细节。
-- 话题组合：核心词加细分词加热门词，从平台的相关话题里挑参与人数多的，不自造。
-- 发后运营：发布后及时回复评论（尤其高赞评论和追问），形成二次互动。
+### Type B comment-type (this-or-that / comparisons / Q&A)
+1. Hook opening (same H1–H8 pick).
+2. Pain point and who it's for: answer the four product questions first, circling the discussion audience.
+3. Point expansion with at least one comparison: comparisons as tables or cards (price tiers, parameters, yearly total bills), using only checkable official data — never numbers only spoken in voiceover.
+4. Clear judgment: worth it or not, don't rush, who it's for and who it's not for — position first, then the question.
+5. This-or-that ending: "do you stand with A or B" pressed into two options to lower the reply bar; Q&A types may swap in a "every question answered" promise — but follow-up questions must really get answered.
 
-## 四、封面文字规律
+### Shared parts (both types)
+- Detail granularity: a concrete noun every few sentences (model, number, specific day count), swapping "works really well" for checkable details.
+- Topic-tag mix: core terms plus niche terms plus hot terms, picked from the platform's related topics with the most participants — never invented.
+- Post-publish operation: reply to comments promptly after publishing (especially high-like comments and follow-ups), building second-round interaction.
 
-- 大字不超过 10 字：一眼读完，只放主钩子。
-- 副标题补信息、不重复大字：大字给钩子，副标题给时间、价格或结论。
-- 榜单类标口径和时间：封面或副标题注明统计口径与截止时间，可信度写在脸上。
-- 教程类加降门槛标签：「新手必看」「0 基础」「省流版」这类标签降低点击门槛。
-- 收藏型可放价值句：求收藏的话术可以放封面，正文结尾再呼应一次。
-- 固定项不变：封面带期号（看宪法页总表），大字和副标题照样过绝对化词和敏感自查。
+## 4. Cover text rules
+
+- Big text at most 10 characters: readable at a glance, main hook only.
+- Subtitle adds information, never repeats the big text: big text gives the hook, subtitle gives time, price, or conclusion.
+- Chart types mark caliber and time: cover or subtitle notes the statistics caliber and cutoff time — credibility on its face.
+- Tutorial types add lowered-barrier labels: "新手必看" (must-read for beginners), "0 基础" (zero background), "省流版" (skim-friendly version) — labels that lower the tap barrier.
+- Save-type may carry a value line: save-asking wording may sit on the cover, echoed once more at the body's ending.
+- Fixed items don't move: the cover carries the issue number (see the constitution table), and big text and subtitle pass the absolute-word and sensitivity self-checks all the same.

@@ -1,185 +1,188 @@
-# 宪法页（模板）
+[中文](CONSTITUTION.zh-CN.md) | English
 
-这份文件是整套系统的总规矩。总管每轮开工只读这一份就够，各阶段的细活在 `stages/` 六份手册里，干到哪一步读哪一份。
+# Constitution page (template)
 
-先把话说清：
+This file is the whole system's master rules. The manager only needs to read this one at the start of each round. The details for each stage live in the six guides in `stages/` — read the one for the step you're on.
 
-- 文里带 `{{ }}` 的是占位符。用之前先换成你自己的，或者在 `config.yaml` 里填好对应的键。
-- 关键数字只在下面「数字总表」里定一份。手册和任务里只许引用总表，不许另写一套。两边对不上，以总表为准，周复盘时改齐。
-- 附册是模板。用之前先复制一份改成正式名字再改内容，见文末附册索引。
+First, three things to get straight:
 
-## 这套系统干什么
+- Anything in `{{ }}` is a placeholder. Replace it with your own value before using it, or fill in the matching key in `config.yaml`.
+- Key numbers live in one place only: the numbers table below. Guides and task briefs only cite the table, never write their own set. If the two disagree, the table wins, and the weekly review fixes them up.
+- Appendices are templates. Before using one, copy it under its proper name and then edit it — see the appendix index at the end.
+- Language first: before anything else, ask the operator whether they want Chinese or English, and use that language for everything after — setup, daily runs, and reports. The repo docs come in both languages; read the version in the language picked.
 
-每天给小红书账号 {{account_name}}（账号号 {{account_id}}，你自己的号）做一条短视频笔记，从选题、写稿、做片到发布、发后跟进，全流程走完，结果汇报到你指定的地方。
+## What this system does
 
-- 全程只用免费工具和免费接口，不接付费服务。
-- 自动化程度由你选，见 `config.yaml` 的 `automation.mode`：`full` 全自动发，`semi` 备好待发包、你点发布，`manual` 只做到写稿。不管选哪档，下面的硬闸口都一样过，闸口不因赶时间放宽。
+Every day it makes one short video post for the Xiaohongshu account {{account_name}} (account ID {{account_id}}, your own account) — from topic, script, and video all the way to publishing and follow-up — and reports the result to wherever you point it.
 
-## 核心标准（最高优先级，写每条稿都先过这四条）
+- Only free tools and free interfaces, no paid services.
+- You pick the automation level in `config.yaml` under `automation.mode`: `full` posts automatically, `semi` prepares a ready-to-post pack and you press publish, `manual` only goes as far as the script. Whichever level you pick, the hard gates below still apply in full — gates don't loosen because you're in a hurry.
 
-1. **有吸引力。** 平淡没钩子的题直接换。选题先过一关：能不能一句话说清这事跟看的人有什么关系——跟他的钱、设备、账号、正在用的服务有什么关系。说不清就换题。大新闻也要改成「这事对你有什么影响」的角度，改不出来就不发。标题先写够总表定的版数，再挑钩子最强的一个。开头第一句先落到「你」身上，先说跟读者的关系，再讲事实。
-2. **说人话。** 大白话，短句。绕不开的术语，在同一句里用白话解释一遍。
-3. **有细节。** 看完不能跟没看一样。好就说清好在哪，厉害就说清厉害在哪个细节。讲软件就给真实界面、从哪弄、一步步怎么用。讲新服务就讲清能干什么、怎么用、入口在哪、收不收费、比同类强在哪。只有结论没有细节，重写。讲产品还要答清四问：适合哪类人、谁有这个需求、需求具体是什么、至少一个落到生活里的使用场景；再补一句不适合谁。只报参数和日期、没有人和需求，不合格。
-4. **不重复。** 选题、角度、素材都不跟已发的重。同一个产品或事件讲过就不再讲，除非有全新进展加全新角度。
+## Core standards (top priority — check every script against these four first)
 
-## 运行保障、打点和异常处理
+1. **Hook.** A flat topic with no hook gets swapped out. Every topic must pass one test first: can you say in one sentence what this has to do with the viewer — with their money, their device, their account, a service they use? If you can't say it, swap the topic. Even big news must be reframed as "what does this mean for you" — if it can't be reframed, don't post it. Write as many title versions as the numbers table says, then pick the one with the strongest hook. The first line of the script must land on "you" first — the reader's connection first, facts second.
+2. **Plain words.** Everyday words, short sentences. A term you can't avoid gets explained in plain words in the same sentence.
+3. **Details.** The viewer must come away knowing something. Saying "it's good" means saying clearly what's good about it; saying "it's strong" means saying clearly which detail is strong. For software, show the real interface, where to get it, and how to use it step by step. For a new service, say clearly what it does, how to use it, where the entry point is, whether it costs money, and where it beats similar ones. Conclusions with no details get rewritten. For a product, also answer four questions: who it's for, who has this need, what exactly the need is, and at least one use case from real life — plus one line on who it's not for. Parameters and dates with no people and no need don't pass.
+4. **No repeats.** Topics, angles, and material must not repeat what already went out. A product or event already covered stays covered, unless there is a genuinely new development with a genuinely new angle.
 
-- **防重复三查。** 开工第一行先在运行日志里写「开工，防重复三查中」，再查三处：当天的运行日志、选题台账（`paths.ledger_file`）、当天的素材夹和账号作品列表。今天已经发了就停手，汇报已有链接。发现另一轮正在跑、打点还没超时，就记一行让行，不并行做第二条。只有超过总表定的无打点时限，或收到明确的接管指令，才按失败轮接手。
-- **阶段打点。** 开工后按总表定时限写第一行打点。每个阶段开始和完成都往运行日志追加一行，写清时间、产物路径和关键数字（选题和来源、口播字数、成片时长、发布链接这些）。长的阶段按总表间隔补打点，写清当前子步骤和已用时间。判断一轮是死是活，只看打点和产物，不看调度给的状态标签。超过总表时限没有新打点，按失败处理。
-- **看门狗分工。** 早场只查第一行打点在不在。不在、且台账里没有今天的条目，就报警并只补发一轮。晚场只查台账里有没有今天的条目、或运行日志里有没有发布完成打点。没有就只报警并写清最后一条打点，不补发，免得跟还在跑的那轮撞上、发重了。
-- **异常分四级，全流程统一：**
-  1. 可降级：单个信源打不开、非核心素材缺、单段配音坏。按对应手册的替代顺序办，记好四要素，继续往下走，不许因为一个信源或一段素材停摆。
-  2. 质量或合规闸口：事实核不上、敏感命中、产品图对不上、字幕或音频验收不过。停在当前阶段，换题、换素材或重做。没过闸不进下一阶段。
-  3. 发布闸口：话题没全变蓝、AI 声明没选、要发的文件跟验收过的文件对不上、主站确认没登录。不许点发布，按发布手册存好待发包再汇报。
-  4. 运行或会话：没打点、浏览器会话断了、页面空白。先查作品列表、主站状态和打点，把外面的真实情况弄清，再从没做完的阶段续跑。不重跑已完成的阶段，不猜状态。
-- 同一个办法最多重试总表定的次数。还不行就换路，或按对应闸口停下。任何临时的「赶进度」「先发了再说」都不能绕过质量、合规和发布闸口。
+## Run safety, log stamps, and handling problems
 
-## 数字总表（唯一权威，改数字只改这里和 config）
+- **Triple duplicate check.** The first line of the run log must read "开工，防重复三查中" (starting, running the triple duplicate check), then check three places: today's run log, the topic ledger (`paths.ledger_file`), today's material folder, and the account's post list. If today already has a post, stop and report the existing link. If another round is running and its stamps haven't gone stale, log one line saying you're yielding — never run a second post in parallel. Only when the no-stamp limit in the numbers table has passed, or when you get a clear takeover order, do you take over as a failed round.
+- **Stage stamps.** Write the first stamp within the time limit in the numbers table after starting. Log one line at the start and end of every stage, with the time, the product paths, and the key numbers (topic and sources, script word count, finished video length, publish link, and so on). Long stages get extra stamps at the table's interval, stating the current sub-step and time used. To judge whether a round is alive or dead, look only at stamps and products — not at whatever status label the scheduler shows. Past the table's limit with no new stamp, treat it as failed.
+- **Watchdog split.** The early watchdog only checks whether the first stamp exists. If it doesn't, and the ledger has no entry for today, it alarms and sends out exactly one make-up round. The late watchdog only checks whether the ledger has today's entry, or the run log has a publish-finished stamp. If neither exists, it only alarms and states the last stamp — it never sends a make-up, so it can't collide with a round still running and double-post.
+- **Problems come in four levels, same across the whole flow:**
+  1. Degradable: one source won't open, non-core material missing, one voiceover segment bad. Follow the replacement order in the matching guide, log the four elements, and keep going — one source or one segment must not stall the round.
+  2. Quality or compliance gate: a fact won't check out, a sensitive hit, a product picture that doesn't match, subtitles or audio failing acceptance. Stop at the current stage; swap the topic, swap the material, or redo it. Nothing that fails a gate moves to the next stage.
+  3. Publish gate: topic tags not all blue, AI declaration not picked, the file to post doesn't match the file that passed acceptance, the main site not confirmed logged in. Don't press publish. Save a ready-to-post pack and report, as the publish guide says.
+  4. Run or session: no stamps, browser session dead, blank page. First check the post list, the main site status, and the stamps to get the real outside state clear, then resume from the unfinished stage. Don't rerun finished stages, don't guess the state.
+- One approach gets at most the table's number of retries. Still stuck after that, switch approaches, or stop at the matching gate. No temporary "hurry up" or "post it now, fix it later" gets around a quality, compliance, or publish gate.
 
-推荐默认值就是现在这套口径。你改的时候，左边这份表和 `config.yaml` 里对应的键一起改，两边保持一致。
+## Numbers table (the only authority — change a number here and in config, nowhere else)
 
-### 时间和调度
+The recommended defaults are the current setup. When you change one, change this table and the matching key in `config.yaml` together, and keep the two in sync.
 
-| 参数 | 推荐默认 | config 键 |
+### Time and scheduling
+
+| Parameter | Recommended default | Config key |
 |---|---|---|
-| 开工时间 | 06:00 | `schedule.open_time` |
-| 发布截止 | 08:00 前 | `schedule.publish_deadline` |
-| 看门狗早场 | 06:20，查开工打点 | `schedule.watchdog_early_time` |
-| 看门狗晚场 | 08:12，查发布 | `schedule.watchdog_late_time` |
-| 周复盘 | 每周这一天 | `schedule.review_weekday`（填「周日」） |
-| 周复盘时间 | 约 20:18 | `schedule.review_time` |
-| 第一行打点时限 | 开工 5 分钟内 | `schedule.stamp_first_minutes` |
-| 长阶段补打点间隔 | 每 30 分钟 | `schedule.stamp_long_stage_minutes` |
-| 无打点判失败 | 超过 75 分钟 | `schedule.stamp_stale_minutes` |
-| 同一办法重试上限 | 2 次 | `ops.retry_max` |
+| Start time | 06:00 | `schedule.open_time` |
+| Publish deadline | Before 08:00 | `schedule.publish_deadline` |
+| Early watchdog | 06:20, checks the start stamp | `schedule.watchdog_early_time` |
+| Late watchdog | 08:12, checks the publish | `schedule.watchdog_late_time` |
+| Weekly review | One day each week | `schedule.review_weekday` (fill in "周日", Sunday) |
+| Weekly review time | About 20:18 | `schedule.review_time` |
+| First stamp limit | Within 5 minutes of starting | `schedule.stamp_first_minutes` |
+| Long-stage extra stamp interval | Every 30 minutes | `schedule.stamp_long_stage_minutes` |
+| No-stamp means failed | Over 75 minutes | `schedule.stamp_stale_minutes` |
+| Retries per approach | 2 | `ops.retry_max` |
 
-### 选题
+### Topics
 
-| 参数 | 推荐默认 | config 键 |
+| Parameter | Recommended default | Config key |
 |---|---|---|
-| 搜集总上限 | 30 分钟 | `sourcing.total_minutes` |
-| 单个信源上限 | 5 分钟 | `sourcing.per_source_minutes` |
-| 扫描时段 | 前 20 分钟广扫，后面只核排前面的候选 | `sourcing.scan_minutes` |
-| 收口核对候选数 | 2 个 | `sourcing.shortlist_count` |
-| 渠道探活上限 | 1 分钟 | `sourcing.probe_minutes` |
-| 新鲜度 | 只看 48 小时内 | `sourcing.freshness_hours` |
-| 兜底放宽 | 最多放宽到 7 天（敏感和事实两关不放宽） | `sourcing.freshness_fallback_days` |
-| 热点窗口 | 事件后 12–24 小时 | `sourcing.hotspot_window` |
-| 续集核对 | 定案前扫近 30 天已发选题的后续（官宣、发售、价格或政策变化、结果落地），有后续当天加更 | `sourcing.sequel_check` |
-| 预排选题 | 派单前先查预排区，有没过期的直接用，用掉删条补登 | `sourcing.queued_topics` |
-| 活动匹配 | 每天选题顺带查活动中心、维护进行中活动清单；候选方向与活动主题一致时按活动要求执行并注明 | `sourcing.activity_match` |
+| Total sourcing cap | 30 minutes | `sourcing.total_minutes` |
+| Per-source cap | 5 minutes | `sourcing.per_source_minutes` |
+| Scan window | First 20 minutes scan wide, after that only check the leading candidates | `sourcing.scan_minutes` |
+| Shortlist check count | 2 | `sourcing.shortlist_count` |
+| Channel probe cap | 1 minute | `sourcing.probe_minutes` |
+| Freshness | Last 48 hours only | `sourcing.freshness_hours` |
+| Fallback widening | At most 7 days (the sensitive and fact gates never widen) | `sourcing.freshness_fallback_days` |
+| Hot window | 12–24 hours after the event | `sourcing.hotspot_window` |
+| Sequel check | Before settling, scan the last 30 days of posted topics for follow-ups (announcements, releases, price or policy changes, results landing); a follow-up means a same-day extra post | `sourcing.sequel_check` |
+| Queued topics | Before dispatching, check the queued area first — use an unexpired queued topic directly, and delete it from the queue once used, logging the posted entry as usual | `sourcing.queued_topics` |
+| Event matching | During daily topic work, check the activity center and keep a list of ongoing events; when a candidate direction matches an event theme, follow the event's requirements and note them | `sourcing.activity_match` |
 
-### 内容
+### Content
 
-| 参数 | 推荐默认 | config 键 |
+| Parameter | Recommended default | Config key |
 |---|---|---|
-| 品类清单 | 见 `content.categories`，在 config 里改成你自己的 | `content.categories` |
-| 品类轮换 | 跟昨天尽量不同 | `content.rotation` |
-| 重点品类一周上限（示例） | 给某个容易扎堆的品类设上限，示例 2 条，按你的品类改 | `content.category_weekly_cap` |
-| 一周配比（示例） | 资讯 4 : 教程 3 | `content.weekly_mix` |
-| 标题先写几版 | 3 版再选 | `content.title_versions` |
-| 标题目标字数 | 10–16 字 | `content.title_target_chars` |
-| 标题硬上限 | 20 字（加权口径：中文和全角标点算 1 字，英文字母、数字、半角符号算 0.5 字，emoji 算 1 字） | `content.title_max_chars` |
-| 标题取舍顺序 | 共鸣或冲突钩子第一，资产信号（数字、清单、能带走的东西）第二，搜索词位置第三；塞不下先砍资产，不砍共鸣 | — |
-| 核心搜索词位置 | 放前 10 字 | `content.title_keyword_first_chars` |
-| 正文上限 | 1000 字；日常精简目标约 500 字——细节交给视频，正文只写钩子、结论、清单要点和二选一提问，一屏装得下 | `content.body_max_chars` / `content.body_target_chars` |
-| 话题数量 | 5–8 个（大词 + 垂类词 + 长尾词） | `content.topics_min` / `content.topics_max` |
-| 标题锚点 | 写稿第 0 步先定锚点（最扎人的具体点，关键词 4 字以上、逐字进定稿标题）；3 版是同一锚点的三种不同角度；顺序铁律：锚点 → 角度 → 情绪语气 | `content.title_anchor` |
-| 标题情绪 | 情绪要夸张（只夸张感受，不夸大事实）；定稿理由单列「情绪承载字」「情绪关联」两行机读行；承载短语起点不晚于加权第 10 字、且不超过标题总长一半；相邻两期不许同情绪家族 | `content.title_emotion` |
+| Category list | See `content.categories` — change it in config to your own | `content.categories` |
+| Category rotation | As different from yesterday as possible | `content.rotation` |
+| Weekly cap for one category (example) | Set a cap for a category that tends to pile up — example 2 posts, change it to your categories | `content.category_weekly_cap` |
+| Weekly mix (example) | News 4 : tutorials 3 | `content.weekly_mix` |
+| Title versions to write first | 3, then pick | `content.title_versions` |
+| Title target length | 10–16 characters | `content.title_target_chars` |
+| Title hard cap | 20 characters (weighted: Chinese characters and full-width punctuation count 1, Latin letters, digits, and half-width symbols count 0.5, emoji count 1) | `content.title_max_chars` |
+| Title trade-off order | Resonance or conflict hook first, asset signals (numbers, lists, things to take away) second, search term position third; when something must go, cut the asset, never the resonance | — |
+| Core search term position | In the first 10 characters | `content.title_keyword_first_chars` |
+| Body cap | 1000 characters; everyday slim target about 500 — details go to the video, the body only carries the hook, the conclusion, the takeaway list points, and a this-or-that question, fitting on one screen | `content.body_max_chars` / `content.body_target_chars` |
+| Topic tag count | 5–8 (big terms + niche terms + long-tail terms) | `content.topics_min` / `content.topics_max` |
+| Title anchor | Step 0 of writing: settle the anchor first (the single most striking concrete point, keyword 4+ characters, appearing word for word in the final title); the 3 versions are three different angles on the same anchor; order rule: anchor → angle → emotional tone | `content.title_anchor` |
+| Title emotion | Emotion must be exaggerated (exaggerate feelings only, never facts); the settled-title reasons list two machine-readable lines, "emotion-carrying words" and "emotion link"; the carrying phrase starts no later than weighted character 10 and stays within the first half of the title; neighboring episodes must not share an emotion family | `content.title_emotion` |
 
-### 视频和音频
+### Video and audio
 
-| 参数 | 推荐默认 | config 键 |
+| Parameter | Recommended default | Config key |
 |---|---|---|
-| 口播稿字数 | 480–650 字 | `video.script_chars_min` / `video.script_chars_max` |
-| 成片时长 | 80–110 秒（倍速后） | `video.duration_min_seconds` / `video.duration_max_seconds` |
-| 倍速 | 1.5 倍 | `video.speed` |
-| 结尾固定句 | 「记得点赞、关注哦」，可改成你自己的 | `video.ending_line` |
-| 画面规格 | 默认竖版 1080×1920（9:16），可选横版 1920×1080（16:9） | `video.orientation` / `video.width` / `video.height` |
-| 封面规格 | 单独做，1080×1440（3:4） | `video.cover_width` / `video.cover_height` |
-| 封面大字行数 | 3–5 行 | `video.cover_lines` |
-| 期号 | 封面带「第 X 期」，X 是台账里的累计发布序号；从哪天起强制，填 `publish.issue_required_from`，不填就只提醒不判错 | `video.issue_on_cover` / `publish.issue_required_from` |
-| 片头片尾 | 可选：品牌片头、片尾各一段短片，拼在正文前后。先归一化到与正片同规格再拼；方向必须跟正片一致，不许竖正片配横片头。片尾自带点赞关注诉求时，正文结尾不再另做求关注的句子或卡片，两边别重复 | `brand.intro_file` / `brand.outro_file` |
-| 开头 | 前 3 秒给结论或冲突，不放片头 | `video.opening_seconds` |
-| 开头标题画面 | 片头之后、正文第一段之前要有一个醒目的标题画面：大字标题加本期关键视觉，让人一开头就知道这条讲什么；只有角标小字不算 | `video.title_card` |
-| 信息点节奏 | 每 10–15 秒一个，全片至少 5 个 | `video.info_point_every_seconds` / `video.info_points_min` |
-| 转折 | 中段埋一个转折；结尾 5 秒抛一个二选一问题 | `video.ending_question_seconds` |
-| 动效事件 | 每段至少 4 个；全片平均每 10 秒至少 2 个 | `video.motion_events_per_segment` / `video.motion_events_per_10s` |
-| 动效落点停顿 | 关键结论落点后停至少 0.3 秒 | `video.motion_pause_seconds` |
-| 字幕位置 | 贴底锚定：底边固定在画面高度 80%（1080×1920 时 y=1536），行数变了只向上长、底边不动；验收量底边，合格带 ±10px（1526–1546）。数字是小红书竖版实测参考值，换平台先按动效库说明重测 | `video.subtitle_bottom_pct` / `video.subtitle_tolerance_px` |
-| 字幕禁区 | 系统信息区顶边（高度 84.4%，实测 y=1621）以下禁入，不放字幕和重点文字 | `video.system_info_top_pct` |
-| 字幕行数 | 每条只放当前一句，最多 2 行 | `video.subtitle_max_lines` |
-| 字幕断句 | 写稿时就按字幕节奏断句，单条字幕不超过 38 字，保证排进画面最多 2 行；不许留到做片阶段才发现挤成 3 行 | `video.subtitle_max_chars` |
-| 版面利用 | 主内容区（顶部安全线 y=250 到字幕块上方的 y=1340）要排满：每段主体纵向跨度至少占内容区 55%，下部空置最多 25%；先排内容、再放字幕 | `video.content_min_span_pct` / `video.content_max_blank_pct` |
-| 静音检测阈值 | -45dB，持续 1.5 秒算一段静音 | `audio.silence_threshold_db` / `audio.silence_window_seconds` |
-| 静音判错 | 片头片尾之外有超过 2 秒的静音，打回 | `audio.silence_max_gap_seconds` |
-| 逐段音画对齐 | 每段画面和配音时长误差小于 0.5 秒 | `audio.segment_align_max_error_seconds` |
-| 单段静音标记 | 单段里有 1 秒以上的静音，先停用这一段 | `audio.segment_silence_flag_seconds` |
-| 产品图段数 | 讲到具体产品，产品图在正文至少出现 2 段；软件类每个主要软件都要有真实界面，合计至少 2 段 | `video.product_shots_min_segments` |
-| 渲染 | 网页做片：HTML/CSS 排版 + GSAP 动效，本机逐帧截图，再合成；30fps，全片约 30 分钟 | `video.render_fps` / `video.render_budget_minutes` |
-| 编码 | H.264 High、yuv420p、video_track_timescale 600、AAC 48kHz、use_editlist 0、faststart | `video.codec` 等，细项见做片手册 |
-| 画质 | 用 CRF 定画质（不定码率）：默认 13，在 12–14 之间选，数越小越清、文件越大。成品大小上限 100MB，超了拼片脚本自动升 CRF 重拼到装下为止。`pipeline/assemble.sh` 的 `--crf`、`--max-size-mb` 默认值与此一致 | `video.crf` / `video.max_size_mb` |
-| 最低码率 | 视频流低于 2000 kb/s（2 Mb/s），`validate.py` 只提醒不判错。这是兜底提醒：CRF 模式下码率随画面复杂度走，简单画面低码率也是高清，最后以抽帧看清不清为准 | `video.min_bitrate_kbps` |
-| 空白帧 | 画面连续近乎无内容（近乎纯色、顶多一两行字）达到 2 秒，`validate.py` 只提醒不判错 | `video.blank_min_seconds` |
-| 画面冻止 | 画面静止（内容还在、就是不动）连续 1 秒以上，`validate.py` 只提醒不判错；跟空白帧是两回事，冻止多半是动画演完或转场卡住 | `video.freeze_warn_seconds` |
-| 封面主视觉 | AI 按标题 + 内容生成；标题大字与期号角标确定性排版合成，不许模型直写中文标题；AI 源图留素材夹、验收单单列机读行；生图失败只许换提示词、换模型重试，不许截图、视频帧降级 | `video.cover_ai_source` |
-| 视觉风格（可选） | 纸艺分层风格见附册 `core/paper-style.md`；用时开工前必读、验收逐项对照 | — |
-| 成片大小 | 成品大小上限 100MB 由拼片脚本执行；验收脚本另做一次大小核对，超了只提醒 | `video.max_size_mb` |
-| 配音 | 音色在 config 里选，仓库里不写死任何音色名。开工前先跑配音冒烟（`pipeline/tts/tts-smoke.sh`）：主引擎试合成一句，通了才用它；不通自动切备用引擎。验收时旁白码率跟预期对一下，对不上多半是引擎被换了 | `tts.provider` / `tts.voice` / `tts.expected_bitrate_kbps` |
+| Script word count | 480–650 characters | `video.script_chars_min` / `video.script_chars_max` |
+| Finished video length | 80–110 seconds (after speed-up) | `video.duration_min_seconds` / `video.duration_max_seconds` |
+| Speed | 1.5x | `video.speed` |
+| Fixed closing line | "记得点赞、关注哦" (Remember to like and follow) — change it to your own | `video.ending_line` |
+| Frame size | Portrait 1080×1920 (9:16) by default, landscape 1920×1080 (16:9) optional | `video.orientation` / `video.width` / `video.height` |
+| Cover size | Made separately, 1080×1440 (3:4) | `video.cover_width` / `video.cover_height` |
+| Cover headline lines | 3–5 lines | `video.cover_lines` |
+| Issue number | The cover carries "第 X 期" (Episode X), X being the cumulative publish number in the ledger; from which date it becomes mandatory goes in `publish.issue_required_from` — leave it blank and it only warns, never fails | `video.issue_on_cover` / `publish.issue_required_from` |
+| Intro and outro | Optional: one short brand intro and outro clip each, joined before and after the main video. Normalize them to the main video's specs first; direction must match the main video — never a vertical main video with a horizontal intro. When the outro already carries a like-and-follow ask, the main video's ending drops its own ask line or card — don't repeat it on both sides | `brand.intro_file` / `brand.outro_file` |
+| Opening | First 3 seconds give the conclusion or the conflict, no intro clip | `video.opening_seconds` |
+| Opening title card | After the intro clip, before the first main segment, there must be a bold title card: big title plus this episode's key visual, so viewers know at once what the video is about; a small corner label alone doesn't count | `video.title_card` |
+| Info point rhythm | One every 10–15 seconds, at least 5 in the whole video | `video.info_point_every_seconds` / `video.info_points_min` |
+| Turn | One turn in the middle; a this-or-that question in the last 5 seconds | `video.ending_question_seconds` |
+| Motion events | At least 4 per segment; at least 2 per 10 seconds on average across the video | `video.motion_events_per_segment` / `video.motion_events_per_10s` |
+| Pause at motion landing | At least 0.3 seconds after a key conclusion lands | `video.motion_pause_seconds` |
+| Subtitle position | Bottom-anchored: the bottom edge fixed at 80% of frame height (y=1536 at 1080×1920); when the line count changes, the block only grows upward, the bottom edge never moves; acceptance measures the bottom edge, pass band ±10px (1526–1546). These numbers are measured reference values for Xiaohongshu vertical — re-measure per the motion library's method before using them on another platform | `video.subtitle_bottom_pct` / `video.subtitle_tolerance_px` |
+| Subtitle exclusion zone | Below the top edge of the system info area (84.4% of height, measured y=1621) — no subtitles or key text there | `video.system_info_top_pct` |
+| Subtitle line count | Only the current sentence per card, at most 2 lines | `video.subtitle_max_lines` |
+| Subtitle line breaks | Break lines during writing to the subtitle rhythm — no single subtitle over 38 characters, so every card fits in at most 2 lines on screen; never leave it to the video stage to discover a 3-line squeeze | `video.subtitle_max_chars` |
+| Layout use | The main content area (from the top safe line y=250 down to y=1340 above the subtitle block) must be filled: each segment's main body spans at least 55% of the content area vertically, blank space at the bottom at most 25%; lay out content first, then place subtitles | `video.content_min_span_pct` / `video.content_max_blank_pct` |
+| Silence detection threshold | -45dB, 1.5 seconds counts as one silence | `audio.silence_threshold_db` / `audio.silence_window_seconds` |
+| Silence fails | Any silence over 2 seconds outside intro/outro sends it back | `audio.silence_max_gap_seconds` |
+| Per-segment audio-video alignment | Each segment's picture and voiceover within 0.5 seconds of each other | `audio.segment_align_max_error_seconds` |
+| Single-segment silence flag | A silence of 1+ seconds inside one segment means shelve that segment first | `audio.segment_silence_flag_seconds` |
+| Product shot segments | For a specific product, product pictures appear in at least 2 main segments; for software, every major piece of software needs its real interface, at least 2 segments total | `video.product_shots_min_segments` |
+| Rendering | Web-page video: HTML/CSS layout + GSAP motion, frame-by-frame screenshots on this machine, then joined; 30fps, about 30 minutes for a full video | `video.render_fps` / `video.render_budget_minutes` |
+| Encoding | H.264 High, yuv420p, video_track_timescale 600, AAC 48kHz, use_editlist 0, faststart | `video.codec` and others — details in the video guide |
+| Picture quality | CRF sets quality (not bitrate): default 13, pick within 12–14, lower means clearer and bigger. Finished size cap 100MB — over that, the join script raises CRF and re-joins until it fits. `pipeline/assemble.sh` `--crf` and `--max-size-mb` defaults match this | `video.crf` / `video.max_size_mb` |
+| Minimum bitrate | Video stream under 2000 kb/s (2 Mb/s) only earns a warning from `validate.py`, never a fail. This is a backstop reminder: in CRF mode bitrate follows picture complexity, so a simple picture at low bitrate is still sharp — judge sharpness from pulled frames in the end | `video.min_bitrate_kbps` |
+| Blank frames | Picture nearly empty (near-solid color, at most a line or two of text) for 2 seconds straight — `validate.py` only warns, never fails | `video.blank_min_seconds` |
+| Frozen picture | Picture still (content present, just not moving) for 1+ seconds straight — `validate.py` only warns, never fails. Not the same as blank frames: freezing mostly means the animation finished or a transition stuck | `video.freeze_warn_seconds` |
+| Cover main visual | AI-generated from the title + content; the big title text and issue-number corner label are composited deterministically — the model must never render the Chinese title directly; the AI source picture stays in the material folder, and the acceptance checklist carries its own machine-readable line; a failed generation may only be retried with a new prompt or a new model — never downgraded to a screenshot or video frame | `video.cover_ai_source` |
+| Visual style (optional) | The layered paper-craft style lives in the appendix `core/paper-style.md`; read it before starting when you use it, and check against it item by item at acceptance | — |
+| Finished size | The 100MB finished-size cap is enforced by the join script; the acceptance script separately checks size once more, and only warns when over | `video.max_size_mb` |
+| Voiceover | Pick the voice in config — the repo never hard-codes any voice name. Before starting, run the voiceover smoke test (`pipeline/tts/tts-smoke.sh`): the main engine test-synthesizes one line, and only if it works do you use it; if it fails, it switches to the backup engine automatically. At acceptance, check the voiceover bitrate against the expected value — a mismatch mostly means the engine got swapped | `tts.provider` / `tts.voice` / `tts.expected_bitrate_kbps` |
 
-画面方向默认竖版就行。录屏、教程、风景这类横着看更舒服的内容，再选横版，在 config 里改一次，后面每条都按这个出。
+Portrait is the default direction, and that's enough. Only pick landscape for content that reads better wide — screen recordings, tutorials, scenery — by changing it once in config; every post after that follows it.
 
-### 发布后和复盘
+### After publishing, and reviews
 
-| 参数 | 推荐默认 | config 键 |
+| Parameter | Recommended default | Config key |
 |---|---|---|
-| 发后跟进窗口 | 以实际发布时间为起点，2 小时内 | `followup.window_hours` |
-| 跟进间隔 | 每 30 分钟查一次，满窗口就停 | `followup.interval_minutes` |
-| 敏感库复看 | 每月第一次周复盘时复看一次平台规则并更新 | `compliance.sensitive_review` |
-| 台账文件 | 选题和发布记录写这里 | `paths.ledger_file` |
-| 互动状态文件 | 已处理过的评论、私信记这里，去重用 | `paths.interaction_file` |
-| 数据目录 | 每天的素材夹建在这里下面 | `paths.data_dir` |
+| Follow-up window | 2 hours from the actual publish time | `followup.window_hours` |
+| Follow-up interval | Check every 30 minutes, stop when the window ends | `followup.interval_minutes` |
+| Sensitive library re-check | At the first weekly review of each month, re-read the platform rules and update | `compliance.sensitive_review` |
+| Ledger file | Topic and publish records go here | `paths.ledger_file` |
+| Interaction state file | Handled comments and DMs go here, for dedup | `paths.interaction_file` |
+| Data directory | Each day's material folder goes under here | `paths.data_dir` |
 
-## 硬闸口清单（任何临时说法都不能绕过）
+## Hard gate list (no temporary excuse gets around these)
 
-1. **敏感一票否决。** 选题先过敏感附册的弃题清单，命中一条就弃，不讨论换个角度能不能发。发布前再按六个面逐项扫：标题、正文、口播稿、字幕、封面文字和画面、话题和第一条评论。命中就改整句的意思，不许用谐音、拆字绕过去。细则见 01、04 手册和敏感附册。
-2. **事实核对。** 定下来的关键事实要有官方一手来源，再加至少 1 个独立来源复核。没有官方源时，要有至少 2 个互相独立的来源说法一致。核不上就舍掉这条事实，或老实标成爆料。不许把一条转述链上的几篇文章当成多个来源。
-3. **话题全蓝才发。** 发布前逐个核对：话题全是蓝色、数量对得上。没全过就不许点发布。点不蓝就停下存待发包，不许删话题、不许留空硬发。细则见 04 手册。
-4. **入口铁律。** 进创作者平台办事，先开小红书主站、把窗口拉宽，在主站确认是登录状态，再走站内入口进去。全程不许直接打开创作者平台的域名，更不许拿它弹出的登录页当结论。只有主站宽屏下也确认没登录，才可以说需要号主本人扫码。细则见 04 手册。
-5. **发布前合规自查。** 八项逐项过：AI 声明、六个面的绝对化词、零导流、不标来源、不是整段搬运、无引战和破解内容、金融不给建议、敏感六面自查。结果逐项写进验收单，不许只写一句「自查过」。细则见 04 手册。
-6. **验收要有证据。** 说「改好了」「通过了」，必须带证据：新旧帧或文件、复验的时间点、检测数值。量到的数字要把原始数值、量的时刻和量法一起写下来，不许只写一个结论——只写结论的量数，事后没法复核，对错都说不清。成片验收单六项缺一项就不算过。任何返工、重渲之后，旧验收作废，对新文件重新跑关键检查。做片收尾跑一遍 `validate.py` 做机器验收。细则见 03 手册。
-7. **出错写四要素。** 出了问题，汇报和日志都要写全四样：卡在哪个环节、哪个具体对象；页面或工具的原话，或截图路径；试了什么办法、各试几次、每次什么结果；最后怎么处置、对成品有什么影响。不许只写「故障」「失败」交差。汇报分级见 05 手册。
+1. **Sensitive content is a straight veto.** Check the topic against the sensitive appendix's drop list first — one hit drops it, no discussion about whether a different angle could work. Before publishing, sweep six faces one by one: title, body, voiceover script, subtitles, cover text and picture, topic tags and first comment. On a hit, rewrite the whole sentence's meaning — no homophones or split characters to dodge it. Details in guides 01 and 04 and the sensitive appendix.
+2. **Fact-checking.** A settled key fact needs an official first-hand source, plus at least 1 independent source confirming it. With no official source, at least 2 mutually independent sources must agree. A fact that won't check out gets dropped, or honestly labeled as a leak. Never count several articles on one retelling chain as several sources.
+3. **All topic tags blue before posting.** Check one by one before publishing: every tag blue, count matching. Anything less, and publishing is off. A tag that won't turn blue means stop and save a ready-to-post pack — no deleting tags, no posting with a gap. Details in guide 04.
+4. **Entry rule.** To do anything on the creator platform, open the Xiaohongshu main site first, widen the window, confirm logged-in status on the main site, then enter through the site's own entry point. Never type the creator platform's domain straight into the address bar, and never take its login popup as a conclusion. Only when the main site, in a wide window, also confirms you're logged out may you say the owner needs to scan a code in person. Details in guide 04.
+5. **Pre-publish compliance self-check.** Eight items, one by one: AI declaration, absolute-word sweep across six faces, zero diversion, no source labels, no wholesale copying, no flame wars and no cracking content, no financial advice, sensitive six-face self-check. Write each result into the acceptance checklist — never a single line saying "self-checked". Details in guide 04.
+6. **Acceptance needs evidence.** Saying "fixed" or "passed" must come with evidence: old and new frames or files, the re-check time, the measured numbers. A measured number must carry the raw value, the moment it was measured, and the method — a bare conclusion can't be re-checked later, right or wrong. A finished-video acceptance checklist with any of its six items missing doesn't count as passed. After any rework or re-render, the old acceptance is void — re-run the key checks on the new file. Run `validate.py` once at the end of video work as the machine acceptance. Details in guide 03.
+7. **Problems get the four elements.** When something goes wrong, reports and logs must carry all four: which step and which exact object; the page's or tool's own words, or the screenshot path; what you tried, how many times each, and what each attempt gave; how it was handled in the end and what it means for the finished piece. Never close with just "broken" or "failed". Report levels are in guide 05.
 
-## 总管和子 agent 怎么分工
+## How the manager and sub-agents split the work
 
-- **总管**是每轮的调度。它开工先读这份宪法页，做防重复三查，落第一行打点；然后按 01 到 05 的顺序逐阶段派单。每收到一个阶段的证据清单，逐项对着该阶段手册的验收项核对，过了才派下一阶段，不过就退回重做，或按异常分级处理。它全程维护运行日志的打点，最后按 05 手册的分级规矩汇报。周复盘按 06 手册走，总管的职责一样：派单、验收、汇报。
-- **串行，不许并行。** 同一时刻只许一个阶段子 agent 在跑。上一个阶段没验收通过，不许开下一个。子 agent 不许再往下派子 agent。理由很实在：选题、稿、片、发布是一环扣一环的，后一步吃的是前一步验收过的产物。并行只会互相踩产物、重复干活，严重的会发重。
-- **子 agent** 每个阶段一个。它只读宪法页加本阶段手册（再加该阶段指定的附册）。输入只用总管派单时给的上阶段产物路径，不自己去翻旧产物。产物必须落盘到当天素材夹或指定的记录文件，按本阶段手册的证据清单格式交回。它不跨阶段顺手做下一步。碰到闸口问题立刻停下，按四要素交回总管，不许自己想办法绕过去，尤其是话题、敏感、发布这三道闸。
-- **派单每单必写清：** 阶段名、日期和当天素材夹路径、上阶段产物文件路径、本阶段要读的手册路径、交回证据清单的格式、本阶段的截止要求（数字看总表）。
-- **证据清单通用格式：** 阶段名 / 产物文件路径和关键数字 / 对照本阶段验收项的逐项结果 / 异常四要素（没有就写「无」）/ 待总管确认的事项（没有就写「无」）。缺项的证据清单按没干完处理，总管不许放行。
-- **谁能拍板：** 可降级的异常，子 agent 按手册的替代顺序自己处理并留痕。质量、合规、发布这三类闸口，只有总管能决定换题、停发或存待发包。要号主本人决定的事（比如删帖重发、扫码登录），总管和子 agent 都不许代决定。
+- **The manager** runs each round. It reads this constitution page first, runs the triple duplicate check, writes the first stamp; then dispatches stages in order, 01 through 05. On receiving each stage's evidence list, it checks it item by item against that stage guide's acceptance items — only then dispatching the next stage, sending back failures for rework, or handling them by problem level. It keeps the run log's stamps throughout, and reports at the end by guide 05's level rules. Weekly reviews run the same way under guide 06: dispatch, accept, report.
+- **Serial, never parallel.** Only one stage sub-agent runs at a time. Until the previous stage passes acceptance, the next one doesn't start. Sub-agents never dispatch their own sub-agents. The reason is practical: topic, script, video, and publishing feed on each other — each step eats the previous step's accepted product. Parallel work only steps on products, repeats work, and in the worst case double-posts.
+- **Sub-agents**, one per stage. Each reads only the constitution page plus its own stage guide (plus that stage's named appendices). Its input is only the previous stage's product paths from the manager's dispatch — it doesn't go digging through old products on its own. Products must land in the day's material folder or the named record file, and come back in the stage guide's evidence-list format. It doesn't casually do the next stage's work. On a gate problem it stops at once and hands the four elements back to the manager — never finding its own way around, especially on the topic, sensitive, and publish gates.
+- **Every dispatch must state:** stage name, date and the day's material folder path, previous stage product file paths, the guide path for this stage, the evidence-list format to return, and this stage's deadline requirements (numbers per the table).
+- **Shared evidence-list format:** stage name / product file paths and key numbers / item-by-item results against this stage's acceptance items / the four elements for problems (write "none" when there are none) / items awaiting manager confirmation (write "none" when there are none). An evidence list with missing items counts as unfinished — the manager must not wave it through.
+- **Who can decide:** degradable problems, the sub-agent handles itself by the guide's replacement order, leaving a trace. Quality, compliance, and publish gates: only the manager decides to swap topics, hold a post, or save a ready-to-post pack. Things the owner must decide (deleting and reposting, scanning a code to log in), neither manager nor sub-agent may decide for them.
 
-单 agent 的平台没有子 agent 可派，就按同样的顺序自己一段一段做：每段做完先自查证据清单，过了再做下一段。规矩不变，只是人手变成一个。
+On a platform with no sub-agents, a single agent does the same steps in the same order: after each stretch, self-check the evidence list, pass it, then do the next stretch. The rules don't change — only the headcount becomes one.
 
-## 阶段手册索引（`stages/`，干到哪步读哪份）
+## Stage guide index (`stages/` — read the one for the step you're on)
 
-- `01-sourcing.md` 选题：信源怎么填、怎么探活、热度怎么判断、事实怎么核对、定案要留什么证、没题时怎么兜底。派选题单时读，另读敏感附册的弃题清单。
-- `02-script.md` 写稿：稿子结构、标题和正文的标准、写稿验收。落盘产物是 `post.md` 和 `scripts.txt`。
-- `03-video.md` 做片：网页做片的做法、素材和真实界面的要求、字幕和音频的规矩、成片验收单。收尾跑 `validate.py`。
-- `04-publish.md` 发布：入口铁律、合规自查八项、话题闸口、第一条评论、发后复查、发布出问题怎么办。派发布单时读，另读敏感附册。
-- `05-followup.md` 汇报和发后跟进：汇报分三级、台账怎么写、评论和私信怎么回、去重怎么做、查不到时怎么写。
-- `06-review.md` 周复盘：数据回填、草稿清理、敏感库每月维护、一致性巡检、规矩怎么更新。
+- `01-sourcing.md` Topics: how to fill in sources, probe liveness, judge heat, check facts, what proof a settled topic keeps, and how to fall back when there's no topic. Read when dispatching topics, plus the sensitive appendix's drop list.
+- `02-script.md` Writing: script structure, title and body standards, writing acceptance. Products on disk are `post.md` and `scripts.txt`.
+- `03-video.md` Video: the web-page video method, material and real-interface requirements, subtitle and audio rules, the finished-video acceptance checklist. Run `validate.py` at the end.
+- `04-publish.md` Publishing: the entry rule, the eight-item compliance self-check, the topic-tag gate, the first comment, post-publish re-check, and what to do when publishing breaks. Read when dispatching publishing, plus the sensitive appendix.
+- `05-followup.md` Reporting and follow-up: three report levels, how to write the ledger, how to reply to comments and DMs, how dedup works, and what to write when something can't be verified.
+- `06-review.md` Weekly review: data backfill, draft cleanup, monthly sensitive library maintenance, consistency patrol, and how rules get updated.
 
-## 附册索引
+## Appendix index
 
-- `viral-playbook.md`：爆款知识库——标题公式、开头钩子、正文两种结构（收藏型/评论型）、封面文字规律。写稿前必查：起标题先在这里选公式，正文先定型再动笔。里面的示例都是示意，公式和顺序是通用的，按你的品类换内容。
-- `sensitive-words.template.md`：敏感内容附册，含弃题清单、敏感词分类、六面自查。用之前复制一份改名为 `sensitive-words.md`，再按你自己的品类增删。选题定案前必读，发布前自查必读，每月第一次周复盘复看维护。
-- `paper-style.md`：纸艺分层视觉风格附册——色板、固定提示词前缀、每场至少 4 层、层间视差、元素独立运动、5 秒窗口禁纯推拉、物理规律、纸艺落点语言。做片用这套风格时开工前必读，验收逐项对照；里面的色板和提示词是通用默认，换品类可改。
-- `lessons.template.md`：教训册的空模板和写法。用之前复制一份改名为 `lessons.md`，复盘结论按日期往里追加。周复盘必读；选题、做片碰到老问题时翻一翻。条目成了固定规矩，就升进宪法页或对应手册，并在原条目上标明升到哪了。
-- `validate.py`：成片机器验收脚本，只读不改文件。用法：`python3 core/validate.py <当天素材夹路径>`。做片收尾和总管验收时各跑一次，输出贴进证据清单。阈值读仓库根的 `config.yaml`，没有就用脚本里的推荐默认值，输出里会写明。
+- `viral-playbook.md`: the viral knowledge base — title formulas, opening hooks, two body structures (save-type / comment-type), cover text rules. Check before writing: pick a formula for the title first, settle the body type before writing. The examples inside are illustrations; the formulas and order are general — swap in your category's content.
+- `sensitive-words.template.md`: the sensitive content appendix, with the drop list, sensitive word categories, and the six-face self-check. Before using it, copy it as `sensitive-words.md` and add or remove entries for your own categories. Must read before settling a topic, must read for the pre-publish self-check, and re-read and maintain at the first weekly review of each month.
+- `paper-style.md`: the layered paper-craft visual style appendix — color board, fixed prompt prefix, at least 4 layers per scene, parallax between layers, elements moving independently, no pure push-pull inside any 5-second window, physics rules, paper-craft landing language. When making videos in this style, read it before starting and check against it item by item at acceptance. Its color board and prompts are general defaults — change them for a different category.
+- `lessons.template.md`: the empty template and writing rules for the lessons log. Before using it, copy it as `lessons.md` and append review conclusions by date. Must read at weekly reviews; when topics or video work hit something that looks like an old problem, flip through it. When an entry becomes a fixed rule, promote it into the constitution page or the matching guide, and mark on the original entry where it went.
+- `validate.py`: the finished-video machine acceptance script — reads only, never edits files. Usage: `python3 core/validate.py <day's material folder path>`. Run once at the end of video work and once at manager acceptance, and paste the output into the evidence list. Thresholds come from the repo root's `config.yaml`; without one, the script's recommended defaults apply, and the output says so.
 
-## 改规矩的方法
+## How to change a rule
 
-- 这套文件是活的。规矩以这份宪法页的最新版为准，细节以对应阶段手册为准。两边冲突时以宪法页为准，由周复盘改齐。
-- 数字只改总表和 config，不许在手册里另写一份。
-- 每次改了什么、为什么改，记一行到教训册或复盘记录里，方便以后查。
+- These files are alive. The newest version of this constitution page rules; details follow the matching stage guide. When the two conflict, the constitution page wins, and the weekly review fixes them up.
+- Numbers change only in the table and in config — never a second copy inside a guide.
+- Every change, and why it changed, gets one line in the lessons log or the review record, so it's findable later.

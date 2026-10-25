@@ -1,29 +1,31 @@
-# 三家能力对照（详表）
+[中文](capability-matrix.zh-CN.md) | English
 
-小红书全自动化运营发布（适配muse、Dots、Grok Bot）
+# Three-assistant capability comparison (full table)
 
-先声明：Muse 那一列是已经有账号在日更用的，实测过。Dots 和 Grok Bot 两列是按两家官方发布口径写的，我们没账号、没实测过，用之前自己先小跑一轮验，不要当承诺。
+Multi-platform automated operation and publishing (for Muse, Dots, Grok Bot)
 
-再说一个三家的共同点：都是云端 agent，各有自己的一台云端电脑和浏览器。下面比的不是「有没有云端」，是批准规则松紧和开放程度。
+First, a statement: the Muse column comes from an account already posting daily with it — tested. The Dots and Grok Bot columns follow the two vendors' official release statements. We have no accounts and have not tested them. Before using either, run a small round yourself to check it. Don't treat this table as a promise.
 
-| 能力 | Muse | Dots | Grok Bot |
+One more thing all three share: they are cloud agents, each with its own cloud computer and browser. What follows compares not "has a cloud or not", but approval-rule strictness and openness.
+
+| Capability | Muse | Dots | Grok Bot |
 |---|---|---|---|
-| 读规矩、选题、写稿 | 能。skill 入口读 `core/`，按阶段读手册 | 能。`core/` 整份作为知识给它，总指令在 `adapters/dots/dots-instructions.md` | 能。AGENTS.md 写了读取顺序 |
-| 做片（网页做片流水线） | 能。脚本在本机跑，捕获加合成一条龙 | 能。脚本在它自己的云端电脑里跑，产出它自己验 | 能。脚本在云端虚拟机里跑；跑不通就人工跑脚本回填 |
-| 子 agent 编排 | 能。总管派单、串行、逐单验收，是原生路子 | 能。它能把活分给子 agent，总管模式照 `orchestration/` 走 | 能。它能把活分给子 agent，总管模式照 `orchestration/` 走 |
-| 定时 | 能。日更、双看门狗、跟进、复盘，五件都能建 | 能。自带定时跑，五件事各建一个 | 能。自带定时跑，五件事各建一个 |
-| 浏览器自动发布 | 能。先主站确认登录，再走站内入口 | 能。在它自己的浏览器里发；发布先问还是放行，由你在它的自定义规则里定 | 能。在它自己的浏览器里发；发布、发送、购买、删除前默认先暂停等批准，Always Allow 打开就全自动 |
-| 发后跟进 | 能。发布后 2 小时内定时查、自动回 | 能。靠定时到点查；回复这类往外发的东西，同样看你定的规则 | 能。靠定时到点查；回复这类往外发的东西，同样看你的批准设置 |
-| 周复盘 | 能。每周定时跑，还能顺手改 `core/` | 能。靠定时跑；改 `core/` 的建议先给你看，你点头再落 | 能。靠定时跑；改 `core/` 的建议先给你看，你点头再落 |
+| Read rules, pick topics, write scripts | Yes. Skill entry point reads `core/`, guides read per stage | Yes. All of `core/` goes to it as knowledge, master instructions in `adapters/dots/dots-instructions.md` | Yes. AGENTS.md states the reading order |
+| Make videos (web-page video pipeline) | Yes. Scripts run on this machine, capture plus joining in one chain | Yes. Scripts run on its own cloud computer, and it checks its own output | Yes. Scripts run on a cloud virtual machine; if they don't run, run the scripts by hand and fill the results back in |
+| Sub-agent orchestration | Yes. Manager dispatch, serial order, check per dispatch — the native path | Yes. It can split work across sub-agents, manager model follows `orchestration/` | Yes. It can split work across sub-agents, manager model follows `orchestration/` |
+| Scheduling | Yes. Daily post, two watchdogs, follow-up, review — all five can be built | Yes. Built-in scheduling, one per job for all five | Yes. Built-in scheduling, one per job for all five |
+| Auto publish in browser | Yes. Confirm login on the main site first, then use the on-site entry | Yes. In its own browser; ask-first or auto-approve is set in its custom rules by you | Yes. In its own browser; before publish, send, buy, or delete it pauses by default and waits for approval — opening Always Allow makes it fully automatic |
+| Post-publish follow-up | Yes. Timed checks within 2 hours of publishing, auto replies | Yes. Checks on schedule; replies and other outward actions follow the rules you set, same as publishing | Yes. Checks on schedule; replies and other outward actions follow your approval settings, same as publishing |
+| Weekly review | Yes. Runs weekly on schedule, and can also update `core/` directly | Yes. Runs on schedule; suggested `core/` changes go to you first — they land only after you nod | Yes. Runs on schedule; suggested `core/` changes go to you first — they land only after you nod |
 
-## 表外的话
+## Beyond the table
 
-三家差的就两件事：**发布那一下，先问你还是直接发**，和**你现在能不能用上**。
+The three differ in just two things: **at the publish step, does it ask you first or send directly**, and **can you use it right now**.
 
-- Muse：已经跑通，装上就能照着日更。
-- Dots：要 ChatGPT Pro 或 Business Premium。发布的规则先设成「先问我」，就是半自动；跑稳了改成自动放行，就是全自动。
-- Grok Bot：还在 beta，只开放给部分 SuperGrok Heavy 用户。它默认在发布前先停一下等批准，这道闸口不用你另设；想全自动，再去开 Always Allow。
+- Muse: already running. Install it and it posts daily by the book.
+- Dots: needs ChatGPT Pro or Business Premium. Set the publish rule to "ask me first" and you have semi-auto; once it runs steadily, change it to auto-approve for full-auto.
+- Grok Bot: still in beta, only open to some SuperGrok Heavy users. By default it stops before publishing and waits for approval — that gate needs no extra setup from you. For full-auto, go open Always Allow.
 
-剩下的全一样：同一份 `core/` 规矩，同一个 `core/validate.py` 验收，同一个待发包格式（`video.mp4`、`cover.jpg`、`post.md`、`publish-checklist.md`）。
+Everything else is the same: the same `core/` rules, the same `core/validate.py` acceptance check, the same ready-to-post pack format (`video.mp4`, `cover.jpg`, `post.md`, `publish-checklist.md`).
 
-所以选哪家，不用比谁更聪明。先看你能不能用上（订阅、开放范围），再看发布那一下的批准规则合不合你的心意：想全程不问的，Muse 现成，Dots 改一条规则，Grok Bot 开一个开关——但新号都建议先半自动，跑稳再放行。
+So picking one is not about comparing who is smarter. First check whether you can use it at all (subscription, availability), then check whether the publish step's approval rule suits you: for a fully hands-off run, Muse works out of the box, Dots needs one rule changed, Grok Bot needs one switch opened — but new accounts should all start semi-auto and only open up once steady.

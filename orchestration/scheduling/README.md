@@ -1,68 +1,70 @@
-# 定时：一共五件事
+[中文](README.zh-CN.md) | English
 
-这套流程靠五个定时任务转。每件事分工很死，只做自己那份，不许越界。
+# Scheduling: five jobs in all
 
-时间全是占位写法：`{{start_time}}` 这些在配置里填。后面跟的推荐值，是现行日更在用的时刻，照着填就行，想改也可以。改的时候注意先后：看门狗要在日更开工之后、发布目标之后。
+This workflow turns on five scheduled jobs. Each job's division of labor is strict — it does only its own part, never overreaching.
 
-## 五件事各干什么
+All times are placeholder style: `{{start_time}}` and the like get filled in config. The recommended values after them are the times the current daily run uses — fill them in as-is, or change them if you like. When changing, mind the order: watchdogs come after the daily run starts and after the publish target.
 
-### 1. 日更
+## What each of the five does
 
-- 触发：每天一次。占位 `{{daily_time}}`，推荐早上 06:00。
-- 干什么：当天的总管开工。读宪法页、做防重复三查、按顺序派单、验收、发布、汇报。全套流程看 `../orchestrator.md`。
-- 目标：`{{publish_by}}` 之前发出去，推荐 08:00 前。
-- 不干什么：不做跟进，不做复盘。那是下面第 4、5 件事。
+### 1. Daily post
 
-### 2. 早看门狗
+- Trigger: once a day. Placeholder `{{daily_time}}`, recommended 06:00 in the morning.
+- What it does: today's manager starts. Read the constitution page, run the triple duplicate check, dispatch in order, check acceptance, publish, report. The full flow is in `../orchestrator.md`.
+- Target: published before `{{publish_by}}`, recommended before 08:00.
+- What it doesn't do: no follow-up, no review. Those are jobs 4 and 5 below.
 
-- 触发：日更开工后约 20 分钟。占位 `{{watchdog_early_time}}`，推荐 06:20。
-- 只干一件事：看今天的运行日志有没有第一行打点。
-- 有：一切正常，安静结束，不发任何消息。
-- 没有：说明日更没真正开工。先报警一行，再补发一轮日更，只补一次。补发前先看台账有没有今天的条目，有就不补，只报警。
-- 不干什么：不查发布没发布。那是晚看门狗的事。
+### 2. Early watchdog
 
-### 3. 晚看门狗
+- Trigger: about 20 minutes after the daily run starts. Placeholder `{{watchdog_early_time}}`, recommended 06:20.
+- Does one thing only: check whether today's run log has its first heartbeat entry.
+- Has it: all normal. End quietly, no message sent.
+- Doesn't have it: the daily run never really started. First sound one line of alarm, then re-trigger one daily round to make up for it — only once. Before re-triggering, check whether the ledger already has today's entry. If it does, don't re-trigger — alarm only.
+- What it doesn't do: doesn't check whether anything published. That is the late watchdog's job.
 
-- 触发：发布目标时间之后一点。占位 `{{watchdog_late_time}}`，推荐 08:12。
-- 只干一件事：看台账里有没有今天的条目，或者日志里有没有「发布完成」的打点。
-- 有：正常，安静结束。
-- 没有：报警一行，带上日志里最后一条打点，说清卡在哪个阶段。没有日志就写无打点。
-- 不干什么：只报警，不补发、不重跑。这个点可能日更还在跑，补发会撞车发重。
+### 3. Late watchdog
 
-### 4. 发后跟进
+- Trigger: a little after the publish target time. Placeholder `{{watchdog_late_time}}`, recommended 08:12.
+- Does one thing only: check whether the ledger has today's entry, or whether the log has a "publish complete" heartbeat entry.
+- Has it: normal, end quietly.
+- Doesn't have it: one line of alarm, carrying the log's last heartbeat entry, stating which stage it is stuck at. No log means write "no heartbeat entries".
+- What it doesn't do: only alarms — no make-up sends, no re-runs. The daily run may still be running at this point, and a make-up send could collide and double-post.
 
-- 触发：占位 `{{followup_time}}`，推荐跟着晚看门狗一起在 08:12 启动。但窗口起点按帖子实际发布时间算，不按这个钟点算。
-- 干什么：发布后 0 到 2 小时，每 30 分钟查一次。先看通知和私信有没有红点，没红点就结束这一轮。有新评论按手册回，有要主人处理的私信就报出来。满 2 小时停。
-- 细则看 `core/stages/` 里跟进那份。
-- 不干什么：2 小时以外的互动不管。点赞、收藏、新增关注只记不报。
+### 4. Post-publish follow-up
 
-### 5. 周复盘
+- Trigger: placeholder `{{followup_time}}`, recommended to start together with the late watchdog at 08:12. But the window starts from the post's actual publish time, not from this clock time.
+- What it does: for 0 to 2 hours after publishing, check every 30 minutes. First look for red dots on notifications and DMs — no red dots means this round ends. New comments get replied to by the guide; DMs needing the owner get reported. Stop at 2 hours.
+- Details are in the follow-up guide in `core/stages/`.
+- What it doesn't do: interactions outside the 2 hours don't count. Likes, saves, and new follows get logged, not reported.
 
-- 触发：每周一次。占位 `{{review_time}}`，推荐周日晚上约 20:18。
-- 干什么：看本周的帖子和数据，把教训写进教训册，成了规矩的升进 `core/`。顺手做数据回填、草稿清理、口径巡检。每月第一次复盘还要复看敏感词附册，对照平台最新公告更新。细则看 `core/stages/` 里复盘那份。
-- 不干什么：不发新帖。
+### 5. Weekly review
 
-## 三家分别怎么做
+- Trigger: once a week. Placeholder `{{review_time}}`, recommended Sunday evening around 20:18.
+- What it does: look at the week's posts and data, write lessons into the lessons book, and promote what became rules into `core/`. Also do data backfill, draft cleanup, and wording patrol. The month's first review also re-reads the sensitive-words appendix and updates it against the platform's latest notices. Details are in the review guide in `core/stages/`.
+- What it doesn't do: doesn't publish new posts.
+
+## How each of the three does it
 
 ### Muse
 
-五件事都能建成定时任务，一件事一个任务。模板在 `cron-claude.example.md`，五份都在里面，照着填占位符就能建。这是三家里唯一一条现成跑通的路。
+All five jobs can be built as scheduled tasks, one task per job. Templates are in `cron-claude.example.md` — all five are inside, just fill in the placeholders to build them. This is the only path of the three that already runs end to end.
 
 ### Grok
 
-先说清：Grok Bot 有没有自带定时，我们没确认过（它还在 beta），别当承诺。
+Stated clearly: whether Grok Bot has built-in scheduling, we have not confirmed (it is still in beta) — don't take it as a promise.
 
-- 你那边有定时功能，就照着五个任务的目的各建一个，边界照抄本文件。
-- 没有，就用系统 cron 拉起：到点启动一次会话，把对应那份任务说明喂进去。例子看 `cron-system.example`。
-- 系统 cron 也用不上，就手动：到点自己喊一声开工。看门狗这两件手动做不了，可以省掉，但要在台账边上自己多留个心，周复盘时把漏检的情况记一笔。
+- If your side has a scheduling feature, build one per job by the five jobs' purposes above, copying the limits from this file.
+- If not, use system cron to start up: at the set time, start one session and feed it that job's instructions. See `cron-system.example` for an example.
+- If system cron is also unavailable, do it by hand: call out the start yourself at the set time. The two watchdog jobs can't be done by hand and can be skipped — but keep an extra eye on it beside the ledger, and at weekly review, log the missed checks.
 
 ### Dots
 
-Dots 自带定时跑（scheduled runs），五件事照着上面的目的各建一个，边界照抄本文件。这条路我们没实测过，两个提醒：
+Dots has built-in scheduled runs. Build one per job by the purposes above, copying the limits from this file. This path is untested by us, with two reminders:
 
-- 发布那件到点跑的时候怎么发，看你在 Dots 里给它定的规则：发布设成「先问我」，它备好待发包、停住等你批准；设成自动放行，它自己发。先用前者，跑稳了再改。
-- 五件都建完，先手动触发一轮日更，看它是不是按点开工、证据留得全不全，再放心让它自己跑。看门狗的两件也一样，先验一轮再信任。
+- How the publish job sends when its time comes depends on the rule you set for it in Dots: publish set to "ask me first" means it prepares the ready-to-post pack, stops, and waits for your approval; set to auto-approve, it publishes on its own. Use the former first, and change it once steady.
+- After building all five, manually trigger one daily round first, and check whether it starts on time and whether its evidence is complete — only then trust it to run on its own. Same for the two watchdog jobs: check one round first, then trust them.
 
-## 完全没有定时的时候
+## When there is no scheduling at all
 
-用 `manual-checklist.md`。那是一页纸的清单，从开工到收尾，一步一步勾着走。手动跑不丢东西，只是要人到场。
+Use `manual-checklist.md`. It is a one-page checklist, ticking from start to finish step by step. Manual runs lose nothing — they just need a person present.

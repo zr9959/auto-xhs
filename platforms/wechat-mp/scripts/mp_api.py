@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""公众号 API 调用：探针 + 建草稿。凭据只从环境变量读，绝不写进文件。
+"""Official-account API calls: probe + create draft. Credentials come only from environment variables, never from files.
 
-用法：
+Usage:
     MP_APPID=xxx MP_SECRET=xxx python3 mp_api.py --action probe --dry-run
     MP_APPID=xxx MP_SECRET=xxx python3 mp_api.py --action probe
     MP_APPID=xxx MP_SECRET=xxx python3 mp_api.py --action draft-add \\
@@ -9,11 +9,11 @@
     MP_APPID=xxx MP_SECRET=xxx python3 mp_api.py --action draft-add \\
         --draft-json draft.json
 
-注意两条硬限制（见模块 README，先读再跑）：
-  1. 调用方 IP 必须在公众号后台的白名单里，否则报 40164——先确认出口 IP。
-  2. 个人未认证号调不通发布、群发接口（48001），本脚本只做探针和建草稿，
-     最终发布在网页后台手动做。
---dry-run 只打印「会调哪个接口、带什么字段」，不发任何请求、不打印凭据。
+Two hard limits to know first (see the module README — read before running):
+  1. The caller IP must be on the official-account backend allowlist, or the call fails with 40164 — confirm the egress IP first.
+  2. Personal uncertified accounts cannot call publish or mass-send endpoints (48001); this script only probes and creates drafts,
+     and final publishing happens manually in the web backend.
+--dry-run only prints which endpoint it would call and which fields it carries — no requests sent, no credentials printed.
 """
 
 import argparse
@@ -58,16 +58,16 @@ def explain(res):
     if code == 0:
         return None
     if code == 40164:
-        return "40164：调用地址不在 IP 白名单里——先确认出口 IP，再改白名单，不要先怀疑凭据。"
+        return "40164: the calling address is not on the IP allowlist — confirm the egress IP first, then change the allowlist; don't suspect the credentials first."
     if code == 48001:
-        return "48001：接口未授权。个人未认证号调发布、群发、菜单、标签接口都是这个答案，改走手动终发。"
+        return "48001: endpoint unauthorized. Personal uncertified accounts get this answer for publish, mass-send, menu, and tag endpoints — switch to manual final publish."
     if code in (40001, 42001):
-        return "token 失效或过期：检查凭据文件在不在、权限对不对。"
-    return f"接口返回 errcode={code} errmsg={res.get('errmsg')}"
+        return "Token invalid or expired: check whether the credential file exists and the permissions are right."
+    return f"API returned errcode={code} errmsg={res.get('errmsg')}"
 
 
 def main():
-    ap = argparse.ArgumentParser(description="公众号 API：探针 + 建草稿")
+    ap = argparse.ArgumentParser(description="Official-account API: probe + create draft")
     ap.add_argument("--action", choices=["probe", "draft-add"], required=True)
     ap.add_argument("--draft-json")
     ap.add_argument("--dry-run", action="store_true")
@@ -76,43 +76,43 @@ def main():
     appid = os.environ.get("MP_APPID", "")
     secret = os.environ.get("MP_SECRET", "")
     if not appid or not secret:
-        return fail("凭据没给：先设环境变量 MP_APPID 和 MP_SECRET（别写进仓库里的任何文件）")
+        return fail("No credentials given: set the MP_APPID and MP_SECRET environment variables first (never in any repo file)")
     if args.action == "draft-add" and not args.draft_json:
-        return fail("draft-add 需要 --draft-json 传 build_draft.py 生成的包")
+        return fail("draft-add needs --draft-json with the package build_draft.py generated")
 
     if args.dry_run:
-        print(f"[干跑] 会先调：GET /cgi-bin/token（换 token，只打码显示 appid 前 4 位：{appid[:4]}****）")
+        print(f"[dry run] First call: GET /cgi-bin/token (token exchange, showing only the first 4 chars of appid, masked: {appid[:4]}****)")
         if args.action == "probe":
-            print("[干跑] 再调：GET /cgi-bin/draft/count（读草稿数）")
+            print("[dry run] Then: GET /cgi-bin/draft/count (read draft count)")
         else:
             payload = json.loads(open(args.draft_json, encoding="utf-8").read())
             titles = [a.get("title", "") for a in payload.get("articles", [])]
-            print(f"[干跑] 再调：POST /cgi-bin/draft/add，文章 {len(titles)} 篇：{titles}")
-        print("[干跑] 没发任何请求。去掉 --dry-run 才真调。")
+            print(f"[dry run] Then: POST /cgi-bin/draft/add, {len(titles)} article{'s' if len(titles) != 1 else ''}: {titles}")
+        print("[dry run] No requests sent. Drop --dry-run to really call.")
         return 0
 
     token_res = api_get("/cgi-bin/token", {
         "grant_type": "client_credential", "appid": appid, "secret": secret})
     hint = explain(token_res)
     if hint or "access_token" not in token_res:
-        return fail("换 token 失败：" + (hint or str(token_res)))
+        return fail("Token exchange failed: " + (hint or str(token_res)))
     token = token_res["access_token"]
-    print("token 已换到（值不打印）。")
+    print("Token exchanged (value not printed).")
 
     if args.action == "probe":
         res = api_get("/cgi-bin/draft/count", {"access_token": token})
         hint = explain(res)
         if hint:
-            return fail("探针失败：" + hint)
-        print(f"探针通过：草稿数 {res.get('total_count')}")
+            return fail("Probe failed: " + hint)
+        print(f"Probe passed: draft count {res.get('total_count')}")
         return 0
 
     payload = json.loads(open(args.draft_json, encoding="utf-8").read())
     res = api_post("/cgi-bin/draft/add", {"access_token": token}, payload)
     hint = explain(res)
     if hint:
-        return fail("建草稿失败：" + hint)
-    print(f"草稿已建：media_id {res.get('media_id')}")
+        return fail("Draft creation failed: " + hint)
+    print(f"Draft created: media_id {res.get('media_id')}")
     return 0
 
 

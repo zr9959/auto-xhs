@@ -1,24 +1,26 @@
-# 跟通用规矩不一样的地方
+[中文](stages-diff.zh-CN.md) | English
 
-通用规矩在 `core/` 里，宪法页加六份阶段手册。你的玩法跟它们不一样的地方，只写在这里。
+# Where it differs from the general rules
 
-规矩就三条：
+The general rules live in `core/` — the constitution page plus six stage guides. Where your scenario differs from them, write it only here.
 
-1. **只写不一样的。** 一样的不许抄过来。抄过来以后，通用规矩改了，你这份还是旧的，两边就对不上了。
-2. **写清哪一步不一样。** 按阶段写：选题、写稿、做片、发布、跟进、复盘，哪一步变了就写哪一步。没变的阶段不用提。
-3. **没有不一样就写「没有」。** 别留空，留空别人不知道你是没写还是真没有。
+Three rules for this file:
 
-写法举例（照这个样子，内容换成你的）：
+1. **Only write what differs.** Don't copy the parts that are the same. Once you copy them, the general rules change later and your copy stays old — the two sides stop matching.
+2. **Say which step differs.** Write by stage: topic picking, script writing, video making, publishing, follow-up, review — cover the stages that changed, and skip the ones that didn't.
+3. **If nothing differs, write "none".** Don't leave it blank — a blank leaves readers unsure whether you didn't write it or there really is nothing.
 
-## 选题
+Example wording (follow this shape, swap in your content):
 
-- 通用规矩是扫信源挑题。这个玩法不挑题，每天的内容由数据直接定，选题这一步换成去数据源取当天的数据。
-- 事实核对也跟着变：不用找第二个来源对，是把数据跟数据源当场对一遍，对不上就不发。
+## Topic picking
 
-## 写稿
+- The general rule is to scan sources and pick a topic. This scenario doesn't pick topics — the day's content comes straight from the data, so the topic-picking step becomes fetching the day's data from the source.
+- Fact-checking changes with it: no second source to check against — instead, check the data against the source on the spot, and if it doesn't match, don't publish.
 
-- 标题不用写 3 版。这个玩法标题是固定格式，照格式填当天的数据就行。
+## Script writing
 
-## 其他阶段
+- Titles don't need 3 versions. This scenario's title is a fixed format — just fill in the day's data to the format.
 
-- 没有不一样，照通用规矩走。
+## Other stages
+
+- Nothing differs — follow the general rules.

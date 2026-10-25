@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""把 SRT 字幕烧进视频，字幕底边离底部 24%（抖音底部信息区安全距离）。
+"""Burn SRT subtitles into a video, with the subtitle bottom edge 24% up from the bottom
+(Douyin bottom info area safe distance).
 
-用法：
-    python3 burn_subtitles.py --video 原片.mp4 --srt 字幕.srt --out 成片.mp4
-    python3 burn_subtitles.py --video 原片.mp4 --srt 字幕.srt --out 成片.mp4 \\
+Usage:
+    python3 burn_subtitles.py --video original.mp4 --srt subtitles.srt --out finished.mp4
+    python3 burn_subtitles.py --video original.mp4 --srt subtitles.srt --out finished.mp4 \\
         --margin-bottom-pct 24 --font-size 46
 
-只依赖 ffmpeg / ffprobe。字幕样式：底部居中，底边距底 = 画面高度 × margin-bottom-pct。
-1080×1920 的画幅，默认 24% 就是距底 460 像素那条线（见模块 README 字幕一节）。
+Only needs ffmpeg / ffprobe. Subtitle style: bottom-centered, bottom margin = frame height × margin-bottom-pct.
+On a 1080×1920 frame, the default 24% is the line 460px up from the bottom (see pipeline step 4 in the module README).
 """
 
 import argparse
@@ -20,7 +21,7 @@ from pathlib import Path
 def run(cmd, cwd=None):
     r = subprocess.run(cmd, capture_output=True, text=True, cwd=cwd)
     if r.returncode != 0:
-        print(f"命令失败：{' '.join(cmd)}\n{r.stderr.strip()}", file=sys.stderr)
+        print(f"Command failed: {' '.join(cmd)}\n{r.stderr.strip()}", file=sys.stderr)
         sys.exit(2)
     return r.stdout
 
@@ -55,7 +56,7 @@ def to_ass_time(t):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="SRT 字幕烧录（底边距底 24%）")
+    ap = argparse.ArgumentParser(description="SRT subtitle burn-in (bottom edge 24% up)")
     ap.add_argument("--video", required=True)
     ap.add_argument("--srt", required=True)
     ap.add_argument("--out", required=True)
@@ -67,14 +68,14 @@ def main():
     video, srt, out = Path(args.video), Path(args.srt), Path(args.out)
     for p in (video, srt):
         if not p.is_file():
-            print(f"找不到文件：{p}", file=sys.stderr)
+            print(f"File not found: {p}", file=sys.stderr)
             return 2
     w, h = probe_size(video)
     cues = parse_srt(srt)
     if not cues:
-        print("SRT 里没读出有效字幕段，检查时间轴格式", file=sys.stderr)
+        print("No valid subtitle cues read from the SRT — check the timestamp format", file=sys.stderr)
         return 2
-    margin_v = int(h * args.margin_bottom_pct / 100)  # 向下取整：1920×24% = 460，跟模块文档一致
+    margin_v = int(h * args.margin_bottom_pct / 100)  # Round down: 1920×24% = 460, matching the module docs
 
     ass_lines = [
         "[Script Info]",
@@ -100,7 +101,7 @@ def main():
     run(["ffmpeg", "-y", "-v", "error", "-i", str(video),
          "-vf", f"ass={ass_path.name}", "-c:a", "copy", str(out)], cwd=str(out.parent))
     ass_path.unlink(missing_ok=True)
-    print(f"烧好了：{out}（{w}x{h}，字幕 {len(cues)} 条，底边距底 {margin_v}px = {args.margin_bottom_pct:g}%）")
+    print(f"Done: {out} ({w}x{h}, {len(cues)} subtitle cues, bottom edge {margin_v}px = {args.margin_bottom_pct:g}%)")
     return 0
 
 

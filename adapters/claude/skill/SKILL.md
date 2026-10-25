@@ -1,22 +1,24 @@
 ---
 name: auto-xhs
-description: "用这套流程运营一个小红书号：选题、写稿、网页做片、发布、发后跟进、周复盘。用户说到小红书日更、发小红书、自动运营、复盘时用。"
+description: "Run a Xiaohongshu account with this workflow: topic picking, script writing, web-page video making, publishing, post-publish follow-up, weekly review. Use when the user talks about Xiaohongshu daily posts, posting to Xiaohongshu, automated operation, or reviews."
 ---
 
-# auto-xhs 入口
+[中文](SKILL.zh-CN.md) | English
 
-这份文件只是个入口，不存规矩。规矩只在仓库的 `core/` 里存一份，别在这里另写一套。
+# auto-xhs entry point
 
-## 读取顺序
+This file is only an entry point. It holds no rules. The rules live in exactly one place, the repo's `core/` — don't write a second copy here.
 
-1. 先读 `core/CONSTITUTION.md`。总管每轮只读这一份开工。
-2. 干到哪个阶段，读 `core/stages/` 里对应的那一份。不要一次全读。
-3. 选题和发布两个阶段，按手册要求另读敏感词附册。
+## Reading order
 
-## 怎么干
+1. Read `core/CONSTITUTION.md` first. The manager reads only this one to start each round.
+2. When you reach a stage, read the matching guide in `core/stages/`. Don't read them all at once.
+3. For the topic-picking and publishing stages, also read the sensitive-words appendix as the guide requires.
 
-- 编排看 `orchestration/orchestrator.md`：总管只派单、验收、汇报，阶段活派给子 agent，一个一个来，验过才派下一个。
-- 派单照 `orchestration/dispatch-templates.md` 写。
-- 定时照 `orchestration/scheduling/` 里 Muse 那份模板建。
-- 做片走 `pipeline/`，动效用 `motion-lib/`。
-- 配置从仓库的配置文件读。品类、信源、时刻、路径都以配置为准，不要把数字写死在这份文件里。
+## How to work
+
+- Orchestration: see `orchestration/orchestrator.md`. The manager only dispatches, checks, and reports. Stage work goes to sub-agents, one at a time, and the next dispatch goes out only after the previous one passes.
+- Write dispatches by `orchestration/dispatch-templates.md`.
+- Build schedules from the Muse template in `orchestration/scheduling/`.
+- Video making goes through `pipeline/`, motion through `motion-lib/`.
+- Config comes from the repo's config file. Category, sources, times, and paths all follow the config — don't hardcode numbers into this file.

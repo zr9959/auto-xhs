@@ -2,9 +2,9 @@
   <img src="docs/assets/banner.png" alt="Auto-xhs" width="760">
 </p>
 
-<h1 align="center">Multi-platform automated operation and publishing (Xiaohongshu / Douyin / X / YouTube / WeChat Official Accounts, for Muse, Dots, and Grok Bot)</h1>
+<h1 align="center">Multi-platform automated operation and publishing (Xiaohongshu / Douyin / TikTok / X / YouTube / WeChat Official Accounts, for Muse, Dots, and Grok Bot)</h1>
 
-<p align="center"><strong>Cloud AI agents run your accounts end to end: Xiaohongshu by default, plus Douyin, X, YouTube, and WeChat Official Accounts as separate modules</strong></p>
+<p align="center"><strong>Cloud AI agents run your accounts end to end: Xiaohongshu by default, plus Douyin / TikTok, X, YouTube, and WeChat Official Accounts as separate modules</strong></p>
 
 <p align="center">
   <img src="https://img.shields.io/github/license/zr9959/auto-xhs" alt="MIT license">
@@ -31,14 +31,14 @@ Repository name: Auto-xhs
 
 Xiaohongshu is still this repo's default, complete pipeline (everything in `core/`, from topics to posting and replies). `platforms/` holds four more platform modules, each independent — enable only the ones you need:
 
-- **Douyin**: trending videos + Chinese subtitles pipeline (pick, download, subtitle, voiceover, cover, title, four sensitivity gates, publish).
+- **Douyin / TikTok**: trending videos + subtitles pipeline (pick the outlet first — Douyin or TikTok — then pick, download, subtitle, voiceover, cover, title, four sensitivity gates, publish).
 - **X**: account warming, posting, replies (five-stage warming, human-like writing rules, cold-start rules, image rule).
 - **YouTube**: English-channel playbook (titles, thumbnails, retention, Shorts, SEO, production standards, API-first workflow).
 - **WeChat Official Accounts**: drafts + manual final publish (personal uncertified accounts cannot publish via API; the content playbook is still to come).
 
 Each module states its own limits and risks up front — read those before you use it. Each module's README ends with a "Runnable code" section: the scripts that are actually tested, and the parts that are still manual. Index: [platforms/README.md](platforms/README.md).
 
-Note on language: the four platform modules are fully in English. The Xiaohongshu core guides (`core/`, `adapters/`, `docs/`, `SETUP.md`) are still in Chinese for now — the Chinese version of this README is [README.zh-CN.md](README.zh-CN.md).
+Note on language: the platform modules, the Xiaohongshu core guides (`core/`, `adapters/`, `docs/`, `SETUP.md`), and the scripts' output messages are all in English now, each with a Chinese version linked at the top of the file. Still in Chinese on purpose: this CHANGELOG (a history record), the example data in `data/`, and the weather-forecast example pack — the Chinese version of this README is [README.zh-CN.md](README.zh-CN.md).
 
 ## What this project does
 
@@ -101,6 +101,7 @@ Just copy the text below and paste it to your AI assistant — the repository ad
 
 ```
 Set up auto-xhs for me. The repository is https://github.com/zr9959/auto-xhs — follow the instructions in it:
+First, ask me whether I want to work in Chinese or English, and use that language for everything after — setup, daily runs, and reports. The repo docs come in both languages; read the version in the language I pick.
 1. Download the repository to my machine first (git clone if git is available, otherwise download the archive and unzip it), and go into the repository root. Run all the commands below from there.
 2. Run bash scripts/setup.sh. It checks my environment, downloads the third-party libraries, and prepares the config file. If anything is missing, tell me and I will install it.
 3. Then open SETUP.md and walk me through config.yaml one item at a time. First, let me choose one of the three automation levels — full-auto, semi-auto, or manual — and explain the difference clearly. Recommend semi-auto to start, but do not decide for me.
@@ -182,7 +183,7 @@ Every step has to leave evidence: where the file is, what the numbers are, what 
 - [motion-lib/](motion-lib/): the web motion library. How titles come in, how numbers count up, how cards flip — it is all here.
 - [pipeline/](pipeline/): the video-making scripts. Frame-by-frame capture, stitching, the cover template, and how to plug in a voice.
 - [orchestration/](orchestration/): how the manager hands out work, how to write the scheduled tasks, and a checklist for running a round by hand.
-- [platforms/](platforms/): four more platform modules — Douyin, X, YouTube, WeChat Official Accounts — each with its own guide and runnable scripts.
+- [platforms/](platforms/): four more platform modules — Douyin / TikTok, X, YouTube, WeChat Official Accounts — each with its own guide and runnable scripts.
 - [adapters/](adapters/): how each of the three assistants connects to the system.
 - [examples/](examples/): one complete made-up example, from topic to checklist, so you can see what every step produces.
 - [docs/](docs/): how the system is put together, the full three-assistant comparison, compliance notes, and common questions.
@@ -204,7 +205,7 @@ It is built to be careful: it works inside a browser the way a person would, at 
 Any one of the three cloud agents: Muse, Dots, or Grok Bot. All three have their own cloud computer and browser; the difference is their approval rules and how open they are. Muse is the one we run and have tested. Dots needs a ChatGPT Pro or Business Premium plan and is not tested by us yet. Grok Bot is still in beta and is not tested by us yet.
 
 **Can it post to Douyin or TikTok?**
-Douyin has its own module now: [platforms/douyin/](platforms/douyin/) — trending videos + Chinese subtitles pipeline, with runnable scripts (download, subtitle burn-in, outro join, sensitivity scan). TikTok is not covered. If you build it, send it back — that is exactly the kind of addition this project wants.
+Douyin and TikTok share one module now: [platforms/douyin/](platforms/douyin/) — same pipeline, you pick the outlet first. Download takes a Douyin or TikTok video URL, and publishing goes through that outlet's creator center. One honest limit: the four sensitivity gates in the module are written for Douyin; TikTok's own community rules aren't a separate gate yet, so check those before posting to TikTok.
 
 **Do I need to know how to code?**
 No. The normal way to install is to paste one paragraph (the one above) to your assistant and answer its questions. Reading the guides helps you understand what it is doing, but you do not have to write code.

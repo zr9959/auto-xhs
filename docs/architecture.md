@@ -1,51 +1,53 @@
-# 架构：五层，各管一段
+[中文](architecture.zh-CN.md) | English
 
-小红书全自动化运营发布（适配muse、Dots、Grok Bot）
+# Architecture: five layers, each minding its own part
 
-这套东西不是一个程序，是五层叠起来的。每层只管自己的事。换 agent 平台的时候，只有最上面两层要动，下面三层原样。
+Multi-platform automated operation and publishing (for Muse, Dots, Grok Bot)
 
-## 第一层：规矩
+This thing is not one program — it is five layers stacked up. Each layer minds only its own business. When you switch agent platforms, only the top two layers change. The bottom three stay as they are.
 
-在哪：`core/`。
+## Layer 1: Rules
 
-管什么：选题怎么选、稿怎么写、片怎么做、发布怎么过闸、跟进和复盘怎么做。宪法页 `core/CONSTITUTION.md` 管总口径和全部数字，六份阶段手册在 `core/stages/` 管每一步的细节，敏感词和教训是两份附册。
+Where: `core/`.
 
-为什么只存一份：规矩抄到第二个地方，两份就会慢慢对不上。这套流程吃过这个亏，所以定的死规矩是：规矩只在 `core/`，别的目录只许引用，不许复制。
+What it covers: how topics get picked, how scripts get written, how videos get made, how publishing passes its gates, how follow-up and review work. The constitution page `core/CONSTITUTION.md` sets the overall standards and every number. The six stage guides in `core/stages/` cover each step's details. Sensitive words and lessons are two appendices.
 
-## 第二层：验收
+Why only one copy: once rules get copied to a second place, the two copies slowly drift apart. This workflow has been bitten by that before, so the hard rule is: rules live only in `core/`. Other directories may reference them, never copy them.
 
-在哪：`core/validate.py`，加上每期的验收单。
+## Layer 2: Acceptance
 
-管什么：把「做得好不好」变成能查的数。字数、时长、分辨率、静音、封面尺寸、文件结构，脚本逐项查，输出 PASS 和 FAIL。成片验收单管脚本查不了的：抽帧看产品对不对、界面出没出镜、期号对不对。
+Where: `core/validate.py`, plus each episode's acceptance list.
 
-这一层是闸门。没过验收，流程不许往发布走。返工过的东西，旧结论作废，重新查。
+What it covers: turning "is it good" into numbers that can be checked. Word count, length, resolution, silence, cover size, file structure — the script checks each one and outputs PASS and FAIL. The finished video's acceptance list covers what the script can't check: sampled frames showing the right product, real interfaces appearing, issue number correct.
 
-## 第三层：做片
+This layer is the gate. Without passing acceptance, the flow is not allowed to move toward publishing. Anything reworked after a check voids the old conclusion — check it again.
 
-在哪：`pipeline/` 和 `motion-lib/`。
+## Layer 3: Video making
 
-管什么：把稿变成视频。做法是网页做片：稿子的每一段排成一个网页，HTML 和 CSS 管版面，GSAP 管动画，动画组件都在 `motion-lib/` 里。再用浏览器把动画时间线一帧一帧停住截图，最后 ffmpeg 把帧、配音合成成片。
+Where: `pipeline/` and `motion-lib/`.
 
-为什么不用视频剪辑软件那套：网页排版好改，动画能复用， agent 写 HTML 比操作剪辑软件靠谱。代价是慢：一帧一帧截，一条片要截不少时间，这笔账写在做片手册里。
+What it covers: turning a script into a video. The method is web-page video making: each part of the script becomes a web page. HTML and CSS handle layout, GSAP handles animation, and the animation components all live in `motion-lib/`. Then a browser holds the animation timeline still, screenshot by screenshot, and in the end ffmpeg joins the frames and the voiceover into the finished video.
 
-这一层跟平台无关。在哪家 agent 手里，都是同一套脚本在本机跑。
+Why not the video-editor route: web layout is easy to change, animation can be reused, and an agent writes HTML more reliably than it operates editing software. The cost is speed: screenshots come one frame at a time, and one video takes a good while to capture. That cost is written in the video-making guide.
 
-## 第四层：编排
+This layer has nothing to do with platforms. In any agent's hands, it is the same scripts running on the local machine.
 
-在哪：`orchestration/`。
+## Layer 4: Orchestration
 
-管什么：谁先干、谁后干、干完谁验。总管只派单、验收、汇报，不亲自做阶段活。阶段一个接一个串着来，上一个没验过，下一个不开工。每单要交证据清单，出错按四要素写。
+Where: `orchestration/`.
 
-换平台时，这一层写法要跟着变：能派子 agent 的照总管模式来，不能的就一个 agent 顺着做。变的是写法，不变的是顺序和验收。
+What it covers: who works first, who works next, who checks the finished work. The manager only dispatches, checks, and reports — it doesn't do stage work itself. Stages run one after another in series. The next one doesn't start until the previous one passes. Every dispatch must hand back an evidence list, and errors are written in four elements.
 
-## 第五层：调度
+When switching platforms, this layer's wording changes with it: platforms that can dispatch sub-agents follow the manager model; ones that can't have a single agent work through in order. What changes is the wording. The order and the acceptance checks don't change.
 
-在哪：`orchestration/scheduling/`。
+## Layer 5: Scheduling
 
-管什么：什么时候开工、谁来盯有没有跑偏。一共五件事：日更、早看门狗、晚看门狗、发后跟进、周复盘。
+Where: `orchestration/scheduling/`.
 
-这一层各家差别最大。有的平台能建定时任务，有的要靠系统 cron，有的只能人到点喊一声。调度换了，前面四层都不用动，最多就是从「自动开工」变成「手动开工」。
+What it covers: when work starts, and who watches whether it went off track. Five jobs in all: daily post, early watchdog, late watchdog, post-publish follow-up, weekly review.
 
-## 一句话收尾
+This layer differs most across platforms. Some platforms can build scheduled tasks, some need system cron, some can only start when a person calls out at the set time. When scheduling changes, the first four layers don't move at all — at most, "starts automatically" becomes "starts by hand".
 
-从下往上看：规矩、验收、做片是资产，搬到哪都一样；编排和调度是接口，换平台就换这两层。选平台之前，先看 `capability-matrix.md`。
+## One line to close
+
+Looked at bottom-up: rules, acceptance, and video making are assets — they move anywhere unchanged. Orchestration and scheduling are interfaces — switching platforms means switching these two layers. Before picking a platform, read `capability-matrix.md`.

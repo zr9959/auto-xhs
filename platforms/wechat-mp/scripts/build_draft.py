@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""把 Markdown 稿子转成公众号草稿箱接口要的 JSON 包（离线，不调接口）。
+"""Turn a Markdown draft into the JSON package the official-account draft-box API wants (offline, no API calls).
 
-用法：
-    python3 build_draft.py --md 稿子.md --title "标题" --out draft.json
-    python3 build_draft.py --md 稿子.md --title "标题" --author "作者" \\
-        --digest "摘要" --cover-media-id MEDIA_ID --out draft.json
+Usage:
+    python3 build_draft.py --md draft.md --title "Title" --out draft.json
+    python3 build_draft.py --md draft.md --title "Title" --author "Author" \\
+        --digest "Summary" --cover-media-id MEDIA_ID --out draft.json
 
-Markdown 转 HTML 只做最常用的几种：# → h2、## → h3、### → h4、
-- 列表 → ul/li、**粗体** → strong、段落 → p。复杂排版请在网页后台再调。
-输出的 JSON 就是草稿箱接口 articles 数组那一层（见模块 README）。
-真正调接口用同目录的 mp_api.py；本脚本不碰网络、不碰凭据。
+Markdown to HTML covers only the common cases: # → h2, ## → h3, ### → h4,
+- lists → ul/li, **bold** → strong, paragraphs → p. Adjust complex layouts in the web backend.
+The output JSON is the articles array level the draft-box API takes (see the module README).
+Real API calls use mp_api.py in the same directory; this script touches no network and no credentials.
 """
 
 import argparse
@@ -60,7 +60,7 @@ def md_to_html(md):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Markdown 转公众号草稿 JSON 包")
+    ap = argparse.ArgumentParser(description="Markdown to official-account draft JSON package")
     ap.add_argument("--md", required=True)
     ap.add_argument("--title", required=True)
     ap.add_argument("--author", default="")
@@ -70,7 +70,7 @@ def main():
     args = ap.parse_args()
     md_path = Path(args.md)
     if not md_path.is_file():
-        print(f"找不到稿子：{md_path}", file=sys.stderr)
+        print(f"Draft not found: {md_path}", file=sys.stderr)
         return 2
     md = md_path.read_text(encoding="utf-8")
     article = {
@@ -86,8 +86,8 @@ def main():
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"草稿包已生成：{out_path}（标题：{args.title}，正文 {len(article['content'])} 字符）")
-    print("下一步：mp_api.py --action draft-add --draft-json draft.json（先 --dry-run 看一遍）")
+    print(f"Draft package written: {out_path} (title: {args.title}, body {len(article['content'])} chars)")
+    print("Next: mp_api.py --action draft-add --draft-json draft.json (dry-run first to look it over)")
     return 0
 
 
