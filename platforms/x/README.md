@@ -1,83 +1,85 @@
-# X 模块：养号、发帖、回复
+[中文](README.zh-CN.md) | English
 
-面向国际受众，主帖、回复、自回复全用英文。先读最后的「风险披露」，再决定做不做。
+# X module: account warming, posting, replies
 
-## 方向与配比
+For an international audience: main posts, replies, and self-replies are all in English. Read the risk disclosure at the end first, then decide whether to do this.
 
-- 主线：工作日志——以每天真实干的活为内容（建站、维护产品、仓库维护、调研、自动化，含失败与修复），带真实凭据（截图、数字；链接只放自回复）。
-- 热点跟进：本方向（AI agent、工具、独立开发）里最新发布、圈内最火的话题，第一时间带自己的实测、数据或明确立场跟进，不做无观点的资讯搬运。
-- 副线：每周 2 条长帖，讲清楚一个话题（比如某个地区的 AI 生态）。
-- 参考配比：工作日志约一半、热点跟进三到四成、副线约两成。
+## Direction and mix
 
-## 冷启动规矩（粉丝 <500，优先级最高）
+- Main line: work log — content from real work done each day (building sites, maintaining products, repo upkeep, research, automation, including failures and fixes), with real proof (screenshots, numbers; links only in self-replies).
+- Hot topics: the newest releases and hottest discussions in this field (AI agents, tools, indie dev), followed up right away with your own tests, data, or a clear stance — not opinion-free news reposts.
+- Side line: 2 long posts a week, explaining one topic properly (for example, the AI ecosystem in a region).
+- Reference mix: work log about half, hot topics three to four tenths, side line about two tenths.
 
-- 粉丝 <500 期间，主帖不发自家项目、工作日志（使用者单独要求发某一条时除外），以本方向热点跟进为主——最新发布、热门话题、容易引发讨论的角度，先把粉丝攒起来。
-- 自家内容的草稿照常备进内容池，标注「待 500 粉后启用」，不发。
-- 粉丝 ≥500 后恢复上面的配比。副线属话题内容、不算自家广告，冷启动期保留。
+## Cold-start rules (followers < 500, highest priority)
 
-## 五阶段养号
+- While followers are under 500, main posts don't cover your own projects or work log (except when you specifically ask for one post). Lead with hot topics in this field — newest releases, hot discussions, angles that spark replies — and build followers first.
+- Drafts of your own content still go into the content pool as usual, marked "enable after 500 followers", just not posted.
+- At 500 followers and up, the mix above comes back. The side line is topic content, not self-promotion, so it stays during cold start.
 
-Day 1–7 / 8–14 / 15–30 / 31–60 / 61–90，每阶段配额递增、动作递增。每周 1 天低活跃。
+## Five-stage warming
 
-- **配额原则**：从业者区间远低于官方上限；关注量从官方上限的 1/8 量级起步。
-- **新动作解锁顺序**：首帖 → 首 thread → 首视频 → 外链（仅自回复）→ 私信（第 3 阶段后、仅熟人、每周 ≤3 条、无链接）。
-- **发帖窗口**：主窗口按受众时区定（示例：北京时间 21:00–23:00，约美东上午 + 亚洲晚场）；副窗口 08:00–09:30。
-- **库存**：成品稿库存 <5 条报警；工作日志内容池 ≥14 条。
+Days 1–7 / 8–14 / 15–30 / 31–60 / 61–90, quotas and actions rising each stage. One low-activity day per week.
 
-## 帖长与排版
+- **Quota rule**: practitioner ranges sit far below the official limits; follows start around 1/8 of the official limit.
+- **New action unlock order**: first post → first thread → first video → outside links (self-replies only) → DMs (from stage 3, people you know only, at most 3 a week, no links).
+- **Posting windows**: main window set by audience timezone (example: 21:00–23:00 Beijing time, roughly US East morning + Asia evening); second window 08:00–09:30.
+- **Stock**: finished drafts under 5 is an alarm; work-log content pool at 14 or more.
 
-- **帖长轮换**：短帖主力（15–45 词）；长度带按约 50/30/20 轮换，避免每帖同长。
-- **回复长度**：中位约 10 词；≤10 词约占一半；三句及以上只占少数；无收尾标点是常态，别条条句号。
-- **排版**：hashtag 0–1 个（上限 2）；emoji 0–2 个、多放句尾；禁止 Unicode 粗体、每行行首 emoji、文末标签墙、模板化串帖符号。
-- **具体度**：每条主线帖 ≥2 个具体数（条数、耗时、行数、价格、报错原文任选）+ 一个明确结论（上线了、修好了、翻车了；涉及工具时给 keep / skip / wait）。没有真实记录就写「据官方称」，不编。
+## Post length and layout
 
-## 拟人化写法规范
+- **Post length rotation**: short posts are the mainstay (15–45 words); length bands rotate roughly 50/30/20 so not every post is the same length.
+- **Reply length**: median about 10 words; about half are 10 words or under; three sentences or more are rare; no closing punctuation is normal — don't end every line with a period.
+- **Layout**: hashtags 0–1 (max 2); emoji 0–2, mostly at the end of the sentence; no Unicode bold, no emoji at the start of every line, no hashtag wall at the end, no templated thread symbols.
+- **Concreteness**: every main-line post has at least 2 concrete numbers (counts, hours, lines, prices, error text — pick any) + one clear conclusion (shipped, fixed, failed; for tools, say keep / skip / wait). With no real record, write "according to the official post" — never invent.
 
-核心就一句：**人味 = 只对原帖的一个具体点反应 + 长度打散 + 有具体数和立场**；AI 味 = 结构永远完整。
+## Human-like writing rules
 
-- **禁用词、句式**：delve、moreover、furthermore、in conclusion、it's worth noting、滥用的 game-changer、not just X, but Y 排比、每帖结尾必 CTA、每帖结尾必提问、复述开头做总结。
-- **回复禁区**：复述原帖、「Great post! Thanks for sharing」类客服腔、过度完整的回答、裸链接资源投递、一词捧（「This.」式）。
-- **按父帖类型选功能**：晒成果、媒体帖下夸要夸到具体点（不写空夸）；征集帖下个人经历主导；教程、实测帖下提问 + 经历 + 补事实居前；新闻、观点帖下不同意、纠正可以有，但要带依据。
-- **作者自回复**：补信息、更正、续写为主；对有内容的回复做实质回应；简短致谢只点到为止，不逐条回、不套模板道谢。自己帖下有人问真问题，必须实质答——这是最稀缺、也最圈粉的部分。
+It comes down to one line: **human = reacting to one specific point in the parent post + varied length + concrete numbers and a stance**; AI flavor = always a complete structure.
 
-## 配图铁律
+- **Banned words and patterns**: delve, moreover, furthermore, in conclusion, it's worth noting, overused game-changer, not just X, but Y parallels, a CTA at the end of every post, a question at the end of every post, restating the opening as a summary.
+- **Reply no-go zones**: restating the parent post, "Great post! Thanks for sharing" customer-service tone, over-complete answers, bare-link resource drops, one-word praise ("This." style).
+- **Pick the move by parent post type**: under show-off and media posts, praise a specific point (no empty praise); under ask posts, lead with personal experience; under tutorial and test posts, lead with questions + experience + added facts; under news and opinion posts, disagreement and corrections are fine, with evidence.
+- **Self-replies**: mainly to add info, correct, or continue. Give real replies to replies with substance. Short thanks only go so far — don't answer every one, don't use template thanks. If someone under your own post asks a real question, answer it properly — that is the rarest and most follower-winning part.
 
-- 主帖不能纯文字——尤其长帖，每条主帖至少配 1 张与内容对应的图，纯文字没人愿意看下去。
-- **真实图片优先**：官方发布图、产品官网、发布会截图、自己工作里的真实界面截图、公开新闻或原帖截图——从网上找，但必须核实与帖子主题对应、不张冠李戴，引用他人图片时注明来源。
-- 找不到合适真实图时，用生图：按帖子内容生成，只作示意、不冒充实拍。
-- 红线不变：AI 配图避开真人脸与真实事件造假；发前看一眼原图，确认不糊、不裁掉关键信息，图要能让人一眼看懂帖子在讲什么（数据、界面、对比、过程），不是装饰。
-- 回复不强制配图，回复以文字为主。
+## Image rule
 
-## 内容红线
+- Main posts can't be text-only — especially long ones. Every main post needs at least 1 picture that matches the content; nobody reads pure text to the end.
+- **Real pictures first**: official release images, product homepages, event screenshots, real interface screenshots from your own work, public news or original-post screenshots — found online, but verified to match the post's topic, no mismatches; credit the source when quoting someone else's picture.
+- When no fitting real picture exists, generate one: made from the post's content, as an illustration only, never passed off as a real photo.
+- Red lines don't move: AI pictures avoid real faces and faked real events; look at the original before posting and confirm it's not blurry, doesn't crop key info, and lets a reader tell at a glance what the post is about (data, interface, comparison, process) — not decoration.
+- Replies don't need pictures; replies are text-led.
 
-不买粉、买赞、买号；不进互关群组、不玩互关列车、不办抽奖涨粉；不批量无差别关注、取关；不发相同、近似内容到多号；不冒充真人、机构；不用 AI 生成真人脸做人设；欺骗性合成媒体（真人、真实事件）不发；不搬运下载再上传；不喊单、空投、假 giveaway；不发他人隐私。AI 写稿本身不违规，违规的是批量、重复、无差别的行为模式。
+## Content red lines
 
-## 复盘
+No buying followers, likes, or accounts; no follow-back groups, no follow trains, no giveaway growth hacks; no mass indiscriminate follow/unfollow; no posting the same or near-identical content across accounts; no impersonating people or organizations; no AI-generated real faces as personas; no deceptive synthetic media (real people, real events); no downloading and re-uploading; no price calls, airdrops, or fake giveaways; no posting other people's private info. AI-written drafts are not themselves a violation — what violates is bulk, repetitive, indiscriminate behavior patterns.
 
-- 每日记 KPI：展示、互动、主页点击、涨粉、回复漏斗。
-- 每周复盘 Top / Bottom 3 帖，并更新本模块。
-- 触达骤降先查平台提供的账号状态页，再按三段排查：内容、行为、账号状态。
+## Review
 
-## 会员
+- Daily KPI log: impressions, engagement, profile clicks, follower growth, reply funnel.
+- Weekly review of top / bottom 3 posts, and update this module.
+- When reach drops sharply, check the platform's account status page first, then work through three checks: content, behavior, account status.
 
-先免费跑一个月拿基线数据再评估付费会员：长帖不用拆、回复排序有帮助，但解决不了 0 粉丝的根本问题。复评节点：30 天数据出来后，或单帖中位展示长期 <100 时，带数据再定。
+## Membership
 
-## 风险披露（必读）
+Run free for a month to get baseline data before judging paid membership: long posts without splitting and reply ranking help, but they don't fix the root problem of 0 followers. Re-judge when 30 days of data are in, or when a single post's median impressions stay under 100 for a long time — with data, then decide.
 
-自动化操作（模拟真人点屏幕发帖、回复、关注）违反平台关于非真人行为的规则精神，平台在查这类操作，账号及关联账号可能被封。本模块把配额、节奏、拟人化当作压风险的手段，不是免死牌。执行前使用者自己权衡；一旦收到验证、限制提示，立刻停手汇报，不硬闯。
+## Risk disclosure (must read)
 
-## 可运行代码（`scripts/check_post.py`）
+Automated operation (clicking through screens like a person to post, reply, follow) goes against the spirit of the platform's rules on non-human behavior. The platform checks for this kind of operation, and the account and linked accounts can be banned. This module treats quotas, pacing, and human-like writing as risk reduction, not a free pass. Weigh it yourself before running it. On any verification or restriction prompt, stop immediately and report — don't push through.
 
-发帖前先过一遍检查，FAIL 的必须改，WARN 的自己掂量。
+## Runnable code (`scripts/check_post.py`)
+
+Check a post before sending it. FAIL items must be fixed; WARN items are your judgment call.
 
 ```bash
-python3 scripts/check_post.py --text "帖子正文"
+python3 scripts/check_post.py --text "post text"
 python3 scripts/check_post.py --file draft.txt
-python3 scripts/check_post.py --text "回复正文" --kind reply
+python3 scripts/check_post.py --text "reply text" --kind reply
 ```
 
-检查项：禁用词、Unicode 粗体、🧵👇 全套模板符号（这三项是 FAIL）；hashtag 超 2 个、emoji 超 2 个、主线帖具体数少于 2 个、正文带链接、回复超 30 词/字（WARN）。中文按字计、英文按词计，不然中文帖子按空格分词永远只有几个“词”。
+Checks: banned words, Unicode bold, 🧵👇 full template symbols (these three are FAIL); more than 2 hashtags, more than 2 emoji, fewer than 2 concrete numbers in a main-line post, links in the main text, replies over 30 words (WARN). Chinese counts by character, English by word — otherwise a Chinese post split on spaces is always just a few "words" and the length check never fires.
 
-实测记录（2026-10-25）：好帖 0 FAIL 0 WARN；坏帖（禁用词 + 3 个 hashtag + Unicode 粗体 + 🧵👇 + 裸链接）3 FAIL 3 WARN，退出码 1。
+Test record (2026-10-25): good post 0 FAIL 0 WARN; bad post (banned words + 3 hashtags + Unicode bold + 🧵👇 + bare link) 3 FAIL 3 WARN, exit code 1.
 
-发帖本身故意不写自动代码：平台查非真人操作，自动发帖、自动回复、自动关注都可能封号（见上面风险披露）。检查过了，人自己去浏览器里发。
+Posting itself is deliberately not automated code: the platform checks for non-human operation, and auto posting, replying, or following can get the account banned (see the risk disclosure above). Once it passes the check, post it yourself in the browser.

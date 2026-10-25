@@ -1,76 +1,78 @@
-# YouTube 模块：英文频道运营
+[中文](README.zh-CN.md) | English
 
-面向美国观众、全英文。选题按美国观众关心的钱、订阅、账号、隐私、设备、服务重新想，不是把中文稿翻译搬运。
+# YouTube module: English channel operation
 
-## 三条标准（每条都过才算合格）
+For a US audience, all in English. Topics are rethought around what US viewers care about — money, subscriptions, accounts, privacy, devices, services — not translated from Chinese scripts.
 
-1. **跟我有什么关系**：开头先落到观众的钱、账号、设备、正在用的服务上。
-2. **说人话**：大白话短句，术语当句解释。
-3. **有真实界面和具体细节**：真实截图、具体数字、具体步骤，不许空讲概念。
+## Three standards (all three must pass)
 
-## 标题与封面
+1. **Why does this matter to me**: open on the viewer's money, account, device, or a service they use.
+2. **Plain words**: short, everyday sentences; explain any term in the same sentence.
+3. **Real interfaces and concrete details**: real screenshots, concrete numbers, concrete steps — no empty concept talk.
 
-- **标题**：冲突前置、带具体数字、悬念但不标题党；标题与封面互相补位，不重复同一句话。
-- **封面**：大字少、强对比、冲突画面一眼看懂；人物、场景、物品要有，封面不能只剩大字。
-- 标题、封面、脚本等生产决策按知识库自行定版执行，不逐项等人点头；只有账号验证类本人步骤才回人。
+## Titles and thumbnails
 
-## 留存与节奏
+- **Titles**: conflict up front, concrete numbers, suspense without clickbait; title and thumbnail complement each other, never repeat the same sentence.
+- **Thumbnails**: few big words, strong contrast, a conflict scene readable at a glance; people, scenes, and objects must be there — a thumbnail can't be just big text.
+- Production decisions like titles, thumbnails, and scripts are settled from the knowledge base and executed — not brought back one by one for approval. Only account-verification steps that need the owner go back to a person.
 
-- **开头 5 秒演标题冲突**：不要先自我介绍、不要先讲背景，直接把标题里那个冲突演出来。
-- **正文去 AI 味说人话 + 爆款节奏**：20–30 秒一个拐点；每个重点配强视觉、逐个点亮。
-- **画面要有东西**：每条视频都要有与内容关联的丰富画面（人物、场景、物品），不许大字屏撑全片；官方图片算一个达标元素，但光有它不够。
+## Retention and pacing
 
-## 生产标准
+- **First 5 seconds act out the title's conflict**: no self-introduction first, no background first — play the conflict from the title straight away.
+- **Main body in plain words + viral pacing**: one turn every 20–30 seconds; every key point gets a strong visual, lit up one by one.
+- **The picture must have something in it**: every video needs rich visuals tied to the content (people, scenes, objects) — no big-text screens carrying the whole video. An official picture counts as one qualifying element, but on its own it's not enough.
 
-- **剧情配音分角色**：不同角色用不同声音，旁白固定一个声音。
-- **反重复、动起来**：同一构图不许连续超过 15 秒；画面元素要有真实运动（眨眼、口型、肢体、位移），不是整图推拉凑数。
-- **人物提取**：人物是整张源图一体，不许单独切头；只有眼睛、嘴巴、手臂、腿可以从同一张源图上取局部动；源图头颈断了就重生成这个人，不许切头打补丁。
-- **文字样式**：视频里的文字用米色纸底 + 深色字，不许花哨底色。
-- **制作台账**：每期记开始、结束与各阶段耗时；长视频最迟发布日前两晚做完、提前一晚留缓冲。
+## Production standards
 
-## 视觉风格
+- **Voice roles for acted parts**: different characters get different voices; the narrator keeps one fixed voice.
+- **No repeats, keep it moving**: no single composition runs longer than 15 seconds; picture elements must really move (blinking, lip sync, limbs, movement) — not a whole image sliding around to fake it.
+- **People extraction**: a person is one whole source image — never cut the head out separately. Only eyes, mouth, arms, and legs may move, taken as patches from that same source. If the source head-neck is broken, regenerate the person — no cutting the head to patch it.
+- **Text style**: on-video text uses a cream-paper background with dark text, no flashy backgrounds.
+- **Production log**: every episode logs start, end, and time per stage; a long video must be finished two nights before its publish date, leaving one night of buffer.
 
-全频道统一纸艺插画风：色板、提示词前缀、护栏见 `core/paper-style.md`（小红书那份附册，两边同源共用，不重复写）。真实界面仍用真图、风格内换构图；风格改口径时两边同步核对。
+## Visual style
 
-## Shorts 打法
+One paper-craft illustration style across the channel: color board, prompt prefix, and guardrails are in `core/paper-style.md` (the Xiaohongshu appendix — same source shared by both sides, not written twice). Real interfaces still use real screenshots, recomposed inside the style. When the style rules change, both sides check against each other.
 
-长片回顾、独立小选题、长片预告三类组合排期。Shorts 不是长片的剪辑边角料：独立小选题要按 Shorts 的节奏重写开头和结尾。
+## Shorts playbook
 
-## 发布排期（示例，按你的受众时区改）
+Long-video recaps, standalone mini-topics, and long-video teasers, combined on a schedule. Shorts are not the long video's leftovers: a standalone mini-topic gets its opening and ending rewritten to Shorts pacing.
 
-- 长视频每周 2 条（示例：周日上午、周二下午，美国东部时间）。
-- Shorts 每周 5 条：周一长片回顾、周三长片回顾、周四独立小选题、周五独立小选题、周六长片预告。
+## Publish schedule (example — change it to your audience's timezone)
 
-## SEO 与发现
+- Long videos 2 a week (example: Sunday morning, Tuesday afternoon, US Eastern).
+- Shorts 5 a week: Monday long-video recap, Wednesday long-video recap, Thursday standalone mini-topic, Friday standalone mini-topic, Saturday long-video teaser.
 
-标题、描述、标签、播放列表、片尾画面、卡片都要做。描述里放时间戳章节；播放列表按主题分；片尾画面与卡片是 API 没有的东西，走浏览器补。
+## SEO and discovery
 
-## API 优先
+Titles, descriptions, tags, playlists, end screens, and cards all get done. Descriptions carry timestamp chapters; playlists split by topic; end screens and cards are things the API doesn't cover, so they go through the browser.
 
-上传、定时、缩略图、字幕、播放列表、评论、数据一律优先走官方 API；浏览器只办 API 没有的东西（片尾画面、卡片、首映设置、版权申诉、Shorts 关联视频）。
+## API first
 
-## 变现与政策注意
+Upload, scheduling, thumbnails, subtitles, playlists, comments, and data all go through the official API first. The browser only handles what the API doesn't have (end screens, cards, premiere settings, copyright appeals, Shorts related videos).
 
-- 原创性：搬运、重复内容、低质 AI 拼接过不了变现审核。
-- AI 内容按平台要求标注；涉及真人、真实事件的 AI 画面不做。
-- **置顶评论需要高级功能验证**（视频自拍、身份证、频道历史三选一）：没验证就放着、不硬闯；各期置顶同样会被这道门拦住，等使用者自己决定验证时机。
-- 频道手机号验证、自定义缩略图这类账号能力，尽早一次办完。
+## Monetization and policy notes
 
-## 数据复盘
+- Originality: reposts, repeated content, and low-quality AI stitching fail monetization review.
+- Label AI content as the platform requires; no AI visuals involving real people or real events.
+- **Pinned comments need advanced feature verification** (video selfie, ID, or channel history — pick one): without it, leave the comment unpinned and don't force it. Later episodes hit the same gate — wait until the owner decides when to verify.
+- Account abilities like phone verification and custom thumbnails should be done early, once and for all.
 
-每周看一次：展示、点击率、留存曲线、完播、涨粉来源；记 Top / Bottom 3 条，复盘结论写进模块。数据工具没有可信免费替代时，靠官方 API 自算。
+## Data review
 
-## 可运行代码（`scripts/check_upload.py`）
+Once a week: impressions, click-through rate, retention curve, completion, subscriber sources. Log top / bottom 3, and write review conclusions back into the module. When no trustworthy free data tool exists, calculate it yourself from the official API.
 
-上传前把待发包过一遍，FAIL 的必须改。
+## Runnable code (`scripts/check_upload.py`)
+
+Check an upload package before uploading. FAIL items must be fixed.
 
 ```bash
-# 待发包目录里放：title.txt、description.txt、thumbnail.jpg/png、video.mp4、tags.txt（可选）
-python3 scripts/check_upload.py --dir <待发包目录>
+# The package directory holds: title.txt, description.txt, thumbnail.jpg/png, video.mp4, tags.txt (optional)
+python3 scripts/check_upload.py --dir <package directory>
 ```
 
-检查项：标题缺失或超 100 字（FAIL）、超 70 字（WARN，展示截断）；封面缺失或不是 1280×720（FAIL）；成片缺失或解码失败（FAIL）；简介缺失（WARN）；章节第一行不是 0:00 开头（FAIL）；标签总字数超 500 字（WARN）。
+Checks: title missing or over 100 characters (FAIL), over 70 characters (WARN, display truncates); thumbnail missing or not 1280×720 (FAIL); video missing or undecodable (FAIL); description missing (WARN); chapters not starting at 0:00 (FAIL); tags over 500 characters total (WARN).
 
-实测记录（2026-10-25）：好包 0 FAIL 0 WARN；坏包（160 字标题 + 640×360 封面 + 章节从 2:00 开始）3 FAIL，退出码 1。
+Test record (2026-10-25): good package 0 FAIL 0 WARN; bad package (160-character title + 640×360 thumbnail + chapters starting at 2:00) 3 FAIL, exit code 1.
 
-上传本身不另写脚本：走上面“API 优先”一节的官方 API 路线（需要你自己的 OAuth 凭据，仓库不带任何凭据示例）。
+Uploading itself has no separate script: use the official API route in the "API first" section above (needs your own OAuth credentials — the repo carries no credential examples).

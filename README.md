@@ -1,182 +1,224 @@
 <p align="center">
-  <img src="docs/assets/banner.png" alt="Auto-xhs：多平台全自动化运营发布" width="760">
+  <img src="docs/assets/banner.png" alt="Auto-xhs" width="760">
 </p>
 
-<h1 align="center">多平台全自动化运营发布（小红书 / 抖音 / X / YouTube / 公众号，适配 Muse、Dots、Grok Bot）</h1>
+<h1 align="center">Multi-platform automated operation and publishing (Xiaohongshu / Douyin / X / YouTube / WeChat Official Accounts, for Muse, Dots, and Grok Bot)</h1>
 
-<p align="center">让云端 AI 智能助手替你运营多个平台：小红书是默认的完整流水线，抖音、X、YouTube、公众号各有独立模块。</p>
+<p align="center"><strong>Cloud AI agents run your accounts end to end: Xiaohongshu by default, plus Douyin, X, YouTube, and WeChat Official Accounts as separate modules</strong></p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/zr9959/auto-xhs" alt="MIT 许可证">
-  <img src="https://img.shields.io/github/stars/zr9959/auto-xhs" alt="GitHub 星数">
-  <img src="https://img.shields.io/github/forks/zr9959/auto-xhs" alt="GitHub 复刻数">
+  <img src="https://img.shields.io/github/license/zr9959/auto-xhs" alt="MIT license">
+  <img src="https://img.shields.io/github/stars/zr9959/auto-xhs" alt="GitHub stars">
+  <img src="https://img.shields.io/github/forks/zr9959/auto-xhs" alt="GitHub forks">
 </p>
 
-<p align="center">中文 | <a href="README.en.md">English</a> · <a href="https://auto-xhs.tiybai.com">详细介绍页</a></p>
+<p align="center"><a href="README.zh-CN.md">中文</a> | English · <a href="https://auto-xhs.tiybai.com">Landing page</a></p>
 
-仓库名：Auto-xhs
+Auto-xhs is an open-source system that runs a Xiaohongshu (RedNote) account end to end — finding topics, writing scripts, making videos, posting, and replying to comments — through an AI agent's own browser, with no unofficial APIs and no paid tools.
 
-## 这个项目是干什么的
+Repository name: Auto-xhs
 
-你把自己的小红书号，在智能助手自己的浏览器里登录一次，剩下的事它全包：每天自己去搜资讯、整合成稿、做成视频、发出去、跟评论。能干这活的助手有三家——Muse、Dots（OpenAI 的）、Grok Bot（xAI 的），三个都是云端 agent，各有自己的一台云端电脑和浏览器。全程在浏览器里像人一样点、一样打字，不用任何非官方接口，发帖频率也是正常人的频率。
+**Key facts**
 
-解决的就是一件事：做小红书最耗时间的，是搜资讯、整理、做视频、发布、回评论这一整条链。这个项目把这一条龙全自动了，你要做的只有三件：选个方向、扫一次码、（用半自动的话）发布前看一眼。
+- Free. MIT license. Every tool in the chain is free; there are no paid APIs.
+- Works with three cloud AI agents: Muse, Dots, and Grok Bot. All three work in their own cloud computer and browser. Muse is the one we run every day and have tested end to end; Dots and Grok Bot are not tested by us yet.
+- Recommended start: semi-auto. The agent prepares everything, you look at it, then it posts.
+- Videos are portrait 1080×1920 by default; landscape 1920×1080 is an option you can pick in the config.
+- Videos are built as web pages and captured frame by frame, not edited in a video editor.
+- Nothing goes out until it passes an acceptance script: word count, length, resolution, silence, cover, issue number.
 
-**我们的宗旨：免费、安全防封、高效、简单。**
+## More than Xiaohongshu
 
-先把实话说在前面：防封靠的是模拟真人操作加上正常频率，不是对任何账号打包票。平台对全自动托管一直查得严，所以我们推荐新号先用半自动，发布前自己看一眼。细的写在 [docs/compliance.md](docs/compliance.md) 里。
+Xiaohongshu is still this repo's default, complete pipeline (everything in `core/`, from topics to posting and replies). `platforms/` holds four more platform modules, each independent — enable only the ones you need:
 
-## 不止小红书
+- **Douyin**: trending videos + Chinese subtitles pipeline (pick, download, subtitle, voiceover, cover, title, four sensitivity gates, publish).
+- **X**: account warming, posting, replies (five-stage warming, human-like writing rules, cold-start rules, image rule).
+- **YouTube**: English-channel playbook (titles, thumbnails, retention, Shorts, SEO, production standards, API-first workflow).
+- **WeChat Official Accounts**: drafts + manual final publish (personal uncertified accounts cannot publish via API; the content playbook is still to come).
 
-小红书仍是本仓库默认的完整流水线（`core/` 里从选题、写稿、做片到发布、跟评论全套）。`platforms/` 里还有四个平台的独立模块，按需启用、互不干扰：
+Each module states its own limits and risks up front — read those before you use it. Each module's README ends with a "Runnable code" section: the scripts that are actually tested, and the parts that are still manual. Index: [platforms/README.md](platforms/README.md).
 
-- **抖音**：热门视频 + 中文字幕流水线（选片、下载、字幕、配音、封面、标题、四道敏感闸、发布）。
-- **X**：养号、发帖、回复（五阶段养号、拟人化写法、冷启动规矩、配图铁律）。
-- **YouTube**：英文频道运营知识库（标题、封面、留存、Shorts、SEO、生产标准、API 优先路线）。
-- **微信公众号**：草稿箱 + 手动终发（个人未认证号调不通发布接口，内容玩法待补）。
+Note on language: the four platform modules are fully in English. The Xiaohongshu core guides (`core/`, `adapters/`, `docs/`, `SETUP.md`) are still in Chinese for now — the Chinese version of this README is [README.zh-CN.md](README.zh-CN.md).
 
-各模块的风险和限制都写在模块开头，用之前先读。索引见 [platforms/README.md](platforms/README.md)。
+## What this project does
 
-## 先看效果
+You log your own Xiaohongshu account into the browser your AI agent can use, once. After that, the agent takes over the whole job: every day it searches for fresh material, turns it into a script, builds a video, posts it, and follows up on comments. Everything happens inside the browser, clicked and typed the way a person would. No unofficial APIs. The posting pace is a normal person's pace.
 
-这是系统自己做的一条天气预报，就是仓库里那个官方示例玩法包：数据从免费的 Open-Meteo 现取，稿子、配音、画面全自动生成，验收六项全过。按要求只做到待发包，没有真的发布。
+It solves one problem: the slow part of running a Xiaohongshu account is the whole chain — searching, sorting material, making videos, posting, replying to comments. This project automates that whole chain. You only do three things: pick a direction, scan a QR code once, and (in semi-auto mode) take a look before each post goes out.
+
+**Our motto: free, safe, efficient, simple.**
+
+The honest part, up front: "safe" comes from acting like a person in the browser, plus a normal posting pace. It is not a guarantee for any account. Platforms watch fully automated accounts closely, so we recommend new accounts start in semi-auto and check each post before it goes out. The details are in [docs/compliance.md](docs/compliance.md).
+
+## See it first
+
+This is a weather forecast the system made by itself — the official example scenario pack in this repository. The data came live from the free Open-Meteo service; the script, the voice and the visuals were all generated automatically, and all six validation checks passed. As required, it stopped at a ready-to-post pack and was never posted.
 
 <p align="center">
-  <img src="docs/assets/demo.gif" alt="天气预报示例的动效画面" width="300">
-  <img src="docs/assets/weather-cover.jpg" alt="天气预报示例的封面" width="300">
+  <img src="docs/assets/demo.gif" alt="Animated frames from the weather example" width="300">
+  <img src="docs/assets/weather-cover.jpg" alt="Cover of the weather example" width="300">
 </p>
 
-左边是成片里的动效画面，右边是它的封面。
+Left: animated frames from the finished video. Right: its cover.
 
-## 视频是怎么做出来的
+## How the videos are made
 
-视频是拿网页做的，这也是这个项目最不一样的地方。
+Every video starts as a web page. That is the part that makes this project different.
 
-每条视频先写成一个网页：用 HTML 和 CSS 排版面，用 GSAP 排动画，好看的动效都放在一个现成的动效库里，写稿的时候直接调。然后用浏览器把动画停住，一帧一帧截图，一秒 30 张。最后用 ffmpeg 把图串成视频，合上配音，加到 1.5 倍速。
+First the video is laid out as a page: HTML and CSS for the layout, GSAP for the animation. Good-looking motion — titles coming in, numbers counting up, cards flipping — lives in a ready-made motion library, and the script just calls it. Then a browser holds the animation still and screenshots it frame by frame, 30 frames a second. At the end, ffmpeg stitches the frames into a video, adds the voiceover, and speeds it up to 1.5x.
 
-为什么这么做：网页排版做卡片、图表、价格对比，又快又好看，改一个数字不用重剪视频；一帧一帧截图，动画在第几秒什么样是定死的，不会这次跑一个样、下次跑一个样。
+Why do it this way: web pages are fast and good-looking for cards, charts, and price comparisons, and if a number changes you fix the page instead of re-editing a video. And because every frame is captured one by one, the animation looks exactly the same on every run — nothing drifts between today and tomorrow.
 
-## 三家助手，差别先说清
+## The three assistants — differences, stated plainly
 
-规矩、验收标准、待发包的格式，三家用的都是同一份。三家也都是云端 agent，差别只在两处：发布那一下先问不问你、你现在能不能用上。Muse 这条已经有号在日更，实测过；Dots 和 Grok Bot 两列是按官方口径写的，还没实测。
+The rules, the acceptance checks, and the ready-to-post package format are the same for all three. The only difference is who presses the buttons.
 
-| 能力 | Muse | Dots | Grok Bot |
+One thing to get right first: Dots is not the regular ChatGPT chat. Dots is OpenAI's always-on cloud agent, launched on September 29, 2026. Each Dot has its own cloud computer and its own browser, can run on a schedule, can hand work to sub-agents, and can be told to ask for your approval before it acts. It needs a ChatGPT Pro or Business Premium plan. Grok Bot is xAI's cloud virtual-machine agent; it is still in beta, and by default it pauses before posting and waits for approval. Muse is the setup we run ourselves every day — that one is tested end to end. Dots and Grok Bot follow the same files and rules, but we have not tested them ourselves yet.
+
+| What it can do | Muse | Dots | Grok Bot |
 |---|---|---|---|
-| 搜资讯、写稿 | 能 | 能 | 能 |
-| 做视频 | 能 | 能，在它自己的云端电脑里跑 | 能，在云端虚拟机里跑 |
-| 一步一步分工干活 | 最顺，现成 | 能，能派子 agent | 能，能派子 agent |
-| 每天定时自己开工 | 能 | 能，自带定时 | 能，自带定时 |
-| 在浏览器里自动发布 | 能 | 能，先问还是放行看你定的规则 | 能，先问还是放行看你怎么设，默认先等你批准 |
-| 发后回评论 | 能 | 能，靠定时 | 能，靠定时 |
-| 每周复盘 | 能 | 能，靠定时 | 能，靠定时 |
+| Search for material, write scripts | Yes | Yes | Yes |
+| Make the video (run the scripts) | Yes | Yes, on its own cloud computer | Yes |
+| Split the work step by step | Smoothest — this is how it runs here | Yes — a Dot can hand work to sub-agents | Yes — a Bot can hand work to sub-agents |
+| Start on its own every day | Yes | Yes — Dots can run on a schedule | Yes — Bots can run on a schedule |
+| Publish in the browser by itself | Yes | Yes — and you can set it to ask you first | Yes — asking first or going ahead is your setting; by default it asks |
+| Reply to comments after posting | Yes | Yes — on a schedule or when you ask | Yes — on a schedule |
+| Weekly review | Yes | On a schedule or when you ask | Yes — on a schedule |
 
-细表在 [docs/capability-matrix.md](docs/capability-matrix.md)。你现在用哪家，就看哪家的说明：[Muse](adapters/claude/README.md)、[Dots](adapters/dots/README.md)、[Grok Bot](adapters/grok/README.md)。
+The full table is in [docs/capability-matrix.md](docs/capability-matrix.md). Read the guide for the assistant you use: [Muse](adapters/claude/README.md), [Dots](adapters/dots/README.md), [Grok Bot](adapters/grok/README.md).
 
-## 最省事的装法
+## Three automation levels — you pick
 
-把下面这段话复制给你的智能助手就行，仓库地址已经写在里面了。它会自己把仓库下好、环境备好，再带你一项一项设置：
+- **Full-auto**: the agent does everything, including pressing publish.
+- **Semi-auto** (recommended): the agent prepares a ready-to-post package — video, cover, text — and you look at it before it goes out.
+- **Manual**: the agent only picks topics and writes scripts. You make and post the videos yourself.
+
+During setup you choose the level yourself. The setup explains the three, recommends semi-auto to start, and does not decide for you.
+
+## The easiest way to install it
+
+Just copy the text below and paste it to your AI assistant — the repository address is already in it. It will download the repository, set up the environment on its own, and then walk you through the settings one by one:
 
 ```
-帮我把 auto-xhs 装好，仓库地址是 https://github.com/zr9959/auto-xhs ，照着仓库里的说明来：
-1. 先把这个仓库下载到本地（有 git 就 git clone，没有就下压缩包解压），进到仓库根目录，后面的命令都在根目录里跑。
-2. 跑 bash scripts/setup.sh，它会查环境、下第三方库、备好配置文件。缺什么你告诉我，我来装。
-3. 然后打开 SETUP.md，带我一项一项填 config.yaml。第一项先让我在全自动、半自动、手动三档里选一档，把三档的区别讲清，推荐我先用半自动，但别替我定。
-4. 填到小红书登录那一步停住，告诉我怎么扫码，我自己扫，别碰我的密码和验证码。
-5. 都填完，拿 examples 里的示例跑一遍验收给我看，再跑第一条。第一条做到发布前停住，等我看过再发。
+Set up auto-xhs for me. The repository is https://github.com/zr9959/auto-xhs — follow the instructions in it:
+1. Download the repository to my machine first (git clone if git is available, otherwise download the archive and unzip it), and go into the repository root. Run all the commands below from there.
+2. Run bash scripts/setup.sh. It checks my environment, downloads the third-party libraries, and prepares the config file. If anything is missing, tell me and I will install it.
+3. Then open SETUP.md and walk me through config.yaml one item at a time. First, let me choose one of the three automation levels — full-auto, semi-auto, or manual — and explain the difference clearly. Recommend semi-auto to start, but do not decide for me.
+4. Stop at the Xiaohongshu login step. Tell me how to scan the QR code; I will scan it myself. Do not touch my password or verification codes.
+5. When everything is filled in, run the acceptance checks on the example in examples/ and show me the result, then make the first post. Stop right before publishing it and let me look at it first.
 ```
 
-## 手动安装（一步一步来）
+## Installing by hand, step by step
 
-不想让助手代劳，自己装也行，一共六步。命令都在仓库根目录里跑。
+Prefer to do it yourself? Six steps. Run every command from the repository root.
 
-**第 1 步：先装好这几样东西。** 做片要用到，都免费：
+**Step 1: Install these first.** The video pipeline needs them; all are free:
 
-- `ffmpeg`（连带 `ffprobe`，一般装 ffmpeg 就一起有了）：最后把画面和声音拼成视频靠它，查时长和尺寸靠 ffprobe。
-- Node.js：去 nodejs.org 装长期支持版，逐帧截图的脚本靠它跑。
-- `python3`：验收脚本和配音示例靠它。
-- `curl` 和 `tar`：下载第三方库靠它俩，多数系统自带。
+- `ffmpeg` (with `ffprobe`, which normally comes with it): ffmpeg stitches frames and sound into the final video; ffprobe reads durations and dimensions.
+- Node.js: get the long-term support version from nodejs.org. The frame-by-frame capture scripts run on it.
+- `python3`: the acceptance checker and the voiceover examples run on it.
+- `curl` and `tar`: the third-party libraries are downloaded with these. Most systems already have them.
 
-装没装齐不用猜：第 2 步下好仓库后跑 `bash scripts/check-env.sh`，它会逐个点名，缺哪个当场说清是干什么用的。这也是第 3 步的一键脚本自己先跑的那一步。
+You do not have to guess whether they are all there: after downloading the repository in Step 2, run `bash scripts/check-env.sh`. It names each item one by one and says in plain words what a missing one is for. The one-command script in Step 3 runs this same check first.
 
-**第 2 步：把仓库下载到本地。** 有 git 就：
+**Step 2: Download the repository.** With git:
 
 ```
 git clone https://github.com/zr9959/auto-xhs
 ```
 
-没有 git，就在仓库页面点绿色的 Code 按钮，下载压缩包再解压。然后进根目录，后面的命令都在这里跑：
+Without git, use the green Code button on the repository page to download the archive, then unzip it. Then go into the root — every command below runs from there:
 
 ```
 cd auto-xhs
 ```
 
-**第 3 步：跑一键脚本，把环境备齐。**
+**Step 3: Run the setup script.**
 
 ```
 bash scripts/setup.sh
 ```
 
-它按顺序做三件事：
+It does three things, in order:
 
-1. 先查环境，就是第 1 步说的那个检查。有硬缺的，它会停下来，告诉你先把标「缺」的装好再重新跑，后面的步不会白跑，装好回来重跑就行。
-2. 再下第三方库：GSAP 3.15.0、lottie-web 5.13.0、canvas-confetti 1.9.4，放到 `motion-lib/vendor/` 里。下完会核对每个包的哈希再装。网不通它会明说卡在下载，修好网络重跑即可；哈希对不上，它会把文件扔掉并停下，还会提醒你别去改脚本里写死的哈希，先确认下载来源没问题。
-3. 最后备配置文件：把 `config.example.yaml` 抄一份成 `config.yaml`，你之后改这一份。放心，它不会覆盖你已经有的 `config.yaml`。
+1. Checks the environment — the same check from Step 1. If a hard requirement is missing, it stops and tells you to install what is marked missing and run it again. Nothing already done is wasted.
+2. Downloads the third-party libraries: GSAP 3.15.0, lottie-web 5.13.0, and canvas-confetti 1.9.4, into `motion-lib/vendor/`. Each package's hash is verified before it is installed. If the network is down, it says the download is where it stopped — fix the connection and run it again. If a hash does not match, it discards the file and stops, and it will tell you not to edit the hash written in the script; check the download source first.
+3. Prepares your config file: it copies `config.example.yaml` to `config.yaml`, and you edit that copy. It never overwrites an existing `config.yaml`.
 
-看到它最后打出「都齐了」和接下来三步的提示，就算这步过了。
+When it finishes by printing that everything is ready, plus the three next steps, this step is done.
 
-**第 4 步：照 SETUP.md 一项一项填 config.yaml。** 打开 [SETUP.md](SETUP.md)，从第 0 项填到第 11 项，每项都写了管什么、怎么填、推荐填什么。两个地方先说清：
+**Step 4: Fill in config.yaml, following SETUP.md item by item.** Open [SETUP.md](SETUP.md) and go from item 0 to item 11. Each item says what it controls, how to fill it in, and what is recommended. Two things to know up front:
 
-- 第 0 项是自动化程度，先定这一项：全自动（full）、半自动（semi）、手动（manual）。三档的区别 SETUP.md 里讲了，推荐先选半自动，选哪档你自己定，定了随时能改。
-- 填到第 5 项小红书登录就停住：这一步只能你本人来——在浏览器打开小红书主站 `www.xiaohongshu.com`，用小红书 App 扫码登录。密码和验证码不要给任何助手，也不要写进任何文件。
+- Item 0 is the automation level, and it comes first: full-auto (`full`), semi-auto (`semi`), or manual (`manual`). SETUP.md explains the difference. Semi-auto is the recommended start, the choice is yours, and you can change it any time.
+- Stop at item 5, the Xiaohongshu login. Only you can do this step: open the Xiaohongshu home page, `www.xiaohongshu.com`, in a browser and log in by scanning the QR code with the Xiaohongshu app. Never give your password or verification codes to any assistant, and never write them into any file.
 
-**第 5 步：装完自检，两条命令。**
+**Step 5: Check the install with two commands.**
 
 ```
 bash scripts/check-env.sh
 python3 core/validate.py examples/example-issue
 ```
 
-第一条：没有任何一项标「缺」就是过了（退出码 0；有「缺」会是 1，先补上再重跑）。第二条：口播字数和 post.md 结构两项是 PASS 就对了；成片、静音、封面那几项报 FAIL 是正常的——示例里本来就没有真视频，不用管。
+First command: it passes when nothing is marked missing (exit code 0; if something is missing the exit code is 1 — install it and run again). Second command: the voiceover word count and the post.md structure should both say PASS. The video, silence, and cover items reporting FAIL is expected — the example ships without a real video. Ignore those.
 
-**第 6 步：跑第一条。** 自检里用的就是仓库自带的虚构示例，流程算验过了。第一条真内容建议用半自动：前面的活它都干好，做到发布前停住，备成一个待发包，你自己看一遍，没问题再点发布。
+**Step 6: Make the first post.** The self-check above already ran the fictional example bundled in `examples/`, so the flow itself is verified. For your first real post, use semi-auto: it does all the work up to the point of publishing and stops with a ready-to-post package. Read it through yourself, and only then publish.
 
-## 每天它是怎么干活的
+## How a day's work runs
 
-有个总管负责派活和验收，干活的一个一个来，上一步验收过了才做下一步：
+There is one manager that hands out work and checks it. Workers go one at a time, and the next step only starts after the previous one passes its check:
 
-1. **选题**：把信源扫一遍，48 小时内的新东西里挑一个，跟昨天品类错开。先过敏感清单，沾上的直接不要。关键事实要有官方说法，再找一个不相干的来源对上。
-2. **写稿**：标题先写 3 版选一个。口播稿 480 到 650 字，开头先说跟看的人有什么关系，价格这种数字要算全，还要跟同类比一比。
-3. **做片**：按稿子做网页、配音、逐帧截图、合成。产品图必须是这个产品本人的图，软件要露出真实界面，不能拿一张标志图糊弄。
-4. **验收**：跑 `core/validate.py`，字数、时长、分辨率、静音、封面、期号，一项一项查。做片的人自己填的验收单，总管还要再核一遍。有一项不过，就打回重做。
-5. **发布**：从小红书主站进去（不要直接开创作者平台的网址），发之前把话题一个一个点成蓝色的，数量对上才许发，AI 内容声明要选。发完马上用号主身份发第一条评论。
-6. **跟进和复盘**：发后 2 小时内，每半小时看一眼有没有新评论，有就回。周末复盘一次，把这周学到的东西写回规矩里。
+1. **Pick a topic.** Scan the sources and pick something from the last 48 hours, in a different category from yesterday's post. Check the sensitive list first — anything that touches it is dropped on the spot. Key facts need an official source, plus one unrelated source that says the same thing.
+2. **Write the script.** Write the title three ways and pick one. The voiceover script is 480 to 650 characters. It opens with why this matters to the viewer. Numbers like prices are worked out in full — unit price, subscription, yearly total — and compared with at least one similar product.
+3. **Make the video.** Build the web page from the script, record the voiceover, capture frame by frame, stitch it together. Product images must be pictures of the actual product, and software must show its real interface. A logo image dressed up as a screenshot does not pass.
+4. **Check it.** Run `core/validate.py`. It checks word count, length, resolution, silence, cover, and issue number, one by one. The person who made the video fills in a checklist, and the manager checks it again. If anything fails, it goes back to be redone.
+5. **Publish.** Enter from the Xiaohongshu home page — do not open the creator platform address directly. Before posting, tap each topic tag until it turns blue; the count has to match before posting is allowed. Select the AI content declaration. Right after posting, post the first comment as the account owner.
+6. **Follow up and review.** For two hours after posting, check every half hour for new comments and reply to them. Once a week, review the week and write what was learned back into the rules.
 
-每一步做完都要留下证据：文件在哪、数字是多少、查了哪几项。说不出来源的「做好了」不算数。细的在 [orchestration/orchestrator.md](orchestration/orchestrator.md)。
+Every step has to leave evidence: where the file is, what the numbers are, what was checked. A claim of "done" with no source does not count. The details are in [orchestration/orchestrator.md](orchestration/orchestrator.md).
 
-## 仓库里都有什么
+## What is in the repository
 
-- [core/](core/)：全部规矩，只此一份。宪法页定总的口径，六份阶段手册写每一步怎么做，另有敏感词表模板和验收脚本。
-- [motion-lib/](motion-lib/)：网页动效库。标题怎么入场、数字怎么滚动、卡片怎么翻，都在这。
-- [pipeline/](pipeline/)：做片的脚本。逐帧截图、合成、封面模板、配音接法。
-- [orchestration/](orchestration/)：总管怎么派活、定时任务怎么写、手动跑一轮的清单。
-- [adapters/](adapters/)：三家助手各自怎么接进来。
-- [examples/](examples/)：一条完整的虚构示例，从选题到验收单，照着它就知道每一步的产出长什么样。
-- [docs/](docs/)：结构说明、三家细对比、合规提醒、常见问题。
+- [core/](core/): all the rules, in one place only. A constitution page sets the overall standards, six stage guides explain each step, and there is a sensitive-words template and the acceptance script.
+- [motion-lib/](motion-lib/): the web motion library. How titles come in, how numbers count up, how cards flip — it is all here.
+- [pipeline/](pipeline/): the video-making scripts. Frame-by-frame capture, stitching, the cover template, and how to plug in a voice.
+- [orchestration/](orchestration/): how the manager hands out work, how to write the scheduled tasks, and a checklist for running a round by hand.
+- [platforms/](platforms/): four more platform modules — Douyin, X, YouTube, WeChat Official Accounts — each with its own guide and runnable scripts.
+- [adapters/](adapters/): how each of the three assistants connects to the system.
+- [examples/](examples/): one complete made-up example, from topic to checklist, so you can see what every step produces.
+- [docs/](docs/): how the system is put together, the full three-assistant comparison, compliance notes, and common questions.
+- [scenarios/](scenarios/): add-on uses ("scenario packs") — a daily weather forecast is the worked example — plus the template for making your own.
 
-## 花钱吗
+## Does it cost anything?
 
-不花。做视频的库、合成工具、配音，两条路都是免费的。要花的只有你那个智能助手账号本身的钱，那是你跟它之间的事，这个项目不接任何要付费的接口。
+No. The video libraries, the stitching tools, and both voiceover routes are free. The only money involved is your own AI assistant account, which is between you and that service — and note that Dots needs a Pro or Business Premium plan. This project connects to no paid API.
 
-## 欢迎一起加新用途
+## FAQ
 
-这套东西不只能发科技资讯。搜资讯、整合、做视频、发布、运营这条链是通用的，换个方向就能发别的东西：每天发天气预报、发一段治愈小动画、发本地生活提醒，都行。你做出了新用途，欢迎加回来，让这个库越来越丰富。
+**Is it free?**
+Yes. The project is MIT-licensed and every tool it uses is free. The only cost is the AI assistant account you already pay for, if you pay for one.
 
-新用途有现成的加法：一个用途做成一个「玩法包」，格式都定好了，照着 [scenarios/_template/](scenarios/_template/) 填就行。天气预报就是照这个格式做出来的例子，在 [scenarios/weather-forecast/](scenarios/weather-forecast/)。全部玩法列在 [scenarios/README.md](scenarios/README.md) 的清单里，老用户回来找新功能，先看那张表。
+**Is it safe for my account?**
+It is built to be careful: it works inside a browser the way a person would, at a normal pace, and uses no unofficial APIs. That lowers the risk, but it is not a guarantee — no honest project can promise that. Platforms are strict with fully automated accounts, so start in semi-auto and look at each post before it goes out.
 
-也欢迎二次开发到别的平台：选题、写稿、做片、验收都是通用的，一份素材可以改成好几个平台的待发包，小红书发一份，抖音再发一份。要交的东西列在 [docs/platform-targets.md](docs/platform-targets.md) 里，抖音那一节接口已经留好，还没实测，欢迎来补。
+**Which AI assistant do I need?**
+Any one of the three cloud agents: Muse, Dots, or Grok Bot. All three have their own cloud computer and browser; the difference is their approval rules and how open they are. Muse is the one we run and have tested. Dots needs a ChatGPT Pro or Business Premium plan and is not tested by us yet. Grok Bot is still in beta and is not tested by us yet.
 
-想加玩法、求个新玩法、或者改通用规矩，先看 [CONTRIBUTING.md](CONTRIBUTING.md)，一页写完了。
+**Can it post to Douyin or TikTok?**
+Douyin has its own module now: [platforms/douyin/](platforms/douyin/) — trending videos + Chinese subtitles pipeline, with runnable scripts (download, subtitle burn-in, outro join, sensitivity scan). TikTok is not covered. If you build it, send it back — that is exactly the kind of addition this project wants.
 
-## 许可证
+**Do I need to know how to code?**
+No. The normal way to install is to paste one paragraph (the one above) to your assistant and answer its questions. Reading the guides helps you understand what it is doing, but you do not have to write code.
 
-MIT。随便用，保留版权声明就行。第三方库各有各的许可证，列在 [motion-lib/vendor/README.md](motion-lib/vendor/README.md)。
+## Add your own uses — and ports to other platforms
+
+This system is not only for tech news. The chain — search, sort, make a video, post, follow up — is general. Point it somewhere else and it can post a daily weather forecast, a short calming animation, local reminders, and so on. If you build a new use, add it back and the library grows for everyone.
+
+New uses have a fixed format: one use is one "scenario pack". Fill in the template in [scenarios/_template/](scenarios/_template/) and you are done. The weather forecast in [scenarios/weather-forecast/](scenarios/weather-forecast/) was made exactly that way. All packs are listed in [scenarios/README.md](scenarios/README.md) — if you come back looking for new features, check that list first.
+
+Ports to other platforms are welcome too. Topic picking, script writing, video making, and the checks are all general, so one piece of material can become a ready-to-post package for several platforms — one for Xiaohongshu, another for Douyin. Four platform modules already live in [platforms/](platforms/) (Douyin, X, YouTube, WeChat Official Accounts). What you need to hand in for a new port is listed in [docs/platform-targets.md](docs/platform-targets.md).
+
+To add a pack, ask for a new use, or change a shared rule, read [CONTRIBUTING.md](CONTRIBUTING.md) first — it fits on one page.
+
+## License
+
+MIT. Use it freely; just keep the copyright notice. The third-party libraries have their own licenses, listed in [motion-lib/vendor/README.md](motion-lib/vendor/README.md).

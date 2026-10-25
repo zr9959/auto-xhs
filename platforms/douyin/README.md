@@ -1,78 +1,80 @@
-# 抖音模块：热门视频 + 中文字幕
+[中文](README.zh-CN.md) | English
 
-每天从视频平台搜最火的视频，下载、加中文字幕后发抖音。形态是原样加字幕：保留原画面与原声，不重剪成解说片。
+# Douyin module: trending videos + Chinese subtitles
 
-## 流水线（7 步）
+Every day, find the hottest videos on video platforms, download them, add Chinese subtitles, and post them to Douyin. The format is the original plus subtitles: keep the original picture and sound, don't re-cut it into a commentary video.
 
-1. **选片**：按热度、适合度、有趣度定。方向：积极正面、特别有趣（治愈、巧妙、暖心、有趣反转）；阴暗、猎奇、恶心、压抑、争议向的一律不要。
-2. **下载**：多路兜底，不许死卡一条路。不同客户端拿到的画质阶梯不一样，拿不到高清就换客户端、换候选片，全灭才汇报，并写清每条路各卡在哪。
-3. **转录翻译**：无官方字幕时用语音转录。转录模型禁用最小档（小模型会漏句）；转录段数与字幕条数必须对账——原片人说的每一句都要有对应中文字幕，一段不许漏；听不清的段落标注出来，不许跳过装没事。原话有问题的部分（敏感词、粗口、诱导互动、平台专属话术、不适合本平台语境）改写成干净的等效表达，意思和节奏保住、问题去掉；每处改写记一行（原话大意 → 改成什么 → 为什么）。
-4. **字幕烧录**：字幕必须避开 App 底部信息区（头像、账号名、标题描述、进度条，约占画面底部 22%）。1080×1920 画幅的字幕底边距底约 24%；其他画幅按高度 24% 折算。验收必做：抽带字幕帧叠加底部信息区示意目检不重叠才算过。
-5. **配音（可选）**：原片有人声台词的片，加旁白 + 字幕（全账号统一一个音色）；纯器乐、氛围片只字幕、不加旁白（保住原片质感）。旁白文本就用字幕文本逐条生成；数字、英文等易错读处先改汉字再生成，生成后回转录核读音。混音让原声遇旁白自动让位，成片响度约 -15 LUFS；旁白入点与字幕起点偏差 ≤0.1 秒。
-6. **封面与标题**：见下面两节。
-7. **发布**：见下面发布一节。
+## Pipeline (7 steps)
 
-## 封面
+1. **Pick**: by heat, fit, and how interesting it is. Direction: positive and genuinely fun (heartwarming, clever, warm, fun twist). Never pick dark, freak-show, gross, depressing, or controversial material.
+2. **Download**: several routes as backup, never get stuck on one. Different clients get different quality ladders; if one can't get HD, switch clients or switch clips. Only report back when every route is dead, and write down where each route got stuck.
+3. **Transcribe and translate**: when there are no official subtitles, transcribe the speech. Never use the smallest transcription model (small models drop lines). The number of transcribed segments must match the number of subtitle lines — every line the person in the video says needs a matching Chinese subtitle, none skipped; mark the parts you can't hear clearly, don't quietly skip them. Parts of the original wording that are a problem (sensitive words, swearing, engagement bait, platform-specific talk, wording that doesn't fit this platform) get rewritten into clean wording with the same meaning — meaning and rhythm kept, problem removed; log every rewrite (rough original → changed to what → why).
+4. **Burn in subtitles**: subtitles must stay clear of the app's bottom info area (avatar, account name, title and description, progress bar — about the bottom 22% of the screen). On a 1080×1920 frame, the subtitle bottom edge sits about 24% up from the bottom; other frame sizes scale by height at 24%. Acceptance must include this: pull frames with subtitles, overlay a mock bottom info area, and eyeball that nothing overlaps.
+5. **Voiceover (optional)**: clips with spoken lines get voiceover + subtitles (one voice for the whole account); pure music or mood clips get subtitles only, no voiceover (keeps the original feel). The voiceover text is the subtitle text, line by line; numbers, English, and other easy-to-misread bits get rewritten as Chinese characters first, then generated, then checked by transcribing back. In the mix, the original sound ducks automatically under the voiceover; finished loudness about -15 LUFS; voiceover entry within 0.1 seconds of the subtitle start.
+6. **Cover and title**: see the two sections below.
+7. **Publish**: see the publish section below.
 
-- **自制带字封面最高优先**：自己做的封面必须带文字标题（大字标题 + 一行副题），不许只放一张无字画面帧；必须真传上并在预览确认生效才算数，不许因为平台已自动选了智能封面就跳过。
-- 传不上才退智能封面，且智能封面要有标题文字或与内容强相关——没字的纯画面帧不用；再不行才平台默认，并在回报注明。
-- 品牌片尾按原片方向选：竖片用竖版、横片用横版，绝不把横片强扩成竖版或反之；原片画幅全程保留。**拼片尾禁用 concat 直拼**：片尾音频在直拼解码时可能报错、尾段静音——必须用分轨拼视频 + 音频，拼完验尾段音量（有声才算过）。
+## Cover
 
-## 标题
+- **A homemade titled cover comes first**: a cover you make yourself must carry title text (a big title + one subtitle line). Never use a bare video frame with no words. It only counts once you have actually uploaded it and confirmed in preview that it took effect — don't skip it just because the platform already auto-picked a smart cover.
+- Only fall back to a smart cover if upload fails, and the smart cover still needs title text or a strong match to the content — never a wordless pure frame. If even that fails, use the platform default and note it in the report.
+- Pick the brand outro by the original's orientation: vertical clips get the vertical outro, horizontal clips the horizontal one. Never stretch a horizontal clip into vertical or the other way around; keep the original frame all the way through. **Never join the outro with a straight concat**: the outro audio can fail to decode in a straight join and go silent at the end — join video + audio on separate tracks, then check the tail has sound (sound counts as passed).
 
-- 按爆款标题公式库写、优化：悬念留白、数字 + 结果前置、反差对比、情绪直给、沉浸过程 + 时间承诺。
-- **钩子铁律：不许在标题里剧透结局**（比如把结果先说了的写法禁用）；悬念收尾用问句（「猜猜发生了什么？」），结果只在片中兑现。封面副题与标题同调，也用悬念问句，不许封面先剧透。
-- 红线不变：不编数字、不空情绪、不悬念不兑现。
-- 每条作品的话题必须带上账号名话题（与内容话题一起发）。
+## Title
 
-## 水印
+- Write and polish from the viral title formula bank: open suspense, numbers + result up front, contrast, direct emotion, immersive process + time promise.
+- **Hook rule: never spoil the ending in the title** (any wording that gives the result away first is banned). End suspense with a question ("Guess what happened?"); the payoff stays in the video. The cover subtitle matches the title's tone, also a suspense question, never a spoiler on the cover.
+- Red lines don't move: no made-up numbers, no empty emotion, no suspense that never pays off.
+- Every post's topics must include the account-name topic (posted together with the content topics).
 
-- 频道自己烧录的 logo 不必去水印；别家平台水印仍避开；片尾若有独立导流卡（订阅、往期推荐）可裁掉，并在日志写明秒数。
+## Watermark
 
-## 发布前四道敏感闸（依次过，任一命中整条弃用，不许删词、打码、剪段挽救）
+- The channel's own burned-in logo doesn't need removing. Other platforms' watermarks are still avoided. If the outro has its own promo card (subscribe, past videos), it can be cropped, with the seconds logged.
 
-1. **选题筛选**：先看类别。绿灯（可选）= 自然科学、动物日常、美食制作、手工修复、纯竞技瞬间、纯器乐；红灯（直接不选）= 时政新闻、外国选举与政治人物、社会抗议与群体事件、政治脱口秀、军事战争、宗教与民族议题、历史敏感题材、街头采访涉华内容、以群体特征为笑点的话题。绿灯类别也有各自的一票否决点，后三闸照样全过。**引人不适题材一票否决**：排泄物、分泌物、呕吐物等恶心物质相关内容一律不选——哪怕是自然科普也不行。
-2. **全片画面帧检**：整片看完再下结论。专查没有词的雷：旗帜、标语口号、地图与国界画法、抗议人群、制服与武器、宗教仪式、血腥画面；画面带第三方平台水印、logo、账号露出的，按导流规则一并算雷。
-3. **字幕中英双扫**：英文原字幕与中文译稿两份都过敏感词库；英文政治梗、俚语翻译成中文才显形的雷算命中；谐音、拆字、拼音首字母、全角圈字等变体形态算命中，也不许在自己的字幕里用变体藏词。
-4. **标题封面文案终审**：标题、封面字、文案再整体过一遍。
+## Four sensitivity gates (in order; any hit drops the whole clip — no deleting words, no blurring, no cutting around it)
 
-**判定原则（四闸共用）**：涉政与歧视按题材判、不看立场——主题、人物或核心梗落在红线题材内，无论原视频支持、反对还是中立玩梗，整条弃用。歧视覆盖 13 类受保护特征：性别、年龄、地域、民族、种族、宗教信仰、国籍、身体状况、精神缺陷、受害经历、性别认同、经济地位、受教育水平；宣扬刻板印象本身即违规，不以出现辱骂词为前提。敏感领域（医疗、财经、法律、未成年人）一律不碰。
+1. **Topic filter**: check the category first. Green-light (pickable) = natural science, everyday animals, food making, handmade repair, pure sports moments, pure instrumental music. Red-light (never pick) = political news, foreign elections and political figures, social protests and mass incidents, political talk shows, military and war, religion and ethnicity issues, historically sensitive topics, street interviews touching China, topics that use a group's traits as the joke. Green-light categories have their own veto points too — gates 2–4 still run in full. **Disgusting material is a straight veto**: excrement, secretions, vomit, and other gross substances are never picked — not even as nature science.
+2. **Full-video frame check**: watch the whole clip before deciding. Check for the violations that have no words: flags, slogan banners, maps and border drawing, protest crowds, uniforms and weapons, religious rituals, gore. A frame carrying another platform's watermark, logo, or account exposure counts as a violation under the diversion rules too.
+3. **Subtitle scan in both languages**: run both the English original subtitles and the Chinese draft through the wordlist. English political jokes or slang that only turn bad once translated into Chinese still count. Homophones, split characters, pinyin initials, full-width circled characters, and other variant forms count — and don't hide words with variants in your own subtitles either.
+4. **Title and cover final review**: title, cover text, and copy get one more full pass.
 
-## 发布
+**Judgment rule (shared by all four gates)**: politics and discrimination are judged by topic, not by stance — if the topic, the person, or the core joke falls inside a red-line topic, the whole clip is dropped, whether the original supports, opposes, or jokes about it neutrally. Discrimination covers 13 protected traits: gender, age, region, ethnicity, race, religious belief, nationality, physical condition, mental disability, victim experience, gender identity, economic status, education level. Promoting a stereotype is itself a violation — no slur required. Sensitive areas (medical, finance, legal, minors) are off-limits entirely.
 
-- **AI 声明必勾**：发布页勾选平台 AI 内容声明；不许只在标题写一句代替勾选；绝不删改平台补加的标识。
-- **定时发布 2 小时规则**：定时发布只能选比上传提交时间晚 2 小时以上的时间点。档位距提交完成超 2 小时 → 定时发布；不足 2 小时 → 等到档位直接发，不许为凑定时改时间、也不许提前立即发。定时时间被平台拒绝或找不到选项时不许改成立即发布，先存草稿并回报。
-- **停手线**：限流、下架、版权投诉、扣分任一出现，立刻停下复盘，不许连发试错。
-- **零互动自动化**：不自动点赞、评论、私信、关注，只回真实评论。
+## Publish
 
-## 版权口径（风险明示，使用者自选）
+- **AI declaration must be checked**: check the platform's AI content declaration on the publish page. Writing one line in the title is not a substitute for checking it. Never remove or edit the labels the platform adds.
+- **Scheduled publish 2-hour rule**: a scheduled publish can only pick a time more than 2 hours after the upload is submitted. Slot more than 2 hours past submission → schedule it. Under 2 hours → wait and post directly at the slot. Never change the time to force a schedule, and never post early. If the platform rejects the scheduled time or the option isn't there, don't switch to posting immediately — save a draft and report back.
+- **Stop line**: throttling, takedown, copyright complaint, or penalty points — any one of these means stop immediately and review. No posting through it to test.
+- **Zero automated interaction**: no auto likes, comments, DMs, or follows. Only reply to real comments.
 
-本模块默认不设版权拦截闸口，但这只是某个使用者自己的口径，不是推荐。原样搬运 + 字幕是否算二次创作，由平台认定，不由我们说了算；想稳妥就只发自有版权或已授权的内容。过滤闸只管敏感内容，不管版权——用之前先想清楚这条。
+## Copyright stance (risks stated, your call)
 
-## 成本建议
+This module sets no copyright-blocking gate by default — but that is one user's own stance, not a recommendation. Whether an as-is repost + subtitles counts as a derivative work is the platform's call, not ours. To play it safe, only post content you own or have licensed. The filters only handle sensitive content, not copyright — think this through before you use it.
 
-免费路线优先：任何一步要花钱先停下，找免费替代，找不到就先不做。不要为了一条视频先斩后奏充钱。
+## Cost advice
 
-## 可运行代码（`scripts/`）
+Free routes first: if any step costs money, stop, look for a free replacement, and if there is none, skip it for now. Never pay first and report later for the sake of one video.
 
-只依赖 Python 3 标准库 + ffmpeg（下载那步另需 yt-dlp）。先跑通这几步，再谈全自动。
+## Runnable code (`scripts/`)
+
+Only needs Python 3 standard library + ffmpeg (the download step also needs yt-dlp). Get these steps working before talking about full-auto.
 
 ```bash
-# 1. 下载候选片（没装 yt-dlp 会直接告诉你怎么装，不会闷头报错）
-bash scripts/fetch_video.sh <视频地址> [保存目录] [最高高度，默认 1080]
+# 1. Download a candidate clip (if yt-dlp is missing it tells you how to install it, no silent failure)
+bash scripts/fetch_video.sh <video URL> [save directory] [max height, default 1080]
 
-# 2. 敏感扫描：先复制词库模板、填你自己的词，再扫。扫在烧之前：命中就整条弃用，别烧了再扫
-cp sensitive-words.template.txt sensitive-words.txt   # 填词；这文件已进 .gitignore，提交也带不走
-python3 scripts/scan_subtitles.py --srt 字幕.srt --wordlist sensitive-words.txt
-# 退出码 0 没命中，1 有命中（命中即整条弃用），2 用法或文件不对
+# 2. Sensitivity scan: copy the wordlist template first, fill in your own words, then scan. Scan before burning: a hit drops the whole clip, don't burn first
+cp sensitive-words.template.txt sensitive-words.txt   # fill in words; this file is in .gitignore, committing won't carry it
+python3 scripts/scan_subtitles.py --srt subtitles.srt --wordlist sensitive-words.txt
+# Exit codes: 0 no hit, 1 hit (a hit drops the whole clip), 2 wrong usage or file problem
 
-# 3. 字幕烧录：底边距底 24%（1080×1920 就是 460px，见流水线第 4 步）
-python3 scripts/burn_subtitles.py --video 原片.mp4 --srt 字幕.srt --out 成片.mp4
+# 3. Burn in subtitles: bottom edge 24% up from the bottom (1080×1920 = 460px, see pipeline step 4)
+python3 scripts/burn_subtitles.py --video original.mp4 --srt subtitles.srt --out finished.mp4
 
-# 4. 品牌片尾：分轨拼接（不许用 concat 直拼，见封面一节）
-python3 scripts/append_outro.py --main 正片.mp4 --outro 片尾.mp4 --out 成片.mp4
+# 4. Brand outro: join on separate tracks (no straight concat, see the cover section)
+python3 scripts/append_outro.py --main main.mp4 --outro outro.mp4 --out finished.mp4
 ```
 
-实测记录（2026-10-25）：字幕烧录 2 条字幕、底边 460px；片尾 640×360 归一化到 1080×1920 后 3s + 1s = 4.04s；敏感扫描命中/没命中/空词库三档都对；下载包装器在本机因没装 yt-dlp 按预期报安装提示（没条件实测真下载，跑之前先装好 yt-dlp）。
+Test record (2026-10-25): subtitle burn-in with 2 lines, bottom edge 460px; outro 640×360 normalized to 1080×1920, 3s + 1s = 4.04s; sensitivity scan correct on hit, no-hit, and empty wordlist; the download wrapper on this machine correctly reported that yt-dlp was not installed (no live download tested — install yt-dlp first).
 
-还没写成代码、仍需人或另配工具的部分：语音转录、旁白合成、封面生成、最终发布（走浏览器创作者中心）。词库内容仓库不带——模板里只有格式示例，词表是你自己的。
+Not yet code, still needs a person or another tool: speech transcription, voiceover synthesis, cover generation, final publish (through the browser creator center). The wordlist content is not in the repo — the template only shows the format; the wordlist is yours.

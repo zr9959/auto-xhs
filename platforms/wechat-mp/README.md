@@ -1,62 +1,64 @@
-# 微信公众号模块：草稿箱 + 手动终发
+[中文](README.zh-CN.md) | English
 
-## 先说在前面的限制（必读）
+# WeChat Official Accounts module: drafts + manual final publish
 
-- **个人未认证号调不通发布接口**：发布、群发、菜单、标签接口都会返回未授权。这不是凭据问题，是账号类型限制，换凭据、重试都修不好。
-- 所以本模块只做到草稿箱：文章在草稿箱里建好，最终发布、群发在网页后台手动做。企业认证号才有全套接口。
-- **调用方 IP 白名单**：公众号 API 只接受白名单里的固定出口 IP 调用，换个出口就报白名单错。先确认调用是从白名单地址出去的，再查别的。
+## Limits, stated first (must read)
 
-## 草稿箱操作
+- **Personal uncertified accounts cannot publish through the API**: publish, mass-send, menu, and tag endpoints all return unauthorized. This is not a credential problem — it's an account-type limit. Changing credentials or retrying won't fix it.
+- So this module only goes as far as the draft box: articles get built in drafts, and final publish and mass-send happen manually in the web backend. Only enterprise certified accounts get the full API set.
+- **Caller IP allowlist**: the official account API only accepts calls from allowlisted fixed egress IPs. A different egress IP gets an allowlist error. Confirm the call really goes out from an allowlisted address before checking anything else.
 
-1. **探针先行**：每次调用前先跑通探针——换 token 成功、读到草稿数和素材数，才算调用链是通的。
-2. **建草稿**：标题、摘要、封面、正文、原文链接一次填齐；AI 生成内容按平台要求标注。
-3. **查草稿数**：建完读一次数，对得上才算建成了。
-4. **删草稿**：测试草稿建完就删，删完再读一次数，确认回去了。
-5. **素材复用**：图片、语音素材先传进素材库再引用；发文前核对素材在库里，不要现传现用撞上限。
+## Draft box operations
 
-## 内容结构模板
+1. **Probe first**: before every call, run the probe — token exchange works, draft count and material count read back — only then is the call chain proven live.
+2. **Create a draft**: title, summary, cover, body, and source link filled in one pass; AI-generated content labeled as the platform requires.
+3. **Count drafts**: read the count after creating, and only count it as created when the number matches.
+4. **Delete drafts**: delete test drafts right after creating them, then read the count again to confirm it went back.
+5. **Reuse materials**: upload pictures and audio into the material library first, then reference them; check the material is in the library before publishing — don't upload on the spot and hit the rate limit.
 
-- **标题**：一句话说清这篇给读者什么，不标题党。
-- **摘要**：两三句，含核心结论，不剧透全部。
-- **封面**：一张与内容对应的图，不用无字纯画面帧。
-- **正文排版**：小标题分段、关键数字和结论加粗、步骤用清单；长段落拆短，手机上读着不累。
-- **原文链接**：有出处就放，没有不编。
+## Content structure template
 
-## 发布清单（手动终发）
+- **Title**: one sentence saying what the reader gets from this piece, no clickbait.
+- **Summary**: two or three sentences with the core conclusion, without spoiling everything.
+- **Cover**: one picture that matches the content, not a wordless pure video frame.
+- **Body layout**: subheadings to split sections, key numbers and conclusions bolded, steps as lists; long paragraphs split short so they read easily on a phone.
+- **Source link**: include it when there is one, never invent one.
 
-1. 草稿箱里建好文章，读数确认。
-2. 网页后台打开这篇草稿，逐项核对：标题、摘要、封面、正文、链接、AI 标注。
-3. 手动点发布；发布后把链接记下来，次日回填阅读数据。
-4. 发布后发现错别字或事实错误：改草稿重发流程走平台的修改规则，不要悄悄换链接。
+## Publish checklist (manual final publish)
 
-## 错误码速查
+1. Build the article in the draft box and confirm by count.
+2. Open the draft in the web backend and check item by item: title, summary, cover, body, links, AI label.
+3. Publish by hand; record the link, and fill in readership data the next day.
+4. After publishing, if you find a typo or factual error: follow the platform's edit rules for changing a draft and republishing — don't quietly swap the link.
 
-- **白名单错**：调用地址不在白名单里。先确认调用是从哪个出口出去的，再改白名单，不要先怀疑凭据。
-- **token 失效或过期**：每次调用都重新换 token；还报失效就是凭据或账号问题，查凭据文件在不在、权限对不对。
-- **未授权**：个人未认证号调发布、群发、菜单、标签接口的固定答案，不重试、不换凭据，改走手动终发。
+## Error code quick reference
 
-## 待补
+- **Allowlist error**: the calling address is not on the allowlist. Confirm which egress the call goes out from first, then change the allowlist — don't suspect the credentials first.
+- **Token invalid or expired**: exchange a fresh token on every call; if it still reports invalid, it's a credential or account problem — check the credential file is there and the permissions are right.
+- **Unauthorized**: the fixed answer for personal uncertified accounts calling publish, mass-send, menu, or tag endpoints. Don't retry, don't swap credentials — switch to manual final publish.
 
-选题、写稿、排版风格、涨粉打法没有成套玩法，这部分等公众号那条线补。本模块先只做到草稿箱 + 手动终发，不承诺全自动发布。
+## Still to come
 
-## 可运行代码（`scripts/`）
+Topic picking, writing, layout style, and follower growth have no complete playbook yet — that part waits on the official-accounts line to supply it. This module only does drafts + manual final publish for now, and doesn't promise fully automated publishing.
+
+## Runnable code (`scripts/`)
 
 ```bash
-# 1. Markdown 稿子转草稿包（离线，不调接口）
-python3 scripts/build_draft.py --md 稿子.md --title "标题" --author "作者" \
-    --digest "摘要" --cover-media-id MEDIA_ID --out draft.json
+# 1. Turn a Markdown draft into a draft package (offline, no API calls)
+python3 scripts/build_draft.py --md draft.md --title "Title" --author "Author" \
+    --digest "Summary" --cover-media-id MEDIA_ID --out draft.json
 
-# 2. 调接口前先干跑一遍（只打印会调哪个接口、带什么字段，不发请求、不打印凭据）
-MP_APPID=你的appid MP_SECRET=你的secret python3 scripts/mp_api.py --action probe --dry-run
-MP_APPID=你的appid MP_SECRET=你的secret python3 scripts/mp_api.py --action draft-add \
+# 2. Before calling the API, dry-run first (only prints which endpoint it would call and which fields it carries — no requests sent, no credentials printed)
+MP_APPID=your-appid MP_SECRET=your-secret python3 scripts/mp_api.py --action probe --dry-run
+MP_APPID=your-appid MP_SECRET=your-secret python3 scripts/mp_api.py --action draft-add \
     --draft-json draft.json --dry-run
 
-# 3. 干跑没问题，去掉 --dry-run 真调
-MP_APPID=你的appid MP_SECRET=你的secret python3 scripts/mp_api.py --action probe
-MP_APPID=你的appid MP_SECRET=你的secret python3 scripts/mp_api.py --action draft-add \
+# 3. Dry run looks good — drop --dry-run to really call
+MP_APPID=your-appid MP_SECRET=your-secret python3 scripts/mp_api.py --action probe
+MP_APPID=your-appid MP_SECRET=your-secret python3 scripts/mp_api.py --action draft-add \
     --draft-json draft.json
 ```
 
-凭据只从环境变量读，绝不写进文件；脚本报错会直接告诉你是哪种情况（40164 白名单、48001 未授权、token 失效），不用先怀疑凭据。
+Credentials only come from environment variables, never from files. When the script errors, it says directly which case it is (40164 allowlist, 48001 unauthorized, token invalid) — no need to suspect the credentials first.
 
-实测记录（2026-10-25）：Markdown 转草稿包字段齐全（标题、作者、摘要、正文 HTML、封面 media_id、评论开关）；干跑两步都过、不打印凭据；没给凭据时退出码 2 并提示设环境变量。真调接口没条件实测——需要你自己的公众号凭据 + 白名单里的出口 IP，跑之前先确认这两点。
+Test record (2026-10-25): Markdown-to-draft-package fields all present (title, author, summary, body HTML, cover media_id, comment switches); both dry-run steps passed without printing credentials; with no credentials given, exit code 2 with a prompt to set environment variables. Live API calls were not testable — they need your own official-account credentials + an allowlisted egress IP, so confirm both before running.

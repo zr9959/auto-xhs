@@ -1,18 +1,22 @@
-# 更多平台
+[中文](README.zh-CN.md) | English
 
-小红书仍是本仓库默认的完整流水线（见 `core/`）。这个目录是给其他平台准备的模块：每个平台一份独立的玩法手册，按需启用，互不干扰。
+# More platforms
 
-| 平台 | 模块 | 成熟度 |
+Xiaohongshu is still this repo's default, complete pipeline (see `core/`). This directory holds modules for other platforms: one guide per platform, enable only the ones you need, they don't interfere with each other.
+
+| Platform | Module | Maturity |
 |---|---|---|
-| 抖音 | `douyin/` | 手册 + 工具脚本：选片、下载、字幕、配音、封面、标题、四道敏感闸、发布；`scripts/` 里有字幕烧录、片尾拼接、敏感扫描、下载包装器 |
-| X | `x/` | 手册 + 检查脚本：五阶段养号、拟人化写法、冷启动规矩、配图铁律；`scripts/check_post.py` 发帖前检查（发帖本身不写自动代码，见模块风险披露） |
-| YouTube | `youtube/` | 知识库 + 检查脚本：标题、封面、留存、Shorts、SEO、生产标准、API 优先路线；`scripts/check_upload.py` 上传前检查（上传本身走 API，不另写脚本） |
-| 微信公众号 | `wechat-mp/` | 草稿箱脚本 + 手动终发：`scripts/build_draft.py` 转草稿包、`scripts/mp_api.py` 探针与建草稿；个人未认证号调不通发布接口，内容玩法待补 |
+| Douyin | `douyin/` | Guide + runnable scripts: pick, download, subtitle, voiceover, cover, title, four sensitivity gates, publish; `scripts/` has subtitle burn-in, outro join, sensitivity scan, download wrapper |
+| X | `x/` | Guide + check script: five-stage warming, human-like writing, cold-start rules, image rule; `scripts/check_post.py` checks a post before you send it (posting itself is not automated — see the module's risk disclosure) |
+| YouTube | `youtube/` | Playbook + check script: titles, thumbnails, retention, Shorts, SEO, production standards, API-first workflow; `scripts/check_upload.py` checks an upload package (uploading itself goes through the API, no separate script) |
+| WeChat Official Accounts | `wechat-mp/` | Draft scripts + manual final publish: `scripts/build_draft.py` builds a draft package, `scripts/mp_api.py` probes and creates drafts; personal uncertified accounts cannot publish via API, content playbook still to come |
 
-## 通用说明
+## Shared notes
 
-- **各模块独立。** 启用哪个平台，就读哪个模块；账号、选题池、数据表各平台分开，不共用。
-- **风险明示，不打包票。** 每个模块开头都写了该平台的真实限制（比如 X 查自动化操作、公众号个人号发不出去、抖音搬运的版权认定在平台手里）。用之前先读限制，再决定做不做。
-- **先半自动，再全自动。** 新号、新平台一律先半自动跑稳一两周：成片、标题、封面先给人看一眼，再考虑全自动。
-- **说人话。** 所有模块的文档、注释、提交说明都用大白话短句，不写 AI 味的解释。
-- **贡献。** 想加新平台或新玩法，按 `scenarios/_template/` 的五件套格式提，或者直接在对应模块里补一节，写清实测依据。
+- **Each module stands alone.** Enable one platform, read that module; accounts, topic pools, and data tables are separate per platform, never shared.
+- **Risks stated, no guarantees.** Each module opens with that platform's real limits (X checks for non-human operation, WeChat personal accounts cannot publish, Douyin's repost copyright call is the platform's). Read the limits before you decide.
+- **Semi-auto first, then full-auto.** New account, new platform: run semi-auto for a week or two first — look at the video, title, and cover yourself — then consider full-auto.
+- **Plain words.** Every module's docs, comments, and commit messages use short, plain sentences, no AI-flavored explanations.
+- **Contributing.** To add a platform or a use, follow the five-piece format in `scenarios/_template/`, or add a section to the matching module and state what you tested.
+
+Note: the scripts themselves still print their messages in Chinese for now; English messages are the next batch. The Xiaohongshu core guides (`core/`, `adapters/`, `docs/`) are also still in Chinese.
