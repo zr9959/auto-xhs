@@ -57,9 +57,9 @@ def main():
     low = text.lower()
 
     found = [w for w in BANNED if w in low]
-    # “not just X, but Y”必须是同一句里的排比：but 离 not just 太远（隔了别的句子）
-    # 就不算，不然长帖子里随便一个 but 都会误伤。
-    if re.search(r"not just\b.{0,80}?\bbut\b", low):
+    # “not just X, but Y”必须是同一句里的排比：X 通常就是几个词，but 离 not just
+    # 超过 40 个字就不是这个句式了，不然长帖子里随便一个 but 都会误伤。
+    if re.search(r"not just\b.{0,40}?\bbut\b", low):
         found.append("not just X, but Y 排比")
     if found:
         report(results, "FAIL", "禁用词", "命中：" + "、".join(found))
